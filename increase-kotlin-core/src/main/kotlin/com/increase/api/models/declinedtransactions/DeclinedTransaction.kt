@@ -859,6 +859,7 @@ private constructor(
         private val category: JsonField<Category>,
         private val checkDecline: JsonField<CheckDecline>,
         private val checkDepositRejection: JsonField<CheckDepositRejection>,
+        private val inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline>,
         private val inboundRealTimePaymentsTransferDecline:
             JsonField<InboundRealTimePaymentsTransferDecline>,
         private val other: JsonValue,
@@ -883,6 +884,10 @@ private constructor(
             @JsonProperty("check_deposit_rejection")
             @ExcludeMissing
             checkDepositRejection: JsonField<CheckDepositRejection> = JsonMissing.of(),
+            @JsonProperty("inbound_fednow_transfer_decline")
+            @ExcludeMissing
+            inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline> =
+                JsonMissing.of(),
             @JsonProperty("inbound_real_time_payments_transfer_decline")
             @ExcludeMissing
             inboundRealTimePaymentsTransferDecline:
@@ -898,6 +903,7 @@ private constructor(
             category,
             checkDecline,
             checkDepositRejection,
+            inboundFednowTransferDecline,
             inboundRealTimePaymentsTransferDecline,
             other,
             wireDecline,
@@ -949,6 +955,16 @@ private constructor(
          */
         fun checkDepositRejection(): CheckDepositRejection? =
             checkDepositRejection.getNullable("check_deposit_rejection")
+
+        /**
+         * An Inbound FedNow Transfer Decline object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_fednow_transfer_decline`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundFednowTransferDecline(): InboundFednowTransferDecline? =
+            inboundFednowTransferDecline.getNullable("inbound_fednow_transfer_decline")
 
         /**
          * An Inbound Real-Time Payments Transfer Decline object. This field will be present in the
@@ -1024,6 +1040,17 @@ private constructor(
         fun _checkDepositRejection(): JsonField<CheckDepositRejection> = checkDepositRejection
 
         /**
+         * Returns the raw JSON value of [inboundFednowTransferDecline].
+         *
+         * Unlike [inboundFednowTransferDecline], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("inbound_fednow_transfer_decline")
+        @ExcludeMissing
+        fun _inboundFednowTransferDecline(): JsonField<InboundFednowTransferDecline> =
+            inboundFednowTransferDecline
+
+        /**
          * Returns the raw JSON value of [inboundRealTimePaymentsTransferDecline].
          *
          * Unlike [inboundRealTimePaymentsTransferDecline], this method doesn't throw if the JSON
@@ -1068,6 +1095,7 @@ private constructor(
              * .category()
              * .checkDecline()
              * .checkDepositRejection()
+             * .inboundFednowTransferDecline()
              * .inboundRealTimePaymentsTransferDecline()
              * .other()
              * .wireDecline()
@@ -1084,6 +1112,8 @@ private constructor(
             private var category: JsonField<Category>? = null
             private var checkDecline: JsonField<CheckDecline>? = null
             private var checkDepositRejection: JsonField<CheckDepositRejection>? = null
+            private var inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline>? =
+                null
             private var inboundRealTimePaymentsTransferDecline:
                 JsonField<InboundRealTimePaymentsTransferDecline>? =
                 null
@@ -1097,6 +1127,7 @@ private constructor(
                 category = source.category
                 checkDecline = source.checkDecline
                 checkDepositRejection = source.checkDepositRejection
+                inboundFednowTransferDecline = source.inboundFednowTransferDecline
                 inboundRealTimePaymentsTransferDecline =
                     source.inboundRealTimePaymentsTransferDecline
                 other = source.other
@@ -1192,6 +1223,25 @@ private constructor(
                 }
 
             /**
+             * An Inbound FedNow Transfer Decline object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_fednow_transfer_decline`.
+             */
+            fun inboundFednowTransferDecline(
+                inboundFednowTransferDecline: InboundFednowTransferDecline?
+            ) = inboundFednowTransferDecline(JsonField.ofNullable(inboundFednowTransferDecline))
+
+            /**
+             * Sets [Builder.inboundFednowTransferDecline] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundFednowTransferDecline] with a well-typed
+             * [InboundFednowTransferDecline] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun inboundFednowTransferDecline(
+                inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline>
+            ) = apply { this.inboundFednowTransferDecline = inboundFednowTransferDecline }
+
+            /**
              * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
@@ -1272,6 +1322,7 @@ private constructor(
              * .category()
              * .checkDecline()
              * .checkDepositRejection()
+             * .inboundFednowTransferDecline()
              * .inboundRealTimePaymentsTransferDecline()
              * .other()
              * .wireDecline()
@@ -1286,6 +1337,7 @@ private constructor(
                     checkRequired("category", category),
                     checkRequired("checkDecline", checkDecline),
                     checkRequired("checkDepositRejection", checkDepositRejection),
+                    checkRequired("inboundFednowTransferDecline", inboundFednowTransferDecline),
                     checkRequired(
                         "inboundRealTimePaymentsTransferDecline",
                         inboundRealTimePaymentsTransferDecline,
@@ -1308,6 +1360,7 @@ private constructor(
             category().validate()
             checkDecline()?.validate()
             checkDepositRejection()?.validate()
+            inboundFednowTransferDecline()?.validate()
             inboundRealTimePaymentsTransferDecline()?.validate()
             wireDecline()?.validate()
             validated = true
@@ -1333,6 +1386,7 @@ private constructor(
                 (category.asKnown()?.validity() ?: 0) +
                 (checkDecline.asKnown()?.validity() ?: 0) +
                 (checkDepositRejection.asKnown()?.validity() ?: 0) +
+                (inboundFednowTransferDecline.asKnown()?.validity() ?: 0) +
                 (inboundRealTimePaymentsTransferDecline.asKnown()?.validity() ?: 0) +
                 (wireDecline.asKnown()?.validity() ?: 0)
 
@@ -10783,6 +10837,12 @@ private constructor(
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
                     of("inbound_real_time_payments_transfer_decline")
 
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                val INBOUND_FEDNOW_TRANSFER_DECLINE = of("inbound_fednow_transfer_decline")
+
                 /** Wire Decline: details will be under the `wire_decline` object. */
                 val WIRE_DECLINE = of("wire_decline")
 
@@ -10811,6 +10871,11 @@ private constructor(
                  * `inbound_real_time_payments_transfer_decline` object.
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_DECLINE,
                 /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
                 /**
@@ -10843,6 +10908,11 @@ private constructor(
                  * `inbound_real_time_payments_transfer_decline` object.
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_DECLINE,
                 /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
                 /**
@@ -10872,6 +10942,7 @@ private constructor(
                     CHECK_DECLINE -> Value.CHECK_DECLINE
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Value.INBOUND_FEDNOW_TRANSFER_DECLINE
                     WIRE_DECLINE -> Value.WIRE_DECLINE
                     CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
                     OTHER -> Value.OTHER
@@ -10894,6 +10965,7 @@ private constructor(
                     CHECK_DECLINE -> Known.CHECK_DECLINE
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Known.INBOUND_FEDNOW_TRANSFER_DECLINE
                     WIRE_DECLINE -> Known.WIRE_DECLINE
                     CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
                     OTHER -> Known.OTHER
@@ -12519,6 +12591,396 @@ private constructor(
         }
 
         /**
+         * An Inbound FedNow Transfer Decline object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_fednow_transfer_decline`.
+         */
+        class InboundFednowTransferDecline
+        private constructor(
+            private val reason: JsonField<Reason>,
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("reason")
+                @ExcludeMissing
+                reason: JsonField<Reason> = JsonMissing.of(),
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of(),
+            ) : this(reason, transferId, mutableMapOf())
+
+            /**
+             * Why the transfer was declined.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun reason(): Reason = reason.getRequired("reason")
+
+            /**
+             * The identifier of the FedNow Transfer that led to this declined transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [reason].
+             *
+             * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundFednowTransferDecline].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .reason()
+                 * .transferId()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [InboundFednowTransferDecline]. */
+            class Builder internal constructor() {
+
+                private var reason: JsonField<Reason>? = null
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(inboundFednowTransferDecline: InboundFednowTransferDecline) =
+                    apply {
+                        reason = inboundFednowTransferDecline.reason
+                        transferId = inboundFednowTransferDecline.transferId
+                        additionalProperties =
+                            inboundFednowTransferDecline.additionalProperties.toMutableMap()
+                    }
+
+                /** Why the transfer was declined. */
+                fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                /**
+                 * Sets [Builder.reason] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.reason] with a well-typed [Reason] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                /** The identifier of the FedNow Transfer that led to this declined transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [InboundFednowTransferDecline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .reason()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): InboundFednowTransferDecline =
+                    InboundFednowTransferDecline(
+                        checkRequired("reason", reason),
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundFednowTransferDecline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                reason().validate()
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (reason.asKnown()?.validity() ?: 0) + (if (transferId.asKnown() == null) 0 else 1)
+
+            /** Why the transfer was declined. */
+            class Reason @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The account number is canceled. */
+                    val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
+
+                    /** The account number is disabled. */
+                    val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
+
+                    /** Your account is restricted. */
+                    val ACCOUNT_RESTRICTED = of("account_restricted")
+
+                    /** Your account is inactive. */
+                    val GROUP_LOCKED = of("group_locked")
+
+                    /** The account's entity is not active. */
+                    val ENTITY_NOT_ACTIVE = of("entity_not_active")
+
+                    /** Your account is not enabled to receive FedNow transfers. */
+                    val FEDNOW_NOT_ENABLED = of("fednow_not_enabled")
+
+                    fun of(value: String) = Reason(JsonField.of(value))
+                }
+
+                /** An enum containing [Reason]'s known values. */
+                enum class Known {
+                    /** The account number is canceled. */
+                    ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
+                    ACCOUNT_NUMBER_DISABLED,
+                    /** Your account is restricted. */
+                    ACCOUNT_RESTRICTED,
+                    /** Your account is inactive. */
+                    GROUP_LOCKED,
+                    /** The account's entity is not active. */
+                    ENTITY_NOT_ACTIVE,
+                    /** Your account is not enabled to receive FedNow transfers. */
+                    FEDNOW_NOT_ENABLED,
+                }
+
+                /**
+                 * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Reason] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The account number is canceled. */
+                    ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
+                    ACCOUNT_NUMBER_DISABLED,
+                    /** Your account is restricted. */
+                    ACCOUNT_RESTRICTED,
+                    /** Your account is inactive. */
+                    GROUP_LOCKED,
+                    /** The account's entity is not active. */
+                    ENTITY_NOT_ACTIVE,
+                    /** Your account is not enabled to receive FedNow transfers. */
+                    FEDNOW_NOT_ENABLED,
+                    /**
+                     * An enum member indicating that [Reason] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ACCOUNT_NUMBER_CANCELED -> Value.ACCOUNT_NUMBER_CANCELED
+                        ACCOUNT_NUMBER_DISABLED -> Value.ACCOUNT_NUMBER_DISABLED
+                        ACCOUNT_RESTRICTED -> Value.ACCOUNT_RESTRICTED
+                        GROUP_LOCKED -> Value.GROUP_LOCKED
+                        ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                        FEDNOW_NOT_ENABLED -> Value.FEDNOW_NOT_ENABLED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ACCOUNT_NUMBER_CANCELED -> Known.ACCOUNT_NUMBER_CANCELED
+                        ACCOUNT_NUMBER_DISABLED -> Known.ACCOUNT_NUMBER_DISABLED
+                        ACCOUNT_RESTRICTED -> Known.ACCOUNT_RESTRICTED
+                        GROUP_LOCKED -> Known.GROUP_LOCKED
+                        ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                        FEDNOW_NOT_ENABLED -> Known.FEDNOW_NOT_ENABLED
+                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Reason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Reason && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InboundFednowTransferDecline &&
+                    reason == other.reason &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(reason, transferId, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundFednowTransferDecline{reason=$reason, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * An Inbound Real-Time Payments Transfer Decline object. This field will be present in the
          * JSON response if and only if `category` is equal to
          * `inbound_real_time_payments_transfer_decline`.
@@ -13883,6 +14345,7 @@ private constructor(
                 category == other.category &&
                 checkDecline == other.checkDecline &&
                 checkDepositRejection == other.checkDepositRejection &&
+                inboundFednowTransferDecline == other.inboundFednowTransferDecline &&
                 inboundRealTimePaymentsTransferDecline ==
                     other.inboundRealTimePaymentsTransferDecline &&
                 this.other == other.other &&
@@ -13897,6 +14360,7 @@ private constructor(
                 category,
                 checkDecline,
                 checkDepositRejection,
+                inboundFednowTransferDecline,
                 inboundRealTimePaymentsTransferDecline,
                 other,
                 wireDecline,
@@ -13907,7 +14371,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
+            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundFednowTransferDecline=$inboundFednowTransferDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
     }
 
     /**
