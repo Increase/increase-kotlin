@@ -6064,7 +6064,6 @@ private constructor(
         class CardDisputeAcceptance
         private constructor(
             private val acceptedAt: JsonField<OffsetDateTime>,
-            private val cardDisputeId: JsonField<String>,
             private val transactionId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -6074,13 +6073,10 @@ private constructor(
                 @JsonProperty("accepted_at")
                 @ExcludeMissing
                 acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("card_dispute_id")
-                @ExcludeMissing
-                cardDisputeId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("transaction_id")
                 @ExcludeMissing
                 transactionId: JsonField<String> = JsonMissing.of(),
-            ) : this(acceptedAt, cardDisputeId, transactionId, mutableMapOf())
+            ) : this(acceptedAt, transactionId, mutableMapOf())
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -6091,15 +6087,6 @@ private constructor(
              *   value).
              */
             fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
-
-            /**
-             * The identifier of the Card Dispute that was accepted.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
             /**
              * The identifier of the Transaction that was created to return the disputed funds to
@@ -6120,16 +6107,6 @@ private constructor(
             @JsonProperty("accepted_at")
             @ExcludeMissing
             fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
-
-            /**
-             * Returns the raw JSON value of [cardDisputeId].
-             *
-             * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("card_dispute_id")
-            @ExcludeMissing
-            fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
             /**
              * Returns the raw JSON value of [transactionId].
@@ -6162,7 +6139,6 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .acceptedAt()
-                 * .cardDisputeId()
                  * .transactionId()
                  * ```
                  */
@@ -6173,13 +6149,11 @@ private constructor(
             class Builder internal constructor() {
 
                 private var acceptedAt: JsonField<OffsetDateTime>? = null
-                private var cardDisputeId: JsonField<String>? = null
                 private var transactionId: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardDisputeAcceptance: CardDisputeAcceptance) = apply {
                     acceptedAt = cardDisputeAcceptance.acceptedAt
-                    cardDisputeId = cardDisputeAcceptance.cardDisputeId
                     transactionId = cardDisputeAcceptance.transactionId
                     additionalProperties = cardDisputeAcceptance.additionalProperties.toMutableMap()
                 }
@@ -6199,21 +6173,6 @@ private constructor(
                  */
                 fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
                     this.acceptedAt = acceptedAt
-                }
-
-                /** The identifier of the Card Dispute that was accepted. */
-                fun cardDisputeId(cardDisputeId: String) =
-                    cardDisputeId(JsonField.of(cardDisputeId))
-
-                /**
-                 * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
-                    this.cardDisputeId = cardDisputeId
                 }
 
                 /**
@@ -6264,7 +6223,6 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .acceptedAt()
-                 * .cardDisputeId()
                  * .transactionId()
                  * ```
                  *
@@ -6273,7 +6231,6 @@ private constructor(
                 fun build(): CardDisputeAcceptance =
                     CardDisputeAcceptance(
                         checkRequired("acceptedAt", acceptedAt),
-                        checkRequired("cardDisputeId", cardDisputeId),
                         checkRequired("transactionId", transactionId),
                         additionalProperties.toMutableMap(),
                     )
@@ -6287,7 +6244,6 @@ private constructor(
                 }
 
                 acceptedAt()
-                cardDisputeId()
                 transactionId()
                 validated = true
             }
@@ -6308,7 +6264,6 @@ private constructor(
              */
             internal fun validity(): Int =
                 (if (acceptedAt.asKnown() == null) 0 else 1) +
-                    (if (cardDisputeId.asKnown() == null) 0 else 1) +
                     (if (transactionId.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
@@ -6318,19 +6273,18 @@ private constructor(
 
                 return other is CardDisputeAcceptance &&
                     acceptedAt == other.acceptedAt &&
-                    cardDisputeId == other.cardDisputeId &&
                     transactionId == other.transactionId &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(acceptedAt, cardDisputeId, transactionId, additionalProperties)
+                Objects.hash(acceptedAt, transactionId, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardDisputeAcceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+                "CardDisputeAcceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -6341,7 +6295,6 @@ private constructor(
         class CardDisputeFinancial
         private constructor(
             private val amount: JsonField<Long>,
-            private val cardDisputeId: JsonField<String>,
             private val network: JsonField<Network>,
             private val transactionId: JsonField<String>,
             private val visa: JsonField<Visa>,
@@ -6351,9 +6304,6 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("card_dispute_id")
-                @ExcludeMissing
-                cardDisputeId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("network")
                 @ExcludeMissing
                 network: JsonField<Network> = JsonMissing.of(),
@@ -6361,7 +6311,7 @@ private constructor(
                 @ExcludeMissing
                 transactionId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
-            ) : this(amount, cardDisputeId, network, transactionId, visa, mutableMapOf())
+            ) : this(amount, network, transactionId, visa, mutableMapOf())
 
             /**
              * The amount of the financial event.
@@ -6371,15 +6321,6 @@ private constructor(
              *   value).
              */
             fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * The identifier of the Card Dispute the financial event is associated with.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
             /**
              * The network that the Card Dispute is associated with.
@@ -6416,16 +6357,6 @@ private constructor(
              * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-            /**
-             * Returns the raw JSON value of [cardDisputeId].
-             *
-             * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("card_dispute_id")
-            @ExcludeMissing
-            fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
             /**
              * Returns the raw JSON value of [network].
@@ -6471,7 +6402,6 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .amount()
-                 * .cardDisputeId()
                  * .network()
                  * .transactionId()
                  * .visa()
@@ -6484,7 +6414,6 @@ private constructor(
             class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
-                private var cardDisputeId: JsonField<String>? = null
                 private var network: JsonField<Network>? = null
                 private var transactionId: JsonField<String>? = null
                 private var visa: JsonField<Visa>? = null
@@ -6492,7 +6421,6 @@ private constructor(
 
                 internal fun from(cardDisputeFinancial: CardDisputeFinancial) = apply {
                     amount = cardDisputeFinancial.amount
-                    cardDisputeId = cardDisputeFinancial.cardDisputeId
                     network = cardDisputeFinancial.network
                     transactionId = cardDisputeFinancial.transactionId
                     visa = cardDisputeFinancial.visa
@@ -6510,21 +6438,6 @@ private constructor(
                  * supported value.
                  */
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /** The identifier of the Card Dispute the financial event is associated with. */
-                fun cardDisputeId(cardDisputeId: String) =
-                    cardDisputeId(JsonField.of(cardDisputeId))
-
-                /**
-                 * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
-                    this.cardDisputeId = cardDisputeId
-                }
 
                 /** The network that the Card Dispute is associated with. */
                 fun network(network: Network) = network(JsonField.of(network))
@@ -6602,7 +6515,6 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .amount()
-                 * .cardDisputeId()
                  * .network()
                  * .transactionId()
                  * .visa()
@@ -6613,7 +6525,6 @@ private constructor(
                 fun build(): CardDisputeFinancial =
                     CardDisputeFinancial(
                         checkRequired("amount", amount),
-                        checkRequired("cardDisputeId", cardDisputeId),
                         checkRequired("network", network),
                         checkRequired("transactionId", transactionId),
                         checkRequired("visa", visa),
@@ -6629,7 +6540,6 @@ private constructor(
                 }
 
                 amount()
-                cardDisputeId()
                 network().validate()
                 transactionId()
                 visa()?.validate()
@@ -6652,7 +6562,6 @@ private constructor(
              */
             internal fun validity(): Int =
                 (if (amount.asKnown() == null) 0 else 1) +
-                    (if (cardDisputeId.asKnown() == null) 0 else 1) +
                     (network.asKnown()?.validity() ?: 0) +
                     (if (transactionId.asKnown() == null) 0 else 1) +
                     (visa.asKnown()?.validity() ?: 0)
@@ -7159,7 +7068,6 @@ private constructor(
 
                 return other is CardDisputeFinancial &&
                     amount == other.amount &&
-                    cardDisputeId == other.cardDisputeId &&
                     network == other.network &&
                     transactionId == other.transactionId &&
                     visa == other.visa &&
@@ -7167,20 +7075,13 @@ private constructor(
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(
-                    amount,
-                    cardDisputeId,
-                    network,
-                    transactionId,
-                    visa,
-                    additionalProperties,
-                )
+                Objects.hash(amount, network, transactionId, visa, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardDisputeFinancial{amount=$amount, cardDisputeId=$cardDisputeId, network=$network, transactionId=$transactionId, visa=$visa, additionalProperties=$additionalProperties}"
+                "CardDisputeFinancial{amount=$amount, network=$network, transactionId=$transactionId, visa=$visa, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -7190,7 +7091,6 @@ private constructor(
          */
         class CardDisputeLoss
         private constructor(
-            private val cardDisputeId: JsonField<String>,
             private val explanation: JsonField<String>,
             private val lostAt: JsonField<OffsetDateTime>,
             private val transactionId: JsonField<String>,
@@ -7199,9 +7099,6 @@ private constructor(
 
             @JsonCreator
             private constructor(
-                @JsonProperty("card_dispute_id")
-                @ExcludeMissing
-                cardDisputeId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("explanation")
                 @ExcludeMissing
                 explanation: JsonField<String> = JsonMissing.of(),
@@ -7211,16 +7108,7 @@ private constructor(
                 @JsonProperty("transaction_id")
                 @ExcludeMissing
                 transactionId: JsonField<String> = JsonMissing.of(),
-            ) : this(cardDisputeId, explanation, lostAt, transactionId, mutableMapOf())
-
-            /**
-             * The identifier of the Card Dispute that was lost.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
+            ) : this(explanation, lostAt, transactionId, mutableMapOf())
 
             /**
              * Why the Card Dispute was lost.
@@ -7250,16 +7138,6 @@ private constructor(
              *   value).
              */
             fun transactionId(): String = transactionId.getRequired("transaction_id")
-
-            /**
-             * Returns the raw JSON value of [cardDisputeId].
-             *
-             * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("card_dispute_id")
-            @ExcludeMissing
-            fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
             /**
              * Returns the raw JSON value of [explanation].
@@ -7309,7 +7187,6 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```kotlin
-                 * .cardDisputeId()
                  * .explanation()
                  * .lostAt()
                  * .transactionId()
@@ -7321,33 +7198,16 @@ private constructor(
             /** A builder for [CardDisputeLoss]. */
             class Builder internal constructor() {
 
-                private var cardDisputeId: JsonField<String>? = null
                 private var explanation: JsonField<String>? = null
                 private var lostAt: JsonField<OffsetDateTime>? = null
                 private var transactionId: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardDisputeLoss: CardDisputeLoss) = apply {
-                    cardDisputeId = cardDisputeLoss.cardDisputeId
                     explanation = cardDisputeLoss.explanation
                     lostAt = cardDisputeLoss.lostAt
                     transactionId = cardDisputeLoss.transactionId
                     additionalProperties = cardDisputeLoss.additionalProperties.toMutableMap()
-                }
-
-                /** The identifier of the Card Dispute that was lost. */
-                fun cardDisputeId(cardDisputeId: String) =
-                    cardDisputeId(JsonField.of(cardDisputeId))
-
-                /**
-                 * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
-                    this.cardDisputeId = cardDisputeId
                 }
 
                 /** Why the Card Dispute was lost. */
@@ -7426,7 +7286,6 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```kotlin
-                 * .cardDisputeId()
                  * .explanation()
                  * .lostAt()
                  * .transactionId()
@@ -7436,7 +7295,6 @@ private constructor(
                  */
                 fun build(): CardDisputeLoss =
                     CardDisputeLoss(
-                        checkRequired("cardDisputeId", cardDisputeId),
                         checkRequired("explanation", explanation),
                         checkRequired("lostAt", lostAt),
                         checkRequired("transactionId", transactionId),
@@ -7451,7 +7309,6 @@ private constructor(
                     return@apply
                 }
 
-                cardDisputeId()
                 explanation()
                 lostAt()
                 transactionId()
@@ -7473,8 +7330,7 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (cardDisputeId.asKnown() == null) 0 else 1) +
-                    (if (explanation.asKnown() == null) 0 else 1) +
+                (if (explanation.asKnown() == null) 0 else 1) +
                     (if (lostAt.asKnown() == null) 0 else 1) +
                     (if (transactionId.asKnown() == null) 0 else 1)
 
@@ -7484,7 +7340,6 @@ private constructor(
                 }
 
                 return other is CardDisputeLoss &&
-                    cardDisputeId == other.cardDisputeId &&
                     explanation == other.explanation &&
                     lostAt == other.lostAt &&
                     transactionId == other.transactionId &&
@@ -7492,19 +7347,13 @@ private constructor(
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(
-                    cardDisputeId,
-                    explanation,
-                    lostAt,
-                    transactionId,
-                    additionalProperties,
-                )
+                Objects.hash(explanation, lostAt, transactionId, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardDisputeLoss{cardDisputeId=$cardDisputeId, explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+                "CardDisputeLoss{explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
         }
 
         /**
