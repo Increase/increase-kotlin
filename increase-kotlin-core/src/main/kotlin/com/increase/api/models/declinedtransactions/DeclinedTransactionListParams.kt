@@ -405,6 +405,12 @@ private constructor(
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
                     of("inbound_real_time_payments_transfer_decline")
 
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                val INBOUND_FEDNOW_TRANSFER_DECLINE = of("inbound_fednow_transfer_decline")
+
                 /** Wire Decline: details will be under the `wire_decline` object. */
                 val WIRE_DECLINE = of("wire_decline")
 
@@ -433,6 +439,11 @@ private constructor(
                  * `inbound_real_time_payments_transfer_decline` object.
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_DECLINE,
                 /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
                 /**
@@ -465,6 +476,11 @@ private constructor(
                  * `inbound_real_time_payments_transfer_decline` object.
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_DECLINE,
                 /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
                 /**
@@ -492,6 +508,7 @@ private constructor(
                     CHECK_DECLINE -> Value.CHECK_DECLINE
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Value.INBOUND_FEDNOW_TRANSFER_DECLINE
                     WIRE_DECLINE -> Value.WIRE_DECLINE
                     CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
                     OTHER -> Value.OTHER
@@ -514,6 +531,7 @@ private constructor(
                     CHECK_DECLINE -> Known.CHECK_DECLINE
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Known.INBOUND_FEDNOW_TRANSFER_DECLINE
                     WIRE_DECLINE -> Known.WIRE_DECLINE
                     CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
                     OTHER -> Known.OTHER
