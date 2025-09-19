@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.cards
+package com.increase.api.models.carddetails
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -21,7 +21,7 @@ import java.util.Objects
  * Create an iframe URL for a Card to display the card details. More details about styling and usage
  * can be found in the [documentation](/documentation/embedded-card-component).
  */
-class CardCreateDetailsIframeParams
+class CardDetailCreateDetailsIframeParams
 private constructor(
     private val cardId: String?,
     private val body: Body,
@@ -59,16 +59,16 @@ private constructor(
 
     companion object {
 
-        fun none(): CardCreateDetailsIframeParams = builder().build()
+        fun none(): CardDetailCreateDetailsIframeParams = builder().build()
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [CardCreateDetailsIframeParams].
+         * [CardDetailCreateDetailsIframeParams].
          */
         fun builder() = Builder()
     }
 
-    /** A builder for [CardCreateDetailsIframeParams]. */
+    /** A builder for [CardDetailCreateDetailsIframeParams]. */
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -76,11 +76,14 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(cardCreateDetailsIframeParams: CardCreateDetailsIframeParams) = apply {
-            cardId = cardCreateDetailsIframeParams.cardId
-            body = cardCreateDetailsIframeParams.body.toBuilder()
-            additionalHeaders = cardCreateDetailsIframeParams.additionalHeaders.toBuilder()
-            additionalQueryParams = cardCreateDetailsIframeParams.additionalQueryParams.toBuilder()
+        internal fun from(
+            cardDetailCreateDetailsIframeParams: CardDetailCreateDetailsIframeParams
+        ) = apply {
+            cardId = cardDetailCreateDetailsIframeParams.cardId
+            body = cardDetailCreateDetailsIframeParams.body.toBuilder()
+            additionalHeaders = cardDetailCreateDetailsIframeParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                cardDetailCreateDetailsIframeParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Card to retrieve details for. */
@@ -227,12 +230,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CardCreateDetailsIframeParams].
+         * Returns an immutable instance of [CardDetailCreateDetailsIframeParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): CardCreateDetailsIframeParams =
-            CardCreateDetailsIframeParams(
+        fun build(): CardDetailCreateDetailsIframeParams =
+            CardDetailCreateDetailsIframeParams(
                 cardId,
                 body.build(),
                 additionalHeaders.build(),
@@ -404,7 +407,7 @@ private constructor(
             return true
         }
 
-        return other is CardCreateDetailsIframeParams &&
+        return other is CardDetailCreateDetailsIframeParams &&
             cardId == other.cardId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -415,5 +418,5 @@ private constructor(
         Objects.hash(cardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CardCreateDetailsIframeParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CardDetailCreateDetailsIframeParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
