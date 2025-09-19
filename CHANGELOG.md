@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.327.0 (2025-09-19)
+
+Full Changelog: [v0.326.0...v0.327.0](https://github.com/Increase/increase-kotlin/compare/v0.326.0...v0.327.0)
+
+### Features
+
+* **api:** api update ([6d1c8fa](https://github.com/Increase/increase-kotlin/commit/6d1c8fac398b42960f3e4cedf55970cd9e0808a5))
+* **client:** expose sleeper option ([1a40f75](https://github.com/Increase/increase-kotlin/commit/1a40f7558ef567fff9233053d0724ad560e85916))
+
+
+### Bug Fixes
+
+* **client:** ensure single timer is created per client ([1a40f75](https://github.com/Increase/increase-kotlin/commit/1a40f7558ef567fff9233053d0724ad560e85916))
+
 ## 0.326.0 (2025-09-19)
 
 Full Changelog: [v0.325.0...v0.326.0](https://github.com/Increase/increase-kotlin/compare/v0.325.0...v0.326.0)
