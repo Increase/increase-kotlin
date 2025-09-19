@@ -18,7 +18,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Update a Card's Details */
+/** Update a Card's PIN */
 class CardDetailUpdateParams
 private constructor(
     private val cardId: String?,
