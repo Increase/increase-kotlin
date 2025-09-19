@@ -26,7 +26,7 @@ interface CardDetailServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardDetailServiceAsync
 
-    /** Update a Card's Details */
+    /** Update a Card's PIN */
     suspend fun update(
         cardId: String,
         params: CardDetailUpdateParams,
