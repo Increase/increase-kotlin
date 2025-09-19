@@ -2,6 +2,14 @@
 
 ## 0.327.0 (2025-09-19)
 
+Full Changelog: [v0.327.0...v0.327.0](https://github.com/Increase/increase-kotlin/compare/v0.327.0...v0.327.0)
+
+### Features
+
+* **api:** api update ([41c0b8d](https://github.com/Increase/increase-kotlin/commit/41c0b8d264a199610caa59b9ec5ebbc67b74f197))
+
+## 0.327.0 (2025-09-19)
+
 Full Changelog: [v0.326.0...v0.327.0](https://github.com/Increase/increase-kotlin/compare/v0.326.0...v0.327.0)
 
 ### Features
