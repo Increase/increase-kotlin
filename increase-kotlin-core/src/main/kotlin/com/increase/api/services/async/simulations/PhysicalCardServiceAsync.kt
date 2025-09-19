@@ -8,7 +8,7 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
-import com.increase.api.models.simulations.physicalcards.PhysicalCardTrackingUpdatesParams
+import com.increase.api.models.simulations.physicalcards.PhysicalCardCreateParams
 
 interface PhysicalCardServiceAsync {
 
@@ -23,6 +23,23 @@ interface PhysicalCardServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PhysicalCardServiceAsync
+
+    /**
+     * This endpoint allows you to simulate receiving a tracking update for a Physical Card, to
+     * simulate the progress of a shipment.
+     */
+    suspend fun create(
+        physicalCardId: String,
+        params: PhysicalCardCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhysicalCard =
+        create(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see create */
+    suspend fun create(
+        params: PhysicalCardCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhysicalCard
 
     /**
      * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
@@ -42,23 +59,6 @@ interface PhysicalCardServiceAsync {
     ): PhysicalCard
 
     /**
-     * This endpoint allows you to simulate receiving a tracking update for a Physical Card, to
-     * simulate the progress of a shipment.
-     */
-    suspend fun trackingUpdates(
-        physicalCardId: String,
-        params: PhysicalCardTrackingUpdatesParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCard =
-        trackingUpdates(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
-
-    /** @see trackingUpdates */
-    suspend fun trackingUpdates(
-        params: PhysicalCardTrackingUpdatesParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCard
-
-    /**
      * A view of [PhysicalCardServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -72,6 +72,26 @@ interface PhysicalCardServiceAsync {
         fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): PhysicalCardServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/physical_cards/{physical_card_id}/tracking_updates`, but is otherwise the
+         * same as [PhysicalCardServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            physicalCardId: String,
+            params: PhysicalCardCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard> =
+            create(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        suspend fun create(
+            params: PhysicalCardCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard>
 
         /**
          * Returns a raw HTTP response for `post
@@ -93,29 +113,6 @@ interface PhysicalCardServiceAsync {
         @MustBeClosed
         suspend fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCard>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /simulations/physical_cards/{physical_card_id}/tracking_updates`, but is otherwise the
-         * same as [PhysicalCardServiceAsync.trackingUpdates].
-         */
-        @MustBeClosed
-        suspend fun trackingUpdates(
-            physicalCardId: String,
-            params: PhysicalCardTrackingUpdatesParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCard> =
-            trackingUpdates(
-                params.toBuilder().physicalCardId(physicalCardId).build(),
-                requestOptions,
-            )
-
-        /** @see trackingUpdates */
-        @MustBeClosed
-        suspend fun trackingUpdates(
-            params: PhysicalCardTrackingUpdatesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCard>
     }

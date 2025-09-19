@@ -17,11 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.cards.Card
-import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
-import com.increase.api.models.cards.CardDetails
-import com.increase.api.models.cards.CardDetailsParams
-import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
@@ -61,20 +57,6 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CardListPageAsync =
         // get /cards
         withRawResponse().list(params, requestOptions).parse()
-
-    override suspend fun createDetailsIframe(
-        params: CardCreateDetailsIframeParams,
-        requestOptions: RequestOptions,
-    ): CardIframeUrl =
-        // post /cards/{card_id}/create_details_iframe
-        withRawResponse().createDetailsIframe(params, requestOptions).parse()
-
-    override suspend fun details(
-        params: CardDetailsParams,
-        requestOptions: RequestOptions,
-    ): CardDetails =
-        // get /cards/{card_id}/details
-        withRawResponse().details(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CardServiceAsync.WithRawResponse {
@@ -205,67 +187,6 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                             .params(params)
                             .response(it)
                             .build()
-                    }
-            }
-        }
-
-        private val createDetailsIframeHandler: Handler<CardIframeUrl> =
-            jsonHandler<CardIframeUrl>(clientOptions.jsonMapper)
-
-        override suspend fun createDetailsIframe(
-            params: CardCreateDetailsIframeParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CardIframeUrl> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("cardId", params.cardId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cards", params._pathParam(0), "create_details_iframe")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createDetailsIframeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val detailsHandler: Handler<CardDetails> =
-            jsonHandler<CardDetails>(clientOptions.jsonMapper)
-
-        override suspend fun details(
-            params: CardDetailsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CardDetails> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("cardId", params.cardId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cards", params._pathParam(0), "details")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { detailsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
                     }
             }
         }
