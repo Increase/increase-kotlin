@@ -37290,6 +37290,7 @@ private constructor(
             private val presentmentAmount: JsonField<Long>,
             private val presentmentCurrency: JsonField<String>,
             private val purchaseDetails: JsonField<PurchaseDetails>,
+            private val surcharge: JsonField<Surcharge>,
             private val transactionId: JsonField<String>,
             private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -37353,6 +37354,9 @@ private constructor(
                 @JsonProperty("purchase_details")
                 @ExcludeMissing
                 purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of(),
+                @JsonProperty("surcharge")
+                @ExcludeMissing
+                surcharge: JsonField<Surcharge> = JsonMissing.of(),
                 @JsonProperty("transaction_id")
                 @ExcludeMissing
                 transactionId: JsonField<String> = JsonMissing.of(),
@@ -37378,6 +37382,7 @@ private constructor(
                 presentmentAmount,
                 presentmentCurrency,
                 purchaseDetails,
+                surcharge,
                 transactionId,
                 type,
                 mutableMapOf(),
@@ -37567,6 +37572,16 @@ private constructor(
              */
             fun purchaseDetails(): PurchaseDetails? =
                 purchaseDetails.getNullable("purchase_details")
+
+            /**
+             * Surcharge amount details, if applicable. The amounts positive if the surcharge is
+             * added to to the overall transaction amount (surcharge), and negative if the surcharge
+             * is deducted from the overall transaction amount (discount).
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun surcharge(): Surcharge? = surcharge.getNullable("surcharge")
 
             /**
              * The identifier of the Transaction associated with this Transaction.
@@ -37779,6 +37794,16 @@ private constructor(
             fun _purchaseDetails(): JsonField<PurchaseDetails> = purchaseDetails
 
             /**
+             * Returns the raw JSON value of [surcharge].
+             *
+             * Unlike [surcharge], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("surcharge")
+            @ExcludeMissing
+            fun _surcharge(): JsonField<Surcharge> = surcharge
+
+            /**
              * Returns the raw JSON value of [transactionId].
              *
              * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
@@ -37834,6 +37859,7 @@ private constructor(
                  * .presentmentAmount()
                  * .presentmentCurrency()
                  * .purchaseDetails()
+                 * .surcharge()
                  * .transactionId()
                  * .type()
                  * ```
@@ -37864,6 +37890,7 @@ private constructor(
                 private var presentmentAmount: JsonField<Long>? = null
                 private var presentmentCurrency: JsonField<String>? = null
                 private var purchaseDetails: JsonField<PurchaseDetails>? = null
+                private var surcharge: JsonField<Surcharge>? = null
                 private var transactionId: JsonField<String>? = null
                 private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -37889,6 +37916,7 @@ private constructor(
                     presentmentAmount = cardSettlement.presentmentAmount
                     presentmentCurrency = cardSettlement.presentmentCurrency
                     purchaseDetails = cardSettlement.purchaseDetails
+                    surcharge = cardSettlement.surcharge
                     transactionId = cardSettlement.transactionId
                     type = cardSettlement.type
                     additionalProperties = cardSettlement.additionalProperties.toMutableMap()
@@ -38200,6 +38228,24 @@ private constructor(
                     this.purchaseDetails = purchaseDetails
                 }
 
+                /**
+                 * Surcharge amount details, if applicable. The amounts positive if the surcharge is
+                 * added to to the overall transaction amount (surcharge), and negative if the
+                 * surcharge is deducted from the overall transaction amount (discount).
+                 */
+                fun surcharge(surcharge: Surcharge?) = surcharge(JsonField.ofNullable(surcharge))
+
+                /**
+                 * Sets [Builder.surcharge] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.surcharge] with a well-typed [Surcharge] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun surcharge(surcharge: JsonField<Surcharge>) = apply {
+                    this.surcharge = surcharge
+                }
+
                 /** The identifier of the Transaction associated with this Transaction. */
                 fun transactionId(transactionId: String) =
                     transactionId(JsonField.of(transactionId))
@@ -38279,6 +38325,7 @@ private constructor(
                  * .presentmentAmount()
                  * .presentmentCurrency()
                  * .purchaseDetails()
+                 * .surcharge()
                  * .transactionId()
                  * .type()
                  * ```
@@ -38307,6 +38354,7 @@ private constructor(
                         checkRequired("presentmentAmount", presentmentAmount),
                         checkRequired("presentmentCurrency", presentmentCurrency),
                         checkRequired("purchaseDetails", purchaseDetails),
+                        checkRequired("surcharge", surcharge),
                         checkRequired("transactionId", transactionId),
                         checkRequired("type", type),
                         additionalProperties.toMutableMap(),
@@ -38340,6 +38388,7 @@ private constructor(
                 presentmentAmount()
                 presentmentCurrency()
                 purchaseDetails()?.validate()
+                surcharge()?.validate()
                 transactionId()
                 type().validate()
                 validated = true
@@ -38380,6 +38429,7 @@ private constructor(
                     (if (presentmentAmount.asKnown() == null) 0 else 1) +
                     (if (presentmentCurrency.asKnown() == null) 0 else 1) +
                     (purchaseDetails.asKnown()?.validity() ?: 0) +
+                    (surcharge.asKnown()?.validity() ?: 0) +
                     (if (transactionId.asKnown() == null) 0 else 1) +
                     (type.asKnown()?.validity() ?: 0)
 
@@ -46282,6 +46332,230 @@ private constructor(
             }
 
             /**
+             * Surcharge amount details, if applicable. The amounts positive if the surcharge is
+             * added to to the overall transaction amount (surcharge), and negative if the surcharge
+             * is deducted from the overall transaction amount (discount).
+             */
+            class Surcharge
+            private constructor(
+                private val amount: JsonField<Long>,
+                private val presentmentAmount: JsonField<Long>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    amount: JsonField<Long> = JsonMissing.of(),
+                    @JsonProperty("presentment_amount")
+                    @ExcludeMissing
+                    presentmentAmount: JsonField<Long> = JsonMissing.of(),
+                ) : this(amount, presentmentAmount, mutableMapOf())
+
+                /**
+                 * The surcharge amount in the minor unit of the transaction's settlement currency.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun amount(): Long = amount.getRequired("amount")
+
+                /**
+                 * The surcharge amount in the minor unit of the transaction's presentment currency.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun presentmentAmount(): Long = presentmentAmount.getRequired("presentment_amount")
+
+                /**
+                 * Returns the raw JSON value of [amount].
+                 *
+                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+                /**
+                 * Returns the raw JSON value of [presentmentAmount].
+                 *
+                 * Unlike [presentmentAmount], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("presentment_amount")
+                @ExcludeMissing
+                fun _presentmentAmount(): JsonField<Long> = presentmentAmount
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Surcharge].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .presentmentAmount()
+                     * ```
+                     */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [Surcharge]. */
+                class Builder internal constructor() {
+
+                    private var amount: JsonField<Long>? = null
+                    private var presentmentAmount: JsonField<Long>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(surcharge: Surcharge) = apply {
+                        amount = surcharge.amount
+                        presentmentAmount = surcharge.presentmentAmount
+                        additionalProperties = surcharge.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * The surcharge amount in the minor unit of the transaction's settlement
+                     * currency.
+                     */
+                    fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                    /**
+                     * Sets [Builder.amount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.amount] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /**
+                     * The surcharge amount in the minor unit of the transaction's presentment
+                     * currency.
+                     */
+                    fun presentmentAmount(presentmentAmount: Long) =
+                        presentmentAmount(JsonField.of(presentmentAmount))
+
+                    /**
+                     * Sets [Builder.presentmentAmount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.presentmentAmount] with a well-typed [Long]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun presentmentAmount(presentmentAmount: JsonField<Long>) = apply {
+                        this.presentmentAmount = presentmentAmount
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Surcharge].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .presentmentAmount()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Surcharge =
+                        Surcharge(
+                            checkRequired("amount", amount),
+                            checkRequired("presentmentAmount", presentmentAmount),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Surcharge = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    amount()
+                    presentmentAmount()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (amount.asKnown() == null) 0 else 1) +
+                        (if (presentmentAmount.asKnown() == null) 0 else 1)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Surcharge &&
+                        amount == other.amount &&
+                        presentmentAmount == other.presentmentAmount &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(amount, presentmentAmount, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Surcharge{amount=$amount, presentmentAmount=$presentmentAmount, additionalProperties=$additionalProperties}"
+            }
+
+            /**
              * A constant representing the object's type. For this resource it will always be
              * `card_settlement`.
              */
@@ -46434,6 +46708,7 @@ private constructor(
                     presentmentAmount == other.presentmentAmount &&
                     presentmentCurrency == other.presentmentCurrency &&
                     purchaseDetails == other.purchaseDetails &&
+                    surcharge == other.surcharge &&
                     transactionId == other.transactionId &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -46461,6 +46736,7 @@ private constructor(
                     presentmentAmount,
                     presentmentCurrency,
                     purchaseDetails,
+                    surcharge,
                     transactionId,
                     type,
                     additionalProperties,
@@ -46470,7 +46746,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, surcharge=$surcharge, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
