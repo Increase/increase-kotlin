@@ -96,7 +96,7 @@ interface InboundCheckDepositService {
             requestOptions,
         )
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -213,7 +213,7 @@ interface InboundCheckDepositService {
                 requestOptions,
             )
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             params: InboundCheckDepositReturnParams,
