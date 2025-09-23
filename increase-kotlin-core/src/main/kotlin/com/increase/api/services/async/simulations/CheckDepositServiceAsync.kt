@@ -57,13 +57,13 @@ interface CheckDepositServiceAsync {
     ): CheckDeposit =
         return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see return\_ */
+    /** @see return_ */
     suspend fun return_(
         params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see return\_ */
+    /** @see return_ */
     suspend fun return_(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         return_(checkDepositId, CheckDepositReturnParams.none(), requestOptions)
 
@@ -144,14 +144,14 @@ interface CheckDepositServiceAsync {
         ): HttpResponseFor<CheckDeposit> =
             return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         suspend fun return_(
             params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         suspend fun return_(
             checkDepositId: String,
