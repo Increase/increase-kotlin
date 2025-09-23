@@ -4699,7 +4699,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -4775,7 +4777,11 @@ private constructor(
                             additionalProperties = clinic.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -4917,7 +4923,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -4993,7 +5001,11 @@ private constructor(
                             additionalProperties = dental.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -5135,7 +5147,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -5211,7 +5225,11 @@ private constructor(
                             additionalProperties = prescription.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -5353,7 +5371,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -5429,7 +5449,11 @@ private constructor(
                             additionalProperties = surcharge.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -5573,7 +5597,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -5651,7 +5677,11 @@ private constructor(
                                 totalCumulative.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -5793,7 +5823,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -5871,7 +5903,11 @@ private constructor(
                                 totalHealthcare.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -6013,7 +6049,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -6089,7 +6127,11 @@ private constructor(
                             additionalProperties = transit.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -6231,7 +6273,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -6307,7 +6351,11 @@ private constructor(
                             additionalProperties = unknown.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
@@ -6449,7 +6497,9 @@ private constructor(
                     ) : this(amount, currency, mutableMapOf())
 
                     /**
-                     * The amount in minor units of the `currency` field.
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -6525,7 +6575,11 @@ private constructor(
                             additionalProperties = vision.additionalProperties.toMutableMap()
                         }
 
-                        /** The amount in minor units of the `currency` field. */
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
                         fun amount(amount: Long) = amount(JsonField.of(amount))
 
                         /**
