@@ -96,7 +96,7 @@ interface InboundCheckDepositServiceAsync {
             requestOptions,
         )
 
-    /** @see return\_ */
+    /** @see return_ */
     suspend fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -215,7 +215,7 @@ interface InboundCheckDepositServiceAsync {
                 requestOptions,
             )
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         suspend fun return_(
             params: InboundCheckDepositReturnParams,
