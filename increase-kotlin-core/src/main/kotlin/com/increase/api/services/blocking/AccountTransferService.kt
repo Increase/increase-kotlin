@@ -62,7 +62,7 @@ interface AccountTransferService {
     fun list(requestOptions: RequestOptions): AccountTransferListPage =
         list(AccountTransferListParams.none(), requestOptions)
 
-    /** Approve an Account Transfer */
+    /** Approves an Account Transfer in status `pending_approval`. */
     fun approve(
         accountTransferId: String,
         params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
@@ -80,7 +80,7 @@ interface AccountTransferService {
     fun approve(accountTransferId: String, requestOptions: RequestOptions): AccountTransfer =
         approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
 
-    /** Cancel an Account Transfer */
+    /** Cancels an Account Transfer in status `pending_approval`. */
     fun cancel(
         accountTransferId: String,
         params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
