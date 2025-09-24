@@ -27,7 +27,7 @@ private constructor(
 ) : Params {
 
     /**
-     * The identifier for the account that will send the transfer.
+     * The identifier for the originating Account that will send the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -44,7 +44,8 @@ private constructor(
     fun amount(): Long = body.amount()
 
     /**
-     * The description you choose to give the transfer.
+     * An internal-facing description for the transfer for display in the API and dashboard. This
+     * will also show in the description of the created Transactions.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -52,7 +53,7 @@ private constructor(
     fun description(): String = body.description()
 
     /**
-     * The identifier for the account that will receive the transfer.
+     * The identifier for the destination Account that will receive the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -60,7 +61,8 @@ private constructor(
     fun destinationAccountId(): String = body.destinationAccountId()
 
     /**
-     * Whether the transfer requires explicit approval via the dashboard or API.
+     * Whether the transfer should require explicit approval via the dashboard or API. For more
+     * information, see [Transfer Approvals](/documentation/transfer-approvals).
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -156,7 +158,7 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The identifier for the account that will send the transfer. */
+        /** The identifier for the originating Account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /**
@@ -182,7 +184,10 @@ private constructor(
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
-        /** The description you choose to give the transfer. */
+        /**
+         * An internal-facing description for the transfer for display in the API and dashboard.
+         * This will also show in the description of the created Transactions.
+         */
         fun description(description: String) = apply { body.description(description) }
 
         /**
@@ -194,7 +199,7 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
-        /** The identifier for the account that will receive the transfer. */
+        /** The identifier for the destination Account that will receive the transfer. */
         fun destinationAccountId(destinationAccountId: String) = apply {
             body.destinationAccountId(destinationAccountId)
         }
@@ -210,7 +215,10 @@ private constructor(
             body.destinationAccountId(destinationAccountId)
         }
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Whether the transfer should require explicit approval via the dashboard or API. For more
+         * information, see [Transfer Approvals](/documentation/transfer-approvals).
+         */
         fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
         }
@@ -407,7 +415,7 @@ private constructor(
         )
 
         /**
-         * The identifier for the account that will send the transfer.
+         * The identifier for the originating Account that will send the transfer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -424,7 +432,8 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * The description you choose to give the transfer.
+         * An internal-facing description for the transfer for display in the API and dashboard.
+         * This will also show in the description of the created Transactions.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -432,7 +441,7 @@ private constructor(
         fun description(): String = description.getRequired("description")
 
         /**
-         * The identifier for the account that will receive the transfer.
+         * The identifier for the destination Account that will receive the transfer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -441,7 +450,8 @@ private constructor(
             destinationAccountId.getRequired("destination_account_id")
 
         /**
-         * Whether the transfer requires explicit approval via the dashboard or API.
+         * Whether the transfer should require explicit approval via the dashboard or API. For more
+         * information, see [Transfer Approvals](/documentation/transfer-approvals).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -538,7 +548,7 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier for the account that will send the transfer. */
+            /** The identifier for the originating Account that will send the transfer. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
@@ -565,7 +575,10 @@ private constructor(
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-            /** The description you choose to give the transfer. */
+            /**
+             * An internal-facing description for the transfer for display in the API and dashboard.
+             * This will also show in the description of the created Transactions.
+             */
             fun description(description: String) = description(JsonField.of(description))
 
             /**
@@ -579,7 +592,7 @@ private constructor(
                 this.description = description
             }
 
-            /** The identifier for the account that will receive the transfer. */
+            /** The identifier for the destination Account that will receive the transfer. */
             fun destinationAccountId(destinationAccountId: String) =
                 destinationAccountId(JsonField.of(destinationAccountId))
 
@@ -594,7 +607,10 @@ private constructor(
                 this.destinationAccountId = destinationAccountId
             }
 
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            /**
+             * Whether the transfer should require explicit approval via the dashboard or API. For
+             * more information, see [Transfer Approvals](/documentation/transfer-approvals).
+             */
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
 

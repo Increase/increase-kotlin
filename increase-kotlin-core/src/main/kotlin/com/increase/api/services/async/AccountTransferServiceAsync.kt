@@ -65,7 +65,7 @@ interface AccountTransferServiceAsync {
     suspend fun list(requestOptions: RequestOptions): AccountTransferListPageAsync =
         list(AccountTransferListParams.none(), requestOptions)
 
-    /** Approve an Account Transfer */
+    /** Approves an Account Transfer in status `pending_approval`. */
     suspend fun approve(
         accountTransferId: String,
         params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
@@ -86,7 +86,7 @@ interface AccountTransferServiceAsync {
     ): AccountTransfer =
         approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
 
-    /** Cancel an Account Transfer */
+    /** Cancels an Account Transfer in status `pending_approval`. */
     suspend fun cancel(
         accountTransferId: String,
         params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
