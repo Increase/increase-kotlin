@@ -66,14 +66,6 @@ private constructor(
     fun entityId(): String? = body.entityId()
 
     /**
-     * The 4-digit PIN for the card, for use with ATMs.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun pin(): String? = body.pin()
-
-    /**
      * The status to update the Card with.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -108,13 +100,6 @@ private constructor(
      * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _entityId(): JsonField<String> = body._entityId()
-
-    /**
-     * Returns the raw JSON value of [pin].
-     *
-     * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _pin(): JsonField<String> = body._pin()
 
     /**
      * Returns the raw JSON value of [status].
@@ -168,7 +153,7 @@ private constructor(
          * - [description]
          * - [digitalWallet]
          * - [entityId]
-         * - [pin]
+         * - [status]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -233,17 +218,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
-
-        /** The 4-digit PIN for the card, for use with ATMs. */
-        fun pin(pin: String) = apply { body.pin(pin) }
-
-        /**
-         * Sets [Builder.pin] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.pin] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun pin(pin: JsonField<String>) = apply { body.pin(pin) }
 
         /** The status to update the Card with. */
         fun status(status: Status) = apply { body.status(status) }
@@ -405,7 +379,6 @@ private constructor(
         private val description: JsonField<String>,
         private val digitalWallet: JsonField<DigitalWallet>,
         private val entityId: JsonField<String>,
-        private val pin: JsonField<String>,
         private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -424,9 +397,8 @@ private constructor(
             @JsonProperty("entity_id")
             @ExcludeMissing
             entityId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("pin") @ExcludeMissing pin: JsonField<String> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        ) : this(billingAddress, description, digitalWallet, entityId, pin, status, mutableMapOf())
+        ) : this(billingAddress, description, digitalWallet, entityId, status, mutableMapOf())
 
         /**
          * The card's updated billing address.
@@ -461,14 +433,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun entityId(): String? = entityId.getNullable("entity_id")
-
-        /**
-         * The 4-digit PIN for the card, for use with ATMs.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun pin(): String? = pin.getNullable("pin")
 
         /**
          * The status to update the Card with.
@@ -515,13 +479,6 @@ private constructor(
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
         /**
-         * Returns the raw JSON value of [pin].
-         *
-         * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("pin") @ExcludeMissing fun _pin(): JsonField<String> = pin
-
-        /**
          * Returns the raw JSON value of [status].
          *
          * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -553,7 +510,6 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
             private var entityId: JsonField<String> = JsonMissing.of()
-            private var pin: JsonField<String> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -562,7 +518,6 @@ private constructor(
                 description = body.description
                 digitalWallet = body.digitalWallet
                 entityId = body.entityId
-                pin = body.pin
                 status = body.status
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -629,18 +584,6 @@ private constructor(
              */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
-            /** The 4-digit PIN for the card, for use with ATMs. */
-            fun pin(pin: String) = pin(JsonField.of(pin))
-
-            /**
-             * Sets [Builder.pin] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.pin] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun pin(pin: JsonField<String>) = apply { this.pin = pin }
-
             /** The status to update the Card with. */
             fun status(status: Status) = status(JsonField.of(status))
 
@@ -683,7 +626,6 @@ private constructor(
                     description,
                     digitalWallet,
                     entityId,
-                    pin,
                     status,
                     additionalProperties.toMutableMap(),
                 )
@@ -700,7 +642,6 @@ private constructor(
             description()
             digitalWallet()?.validate()
             entityId()
-            pin()
             status()?.validate()
             validated = true
         }
@@ -724,7 +665,6 @@ private constructor(
                 (if (description.asKnown() == null) 0 else 1) +
                 (digitalWallet.asKnown()?.validity() ?: 0) +
                 (if (entityId.asKnown() == null) 0 else 1) +
-                (if (pin.asKnown() == null) 0 else 1) +
                 (status.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -737,7 +677,6 @@ private constructor(
                 description == other.description &&
                 digitalWallet == other.digitalWallet &&
                 entityId == other.entityId &&
-                pin == other.pin &&
                 status == other.status &&
                 additionalProperties == other.additionalProperties
         }
@@ -748,7 +687,6 @@ private constructor(
                 description,
                 digitalWallet,
                 entityId,
-                pin,
                 status,
                 additionalProperties,
             )
@@ -757,7 +695,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, pin=$pin, status=$status, additionalProperties=$additionalProperties}"
+            "Body{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /** The card's updated billing address. */

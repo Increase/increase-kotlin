@@ -29,7 +29,6 @@ internal class CardUpdateParamsTest {
                     .build()
             )
             .entityId("entity_id")
-            .pin("xxxx")
             .status(CardUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -66,7 +65,6 @@ internal class CardUpdateParamsTest {
                         .build()
                 )
                 .entityId("entity_id")
-                .pin("xxxx")
                 .status(CardUpdateParams.Status.ACTIVE)
                 .build()
 
@@ -92,7 +90,6 @@ internal class CardUpdateParamsTest {
                     .build()
             )
         assertThat(body.entityId()).isEqualTo("entity_id")
-        assertThat(body.pin()).isEqualTo("xxxx")
         assertThat(body.status()).isEqualTo(CardUpdateParams.Status.ACTIVE)
     }
 

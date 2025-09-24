@@ -4,8 +4,10 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardUpdateParams
+import com.increase.api.models.cards.CardUpdatePinParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -94,7 +96,6 @@ internal class CardServiceAsyncTest {
                             .build()
                     )
                     .entityId("entity_id")
-                    .pin("xxxx")
                     .status(CardUpdateParams.Status.ACTIVE)
                     .build()
             )
@@ -114,5 +115,59 @@ internal class CardServiceAsyncTest {
         val page = cardServiceAsync.list()
 
         page.response().validate()
+    }
+
+    @Test
+    suspend fun createDetailsIframe() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardServiceAsync = client.cards()
+
+        val cardIframeUrl =
+            cardServiceAsync.createDetailsIframe(
+                CardCreateDetailsIframeParams.builder()
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                    .physicalCardId("physical_card_id")
+                    .build()
+            )
+
+        cardIframeUrl.validate()
+    }
+
+    @Test
+    suspend fun details() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardServiceAsync = client.cards()
+
+        val cardDetails = cardServiceAsync.details("card_oubs0hwk5rn6knuecxg2")
+
+        cardDetails.validate()
+    }
+
+    @Test
+    suspend fun updatePin() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardServiceAsync = client.cards()
+
+        val cardDetails =
+            cardServiceAsync.updatePin(
+                CardUpdatePinParams.builder()
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                    .pin("1234")
+                    .build()
+            )
+
+        cardDetails.validate()
     }
 }
