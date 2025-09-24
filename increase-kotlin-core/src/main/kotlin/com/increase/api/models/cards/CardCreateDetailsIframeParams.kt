@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.carddetails
+package com.increase.api.models.cards
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -11,15 +11,17 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Update a Card's PIN */
-class CardDetailUpdateParams
+/**
+ * Create an iframe URL for a Card to display the card details. More details about styling and usage
+ * can be found in the [documentation](/documentation/embedded-card-component).
+ */
+class CardCreateDetailsIframeParams
 private constructor(
     private val cardId: String?,
     private val body: Body,
@@ -27,23 +29,24 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The card identifier. */
+    /** The identifier of the Card to create an iframe for. */
     fun cardId(): String? = cardId
 
     /**
-     * The 4-digit PIN for the card, for use with ATMs.
+     * The identifier of the Physical Card to create an iframe for. This will inform the appearance
+     * of the card rendered in the iframe.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun pin(): String = body.pin()
+    fun physicalCardId(): String? = body.physicalCardId()
 
     /**
-     * Returns the raw JSON value of [pin].
+     * Returns the raw JSON value of [physicalCardId].
      *
-     * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _pin(): JsonField<String> = body._pin()
+    fun _physicalCardId(): JsonField<String> = body._physicalCardId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -57,18 +60,16 @@ private constructor(
 
     companion object {
 
+        fun none(): CardCreateDetailsIframeParams = builder().build()
+
         /**
-         * Returns a mutable builder for constructing an instance of [CardDetailUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .pin()
-         * ```
+         * Returns a mutable builder for constructing an instance of
+         * [CardCreateDetailsIframeParams].
          */
         fun builder() = Builder()
     }
 
-    /** A builder for [CardDetailUpdateParams]. */
+    /** A builder for [CardCreateDetailsIframeParams]. */
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -76,14 +77,14 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(cardDetailUpdateParams: CardDetailUpdateParams) = apply {
-            cardId = cardDetailUpdateParams.cardId
-            body = cardDetailUpdateParams.body.toBuilder()
-            additionalHeaders = cardDetailUpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = cardDetailUpdateParams.additionalQueryParams.toBuilder()
+        internal fun from(cardCreateDetailsIframeParams: CardCreateDetailsIframeParams) = apply {
+            cardId = cardCreateDetailsIframeParams.cardId
+            body = cardCreateDetailsIframeParams.body.toBuilder()
+            additionalHeaders = cardCreateDetailsIframeParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardCreateDetailsIframeParams.additionalQueryParams.toBuilder()
         }
 
-        /** The card identifier. */
+        /** The identifier of the Card to create an iframe for. */
         fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
         /**
@@ -91,20 +92,26 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [pin]
+         * - [physicalCardId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The 4-digit PIN for the card, for use with ATMs. */
-        fun pin(pin: String) = apply { body.pin(pin) }
+        /**
+         * The identifier of the Physical Card to create an iframe for. This will inform the
+         * appearance of the card rendered in the iframe.
+         */
+        fun physicalCardId(physicalCardId: String) = apply { body.physicalCardId(physicalCardId) }
 
         /**
-         * Sets [Builder.pin] to an arbitrary JSON value.
+         * Sets [Builder.physicalCardId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.pin] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.physicalCardId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun pin(pin: JsonField<String>) = apply { body.pin(pin) }
+        fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+            body.physicalCardId(physicalCardId)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -224,19 +231,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CardDetailUpdateParams].
+         * Returns an immutable instance of [CardCreateDetailsIframeParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .pin()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): CardDetailUpdateParams =
-            CardDetailUpdateParams(
+        fun build(): CardCreateDetailsIframeParams =
+            CardCreateDetailsIframeParams(
                 cardId,
                 body.build(),
                 additionalHeaders.build(),
@@ -258,29 +258,35 @@ private constructor(
 
     class Body
     private constructor(
-        private val pin: JsonField<String>,
+        private val physicalCardId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("pin") @ExcludeMissing pin: JsonField<String> = JsonMissing.of()
-        ) : this(pin, mutableMapOf())
+            @JsonProperty("physical_card_id")
+            @ExcludeMissing
+            physicalCardId: JsonField<String> = JsonMissing.of()
+        ) : this(physicalCardId, mutableMapOf())
 
         /**
-         * The 4-digit PIN for the card, for use with ATMs.
+         * The identifier of the Physical Card to create an iframe for. This will inform the
+         * appearance of the card rendered in the iframe.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun pin(): String = pin.getRequired("pin")
+        fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
 
         /**
-         * Returns the raw JSON value of [pin].
+         * Returns the raw JSON value of [physicalCardId].
          *
-         * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
-        @JsonProperty("pin") @ExcludeMissing fun _pin(): JsonField<String> = pin
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        fun _physicalCardId(): JsonField<String> = physicalCardId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -296,39 +302,38 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .pin()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var pin: JsonField<String>? = null
+            private var physicalCardId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
-                pin = body.pin
+                physicalCardId = body.physicalCardId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The 4-digit PIN for the card, for use with ATMs. */
-            fun pin(pin: String) = pin(JsonField.of(pin))
+            /**
+             * The identifier of the Physical Card to create an iframe for. This will inform the
+             * appearance of the card rendered in the iframe.
+             */
+            fun physicalCardId(physicalCardId: String) =
+                physicalCardId(JsonField.of(physicalCardId))
 
             /**
-             * Sets [Builder.pin] to an arbitrary JSON value.
+             * Sets [Builder.physicalCardId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.pin] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.physicalCardId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun pin(pin: JsonField<String>) = apply { this.pin = pin }
+            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+                this.physicalCardId = physicalCardId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -353,15 +358,8 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .pin()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Body = Body(checkRequired("pin", pin), additionalProperties.toMutableMap())
+            fun build(): Body = Body(physicalCardId, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -371,7 +369,7 @@ private constructor(
                 return@apply
             }
 
-            pin()
+            physicalCardId()
             validated = true
         }
 
@@ -389,7 +387,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int = (if (pin.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (physicalCardId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -397,15 +395,16 @@ private constructor(
             }
 
             return other is Body &&
-                pin == other.pin &&
+                physicalCardId == other.physicalCardId &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(pin, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(physicalCardId, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{pin=$pin, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -413,7 +412,7 @@ private constructor(
             return true
         }
 
-        return other is CardDetailUpdateParams &&
+        return other is CardCreateDetailsIframeParams &&
             cardId == other.cardId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -424,5 +423,5 @@ private constructor(
         Objects.hash(cardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CardDetailUpdateParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CardCreateDetailsIframeParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

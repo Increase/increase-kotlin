@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.carddetails
+package com.increase.api.models.cards
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -11,17 +11,15 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/**
- * Create an iframe URL for a Card to display the card details. More details about styling and usage
- * can be found in the [documentation](/documentation/embedded-card-component).
- */
-class CardDetailCreateDetailsIframeParams
+/** Update a Card's PIN */
+class CardUpdatePinParams
 private constructor(
     private val cardId: String?,
     private val body: Body,
@@ -29,23 +27,23 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Card to retrieve details for. */
+    /** The identifier of the Card to update the PIN for. */
     fun cardId(): String? = cardId
 
     /**
-     * The identifier of the Physical Card to retrieve details for.
+     * The 4-digit PIN for the card, for use with ATMs.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun physicalCardId(): String? = body.physicalCardId()
+    fun pin(): String = body.pin()
 
     /**
-     * Returns the raw JSON value of [physicalCardId].
+     * Returns the raw JSON value of [pin].
      *
-     * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _physicalCardId(): JsonField<String> = body._physicalCardId()
+    fun _pin(): JsonField<String> = body._pin()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -59,16 +57,18 @@ private constructor(
 
     companion object {
 
-        fun none(): CardDetailCreateDetailsIframeParams = builder().build()
-
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [CardDetailCreateDetailsIframeParams].
+         * Returns a mutable builder for constructing an instance of [CardUpdatePinParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .pin()
+         * ```
          */
         fun builder() = Builder()
     }
 
-    /** A builder for [CardDetailCreateDetailsIframeParams]. */
+    /** A builder for [CardUpdatePinParams]. */
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -76,17 +76,14 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(
-            cardDetailCreateDetailsIframeParams: CardDetailCreateDetailsIframeParams
-        ) = apply {
-            cardId = cardDetailCreateDetailsIframeParams.cardId
-            body = cardDetailCreateDetailsIframeParams.body.toBuilder()
-            additionalHeaders = cardDetailCreateDetailsIframeParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                cardDetailCreateDetailsIframeParams.additionalQueryParams.toBuilder()
+        internal fun from(cardUpdatePinParams: CardUpdatePinParams) = apply {
+            cardId = cardUpdatePinParams.cardId
+            body = cardUpdatePinParams.body.toBuilder()
+            additionalHeaders = cardUpdatePinParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardUpdatePinParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Card to retrieve details for. */
+        /** The identifier of the Card to update the PIN for. */
         fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
         /**
@@ -94,23 +91,20 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [physicalCardId]
+         * - [pin]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The identifier of the Physical Card to retrieve details for. */
-        fun physicalCardId(physicalCardId: String) = apply { body.physicalCardId(physicalCardId) }
+        /** The 4-digit PIN for the card, for use with ATMs. */
+        fun pin(pin: String) = apply { body.pin(pin) }
 
         /**
-         * Sets [Builder.physicalCardId] to an arbitrary JSON value.
+         * Sets [Builder.pin] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.physicalCardId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.pin] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun physicalCardId(physicalCardId: JsonField<String>) = apply {
-            body.physicalCardId(physicalCardId)
-        }
+        fun pin(pin: JsonField<String>) = apply { body.pin(pin) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -230,12 +224,19 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CardDetailCreateDetailsIframeParams].
+         * Returns an immutable instance of [CardUpdatePinParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .pin()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): CardDetailCreateDetailsIframeParams =
-            CardDetailCreateDetailsIframeParams(
+        fun build(): CardUpdatePinParams =
+            CardUpdatePinParams(
                 cardId,
                 body.build(),
                 additionalHeaders.build(),
@@ -257,34 +258,29 @@ private constructor(
 
     class Body
     private constructor(
-        private val physicalCardId: JsonField<String>,
+        private val pin: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("physical_card_id")
-            @ExcludeMissing
-            physicalCardId: JsonField<String> = JsonMissing.of()
-        ) : this(physicalCardId, mutableMapOf())
+            @JsonProperty("pin") @ExcludeMissing pin: JsonField<String> = JsonMissing.of()
+        ) : this(pin, mutableMapOf())
 
         /**
-         * The identifier of the Physical Card to retrieve details for.
+         * The 4-digit PIN for the card, for use with ATMs.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
+        fun pin(): String = pin.getRequired("pin")
 
         /**
-         * Returns the raw JSON value of [physicalCardId].
+         * Returns the raw JSON value of [pin].
          *
-         * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("physical_card_id")
-        @ExcludeMissing
-        fun _physicalCardId(): JsonField<String> = physicalCardId
+        @JsonProperty("pin") @ExcludeMissing fun _pin(): JsonField<String> = pin
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -300,35 +296,39 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Body]. */
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .pin()
+             * ```
+             */
             fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var physicalCardId: JsonField<String> = JsonMissing.of()
+            private var pin: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
-                physicalCardId = body.physicalCardId
+                pin = body.pin
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier of the Physical Card to retrieve details for. */
-            fun physicalCardId(physicalCardId: String) =
-                physicalCardId(JsonField.of(physicalCardId))
+            /** The 4-digit PIN for the card, for use with ATMs. */
+            fun pin(pin: String) = pin(JsonField.of(pin))
 
             /**
-             * Sets [Builder.physicalCardId] to an arbitrary JSON value.
+             * Sets [Builder.pin] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.physicalCardId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.pin] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
-                this.physicalCardId = physicalCardId
-            }
+            fun pin(pin: JsonField<String>) = apply { this.pin = pin }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -353,8 +353,15 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .pin()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Body = Body(physicalCardId, additionalProperties.toMutableMap())
+            fun build(): Body = Body(checkRequired("pin", pin), additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -364,7 +371,7 @@ private constructor(
                 return@apply
             }
 
-            physicalCardId()
+            pin()
             validated = true
         }
 
@@ -382,7 +389,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int = (if (physicalCardId.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (pin.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -390,16 +397,15 @@ private constructor(
             }
 
             return other is Body &&
-                physicalCardId == other.physicalCardId &&
+                pin == other.pin &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(physicalCardId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(pin, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Body{physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{pin=$pin, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -407,7 +413,7 @@ private constructor(
             return true
         }
 
-        return other is CardDetailCreateDetailsIframeParams &&
+        return other is CardUpdatePinParams &&
             cardId == other.cardId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -418,5 +424,5 @@ private constructor(
         Objects.hash(cardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CardDetailCreateDetailsIframeParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CardUpdatePinParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

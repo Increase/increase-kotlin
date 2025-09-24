@@ -7,11 +7,16 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cards.Card
+import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
+import com.increase.api.models.cards.CardDetails
+import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
+import com.increase.api.models.cards.CardUpdatePinParams
 
 interface CardServiceAsync {
 
@@ -76,6 +81,60 @@ interface CardServiceAsync {
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): CardListPageAsync =
         list(CardListParams.none(), requestOptions)
+
+    /**
+     * Create an iframe URL for a Card to display the card details. More details about styling and
+     * usage can be found in the [documentation](/documentation/embedded-card-component).
+     */
+    suspend fun createDetailsIframe(
+        cardId: String,
+        params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardIframeUrl =
+        createDetailsIframe(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see createDetailsIframe */
+    suspend fun createDetailsIframe(
+        params: CardCreateDetailsIframeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardIframeUrl
+
+    /** @see createDetailsIframe */
+    suspend fun createDetailsIframe(cardId: String, requestOptions: RequestOptions): CardIframeUrl =
+        createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
+
+    /**
+     * Sensitive details for a Card include the primary account number, expiry, card verification
+     * code, and PIN.
+     */
+    suspend fun details(
+        cardId: String,
+        params: CardDetailsParams = CardDetailsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetails = details(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see details */
+    suspend fun details(
+        params: CardDetailsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetails
+
+    /** @see details */
+    suspend fun details(cardId: String, requestOptions: RequestOptions): CardDetails =
+        details(cardId, CardDetailsParams.none(), requestOptions)
+
+    /** Update a Card's PIN */
+    suspend fun updatePin(
+        cardId: String,
+        params: CardUpdatePinParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetails = updatePin(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see updatePin */
+    suspend fun updatePin(
+        params: CardUpdatePinParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetails
 
     /** A view of [CardServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -160,5 +219,77 @@ interface CardServiceAsync {
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPageAsync> =
             list(CardListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/create_details_iframe`, but is
+         * otherwise the same as [CardServiceAsync.createDetailsIframe].
+         */
+        @MustBeClosed
+        suspend fun createDetailsIframe(
+            cardId: String,
+            params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardIframeUrl> =
+            createDetailsIframe(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see createDetailsIframe */
+        @MustBeClosed
+        suspend fun createDetailsIframe(
+            params: CardCreateDetailsIframeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardIframeUrl>
+
+        /** @see createDetailsIframe */
+        @MustBeClosed
+        suspend fun createDetailsIframe(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardIframeUrl> =
+            createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same
+         * as [CardServiceAsync.details].
+         */
+        @MustBeClosed
+        suspend fun details(
+            cardId: String,
+            params: CardDetailsParams = CardDetailsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetails> =
+            details(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see details */
+        @MustBeClosed
+        suspend fun details(
+            params: CardDetailsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetails>
+
+        /** @see details */
+        @MustBeClosed
+        suspend fun details(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDetails> = details(cardId, CardDetailsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/update_pin`, but is otherwise the
+         * same as [CardServiceAsync.updatePin].
+         */
+        @MustBeClosed
+        suspend fun updatePin(
+            cardId: String,
+            params: CardUpdatePinParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetails> =
+            updatePin(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see updatePin */
+        @MustBeClosed
+        suspend fun updatePin(
+            params: CardUpdatePinParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetails>
     }
 }
