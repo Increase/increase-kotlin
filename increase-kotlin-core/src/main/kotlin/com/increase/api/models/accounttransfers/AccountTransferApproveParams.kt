@@ -9,7 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
-/** Approve an Account Transfer */
+/** Approves an Account Transfer in status `pending_approval`. */
 class AccountTransferApproveParams
 private constructor(
     private val accountTransferId: String?,

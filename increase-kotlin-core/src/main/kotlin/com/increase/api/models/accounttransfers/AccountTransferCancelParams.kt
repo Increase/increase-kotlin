@@ -9,7 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
-/** Cancel an Account Transfer */
+/** Cancels an Account Transfer in status `pending_approval`. */
 class AccountTransferCancelParams
 private constructor(
     private val accountTransferId: String?,
