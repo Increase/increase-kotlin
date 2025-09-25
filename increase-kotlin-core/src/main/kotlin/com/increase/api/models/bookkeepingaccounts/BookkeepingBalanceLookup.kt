@@ -20,6 +20,7 @@ import java.util.Objects
  * Represents a request to lookup the balance of an Bookkeeping Account at a given point in time.
  */
 class BookkeepingBalanceLookup
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val balance: JsonField<Long>,
     private val bookkeepingAccountId: JsonField<String>,

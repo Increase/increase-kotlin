@@ -25,6 +25,7 @@ import java.util.Objects
  * IntraFi doesn't affect funds availability.
  */
 class IntrafiAccountEnrollment
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,

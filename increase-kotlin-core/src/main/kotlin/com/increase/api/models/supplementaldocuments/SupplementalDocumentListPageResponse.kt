@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Supplemental Document objects. */
 class SupplementalDocumentListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<EntitySupplementalDocument>>,
     private val nextCursor: JsonField<String>,

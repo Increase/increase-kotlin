@@ -451,6 +451,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val accountStatementBai2: JsonField<AccountStatementBai2>,
@@ -1117,6 +1118,7 @@ private constructor(
      * Options for the created export. Required if `category` is equal to `account_statement_bai2`.
      */
     class AccountStatementBai2
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val effectiveDate: JsonField<LocalDate>,
@@ -1316,6 +1318,7 @@ private constructor(
      * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
      */
     class AccountStatementOfx
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val createdAt: JsonField<CreatedAt>,
@@ -1496,6 +1499,7 @@ private constructor(
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val after: JsonField<OffsetDateTime>,
             private val before: JsonField<OffsetDateTime>,
@@ -1808,6 +1812,7 @@ private constructor(
 
     /** Options for the created export. Required if `category` is equal to `balance_csv`. */
     class BalanceCsv
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val createdAt: JsonField<CreatedAt>,
@@ -2006,6 +2011,7 @@ private constructor(
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val after: JsonField<OffsetDateTime>,
             private val before: JsonField<OffsetDateTime>,
@@ -2322,6 +2328,7 @@ private constructor(
      * `bookkeeping_account_balance_csv`.
      */
     class BookkeepingAccountBalanceCsv
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val bookkeepingAccountId: JsonField<String>,
         private val createdAt: JsonField<CreatedAt>,
@@ -2500,6 +2507,7 @@ private constructor(
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val after: JsonField<OffsetDateTime>,
             private val before: JsonField<OffsetDateTime>,
@@ -2812,6 +2820,7 @@ private constructor(
 
     /** Options for the created export. Required if `category` is equal to `entity_csv`. */
     class EntityCsv
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2934,6 +2943,7 @@ private constructor(
 
         /** Entity statuses to filter by. */
         class Status
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val in_: JsonField<List<In>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3280,6 +3290,7 @@ private constructor(
 
     /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
     class TransactionCsv
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val createdAt: JsonField<CreatedAt>,
@@ -3478,6 +3489,7 @@ private constructor(
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val after: JsonField<OffsetDateTime>,
             private val before: JsonField<OffsetDateTime>,

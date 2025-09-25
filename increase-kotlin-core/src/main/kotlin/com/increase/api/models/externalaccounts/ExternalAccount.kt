@@ -22,6 +22,7 @@ import java.util.Objects
  * this API to store their details for reuse.
  */
 class ExternalAccount
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountHolder: JsonField<AccountHolder>,

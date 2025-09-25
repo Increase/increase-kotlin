@@ -18,6 +18,7 @@ import java.util.Objects
 
 /** Represents a request to lookup the balance of an Account at a given point in time. */
 class BalanceLookup
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val accountId: JsonField<String>,
     private val availableBalance: JsonField<Long>,

@@ -316,6 +316,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val accountVerificationLetter: JsonField<AccountVerificationLetter>,
@@ -715,6 +716,7 @@ private constructor(
      * `account_verification_letter`.
      */
     class AccountVerificationLetter
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val balanceDate: JsonField<LocalDate>,
@@ -926,6 +928,7 @@ private constructor(
 
     /** Funding instructions. Required if and only if `category` is `funding_instructions`. */
     class FundingInstructions
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,

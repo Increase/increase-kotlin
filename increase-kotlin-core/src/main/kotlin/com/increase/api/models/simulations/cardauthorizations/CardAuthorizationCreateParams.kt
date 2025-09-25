@@ -776,6 +776,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val authenticatedCardPaymentId: JsonField<String>,
@@ -2017,6 +2018,7 @@ private constructor(
 
     /** Fields specific to a given card network. */
     class NetworkDetails
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val visa: JsonField<Visa>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2154,6 +2156,7 @@ private constructor(
 
         /** Fields specific to the Visa network. */
         class Visa
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val standInProcessingReason: JsonField<StandInProcessingReason>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2571,6 +2574,7 @@ private constructor(
      * Refund Authorizations, or Cash Disbursements.
      */
     class ProcessingCategory
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val additionalProperties: MutableMap<String, JsonValue>,

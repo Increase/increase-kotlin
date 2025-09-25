@@ -23,6 +23,7 @@ import java.util.Objects
  * sweep additional funds to it. It may take 5 business days for an exclusion to be processed.
  */
 class IntrafiExclusion
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val bankName: JsonField<String>,

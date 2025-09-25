@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Routing Number objects. */
 class RoutingNumberListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<RoutingNumberListResponse>>,
     private val nextCursor: JsonField<String>,

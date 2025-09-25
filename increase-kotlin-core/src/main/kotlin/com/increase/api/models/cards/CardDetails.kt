@@ -23,6 +23,7 @@ import java.util.Objects
  * to your users.
  */
 class CardDetails
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val cardId: JsonField<String>,
     private val expirationMonth: JsonField<Long>,
