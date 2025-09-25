@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** Supplemental Documents are uploaded files connected to an Entity during onboarding. */
 class EntitySupplementalDocument
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val entityId: JsonField<String>,

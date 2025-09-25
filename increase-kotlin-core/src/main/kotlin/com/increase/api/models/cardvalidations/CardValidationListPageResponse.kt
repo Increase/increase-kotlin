@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Card Validation objects. */
 class CardValidationListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<CardValidation>>,
     private val nextCursor: JsonField<String>,

@@ -856,6 +856,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
@@ -1882,6 +1883,7 @@ private constructor(
      * data sent to the receiving bank.
      */
     class Addenda
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val freeform: JsonField<Freeform>,
@@ -2264,6 +2266,7 @@ private constructor(
          * and only if `category` is `freeform`.
          */
         class Freeform
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val entries: JsonField<List<Entry>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2434,6 +2437,7 @@ private constructor(
             internal fun validity(): Int = (entries.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Entry
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val paymentRelatedInformation: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2631,6 +2635,7 @@ private constructor(
          * only if `category` is `payment_order_remittance_advice`.
          */
         class PaymentOrderRemittanceAdvice
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val invoices: JsonField<List<Invoice>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2797,6 +2802,7 @@ private constructor(
                 (invoices.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Invoice
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val invoiceNumber: JsonField<String>,
                 private val paidAmount: JsonField<Long>,
@@ -3356,6 +3362,7 @@ private constructor(
      * of `same_day`. If set, exactly one of the child attributes must be set.
      */
     class PreferredEffectiveDate
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val date: JsonField<LocalDate>,
         private val settlementSchedule: JsonField<SettlementSchedule>,

@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Pending Transaction objects. */
 class PendingTransactionListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<PendingTransaction>>,
     private val nextCursor: JsonField<String>,

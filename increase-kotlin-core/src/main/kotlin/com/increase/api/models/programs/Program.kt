@@ -24,6 +24,7 @@ import java.util.Objects
  * create additional Programs for you.
  */
 class Program
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val bank: JsonField<Bank>,

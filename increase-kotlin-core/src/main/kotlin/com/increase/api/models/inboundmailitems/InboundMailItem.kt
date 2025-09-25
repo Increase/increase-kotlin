@@ -21,6 +21,7 @@ import java.util.Objects
 
 /** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
 class InboundMailItem
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val checks: JsonField<List<Check>>,
@@ -500,6 +501,7 @@ private constructor(
 
     /** Inbound Mail Item Checks represent the checks in an Inbound Mail Item. */
     class Check
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val backFileId: JsonField<String>,

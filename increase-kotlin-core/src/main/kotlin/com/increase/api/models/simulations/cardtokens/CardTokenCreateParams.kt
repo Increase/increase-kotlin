@@ -359,6 +359,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val capabilities: JsonField<List<Capability>>,
         private val expiration: JsonField<LocalDate>,
@@ -694,6 +695,7 @@ private constructor(
     }
 
     class Capability
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val crossBorderPushTransfers: JsonField<CrossBorderPushTransfers>,
         private val domesticPushTransfers: JsonField<DomesticPushTransfers>,

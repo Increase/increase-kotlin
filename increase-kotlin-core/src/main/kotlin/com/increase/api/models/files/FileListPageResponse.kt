@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of File objects. */
 class FileListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<File>>,
     private val nextCursor: JsonField<String>,

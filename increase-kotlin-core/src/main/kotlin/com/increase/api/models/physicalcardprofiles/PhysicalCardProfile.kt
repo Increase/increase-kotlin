@@ -23,6 +23,7 @@ import java.util.Objects
  * [physical card artwork](https://increase.com/documentation/card-art-physical-cards).
  */
 class PhysicalCardProfile
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val backImageFileId: JsonField<String>,

@@ -23,6 +23,7 @@ import java.util.Objects
  * Validations.
  */
 class CardToken
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,

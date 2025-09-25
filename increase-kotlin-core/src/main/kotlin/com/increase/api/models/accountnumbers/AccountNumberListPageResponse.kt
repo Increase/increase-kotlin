@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Account Number objects. */
 class AccountNumberListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<AccountNumber>>,
     private val nextCursor: JsonField<String>,

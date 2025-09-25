@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Inbound Mail Item objects. */
 class InboundMailItemListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<InboundMailItem>>,
     private val nextCursor: JsonField<String>,

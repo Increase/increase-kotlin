@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Physical Card Profile objects. */
 class PhysicalCardProfileListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<PhysicalCardProfile>>,
     private val nextCursor: JsonField<String>,

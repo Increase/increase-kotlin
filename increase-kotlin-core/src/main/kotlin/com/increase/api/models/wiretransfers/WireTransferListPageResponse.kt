@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Wire Transfer objects. */
 class WireTransferListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<WireTransfer>>,
     private val nextCursor: JsonField<String>,

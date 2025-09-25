@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Inbound Wire Drawdown Request objects. */
 class InboundWireDrawdownRequestListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<InboundWireDrawdownRequest>>,
     private val nextCursor: JsonField<String>,

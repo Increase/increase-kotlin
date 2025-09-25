@@ -22,6 +22,7 @@ import java.util.Objects
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
 class BookkeepingAccount
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,

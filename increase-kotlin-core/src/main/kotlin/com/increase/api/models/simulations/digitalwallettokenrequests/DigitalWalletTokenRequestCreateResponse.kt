@@ -18,6 +18,7 @@ import java.util.Objects
 
 /** The results of a Digital Wallet Token simulation. */
 class DigitalWalletTokenRequestCreateResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val declineReason: JsonField<DeclineReason>,
     private val digitalWalletTokenId: JsonField<String>,

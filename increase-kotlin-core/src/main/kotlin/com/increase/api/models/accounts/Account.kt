@@ -23,6 +23,7 @@ import java.util.Objects
  * payments. They earn interest and have depository insurance.
  */
 class Account
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountRevenueRate: JsonField<String>,

@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of OAuth Connection objects. */
 class OAuthConnectionListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<OAuthConnection>>,
     private val nextCursor: JsonField<String>,

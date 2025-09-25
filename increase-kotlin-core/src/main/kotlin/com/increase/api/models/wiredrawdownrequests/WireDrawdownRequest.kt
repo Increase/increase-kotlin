@@ -25,6 +25,7 @@ import java.util.Objects
  * [Wire Drawdown Requests documentation](/documentation/wire-drawdown-requests).
  */
 class WireDrawdownRequest
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountNumberId: JsonField<String>,
@@ -912,6 +913,7 @@ private constructor(
 
     /** The creditor's address. */
     class CreditorAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val country: JsonField<String>,
@@ -1266,6 +1268,7 @@ private constructor(
 
     /** The debtor's address. */
     class DebtorAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val country: JsonField<String>,
@@ -1772,6 +1775,7 @@ private constructor(
      * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
     class Submission
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val inputMessageAccountabilityData: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,

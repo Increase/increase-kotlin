@@ -20,6 +20,7 @@ import java.util.Objects
 
 /** The results of a Card Authorization simulation. */
 class CardAuthorizationCreateResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val declinedTransaction: JsonField<DeclinedTransaction>,
     private val pendingTransaction: JsonField<PendingTransaction>,
