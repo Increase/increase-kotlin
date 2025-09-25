@@ -309,6 +309,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val beneficialOwnerId: JsonField<String>,
@@ -525,6 +526,7 @@ private constructor(
      * disallowed.
      */
     class Address
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val country: JsonField<String>,

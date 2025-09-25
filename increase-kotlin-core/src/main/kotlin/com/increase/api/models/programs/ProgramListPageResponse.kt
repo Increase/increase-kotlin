@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Program objects. */
 class ProgramListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Program>>,
     private val nextCursor: JsonField<String>,

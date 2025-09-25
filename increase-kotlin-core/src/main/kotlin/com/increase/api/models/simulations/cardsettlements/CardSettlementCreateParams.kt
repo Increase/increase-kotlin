@@ -314,6 +314,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardId: JsonField<String>,
         private val pendingTransactionId: JsonField<String>,

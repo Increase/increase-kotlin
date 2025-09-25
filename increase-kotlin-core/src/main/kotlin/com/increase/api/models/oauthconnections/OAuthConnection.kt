@@ -22,6 +22,7 @@ import java.util.Objects
  * about OAuth [here](https://increase.com/documentation/oauth).
  */
 class OAuthConnection
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,

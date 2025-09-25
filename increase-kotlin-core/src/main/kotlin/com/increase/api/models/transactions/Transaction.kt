@@ -26,6 +26,7 @@ import java.util.Objects
  * [Transactions and Transfers](/documentation/transactions-transfers).
  */
 class Transaction
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -853,6 +854,7 @@ private constructor(
      * this object. These should be treated as deprecated and will be removed in the future.
      */
     class Source
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountRevenuePayment: JsonField<AccountRevenuePayment>,
         private val accountTransferIntention: JsonField<AccountTransferIntention>,
@@ -2942,6 +2944,7 @@ private constructor(
          * non-interest income.
          */
         class AccountRevenuePayment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accruedOnAccountId: JsonField<String>,
             private val periodEnd: JsonField<OffsetDateTime>,
@@ -3213,6 +3216,7 @@ private constructor(
          * the other increments the destination account.
          */
         class AccountTransferIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
@@ -3811,6 +3815,7 @@ private constructor(
          * Increase account via the ACH network.
          */
         class AchTransferIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accountNumber: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -4187,6 +4192,7 @@ private constructor(
          * Intention. These rejections are rare.
          */
         class AchTransferRejection
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4362,6 +4368,7 @@ private constructor(
          * the transfer is initiated, but can occur much later.
          */
         class AchTransferReturn
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val createdAt: JsonField<OffsetDateTime>,
             private val rawReturnReasonCode: JsonField<String>,
@@ -6062,6 +6069,7 @@ private constructor(
          * successful Card Dispute.
          */
         class CardDisputeAcceptance
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val acceptedAt: JsonField<OffsetDateTime>,
             private val transactionId: JsonField<String>,
@@ -6293,6 +6301,7 @@ private constructor(
          * Card Dispute.
          */
         class CardDisputeFinancial
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val network: JsonField<Network>,
@@ -6700,6 +6709,7 @@ private constructor(
              * `network` is equal to `visa`.
              */
             class Visa
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val eventType: JsonField<EventType>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -7090,6 +7100,7 @@ private constructor(
          * Dispute.
          */
         class CardDisputeLoss
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val explanation: JsonField<String>,
             private val lostAt: JsonField<OffsetDateTime>,
@@ -7363,6 +7374,7 @@ private constructor(
          * accepted by the receiving bank.
          */
         class CardPushTransferAcceptance
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val transferId: JsonField<String>,
@@ -7580,6 +7592,7 @@ private constructor(
          * directly to a card without relation to a transaction.
          */
         class CardRefund
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val id: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -8565,6 +8578,7 @@ private constructor(
              * aggregate, monthly.
              */
             class Cashback
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<String>,
                 private val currency: JsonField<Currency>,
@@ -9135,6 +9149,7 @@ private constructor(
 
             /** Interchange assessed as a part of this transaciton. */
             class Interchange
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<String>,
                 private val code: JsonField<String>,
@@ -9577,6 +9592,7 @@ private constructor(
 
             /** Network-specific identifiers for this refund. */
             class NetworkIdentifiers
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val acquirerBusinessId: JsonField<String>,
                 private val acquirerReferenceNumber: JsonField<String>,
@@ -9861,6 +9877,7 @@ private constructor(
              * Additional details about the card purchase, such as tax and industry-specific fields.
              */
             class PurchaseDetails
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val carRental: JsonField<CarRental>,
                 private val customerReferenceIdentifier: JsonField<String>,
@@ -10454,6 +10471,7 @@ private constructor(
 
                 /** Fields specific to car rentals. */
                 class CarRental
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val carClassCode: JsonField<String>,
                     private val checkoutDate: JsonField<LocalDate>,
@@ -11778,6 +11796,7 @@ private constructor(
 
                 /** Fields specific to lodging. */
                 class Lodging
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val checkInDate: JsonField<LocalDate>,
                     private val dailyRoomRateAmount: JsonField<Long>,
@@ -13284,6 +13303,7 @@ private constructor(
 
                 /** Fields specific to travel. */
                 class Travel
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val ancillary: JsonField<Ancillary>,
                     private val computerizedReservationSystem: JsonField<String>,
@@ -13989,6 +14009,7 @@ private constructor(
 
                     /** Ancillary purchases in addition to the airfare. */
                     class Ancillary
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val connectedTicketDocumentNumber: JsonField<String>,
                         private val creditReasonIndicator: JsonField<CreditReasonIndicator>,
@@ -14560,6 +14581,7 @@ private constructor(
                         }
 
                         class Service
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                         private constructor(
                             private val category: JsonField<Category>,
                             private val subCategory: JsonField<String>,
@@ -15667,6 +15689,7 @@ private constructor(
                     }
 
                     class TripLeg
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val carrierCode: JsonField<String>,
                         private val destinationCityAirportCode: JsonField<String>,
@@ -16522,6 +16545,7 @@ private constructor(
          * earnings from fees on card transactions.
          */
         class CardRevenuePayment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
@@ -17070,6 +17094,7 @@ private constructor(
          * acquirer can also directly clear a transaction without first authorizing it.
          */
         class CardSettlement
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val id: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -18239,6 +18264,7 @@ private constructor(
              * monthly.
              */
             class Cashback
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<String>,
                 private val currency: JsonField<Currency>,
@@ -18809,6 +18835,7 @@ private constructor(
 
             /** Interchange assessed as a part of this transaction. */
             class Interchange
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<String>,
                 private val code: JsonField<String>,
@@ -19379,6 +19406,7 @@ private constructor(
 
             /** Network-specific identifiers for this refund. */
             class NetworkIdentifiers
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val acquirerBusinessId: JsonField<String>,
                 private val acquirerReferenceNumber: JsonField<String>,
@@ -19663,6 +19691,7 @@ private constructor(
              * Additional details about the card purchase, such as tax and industry-specific fields.
              */
             class PurchaseDetails
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val carRental: JsonField<CarRental>,
                 private val customerReferenceIdentifier: JsonField<String>,
@@ -20256,6 +20285,7 @@ private constructor(
 
                 /** Fields specific to car rentals. */
                 class CarRental
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val carClassCode: JsonField<String>,
                     private val checkoutDate: JsonField<LocalDate>,
@@ -21580,6 +21610,7 @@ private constructor(
 
                 /** Fields specific to lodging. */
                 class Lodging
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val checkInDate: JsonField<LocalDate>,
                     private val dailyRoomRateAmount: JsonField<Long>,
@@ -23086,6 +23117,7 @@ private constructor(
 
                 /** Fields specific to travel. */
                 class Travel
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val ancillary: JsonField<Ancillary>,
                     private val computerizedReservationSystem: JsonField<String>,
@@ -23791,6 +23823,7 @@ private constructor(
 
                     /** Ancillary purchases in addition to the airfare. */
                     class Ancillary
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val connectedTicketDocumentNumber: JsonField<String>,
                         private val creditReasonIndicator: JsonField<CreditReasonIndicator>,
@@ -24362,6 +24395,7 @@ private constructor(
                         }
 
                         class Service
+                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                         private constructor(
                             private val category: JsonField<Category>,
                             private val subCategory: JsonField<String>,
@@ -25469,6 +25503,7 @@ private constructor(
                     }
 
                     class TripLeg
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val carrierCode: JsonField<String>,
                         private val destinationCityAirportCode: JsonField<String>,
@@ -26138,6 +26173,7 @@ private constructor(
              * is deducted from the overall transaction amount (discount).
              */
             class Surcharge
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val presentmentAmount: JsonField<Long>,
@@ -26557,6 +26593,7 @@ private constructor(
          * month's transactions.
          */
         class CashbackPayment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accruedOnCardId: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -27760,6 +27797,7 @@ private constructor(
          * be returned by the receiving bank, which will appear as a Check Deposit Return.
          */
         class CheckDepositAcceptance
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accountNumber: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -28415,6 +28453,7 @@ private constructor(
          * the deposit is made.
          */
         class CheckDepositReturn
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val checkDepositId: JsonField<String>,
@@ -29423,6 +29462,7 @@ private constructor(
          * types of checks are not pre-registered.
          */
         class CheckTransferDeposit
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val backImageFileId: JsonField<String>,
             private val bankOfFirstDepositRoutingNumber: JsonField<String>,
@@ -30087,6 +30127,7 @@ private constructor(
          * acknowledged by the receiving bank.
          */
         class FednowTransferAcknowledgement
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -30263,6 +30304,7 @@ private constructor(
          * Increase.
          */
         class FeePayment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
@@ -30748,6 +30790,7 @@ private constructor(
          * Increase.
          */
         class InboundAchTransfer
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val addenda: JsonField<Addenda>,
             private val amount: JsonField<Long>,
@@ -31399,6 +31442,7 @@ private constructor(
 
             /** Additional information sent from the originator. */
             class Addenda
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val category: JsonField<Category>,
                 private val freeform: JsonField<Freeform>,
@@ -31722,6 +31766,7 @@ private constructor(
 
                 /** Unstructured `payment_related_information` passed through by the originator. */
                 class Freeform
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val entries: JsonField<List<Entry>>,
                     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31887,6 +31932,7 @@ private constructor(
                         (entries.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
                     class Entry
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val paymentRelatedInformation: JsonField<String>,
                         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -32157,6 +32203,7 @@ private constructor(
          * another bank and returned by Increase.
          */
         class InboundAchTransferReturnIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val inboundAchTransferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -32339,6 +32386,7 @@ private constructor(
          * deposited through Check21.
          */
         class InboundCheckAdjustment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val adjustedTransactionId: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -32787,6 +32835,7 @@ private constructor(
          * Check and the User requests that it be returned.
          */
         class InboundCheckDepositReturnIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val inboundCheckDepositId: JsonField<String>,
             private val transferId: JsonField<String>,
@@ -33014,6 +33063,7 @@ private constructor(
          * another bank and received by Increase.
          */
         class InboundFednowTransferConfirmation
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -33193,6 +33243,7 @@ private constructor(
          * another bank and received by Increase.
          */
         class InboundRealTimePaymentsTransferConfirmation
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val creditorName: JsonField<String>,
@@ -33950,6 +34001,7 @@ private constructor(
          * details were incorrect.
          */
         class InboundWireReversal
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val createdAt: JsonField<OffsetDateTime>,
@@ -34782,6 +34834,7 @@ private constructor(
          * received by Increase.
          */
         class InboundWireTransfer
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val creditorAddressLine1: JsonField<String>,
@@ -35775,6 +35828,7 @@ private constructor(
          * the User requests that it be reversed.
          */
         class InboundWireTransferReversal
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val inboundWireTransferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -35955,6 +36009,7 @@ private constructor(
          * interest on an account. Interest is usually paid monthly.
          */
         class InterestPayment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accruedOnAccountId: JsonField<String>,
             private val amount: JsonField<Long>,
@@ -36496,6 +36551,7 @@ private constructor(
          * See the `reason` attribute for more information.
          */
         class InternalSource
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
@@ -37205,6 +37261,7 @@ private constructor(
          * acknowledged by the receiving bank.
          */
         class RealTimePaymentsTransferAcknowledgement
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
             private val destinationAccountNumber: JsonField<String>,
@@ -37582,6 +37639,7 @@ private constructor(
          * `category` is equal to `sample_funds`. Sample funds for testing purposes.
          */
         class SampleFunds
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val originator: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -37755,6 +37813,7 @@ private constructor(
          * Increase.
          */
         class SwiftTransferIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -37930,6 +37989,7 @@ private constructor(
          * created when a Swift Transfer is returned by the receiving bank.
          */
         class SwiftTransferReturn
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -38103,6 +38163,7 @@ private constructor(
          * Increase and sent to a different bank.
          */
         class WireTransferIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accountNumber: JsonField<String>,
             private val amount: JsonField<Long>,

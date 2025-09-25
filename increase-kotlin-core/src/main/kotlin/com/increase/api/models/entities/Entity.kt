@@ -26,6 +26,7 @@ import java.util.Objects
  * partnerships, government authorities, or trusts.
  */
 class Entity
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val corporation: JsonField<Corporation>,
@@ -846,6 +847,7 @@ private constructor(
      * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
      */
     class Corporation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val beneficialOwners: JsonField<List<BeneficialOwner>>,
@@ -1268,6 +1270,7 @@ private constructor(
 
         /** The corporation's address. */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -1587,6 +1590,7 @@ private constructor(
         }
 
         class BeneficialOwner
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val beneficialOwnerId: JsonField<String>,
             private val companyTitle: JsonField<String>,
@@ -1865,6 +1869,7 @@ private constructor(
 
             /** Personal details for the beneficial owner. */
             class Individual
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val address: JsonField<Address>,
                 private val dateOfBirth: JsonField<LocalDate>,
@@ -2142,6 +2147,7 @@ private constructor(
 
                 /** The person's address. */
                 class Address
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val city: JsonField<String>,
                     private val country: JsonField<String>,
@@ -2520,6 +2526,7 @@ private constructor(
 
                 /** A means of verifying the person's identity. */
                 class Identification
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val method: JsonField<Method>,
                     private val numberLast4: JsonField<String>,
@@ -3141,6 +3148,7 @@ private constructor(
      * `government_authority`.
      */
     class GovernmentAuthority
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val authorizedPersons: JsonField<List<AuthorizedPerson>>,
@@ -3493,6 +3501,7 @@ private constructor(
 
         /** The government authority's address. */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -3812,6 +3821,7 @@ private constructor(
         }
 
         class AuthorizedPerson
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val authorizedPersonId: JsonField<String>,
             private val name: JsonField<String>,
@@ -4210,6 +4220,7 @@ private constructor(
 
     /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
     class Joint
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val individuals: JsonField<List<Individual>>,
         private val name: JsonField<String>,
@@ -4404,6 +4415,7 @@ private constructor(
                 (if (name.asKnown() == null) 0 else 1)
 
         class Individual
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val address: JsonField<Address>,
             private val dateOfBirth: JsonField<LocalDate>,
@@ -4677,6 +4689,7 @@ private constructor(
 
             /** The person's address. */
             class Address
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val city: JsonField<String>,
                 private val line1: JsonField<String>,
@@ -5009,6 +5022,7 @@ private constructor(
 
             /** A means of verifying the person's identity. */
             class Identification
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val method: JsonField<Method>,
                 private val numberLast4: JsonField<String>,
@@ -5440,6 +5454,7 @@ private constructor(
      * `natural_person`.
      */
     class NaturalPerson
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val dateOfBirth: JsonField<LocalDate>,
@@ -5703,6 +5718,7 @@ private constructor(
 
         /** The person's address. */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -6023,6 +6039,7 @@ private constructor(
 
         /** A means of verifying the person's identity. */
         class Identification
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val method: JsonField<Method>,
             private val numberLast4: JsonField<String>,
@@ -6431,6 +6448,7 @@ private constructor(
      * money laundering.
      */
     class RiskRating
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val ratedAt: JsonField<OffsetDateTime>,
         private val rating: JsonField<Rating>,
@@ -7082,6 +7100,7 @@ private constructor(
      * associate this Entity with the identifier that represents them in that service.
      */
     class ThirdPartyVerification
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reference: JsonField<String>,
         private val vendor: JsonField<Vendor>,
@@ -7422,6 +7441,7 @@ private constructor(
 
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
     class Trust
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val category: JsonField<Category>,
@@ -7874,6 +7894,7 @@ private constructor(
 
         /** The trust's address. */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -8329,6 +8350,7 @@ private constructor(
 
         /** The grantor of the trust. Will be present if the `category` is `revocable`. */
         class Grantor
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val address: JsonField<Address>,
             private val dateOfBirth: JsonField<LocalDate>,
@@ -8602,6 +8624,7 @@ private constructor(
 
             /** The person's address. */
             class Address
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val city: JsonField<String>,
                 private val line1: JsonField<String>,
@@ -8934,6 +8957,7 @@ private constructor(
 
             /** A means of verifying the person's identity. */
             class Identification
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val method: JsonField<Method>,
                 private val numberLast4: JsonField<String>,
@@ -9342,6 +9366,7 @@ private constructor(
         }
 
         class Trustee
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val individual: JsonField<Individual>,
             private val structure: JsonField<Structure>,
@@ -9544,6 +9569,7 @@ private constructor(
              * equal to `individual`.
              */
             class Individual
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val address: JsonField<Address>,
                 private val dateOfBirth: JsonField<LocalDate>,
@@ -9821,6 +9847,7 @@ private constructor(
 
                 /** The person's address. */
                 class Address
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val city: JsonField<String>,
                     private val line1: JsonField<String>,
@@ -10157,6 +10184,7 @@ private constructor(
 
                 /** A means of verifying the person's identity. */
                 class Identification
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val method: JsonField<Method>,
                     private val numberLast4: JsonField<String>,

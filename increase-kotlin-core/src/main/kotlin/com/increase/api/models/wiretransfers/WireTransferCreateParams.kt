@@ -770,6 +770,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
@@ -1688,6 +1689,7 @@ private constructor(
 
     /** Additional remittance information related to the wire transfer. */
     class Remittance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val tax: JsonField<Tax>,
@@ -2060,6 +2062,7 @@ private constructor(
          * to `tax`.
          */
         class Tax
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val date: JsonField<LocalDate>,
             private val identificationNumber: JsonField<String>,
@@ -2321,6 +2324,7 @@ private constructor(
          * Unstructured remittance information. Required if `category` is equal to `unstructured`.
          */
         class Unstructured
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val message: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,

@@ -24,6 +24,7 @@ import java.util.Objects
  * number per vendor ensures you always know the originator of an incoming payment.
  */
 class AccountNumber
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -582,6 +583,7 @@ private constructor(
 
     /** Properties related to how this Account Number handles inbound ACH transfers. */
     class InboundAch
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val debitStatus: JsonField<DebitStatus>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -889,6 +891,7 @@ private constructor(
 
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
     class InboundChecks
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,

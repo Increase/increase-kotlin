@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Card Push Transfer objects. */
 class CardPushTransferListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<CardPushTransfer>>,
     private val nextCursor: JsonField<String>,

@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Real-Time Payments Transfer objects. */
 class RealTimePaymentsTransferListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<RealTimePaymentsTransfer>>,
     private val nextCursor: JsonField<String>,

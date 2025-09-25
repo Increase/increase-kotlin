@@ -24,6 +24,7 @@ import java.util.Objects
  * The Digital Wallet Token can be used for purchases just like a Card.
  */
 class DigitalWalletToken
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val cardId: JsonField<String>,
@@ -495,6 +496,7 @@ private constructor(
 
     /** The cardholder information given when the Digital Wallet Token was created. */
     class Cardholder
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -650,6 +652,7 @@ private constructor(
 
     /** The device that was used to create the Digital Wallet Token. */
     class Device
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val deviceType: JsonField<DeviceType>,
         private val identifier: JsonField<String>,
@@ -1568,6 +1571,7 @@ private constructor(
     }
 
     class Update
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val status: JsonField<Status>,
         private val timestamp: JsonField<OffsetDateTime>,

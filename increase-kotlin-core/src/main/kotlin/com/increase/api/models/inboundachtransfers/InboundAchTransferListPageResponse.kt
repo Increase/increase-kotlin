@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of Inbound ACH Transfer objects. */
 class InboundAchTransferListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<InboundAchTransfer>>,
     private val nextCursor: JsonField<String>,

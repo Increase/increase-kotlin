@@ -18,6 +18,7 @@ import java.util.Objects
 
 /** Routing numbers are used to identify your bank in a financial transaction. */
 class RoutingNumberListResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val achTransfers: JsonField<AchTransfers>,
     private val fednowTransfers: JsonField<FednowTransfers>,

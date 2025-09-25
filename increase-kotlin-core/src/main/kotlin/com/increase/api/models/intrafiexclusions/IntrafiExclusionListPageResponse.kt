@@ -19,6 +19,7 @@ import java.util.Objects
 
 /** A list of IntraFi Exclusion objects. */
 class IntrafiExclusionListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<IntrafiExclusion>>,
     private val nextCursor: JsonField<String>,

@@ -22,6 +22,7 @@ import java.util.Objects
 
 /** An Inbound ACH Transfer is an ACH transfer initiated outside of Increase to your account. */
 class InboundAchTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val acceptance: JsonField<Acceptance>,
@@ -1309,6 +1310,7 @@ private constructor(
 
     /** If your transfer is accepted, this will contain details of the acceptance. */
     class Acceptance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val acceptedAt: JsonField<OffsetDateTime>,
         private val transactionId: JsonField<String>,
@@ -1520,6 +1522,7 @@ private constructor(
 
     /** Additional information sent from the originator. */
     class Addenda
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val freeform: JsonField<Freeform>,
@@ -1826,6 +1829,7 @@ private constructor(
 
         /** Unstructured `payment_related_information` passed through by the originator. */
         class Freeform
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val entries: JsonField<List<Entry>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1987,6 +1991,7 @@ private constructor(
             internal fun validity(): Int = (entries.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Entry
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val paymentRelatedInformation: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2199,6 +2204,7 @@ private constructor(
 
     /** If your transfer is declined, this will contain details of the decline. */
     class Decline
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val declinedAt: JsonField<OffsetDateTime>,
         private val declinedTransactionId: JsonField<String>,
@@ -2876,6 +2882,7 @@ private constructor(
      * pertaining to the International ACH Transaction.
      */
     class InternationalAddenda
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val destinationCountryCode: JsonField<String>,
         private val destinationCurrencyCode: JsonField<String>,
@@ -5814,6 +5821,7 @@ private constructor(
      * details.
      */
     class NotificationOfChange
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val updatedAccountNumber: JsonField<String>,
         private val updatedRoutingNumber: JsonField<String>,
@@ -6033,6 +6041,7 @@ private constructor(
      * Reserve.
      */
     class Settlement
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val settledAt: JsonField<OffsetDateTime>,
         private val settlementSchedule: JsonField<SettlementSchedule>,
@@ -6811,6 +6820,7 @@ private constructor(
 
     /** If your transfer is returned, this will contain details of the return. */
     class TransferReturn
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reason: JsonField<Reason>,
         private val returnedAt: JsonField<OffsetDateTime>,

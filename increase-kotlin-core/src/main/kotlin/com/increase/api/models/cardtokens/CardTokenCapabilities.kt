@@ -24,6 +24,7 @@ import java.util.Objects
  * configuration of the card range.
  */
 class CardTokenCapabilities
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val routes: JsonField<List<Route>>,
     private val type: JsonField<Type>,
@@ -215,6 +216,7 @@ private constructor(
         (routes.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (type.asKnown()?.validity() ?: 0)
 
     class Route
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val crossBorderPushTransfers: JsonField<CrossBorderPushTransfers>,
         private val domesticPushTransfers: JsonField<DomesticPushTransfers>,
