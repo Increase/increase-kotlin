@@ -6506,7 +6506,7 @@ private constructor(
 
                         /**
                          * Non-authenticated security transaction: Use to identify an electronic
-                         * commerce transaction that uses data encryption for security however ,
+                         * commerce transaction that uses data encryption for security however,
                          * cardholder authentication is not performed using 3-D Secure.
                          */
                         val NON_AUTHENTICATED_SECURITY_TRANSACTION =
@@ -6565,7 +6565,7 @@ private constructor(
                         NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
                         /**
                          * Non-authenticated security transaction: Use to identify an electronic
-                         * commerce transaction that uses data encryption for security however ,
+                         * commerce transaction that uses data encryption for security however,
                          * cardholder authentication is not performed using 3-D Secure.
                          */
                         NON_AUTHENTICATED_SECURITY_TRANSACTION,
@@ -6630,7 +6630,7 @@ private constructor(
                         NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
                         /**
                          * Non-authenticated security transaction: Use to identify an electronic
-                         * commerce transaction that uses data encryption for security however ,
+                         * commerce transaction that uses data encryption for security however,
                          * cardholder authentication is not performed using 3-D Secure.
                          */
                         NON_AUTHENTICATED_SECURITY_TRANSACTION,
