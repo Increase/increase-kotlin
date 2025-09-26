@@ -28,9 +28,13 @@ interface CardRefundService {
      * refunded.
      */
     fun create(
-        params: CardRefundCreateParams,
+        params: CardRefundCreateParams = CardRefundCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
+
+    /** @see create */
+    fun create(requestOptions: RequestOptions): Transaction =
+        create(CardRefundCreateParams.none(), requestOptions)
 
     /** A view of [CardRefundService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -50,8 +54,13 @@ interface CardRefundService {
          */
         @MustBeClosed
         fun create(
-            params: CardRefundCreateParams,
+            params: CardRefundCreateParams = CardRefundCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(requestOptions: RequestOptions): HttpResponseFor<Transaction> =
+            create(CardRefundCreateParams.none(), requestOptions)
     }
 }

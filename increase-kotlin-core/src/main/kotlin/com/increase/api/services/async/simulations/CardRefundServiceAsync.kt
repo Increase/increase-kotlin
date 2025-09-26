@@ -28,9 +28,13 @@ interface CardRefundServiceAsync {
      * refunded.
      */
     suspend fun create(
-        params: CardRefundCreateParams,
+        params: CardRefundCreateParams = CardRefundCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
+
+    /** @see create */
+    suspend fun create(requestOptions: RequestOptions): Transaction =
+        create(CardRefundCreateParams.none(), requestOptions)
 
     /**
      * A view of [CardRefundServiceAsync] that provides access to raw HTTP responses for each
@@ -53,8 +57,13 @@ interface CardRefundServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: CardRefundCreateParams,
+            params: CardRefundCreateParams = CardRefundCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
+
+        /** @see create */
+        @MustBeClosed
+        suspend fun create(requestOptions: RequestOptions): HttpResponseFor<Transaction> =
+            create(CardRefundCreateParams.none(), requestOptions)
     }
 }
