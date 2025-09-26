@@ -437,6 +437,9 @@ private constructor(
                 /** Card Settlement: details will be under the `card_settlement` object. */
                 val CARD_SETTLEMENT = of("card_settlement")
 
+                /** Card Financial: details will be under the `card_financial` object. */
+                val CARD_FINANCIAL = of("card_financial")
+
                 /**
                  * Card Revenue Payment: details will be under the `card_revenue_payment` object.
                  */
@@ -613,6 +616,8 @@ private constructor(
                 CARD_REFUND,
                 /** Card Settlement: details will be under the `card_settlement` object. */
                 CARD_SETTLEMENT,
+                /** Card Financial: details will be under the `card_financial` object. */
+                CARD_FINANCIAL,
                 /**
                  * Card Revenue Payment: details will be under the `card_revenue_payment` object.
                  */
@@ -766,6 +771,8 @@ private constructor(
                 CARD_REFUND,
                 /** Card Settlement: details will be under the `card_settlement` object. */
                 CARD_SETTLEMENT,
+                /** Card Financial: details will be under the `card_financial` object. */
+                CARD_FINANCIAL,
                 /**
                  * Card Revenue Payment: details will be under the `card_revenue_payment` object.
                  */
@@ -895,6 +902,7 @@ private constructor(
                     CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Value.CARD_REFUND
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_FINANCIAL -> Value.CARD_FINANCIAL
                     CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
@@ -949,6 +957,7 @@ private constructor(
                     CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Known.CARD_REFUND
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_FINANCIAL -> Known.CARD_FINANCIAL
                     CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
