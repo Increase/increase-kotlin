@@ -36,7 +36,7 @@ private constructor(
     fun name(): String = body.name()
 
     /**
-     * The entity, if `compliance_category` is `commingled_cash`.
+     * The account, if `compliance_category` is `commingled_cash`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -148,7 +148,7 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
-        /** The entity, if `compliance_category` is `commingled_cash`. */
+        /** The account, if `compliance_category` is `commingled_cash`. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /**
@@ -363,7 +363,7 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /**
-         * The entity, if `compliance_category` is `commingled_cash`.
+         * The account, if `compliance_category` is `commingled_cash`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -472,7 +472,7 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            /** The entity, if `compliance_category` is `commingled_cash`. */
+            /** The account, if `compliance_category` is `commingled_cash`. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
