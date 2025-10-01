@@ -1121,9 +1121,9 @@ private constructor(
             achTransferReturn.getNullable("ach_transfer_return")
 
         /**
-         * A Card Dispute Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_dispute_acceptance`. Contains the details of a
-         * successful Card Dispute.
+         * A Legacy Card Dispute Acceptance object. This field will be present in the JSON response
+         * if and only if `category` is equal to `card_dispute_acceptance`. Contains the details of
+         * a successful Card Dispute.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1143,8 +1143,8 @@ private constructor(
             cardDisputeFinancial.getNullable("card_dispute_financial")
 
         /**
-         * A Card Dispute Loss object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
+         * A Legacy Card Dispute Loss object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
          * Dispute.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -2110,9 +2110,9 @@ private constructor(
             }
 
             /**
-             * A Card Dispute Acceptance object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_dispute_acceptance`. Contains the details of
-             * a successful Card Dispute.
+             * A Legacy Card Dispute Acceptance object. This field will be present in the JSON
+             * response if and only if `category` is equal to `card_dispute_acceptance`. Contains
+             * the details of a successful Card Dispute.
              */
             fun cardDisputeAcceptance(cardDisputeAcceptance: CardDisputeAcceptance?) =
                 cardDisputeAcceptance(JsonField.ofNullable(cardDisputeAcceptance))
@@ -2150,9 +2150,9 @@ private constructor(
                 }
 
             /**
-             * A Card Dispute Loss object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_dispute_loss`. Contains the details of a lost
-             * Card Dispute.
+             * A Legacy Card Dispute Loss object. This field will be present in the JSON response if
+             * and only if `category` is equal to `card_dispute_loss`. Contains the details of a
+             * lost Card Dispute.
              */
             fun cardDisputeLoss(cardDisputeLoss: CardDisputeLoss?) =
                 cardDisputeLoss(JsonField.ofNullable(cardDisputeLoss))
@@ -6115,9 +6115,9 @@ private constructor(
         }
 
         /**
-         * A Card Dispute Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_dispute_acceptance`. Contains the details of a
-         * successful Card Dispute.
+         * A Legacy Card Dispute Acceptance object. This field will be present in the JSON response
+         * if and only if `category` is equal to `card_dispute_acceptance`. Contains the details of
+         * a successful Card Dispute.
          */
         class CardDisputeAcceptance
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -7146,8 +7146,8 @@ private constructor(
         }
 
         /**
-         * A Card Dispute Loss object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
+         * A Legacy Card Dispute Loss object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
          * Dispute.
          */
         class CardDisputeLoss
@@ -35021,8 +35021,8 @@ private constructor(
                 val CASHBACK_PAYMENT = of("cashback_payment")
 
                 /**
-                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
-                 * object.
+                 * Legacy Card Dispute Acceptance: details will be under the
+                 * `card_dispute_acceptance` object.
                  */
                 val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
@@ -35032,7 +35032,9 @@ private constructor(
                  */
                 val CARD_DISPUTE_FINANCIAL = of("card_dispute_financial")
 
-                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
+                /**
+                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
+                 */
                 val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
                 /** Card Refund: details will be under the `card_refund` object. */
@@ -35205,8 +35207,8 @@ private constructor(
                 /** Cashback Payment: details will be under the `cashback_payment` object. */
                 CASHBACK_PAYMENT,
                 /**
-                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
-                 * object.
+                 * Legacy Card Dispute Acceptance: details will be under the
+                 * `card_dispute_acceptance` object.
                  */
                 CARD_DISPUTE_ACCEPTANCE,
                 /**
@@ -35214,7 +35216,9 @@ private constructor(
                  * object.
                  */
                 CARD_DISPUTE_FINANCIAL,
-                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
+                /**
+                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
+                 */
                 CARD_DISPUTE_LOSS,
                 /** Card Refund: details will be under the `card_refund` object. */
                 CARD_REFUND,
@@ -35360,8 +35364,8 @@ private constructor(
                 /** Cashback Payment: details will be under the `cashback_payment` object. */
                 CASHBACK_PAYMENT,
                 /**
-                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
-                 * object.
+                 * Legacy Card Dispute Acceptance: details will be under the
+                 * `card_dispute_acceptance` object.
                  */
                 CARD_DISPUTE_ACCEPTANCE,
                 /**
@@ -35369,7 +35373,9 @@ private constructor(
                  * object.
                  */
                 CARD_DISPUTE_FINANCIAL,
-                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
+                /**
+                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
+                 */
                 CARD_DISPUTE_LOSS,
                 /** Card Refund: details will be under the `card_refund` object. */
                 CARD_REFUND,
