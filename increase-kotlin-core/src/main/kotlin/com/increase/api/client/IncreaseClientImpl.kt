@@ -22,6 +22,8 @@ import com.increase.api.services.blocking.BookkeepingEntryService
 import com.increase.api.services.blocking.BookkeepingEntryServiceImpl
 import com.increase.api.services.blocking.BookkeepingEntrySetService
 import com.increase.api.services.blocking.BookkeepingEntrySetServiceImpl
+import com.increase.api.services.blocking.CardDisputeService
+import com.increase.api.services.blocking.CardDisputeServiceImpl
 import com.increase.api.services.blocking.CardPaymentService
 import com.increase.api.services.blocking.CardPaymentServiceImpl
 import com.increase.api.services.blocking.CardPurchaseSupplementService
@@ -148,6 +150,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val cardPurchaseSupplements: CardPurchaseSupplementService by lazy {
         CardPurchaseSupplementServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val cardDisputes: CardDisputeService by lazy {
+        CardDisputeServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val physicalCards: PhysicalCardService by lazy {
@@ -347,6 +353,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun cardPurchaseSupplements(): CardPurchaseSupplementService = cardPurchaseSupplements
 
+    override fun cardDisputes(): CardDisputeService = cardDisputes
+
     override fun physicalCards(): PhysicalCardService = physicalCards
 
     override fun digitalCardProfiles(): DigitalCardProfileService = digitalCardProfiles
@@ -474,6 +482,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         private val cardPurchaseSupplements: CardPurchaseSupplementService.WithRawResponse by lazy {
             CardPurchaseSupplementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardDisputes: CardDisputeService.WithRawResponse by lazy {
+            CardDisputeServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val physicalCards: PhysicalCardService.WithRawResponse by lazy {
@@ -691,6 +703,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun cardPurchaseSupplements(): CardPurchaseSupplementService.WithRawResponse =
             cardPurchaseSupplements
+
+        override fun cardDisputes(): CardDisputeService.WithRawResponse = cardDisputes
 
         override fun physicalCards(): PhysicalCardService.WithRawResponse = physicalCards
 
