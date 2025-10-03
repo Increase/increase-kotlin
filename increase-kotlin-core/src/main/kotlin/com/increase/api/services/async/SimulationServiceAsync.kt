@@ -8,6 +8,7 @@ import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.CardAuthorizationExpirationServiceAsync
 import com.increase.api.services.async.simulations.CardAuthorizationServiceAsync
+import com.increase.api.services.async.simulations.CardDisputeServiceAsync
 import com.increase.api.services.async.simulations.CardFuelConfirmationServiceAsync
 import com.increase.api.services.async.simulations.CardIncrementServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
@@ -63,6 +64,8 @@ interface SimulationServiceAsync {
     fun cardFuelConfirmations(): CardFuelConfirmationServiceAsync
 
     fun cardRefunds(): CardRefundServiceAsync
+
+    fun cardDisputes(): CardDisputeServiceAsync
 
     fun physicalCards(): PhysicalCardServiceAsync
 
@@ -134,6 +137,8 @@ interface SimulationServiceAsync {
         fun cardFuelConfirmations(): CardFuelConfirmationServiceAsync.WithRawResponse
 
         fun cardRefunds(): CardRefundServiceAsync.WithRawResponse
+
+        fun cardDisputes(): CardDisputeServiceAsync.WithRawResponse
 
         fun physicalCards(): PhysicalCardServiceAsync.WithRawResponse
 
