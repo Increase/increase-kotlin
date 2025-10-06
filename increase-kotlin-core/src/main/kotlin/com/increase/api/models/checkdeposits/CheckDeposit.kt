@@ -150,8 +150,8 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * If your deposit is successfully parsed and accepted by Increase, this will contain details of
-     * the parsed check.
+     * Once your deposit is successfully parsed and accepted by Increase, this will contain details
+     * of the parsed check.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -569,7 +569,7 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * If your deposit is successfully parsed and accepted by Increase, this will contain
+         * Once your deposit is successfully parsed and accepted by Increase, this will contain
          * details of the parsed check.
          */
         fun depositAcceptance(depositAcceptance: DepositAcceptance?) =
@@ -908,8 +908,8 @@ private constructor(
             (type.asKnown()?.validity() ?: 0)
 
     /**
-     * If your deposit is successfully parsed and accepted by Increase, this will contain details of
-     * the parsed check.
+     * Once your deposit is successfully parsed and accepted by Increase, this will contain details
+     * of the parsed check.
      */
     class DepositAcceptance
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -957,7 +957,8 @@ private constructor(
         )
 
         /**
-         * The account number printed on the check.
+         * The account number printed on the check. This is an account at the bank that issued the
+         * check.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1000,7 +1001,8 @@ private constructor(
         fun currency(): Currency = currency.getRequired("currency")
 
         /**
-         * The routing number printed on the check.
+         * The routing number printed on the check. This is a routing number for the bank that
+         * issued the check.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1134,7 +1136,10 @@ private constructor(
                 additionalProperties = depositAcceptance.additionalProperties.toMutableMap()
             }
 
-            /** The account number printed on the check. */
+            /**
+             * The account number printed on the check. This is an account at the bank that issued
+             * the check.
+             */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
             /**
@@ -1211,7 +1216,10 @@ private constructor(
              */
             fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-            /** The routing number printed on the check. */
+            /**
+             * The routing number printed on the check. This is a routing number for the bank that
+             * issued the check.
+             */
             fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
             /**
