@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.342.0 (2025-10-06)
+
+Full Changelog: [v0.341.0...v0.342.0](https://github.com/Increase/increase-kotlin/compare/v0.341.0...v0.342.0)
+
+### Features
+
+* **api:** api update ([b110b35](https://github.com/Increase/increase-kotlin/commit/b110b355f34fbb7720476467053fabd9ce9e46ad))
+* **api:** api update ([c9b6d38](https://github.com/Increase/increase-kotlin/commit/c9b6d383d130e804221bcea907f577c2c552612e))
+* **api:** api update ([950a3af](https://github.com/Increase/increase-kotlin/commit/950a3af222f9bf1fef3154f75cfe798b7b9cc2a3))
+
+
+### Bug Fixes
+
+* **client:** handle some Dispute objects as empty rather than unknown ([9d46c6a](https://github.com/Increase/increase-kotlin/commit/9d46c6a6e868f51df160efa713f8c30ad4a7075f))
+
 ## 0.341.0 (2025-10-01)
 
 Full Changelog: [v0.340.0...v0.341.0](https://github.com/Increase/increase-kotlin/compare/v0.340.0...v0.341.0)
