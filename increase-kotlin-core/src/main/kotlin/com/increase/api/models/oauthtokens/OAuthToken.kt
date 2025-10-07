@@ -24,6 +24,7 @@ class OAuthToken
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val accessToken: JsonField<String>,
+    private val groupId: JsonField<String>,
     private val tokenType: JsonField<TokenType>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -34,11 +35,12 @@ private constructor(
         @JsonProperty("access_token")
         @ExcludeMissing
         accessToken: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("group_id") @ExcludeMissing groupId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("token_type")
         @ExcludeMissing
         tokenType: JsonField<TokenType> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(accessToken, tokenType, type, mutableMapOf())
+    ) : this(accessToken, groupId, tokenType, type, mutableMapOf())
 
     /**
      * You may use this token in place of an API key to make OAuth requests on a user's behalf.
@@ -47,6 +49,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun accessToken(): String = accessToken.getRequired("access_token")
+
+    /**
+     * The Group's identifier. A Group is the top-level organization in Increase.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun groupId(): String = groupId.getRequired("group_id")
 
     /**
      * The type of OAuth token.
@@ -72,6 +82,13 @@ private constructor(
     @JsonProperty("access_token")
     @ExcludeMissing
     fun _accessToken(): JsonField<String> = accessToken
+
+    /**
+     * Returns the raw JSON value of [groupId].
+     *
+     * Unlike [groupId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("group_id") @ExcludeMissing fun _groupId(): JsonField<String> = groupId
 
     /**
      * Returns the raw JSON value of [tokenType].
@@ -107,6 +124,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .accessToken()
+         * .groupId()
          * .tokenType()
          * .type()
          * ```
@@ -118,12 +136,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var accessToken: JsonField<String>? = null
+        private var groupId: JsonField<String>? = null
         private var tokenType: JsonField<TokenType>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(oauthToken: OAuthToken) = apply {
             accessToken = oauthToken.accessToken
+            groupId = oauthToken.groupId
             tokenType = oauthToken.tokenType
             type = oauthToken.type
             additionalProperties = oauthToken.additionalProperties.toMutableMap()
@@ -142,6 +162,17 @@ private constructor(
          * value.
          */
         fun accessToken(accessToken: JsonField<String>) = apply { this.accessToken = accessToken }
+
+        /** The Group's identifier. A Group is the top-level organization in Increase. */
+        fun groupId(groupId: String) = groupId(JsonField.of(groupId))
+
+        /**
+         * Sets [Builder.groupId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.groupId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
 
         /** The type of OAuth token. */
         fun tokenType(tokenType: TokenType) = tokenType(JsonField.of(tokenType))
@@ -196,6 +227,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .accessToken()
+         * .groupId()
          * .tokenType()
          * .type()
          * ```
@@ -205,6 +237,7 @@ private constructor(
         fun build(): OAuthToken =
             OAuthToken(
                 checkRequired("accessToken", accessToken),
+                checkRequired("groupId", groupId),
                 checkRequired("tokenType", tokenType),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -219,6 +252,7 @@ private constructor(
         }
 
         accessToken()
+        groupId()
         tokenType().validate()
         type().validate()
         validated = true
@@ -239,6 +273,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (accessToken.asKnown() == null) 0 else 1) +
+            (if (groupId.asKnown() == null) 0 else 1) +
             (tokenType.asKnown()?.validity() ?: 0) +
             (type.asKnown()?.validity() ?: 0)
 
@@ -493,17 +528,18 @@ private constructor(
 
         return other is OAuthToken &&
             accessToken == other.accessToken &&
+            groupId == other.groupId &&
             tokenType == other.tokenType &&
             type == other.type &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(accessToken, tokenType, type, additionalProperties)
+        Objects.hash(accessToken, groupId, tokenType, type, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OAuthToken{accessToken=$accessToken, tokenType=$tokenType, type=$type, additionalProperties=$additionalProperties}"
+        "OAuthToken{accessToken=$accessToken, groupId=$groupId, tokenType=$tokenType, type=$type, additionalProperties=$additionalProperties}"
 }
