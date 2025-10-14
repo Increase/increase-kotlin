@@ -8602,6 +8602,7 @@ private constructor(
             class NetworkIdentifiers
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val authorizationIdentificationResponse: JsonField<String>,
                 private val retrievalReferenceNumber: JsonField<String>,
                 private val traceNumber: JsonField<String>,
                 private val transactionId: JsonField<String>,
@@ -8610,6 +8611,9 @@ private constructor(
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("authorization_identification_response")
+                    @ExcludeMissing
+                    authorizationIdentificationResponse: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("retrieval_reference_number")
                     @ExcludeMissing
                     retrievalReferenceNumber: JsonField<String> = JsonMissing.of(),
@@ -8619,7 +8623,25 @@ private constructor(
                     @JsonProperty("transaction_id")
                     @ExcludeMissing
                     transactionId: JsonField<String> = JsonMissing.of(),
-                ) : this(retrievalReferenceNumber, traceNumber, transactionId, mutableMapOf())
+                ) : this(
+                    authorizationIdentificationResponse,
+                    retrievalReferenceNumber,
+                    traceNumber,
+                    transactionId,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * The randomly generated 6-character Authorization Identification Response code
+                 * sent back to the acquirer in an approved response.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun authorizationIdentificationResponse(): String? =
+                    authorizationIdentificationResponse.getNullable(
+                        "authorization_identification_response"
+                    )
 
                 /**
                  * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -8649,6 +8671,17 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun transactionId(): String? = transactionId.getNullable("transaction_id")
+
+                /**
+                 * Returns the raw JSON value of [authorizationIdentificationResponse].
+                 *
+                 * Unlike [authorizationIdentificationResponse], this method doesn't throw if the
+                 * JSON field has an unexpected type.
+                 */
+                @JsonProperty("authorization_identification_response")
+                @ExcludeMissing
+                fun _authorizationIdentificationResponse(): JsonField<String> =
+                    authorizationIdentificationResponse
 
                 /**
                  * Returns the raw JSON value of [retrievalReferenceNumber].
@@ -8700,6 +8733,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .authorizationIdentificationResponse()
                      * .retrievalReferenceNumber()
                      * .traceNumber()
                      * .transactionId()
@@ -8711,17 +8745,46 @@ private constructor(
                 /** A builder for [NetworkIdentifiers]. */
                 class Builder internal constructor() {
 
+                    private var authorizationIdentificationResponse: JsonField<String>? = null
                     private var retrievalReferenceNumber: JsonField<String>? = null
                     private var traceNumber: JsonField<String>? = null
                     private var transactionId: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
+                        authorizationIdentificationResponse =
+                            networkIdentifiers.authorizationIdentificationResponse
                         retrievalReferenceNumber = networkIdentifiers.retrievalReferenceNumber
                         traceNumber = networkIdentifiers.traceNumber
                         transactionId = networkIdentifiers.transactionId
                         additionalProperties =
                             networkIdentifiers.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * The randomly generated 6-character Authorization Identification Response code
+                     * sent back to the acquirer in an approved response.
+                     */
+                    fun authorizationIdentificationResponse(
+                        authorizationIdentificationResponse: String?
+                    ) =
+                        authorizationIdentificationResponse(
+                            JsonField.ofNullable(authorizationIdentificationResponse)
+                        )
+
+                    /**
+                     * Sets [Builder.authorizationIdentificationResponse] to an arbitrary JSON
+                     * value.
+                     *
+                     * You should usually call [Builder.authorizationIdentificationResponse] with a
+                     * well-typed [String] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun authorizationIdentificationResponse(
+                        authorizationIdentificationResponse: JsonField<String>
+                    ) = apply {
+                        this.authorizationIdentificationResponse =
+                            authorizationIdentificationResponse
                     }
 
                     /**
@@ -8809,6 +8872,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .authorizationIdentificationResponse()
                      * .retrievalReferenceNumber()
                      * .traceNumber()
                      * .transactionId()
@@ -8818,6 +8882,10 @@ private constructor(
                      */
                     fun build(): NetworkIdentifiers =
                         NetworkIdentifiers(
+                            checkRequired(
+                                "authorizationIdentificationResponse",
+                                authorizationIdentificationResponse,
+                            ),
                             checkRequired("retrievalReferenceNumber", retrievalReferenceNumber),
                             checkRequired("traceNumber", traceNumber),
                             checkRequired("transactionId", transactionId),
@@ -8832,6 +8900,7 @@ private constructor(
                         return@apply
                     }
 
+                    authorizationIdentificationResponse()
                     retrievalReferenceNumber()
                     traceNumber()
                     transactionId()
@@ -8853,7 +8922,8 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int =
-                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                    (if (authorizationIdentificationResponse.asKnown() == null) 0 else 1) +
+                        (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
                         (if (traceNumber.asKnown() == null) 0 else 1) +
                         (if (transactionId.asKnown() == null) 0 else 1)
 
@@ -8863,6 +8933,8 @@ private constructor(
                     }
 
                     return other is NetworkIdentifiers &&
+                        authorizationIdentificationResponse ==
+                            other.authorizationIdentificationResponse &&
                         retrievalReferenceNumber == other.retrievalReferenceNumber &&
                         traceNumber == other.traceNumber &&
                         transactionId == other.transactionId &&
@@ -8871,6 +8943,7 @@ private constructor(
 
                 private val hashCode: Int by lazy {
                     Objects.hash(
+                        authorizationIdentificationResponse,
                         retrievalReferenceNumber,
                         traceNumber,
                         transactionId,
@@ -8881,7 +8954,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+                    "NetworkIdentifiers{authorizationIdentificationResponse=$authorizationIdentificationResponse, retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
             }
 
             /**
