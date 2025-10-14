@@ -6645,13 +6645,18 @@ private constructor(
                     /** Visa: details will be under the `visa` object. */
                     val VISA = of("visa")
 
+                    /** Pulse: details will be under the `pulse` object. */
+                    val PULSE = of("pulse")
+
                     fun of(value: String) = Network(JsonField.of(value))
                 }
 
                 /** An enum containing [Network]'s known values. */
                 enum class Known {
                     /** Visa: details will be under the `visa` object. */
-                    VISA
+                    VISA,
+                    /** Pulse: details will be under the `pulse` object. */
+                    PULSE,
                 }
 
                 /**
@@ -6666,6 +6671,8 @@ private constructor(
                 enum class Value {
                     /** Visa: details will be under the `visa` object. */
                     VISA,
+                    /** Pulse: details will be under the `pulse` object. */
+                    PULSE,
                     /**
                      * An enum member indicating that [Network] was instantiated with an unknown
                      * value.
@@ -6683,6 +6690,7 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         VISA -> Value.VISA
+                        PULSE -> Value.PULSE
                         else -> Value._UNKNOWN
                     }
 
@@ -6698,6 +6706,7 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         VISA -> Known.VISA
+                        PULSE -> Known.PULSE
                         else -> throw IncreaseInvalidDataException("Unknown Network: $value")
                     }
 
@@ -11877,6 +11886,7 @@ private constructor(
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val category: JsonField<Category>,
+                private val pulse: JsonValue,
                 private val visa: JsonField<Visa>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
@@ -11886,8 +11896,9 @@ private constructor(
                     @JsonProperty("category")
                     @ExcludeMissing
                     category: JsonField<Category> = JsonMissing.of(),
+                    @JsonProperty("pulse") @ExcludeMissing pulse: JsonValue = JsonMissing.of(),
                     @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
-                ) : this(category, visa, mutableMapOf())
+                ) : this(category, pulse, visa, mutableMapOf())
 
                 /**
                  * The payment network used to process this card authorization.
@@ -11897,6 +11908,9 @@ private constructor(
                  *   unexpected value).
                  */
                 fun category(): Category = category.getRequired("category")
+
+                /** Fields specific to the `pulse` network. */
+                @JsonProperty("pulse") @ExcludeMissing fun _pulse(): JsonValue = pulse
 
                 /**
                  * Fields specific to the `visa` network.
@@ -11944,6 +11958,7 @@ private constructor(
                      * The following fields are required:
                      * ```kotlin
                      * .category()
+                     * .pulse()
                      * .visa()
                      * ```
                      */
@@ -11954,11 +11969,13 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var category: JsonField<Category>? = null
+                    private var pulse: JsonValue? = null
                     private var visa: JsonField<Visa>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(networkDetails: NetworkDetails) = apply {
                         category = networkDetails.category
+                        pulse = networkDetails.pulse
                         visa = networkDetails.visa
                         additionalProperties = networkDetails.additionalProperties.toMutableMap()
                     }
@@ -11974,6 +11991,9 @@ private constructor(
                      * not yet supported value.
                      */
                     fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                    /** Fields specific to the `pulse` network. */
+                    fun pulse(pulse: JsonValue) = apply { this.pulse = pulse }
 
                     /** Fields specific to the `visa` network. */
                     fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
@@ -12017,6 +12037,7 @@ private constructor(
                      * The following fields are required:
                      * ```kotlin
                      * .category()
+                     * .pulse()
                      * .visa()
                      * ```
                      *
@@ -12025,6 +12046,7 @@ private constructor(
                     fun build(): NetworkDetails =
                         NetworkDetails(
                             checkRequired("category", category),
+                            checkRequired("pulse", pulse),
                             checkRequired("visa", visa),
                             additionalProperties.toMutableMap(),
                         )
@@ -12080,13 +12102,18 @@ private constructor(
                         /** Visa */
                         val VISA = of("visa")
 
+                        /** Pulse */
+                        val PULSE = of("pulse")
+
                         fun of(value: String) = Category(JsonField.of(value))
                     }
 
                     /** An enum containing [Category]'s known values. */
                     enum class Known {
                         /** Visa */
-                        VISA
+                        VISA,
+                        /** Pulse */
+                        PULSE,
                     }
 
                     /**
@@ -12102,6 +12129,8 @@ private constructor(
                     enum class Value {
                         /** Visa */
                         VISA,
+                        /** Pulse */
+                        PULSE,
                         /**
                          * An enum member indicating that [Category] was instantiated with an
                          * unknown value.
@@ -12119,6 +12148,7 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             VISA -> Value.VISA
+                            PULSE -> Value.PULSE
                             else -> Value._UNKNOWN
                         }
 
@@ -12134,6 +12164,7 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             VISA -> Known.VISA
+                            PULSE -> Known.PULSE
                             else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                         }
 
@@ -13308,18 +13339,19 @@ private constructor(
 
                     return other is NetworkDetails &&
                         category == other.category &&
+                        pulse == other.pulse &&
                         visa == other.visa &&
                         additionalProperties == other.additionalProperties
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(category, visa, additionalProperties)
+                    Objects.hash(category, pulse, visa, additionalProperties)
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
+                    "NetworkDetails{category=$category, pulse=$pulse, visa=$visa, additionalProperties=$additionalProperties}"
             }
 
             /** Network-specific identifiers for a specific request or transaction. */
@@ -27145,13 +27177,18 @@ private constructor(
                     /** Visa */
                     val VISA = of("visa")
 
+                    /** Pulse */
+                    val PULSE = of("pulse")
+
                     fun of(value: String) = Network(JsonField.of(value))
                 }
 
                 /** An enum containing [Network]'s known values. */
                 enum class Known {
                     /** Visa */
-                    VISA
+                    VISA,
+                    /** Pulse */
+                    PULSE,
                 }
 
                 /**
@@ -27166,6 +27203,8 @@ private constructor(
                 enum class Value {
                     /** Visa */
                     VISA,
+                    /** Pulse */
+                    PULSE,
                     /**
                      * An enum member indicating that [Network] was instantiated with an unknown
                      * value.
@@ -27183,6 +27222,7 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         VISA -> Value.VISA
+                        PULSE -> Value.PULSE
                         else -> Value._UNKNOWN
                     }
 
@@ -27198,6 +27238,7 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         VISA -> Known.VISA
+                        PULSE -> Known.PULSE
                         else -> throw IncreaseInvalidDataException("Unknown Network: $value")
                     }
 
