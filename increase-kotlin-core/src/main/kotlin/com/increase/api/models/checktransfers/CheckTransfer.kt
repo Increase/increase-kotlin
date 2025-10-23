@@ -1400,7 +1400,9 @@ private constructor(
             val FULL = of("full")
 
             /**
-             * No balance check will performed; a zero-dollar Pending Transaction will be created.
+             * No balance check will performed when the check transfer is initiated. A zero-dollar
+             * Pending Transaction will be created. The balance will still be checked when the
+             * Inbound Check Deposit is created.
              */
             val NONE = of("none")
 
@@ -1415,7 +1417,9 @@ private constructor(
              */
             FULL,
             /**
-             * No balance check will performed; a zero-dollar Pending Transaction will be created.
+             * No balance check will performed when the check transfer is initiated. A zero-dollar
+             * Pending Transaction will be created. The balance will still be checked when the
+             * Inbound Check Deposit is created.
              */
             NONE,
         }
@@ -1436,7 +1440,9 @@ private constructor(
              */
             FULL,
             /**
-             * No balance check will performed; a zero-dollar Pending Transaction will be created.
+             * No balance check will performed when the check transfer is initiated. A zero-dollar
+             * Pending Transaction will be created. The balance will still be checked when the
+             * Inbound Check Deposit is created.
              */
             NONE,
             /**
