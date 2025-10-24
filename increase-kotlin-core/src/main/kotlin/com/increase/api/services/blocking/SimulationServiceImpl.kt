@@ -39,6 +39,8 @@ import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundAchTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositServiceImpl
+import com.increase.api.services.blocking.simulations.InboundFednowTransferService
+import com.increase.api.services.blocking.simulations.InboundFednowTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InboundMailItemService
 import com.increase.api.services.blocking.simulations.InboundMailItemServiceImpl
 import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferService
@@ -155,6 +157,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         InboundRealTimePaymentsTransferServiceImpl(clientOptions)
     }
 
+    private val inboundFednowTransfers: InboundFednowTransferService by lazy {
+        InboundFednowTransferServiceImpl(clientOptions)
+    }
+
     private val checkDeposits: CheckDepositService by lazy {
         CheckDepositServiceImpl(clientOptions)
     }
@@ -228,6 +234,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService =
         inboundRealTimePaymentsTransfers
+
+    override fun inboundFednowTransfers(): InboundFednowTransferService = inboundFednowTransfers
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 
@@ -341,6 +349,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             InboundRealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val inboundFednowTransfers: InboundFednowTransferService.WithRawResponse by lazy {
+            InboundFednowTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val checkDeposits: CheckDepositService.WithRawResponse by lazy {
             CheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -430,6 +442,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         override fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferService.WithRawResponse =
             inboundRealTimePaymentsTransfers
+
+        override fun inboundFednowTransfers(): InboundFednowTransferService.WithRawResponse =
+            inboundFednowTransfers
 
         override fun checkDeposits(): CheckDepositService.WithRawResponse = checkDeposits
 
