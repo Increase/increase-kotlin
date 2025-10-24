@@ -21,6 +21,7 @@ import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServ
 import com.increase.api.services.async.simulations.DocumentServiceAsync
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
+import com.increase.api.services.async.simulations.InboundFednowTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundMailItemServiceAsync
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
@@ -92,6 +93,8 @@ interface SimulationServiceAsync {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
     fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
+
+    fun inboundFednowTransfers(): InboundFednowTransferServiceAsync
 
     fun checkDeposits(): CheckDepositServiceAsync
 
@@ -166,6 +169,8 @@ interface SimulationServiceAsync {
 
         fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse
+
+        fun inboundFednowTransfers(): InboundFednowTransferServiceAsync.WithRawResponse
 
         fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
 
