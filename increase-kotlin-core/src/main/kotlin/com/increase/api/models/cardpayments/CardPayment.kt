@@ -5490,6 +5490,7 @@ private constructor(
             private constructor(
                 private val clinic: JsonField<Clinic>,
                 private val dental: JsonField<Dental>,
+                private val original: JsonField<Original>,
                 private val prescription: JsonField<Prescription>,
                 private val surcharge: JsonField<Surcharge>,
                 private val totalCumulative: JsonField<TotalCumulative>,
@@ -5508,6 +5509,9 @@ private constructor(
                     @JsonProperty("dental")
                     @ExcludeMissing
                     dental: JsonField<Dental> = JsonMissing.of(),
+                    @JsonProperty("original")
+                    @ExcludeMissing
+                    original: JsonField<Original> = JsonMissing.of(),
                     @JsonProperty("prescription")
                     @ExcludeMissing
                     prescription: JsonField<Prescription> = JsonMissing.of(),
@@ -5532,6 +5536,7 @@ private constructor(
                 ) : this(
                     clinic,
                     dental,
+                    original,
                     prescription,
                     surcharge,
                     totalCumulative,
@@ -5557,6 +5562,14 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun dental(): Dental? = dental.getNullable("dental")
+
+                /**
+                 * The original pre-authorized amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun original(): Original? = original.getNullable("original")
 
                 /**
                  * The part of this transaction amount that was for healthcare prescriptions.
@@ -5631,6 +5644,16 @@ private constructor(
                  * type.
                  */
                 @JsonProperty("dental") @ExcludeMissing fun _dental(): JsonField<Dental> = dental
+
+                /**
+                 * Returns the raw JSON value of [original].
+                 *
+                 * Unlike [original], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("original")
+                @ExcludeMissing
+                fun _original(): JsonField<Original> = original
 
                 /**
                  * Returns the raw JSON value of [prescription].
@@ -5722,6 +5745,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -5739,6 +5763,7 @@ private constructor(
 
                     private var clinic: JsonField<Clinic>? = null
                     private var dental: JsonField<Dental>? = null
+                    private var original: JsonField<Original>? = null
                     private var prescription: JsonField<Prescription>? = null
                     private var surcharge: JsonField<Surcharge>? = null
                     private var totalCumulative: JsonField<TotalCumulative>? = null
@@ -5751,6 +5776,7 @@ private constructor(
                     internal fun from(additionalAmounts: AdditionalAmounts) = apply {
                         clinic = additionalAmounts.clinic
                         dental = additionalAmounts.dental
+                        original = additionalAmounts.original
                         prescription = additionalAmounts.prescription
                         surcharge = additionalAmounts.surcharge
                         totalCumulative = additionalAmounts.totalCumulative
@@ -5784,6 +5810,18 @@ private constructor(
                      * not yet supported value.
                      */
                     fun dental(dental: JsonField<Dental>) = apply { this.dental = dental }
+
+                    /** The original pre-authorized amount. */
+                    fun original(original: Original?) = original(JsonField.ofNullable(original))
+
+                    /**
+                     * Sets [Builder.original] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.original] with a well-typed [Original] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun original(original: JsonField<Original>) = apply { this.original = original }
 
                     /**
                      * The part of this transaction amount that was for healthcare prescriptions.
@@ -5919,6 +5957,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -5934,6 +5973,7 @@ private constructor(
                         AdditionalAmounts(
                             checkRequired("clinic", clinic),
                             checkRequired("dental", dental),
+                            checkRequired("original", original),
                             checkRequired("prescription", prescription),
                             checkRequired("surcharge", surcharge),
                             checkRequired("totalCumulative", totalCumulative),
@@ -5954,6 +5994,7 @@ private constructor(
 
                     clinic()?.validate()
                     dental()?.validate()
+                    original()?.validate()
                     prescription()?.validate()
                     surcharge()?.validate()
                     totalCumulative()?.validate()
@@ -5981,6 +6022,7 @@ private constructor(
                 internal fun validity(): Int =
                     (clinic.asKnown()?.validity() ?: 0) +
                         (dental.asKnown()?.validity() ?: 0) +
+                        (original.asKnown()?.validity() ?: 0) +
                         (prescription.asKnown()?.validity() ?: 0) +
                         (surcharge.asKnown()?.validity() ?: 0) +
                         (totalCumulative.asKnown()?.validity() ?: 0) +
@@ -6437,6 +6479,231 @@ private constructor(
 
                     override fun toString() =
                         "Dental{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
+                }
+
+                /** The original pre-authorized amount. */
+                class Original
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val amount: JsonField<Long>,
+                    private val currency: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("currency")
+                        @ExcludeMissing
+                        currency: JsonField<String> = JsonMissing.of(),
+                    ) : this(amount, currency, mutableMapOf())
+
+                    /**
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): Long = amount.getRequired("amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * additional amount's currency.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun currency(): String = currency.getRequired("currency")
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+                    /**
+                     * Returns the raw JSON value of [currency].
+                     *
+                     * Unlike [currency], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun _currency(): JsonField<String> = currency
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Original].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Original]. */
+                    class Builder internal constructor() {
+
+                        private var amount: JsonField<Long>? = null
+                        private var currency: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(original: Original) = apply {
+                            amount = original.amount
+                            currency = original.currency
+                            additionalProperties = original.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
+                        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [Long] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * additional amount's currency.
+                         */
+                        fun currency(currency: String) = currency(JsonField.of(currency))
+
+                        /**
+                         * Sets [Builder.currency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.currency] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun currency(currency: JsonField<String>) = apply {
+                            this.currency = currency
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Original].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Original =
+                            Original(
+                                checkRequired("amount", amount),
+                                checkRequired("currency", currency),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Original = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        amount()
+                        currency()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (amount.asKnown() == null) 0 else 1) +
+                            (if (currency.asKnown() == null) 0 else 1)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Original &&
+                            amount == other.amount &&
+                            currency == other.currency &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(amount, currency, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Original{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
                 }
 
                 /** The part of this transaction amount that was for healthcare prescriptions. */
@@ -8028,6 +8295,7 @@ private constructor(
                     return other is AdditionalAmounts &&
                         clinic == other.clinic &&
                         dental == other.dental &&
+                        original == other.original &&
                         prescription == other.prescription &&
                         surcharge == other.surcharge &&
                         totalCumulative == other.totalCumulative &&
@@ -8042,6 +8310,7 @@ private constructor(
                     Objects.hash(
                         clinic,
                         dental,
+                        original,
                         prescription,
                         surcharge,
                         totalCumulative,
@@ -8056,7 +8325,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "AdditionalAmounts{clinic=$clinic, dental=$dental, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
+                    "AdditionalAmounts{clinic=$clinic, dental=$dental, original=$original, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
             }
 
             /**
@@ -14346,6 +14615,7 @@ private constructor(
             private constructor(
                 private val clinic: JsonField<Clinic>,
                 private val dental: JsonField<Dental>,
+                private val original: JsonField<Original>,
                 private val prescription: JsonField<Prescription>,
                 private val surcharge: JsonField<Surcharge>,
                 private val totalCumulative: JsonField<TotalCumulative>,
@@ -14364,6 +14634,9 @@ private constructor(
                     @JsonProperty("dental")
                     @ExcludeMissing
                     dental: JsonField<Dental> = JsonMissing.of(),
+                    @JsonProperty("original")
+                    @ExcludeMissing
+                    original: JsonField<Original> = JsonMissing.of(),
                     @JsonProperty("prescription")
                     @ExcludeMissing
                     prescription: JsonField<Prescription> = JsonMissing.of(),
@@ -14388,6 +14661,7 @@ private constructor(
                 ) : this(
                     clinic,
                     dental,
+                    original,
                     prescription,
                     surcharge,
                     totalCumulative,
@@ -14413,6 +14687,14 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun dental(): Dental? = dental.getNullable("dental")
+
+                /**
+                 * The original pre-authorized amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun original(): Original? = original.getNullable("original")
 
                 /**
                  * The part of this transaction amount that was for healthcare prescriptions.
@@ -14487,6 +14769,16 @@ private constructor(
                  * type.
                  */
                 @JsonProperty("dental") @ExcludeMissing fun _dental(): JsonField<Dental> = dental
+
+                /**
+                 * Returns the raw JSON value of [original].
+                 *
+                 * Unlike [original], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("original")
+                @ExcludeMissing
+                fun _original(): JsonField<Original> = original
 
                 /**
                  * Returns the raw JSON value of [prescription].
@@ -14578,6 +14870,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -14595,6 +14888,7 @@ private constructor(
 
                     private var clinic: JsonField<Clinic>? = null
                     private var dental: JsonField<Dental>? = null
+                    private var original: JsonField<Original>? = null
                     private var prescription: JsonField<Prescription>? = null
                     private var surcharge: JsonField<Surcharge>? = null
                     private var totalCumulative: JsonField<TotalCumulative>? = null
@@ -14607,6 +14901,7 @@ private constructor(
                     internal fun from(additionalAmounts: AdditionalAmounts) = apply {
                         clinic = additionalAmounts.clinic
                         dental = additionalAmounts.dental
+                        original = additionalAmounts.original
                         prescription = additionalAmounts.prescription
                         surcharge = additionalAmounts.surcharge
                         totalCumulative = additionalAmounts.totalCumulative
@@ -14640,6 +14935,18 @@ private constructor(
                      * not yet supported value.
                      */
                     fun dental(dental: JsonField<Dental>) = apply { this.dental = dental }
+
+                    /** The original pre-authorized amount. */
+                    fun original(original: Original?) = original(JsonField.ofNullable(original))
+
+                    /**
+                     * Sets [Builder.original] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.original] with a well-typed [Original] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun original(original: JsonField<Original>) = apply { this.original = original }
 
                     /**
                      * The part of this transaction amount that was for healthcare prescriptions.
@@ -14775,6 +15082,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -14790,6 +15098,7 @@ private constructor(
                         AdditionalAmounts(
                             checkRequired("clinic", clinic),
                             checkRequired("dental", dental),
+                            checkRequired("original", original),
                             checkRequired("prescription", prescription),
                             checkRequired("surcharge", surcharge),
                             checkRequired("totalCumulative", totalCumulative),
@@ -14810,6 +15119,7 @@ private constructor(
 
                     clinic()?.validate()
                     dental()?.validate()
+                    original()?.validate()
                     prescription()?.validate()
                     surcharge()?.validate()
                     totalCumulative()?.validate()
@@ -14837,6 +15147,7 @@ private constructor(
                 internal fun validity(): Int =
                     (clinic.asKnown()?.validity() ?: 0) +
                         (dental.asKnown()?.validity() ?: 0) +
+                        (original.asKnown()?.validity() ?: 0) +
                         (prescription.asKnown()?.validity() ?: 0) +
                         (surcharge.asKnown()?.validity() ?: 0) +
                         (totalCumulative.asKnown()?.validity() ?: 0) +
@@ -15293,6 +15604,231 @@ private constructor(
 
                     override fun toString() =
                         "Dental{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
+                }
+
+                /** The original pre-authorized amount. */
+                class Original
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val amount: JsonField<Long>,
+                    private val currency: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("currency")
+                        @ExcludeMissing
+                        currency: JsonField<String> = JsonMissing.of(),
+                    ) : this(amount, currency, mutableMapOf())
+
+                    /**
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): Long = amount.getRequired("amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * additional amount's currency.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun currency(): String = currency.getRequired("currency")
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+                    /**
+                     * Returns the raw JSON value of [currency].
+                     *
+                     * Unlike [currency], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun _currency(): JsonField<String> = currency
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Original].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Original]. */
+                    class Builder internal constructor() {
+
+                        private var amount: JsonField<Long>? = null
+                        private var currency: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(original: Original) = apply {
+                            amount = original.amount
+                            currency = original.currency
+                            additionalProperties = original.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
+                        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [Long] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * additional amount's currency.
+                         */
+                        fun currency(currency: String) = currency(JsonField.of(currency))
+
+                        /**
+                         * Sets [Builder.currency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.currency] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun currency(currency: JsonField<String>) = apply {
+                            this.currency = currency
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Original].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Original =
+                            Original(
+                                checkRequired("amount", amount),
+                                checkRequired("currency", currency),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Original = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        amount()
+                        currency()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (amount.asKnown() == null) 0 else 1) +
+                            (if (currency.asKnown() == null) 0 else 1)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Original &&
+                            amount == other.amount &&
+                            currency == other.currency &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(amount, currency, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Original{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
                 }
 
                 /** The part of this transaction amount that was for healthcare prescriptions. */
@@ -16884,6 +17420,7 @@ private constructor(
                     return other is AdditionalAmounts &&
                         clinic == other.clinic &&
                         dental == other.dental &&
+                        original == other.original &&
                         prescription == other.prescription &&
                         surcharge == other.surcharge &&
                         totalCumulative == other.totalCumulative &&
@@ -16898,6 +17435,7 @@ private constructor(
                     Objects.hash(
                         clinic,
                         dental,
+                        original,
                         prescription,
                         surcharge,
                         totalCumulative,
@@ -16912,7 +17450,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "AdditionalAmounts{clinic=$clinic, dental=$dental, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
+                    "AdditionalAmounts{clinic=$clinic, dental=$dental, original=$original, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
             }
 
             /**
@@ -23431,6 +23969,7 @@ private constructor(
             private constructor(
                 private val clinic: JsonField<Clinic>,
                 private val dental: JsonField<Dental>,
+                private val original: JsonField<Original>,
                 private val prescription: JsonField<Prescription>,
                 private val surcharge: JsonField<Surcharge>,
                 private val totalCumulative: JsonField<TotalCumulative>,
@@ -23449,6 +23988,9 @@ private constructor(
                     @JsonProperty("dental")
                     @ExcludeMissing
                     dental: JsonField<Dental> = JsonMissing.of(),
+                    @JsonProperty("original")
+                    @ExcludeMissing
+                    original: JsonField<Original> = JsonMissing.of(),
                     @JsonProperty("prescription")
                     @ExcludeMissing
                     prescription: JsonField<Prescription> = JsonMissing.of(),
@@ -23473,6 +24015,7 @@ private constructor(
                 ) : this(
                     clinic,
                     dental,
+                    original,
                     prescription,
                     surcharge,
                     totalCumulative,
@@ -23498,6 +24041,14 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun dental(): Dental? = dental.getNullable("dental")
+
+                /**
+                 * The original pre-authorized amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun original(): Original? = original.getNullable("original")
 
                 /**
                  * The part of this transaction amount that was for healthcare prescriptions.
@@ -23572,6 +24123,16 @@ private constructor(
                  * type.
                  */
                 @JsonProperty("dental") @ExcludeMissing fun _dental(): JsonField<Dental> = dental
+
+                /**
+                 * Returns the raw JSON value of [original].
+                 *
+                 * Unlike [original], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("original")
+                @ExcludeMissing
+                fun _original(): JsonField<Original> = original
 
                 /**
                  * Returns the raw JSON value of [prescription].
@@ -23663,6 +24224,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -23680,6 +24242,7 @@ private constructor(
 
                     private var clinic: JsonField<Clinic>? = null
                     private var dental: JsonField<Dental>? = null
+                    private var original: JsonField<Original>? = null
                     private var prescription: JsonField<Prescription>? = null
                     private var surcharge: JsonField<Surcharge>? = null
                     private var totalCumulative: JsonField<TotalCumulative>? = null
@@ -23692,6 +24255,7 @@ private constructor(
                     internal fun from(additionalAmounts: AdditionalAmounts) = apply {
                         clinic = additionalAmounts.clinic
                         dental = additionalAmounts.dental
+                        original = additionalAmounts.original
                         prescription = additionalAmounts.prescription
                         surcharge = additionalAmounts.surcharge
                         totalCumulative = additionalAmounts.totalCumulative
@@ -23725,6 +24289,18 @@ private constructor(
                      * not yet supported value.
                      */
                     fun dental(dental: JsonField<Dental>) = apply { this.dental = dental }
+
+                    /** The original pre-authorized amount. */
+                    fun original(original: Original?) = original(JsonField.ofNullable(original))
+
+                    /**
+                     * Sets [Builder.original] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.original] with a well-typed [Original] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun original(original: JsonField<Original>) = apply { this.original = original }
 
                     /**
                      * The part of this transaction amount that was for healthcare prescriptions.
@@ -23860,6 +24436,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -23875,6 +24452,7 @@ private constructor(
                         AdditionalAmounts(
                             checkRequired("clinic", clinic),
                             checkRequired("dental", dental),
+                            checkRequired("original", original),
                             checkRequired("prescription", prescription),
                             checkRequired("surcharge", surcharge),
                             checkRequired("totalCumulative", totalCumulative),
@@ -23895,6 +24473,7 @@ private constructor(
 
                     clinic()?.validate()
                     dental()?.validate()
+                    original()?.validate()
                     prescription()?.validate()
                     surcharge()?.validate()
                     totalCumulative()?.validate()
@@ -23922,6 +24501,7 @@ private constructor(
                 internal fun validity(): Int =
                     (clinic.asKnown()?.validity() ?: 0) +
                         (dental.asKnown()?.validity() ?: 0) +
+                        (original.asKnown()?.validity() ?: 0) +
                         (prescription.asKnown()?.validity() ?: 0) +
                         (surcharge.asKnown()?.validity() ?: 0) +
                         (totalCumulative.asKnown()?.validity() ?: 0) +
@@ -24378,6 +24958,231 @@ private constructor(
 
                     override fun toString() =
                         "Dental{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
+                }
+
+                /** The original pre-authorized amount. */
+                class Original
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val amount: JsonField<Long>,
+                    private val currency: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("currency")
+                        @ExcludeMissing
+                        currency: JsonField<String> = JsonMissing.of(),
+                    ) : this(amount, currency, mutableMapOf())
+
+                    /**
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): Long = amount.getRequired("amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * additional amount's currency.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun currency(): String = currency.getRequired("currency")
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+                    /**
+                     * Returns the raw JSON value of [currency].
+                     *
+                     * Unlike [currency], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun _currency(): JsonField<String> = currency
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Original].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Original]. */
+                    class Builder internal constructor() {
+
+                        private var amount: JsonField<Long>? = null
+                        private var currency: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(original: Original) = apply {
+                            amount = original.amount
+                            currency = original.currency
+                            additionalProperties = original.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
+                        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [Long] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * additional amount's currency.
+                         */
+                        fun currency(currency: String) = currency(JsonField.of(currency))
+
+                        /**
+                         * Sets [Builder.currency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.currency] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun currency(currency: JsonField<String>) = apply {
+                            this.currency = currency
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Original].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Original =
+                            Original(
+                                checkRequired("amount", amount),
+                                checkRequired("currency", currency),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Original = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        amount()
+                        currency()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (amount.asKnown() == null) 0 else 1) +
+                            (if (currency.asKnown() == null) 0 else 1)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Original &&
+                            amount == other.amount &&
+                            currency == other.currency &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(amount, currency, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Original{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
                 }
 
                 /** The part of this transaction amount that was for healthcare prescriptions. */
@@ -25969,6 +26774,7 @@ private constructor(
                     return other is AdditionalAmounts &&
                         clinic == other.clinic &&
                         dental == other.dental &&
+                        original == other.original &&
                         prescription == other.prescription &&
                         surcharge == other.surcharge &&
                         totalCumulative == other.totalCumulative &&
@@ -25983,6 +26789,7 @@ private constructor(
                     Objects.hash(
                         clinic,
                         dental,
+                        original,
                         prescription,
                         surcharge,
                         totalCumulative,
@@ -25997,7 +26804,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "AdditionalAmounts{clinic=$clinic, dental=$dental, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
+                    "AdditionalAmounts{clinic=$clinic, dental=$dental, original=$original, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
             }
 
             /**
@@ -48872,6 +49679,7 @@ private constructor(
             private constructor(
                 private val clinic: JsonField<Clinic>,
                 private val dental: JsonField<Dental>,
+                private val original: JsonField<Original>,
                 private val prescription: JsonField<Prescription>,
                 private val surcharge: JsonField<Surcharge>,
                 private val totalCumulative: JsonField<TotalCumulative>,
@@ -48890,6 +49698,9 @@ private constructor(
                     @JsonProperty("dental")
                     @ExcludeMissing
                     dental: JsonField<Dental> = JsonMissing.of(),
+                    @JsonProperty("original")
+                    @ExcludeMissing
+                    original: JsonField<Original> = JsonMissing.of(),
                     @JsonProperty("prescription")
                     @ExcludeMissing
                     prescription: JsonField<Prescription> = JsonMissing.of(),
@@ -48914,6 +49725,7 @@ private constructor(
                 ) : this(
                     clinic,
                     dental,
+                    original,
                     prescription,
                     surcharge,
                     totalCumulative,
@@ -48939,6 +49751,14 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun dental(): Dental? = dental.getNullable("dental")
+
+                /**
+                 * The original pre-authorized amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun original(): Original? = original.getNullable("original")
 
                 /**
                  * The part of this transaction amount that was for healthcare prescriptions.
@@ -49013,6 +49833,16 @@ private constructor(
                  * type.
                  */
                 @JsonProperty("dental") @ExcludeMissing fun _dental(): JsonField<Dental> = dental
+
+                /**
+                 * Returns the raw JSON value of [original].
+                 *
+                 * Unlike [original], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("original")
+                @ExcludeMissing
+                fun _original(): JsonField<Original> = original
 
                 /**
                  * Returns the raw JSON value of [prescription].
@@ -49104,6 +49934,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -49121,6 +49952,7 @@ private constructor(
 
                     private var clinic: JsonField<Clinic>? = null
                     private var dental: JsonField<Dental>? = null
+                    private var original: JsonField<Original>? = null
                     private var prescription: JsonField<Prescription>? = null
                     private var surcharge: JsonField<Surcharge>? = null
                     private var totalCumulative: JsonField<TotalCumulative>? = null
@@ -49133,6 +49965,7 @@ private constructor(
                     internal fun from(additionalAmounts: AdditionalAmounts) = apply {
                         clinic = additionalAmounts.clinic
                         dental = additionalAmounts.dental
+                        original = additionalAmounts.original
                         prescription = additionalAmounts.prescription
                         surcharge = additionalAmounts.surcharge
                         totalCumulative = additionalAmounts.totalCumulative
@@ -49166,6 +49999,18 @@ private constructor(
                      * not yet supported value.
                      */
                     fun dental(dental: JsonField<Dental>) = apply { this.dental = dental }
+
+                    /** The original pre-authorized amount. */
+                    fun original(original: Original?) = original(JsonField.ofNullable(original))
+
+                    /**
+                     * Sets [Builder.original] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.original] with a well-typed [Original] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun original(original: JsonField<Original>) = apply { this.original = original }
 
                     /**
                      * The part of this transaction amount that was for healthcare prescriptions.
@@ -49301,6 +50146,7 @@ private constructor(
                      * ```kotlin
                      * .clinic()
                      * .dental()
+                     * .original()
                      * .prescription()
                      * .surcharge()
                      * .totalCumulative()
@@ -49316,6 +50162,7 @@ private constructor(
                         AdditionalAmounts(
                             checkRequired("clinic", clinic),
                             checkRequired("dental", dental),
+                            checkRequired("original", original),
                             checkRequired("prescription", prescription),
                             checkRequired("surcharge", surcharge),
                             checkRequired("totalCumulative", totalCumulative),
@@ -49336,6 +50183,7 @@ private constructor(
 
                     clinic()?.validate()
                     dental()?.validate()
+                    original()?.validate()
                     prescription()?.validate()
                     surcharge()?.validate()
                     totalCumulative()?.validate()
@@ -49363,6 +50211,7 @@ private constructor(
                 internal fun validity(): Int =
                     (clinic.asKnown()?.validity() ?: 0) +
                         (dental.asKnown()?.validity() ?: 0) +
+                        (original.asKnown()?.validity() ?: 0) +
                         (prescription.asKnown()?.validity() ?: 0) +
                         (surcharge.asKnown()?.validity() ?: 0) +
                         (totalCumulative.asKnown()?.validity() ?: 0) +
@@ -49819,6 +50668,231 @@ private constructor(
 
                     override fun toString() =
                         "Dental{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
+                }
+
+                /** The original pre-authorized amount. */
+                class Original
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val amount: JsonField<Long>,
+                    private val currency: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("currency")
+                        @ExcludeMissing
+                        currency: JsonField<String> = JsonMissing.of(),
+                    ) : this(amount, currency, mutableMapOf())
+
+                    /**
+                     * The amount in minor units of the `currency` field. The amount is positive if
+                     * it is added to the amount (such as an ATM surcharge fee) and negative if it
+                     * is subtracted from the amount (such as a discount).
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): Long = amount.getRequired("amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * additional amount's currency.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun currency(): String = currency.getRequired("currency")
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+                    /**
+                     * Returns the raw JSON value of [currency].
+                     *
+                     * Unlike [currency], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun _currency(): JsonField<String> = currency
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Original].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Original]. */
+                    class Builder internal constructor() {
+
+                        private var amount: JsonField<Long>? = null
+                        private var currency: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(original: Original) = apply {
+                            amount = original.amount
+                            currency = original.currency
+                            additionalProperties = original.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The amount in minor units of the `currency` field. The amount is positive
+                         * if it is added to the amount (such as an ATM surcharge fee) and negative
+                         * if it is subtracted from the amount (such as a discount).
+                         */
+                        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [Long] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * additional amount's currency.
+                         */
+                        fun currency(currency: String) = currency(JsonField.of(currency))
+
+                        /**
+                         * Sets [Builder.currency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.currency] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun currency(currency: JsonField<String>) = apply {
+                            this.currency = currency
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Original].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .amount()
+                         * .currency()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Original =
+                            Original(
+                                checkRequired("amount", amount),
+                                checkRequired("currency", currency),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Original = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        amount()
+                        currency()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (amount.asKnown() == null) 0 else 1) +
+                            (if (currency.asKnown() == null) 0 else 1)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Original &&
+                            amount == other.amount &&
+                            currency == other.currency &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(amount, currency, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Original{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
                 }
 
                 /** The part of this transaction amount that was for healthcare prescriptions. */
@@ -51410,6 +52484,7 @@ private constructor(
                     return other is AdditionalAmounts &&
                         clinic == other.clinic &&
                         dental == other.dental &&
+                        original == other.original &&
                         prescription == other.prescription &&
                         surcharge == other.surcharge &&
                         totalCumulative == other.totalCumulative &&
@@ -51424,6 +52499,7 @@ private constructor(
                     Objects.hash(
                         clinic,
                         dental,
+                        original,
                         prescription,
                         surcharge,
                         totalCumulative,
@@ -51438,7 +52514,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "AdditionalAmounts{clinic=$clinic, dental=$dental, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
+                    "AdditionalAmounts{clinic=$clinic, dental=$dental, original=$original, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
             }
 
             /**
