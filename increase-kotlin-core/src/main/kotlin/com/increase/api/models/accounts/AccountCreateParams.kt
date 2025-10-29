@@ -44,7 +44,7 @@ private constructor(
 
     /**
      * The identifier of an Entity that, while not owning the Account, is associated with its
-     * activity. Its relationship to your group must be `informational`.
+     * activity. This is generally the beneficiary of the funds.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -161,7 +161,7 @@ private constructor(
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity. Its relationship to your group must be `informational`.
+         * activity. This is generally the beneficiary of the funds.
          */
         fun informationalEntityId(informationalEntityId: String) = apply {
             body.informationalEntityId(informationalEntityId)
@@ -378,7 +378,7 @@ private constructor(
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity. Its relationship to your group must be `informational`.
+         * activity. This is generally the beneficiary of the funds.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -494,7 +494,7 @@ private constructor(
 
             /**
              * The identifier of an Entity that, while not owning the Account, is associated with
-             * its activity. Its relationship to your group must be `informational`.
+             * its activity. This is generally the beneficiary of the funds.
              */
             fun informationalEntityId(informationalEntityId: String) =
                 informationalEntityId(JsonField.of(informationalEntityId))
