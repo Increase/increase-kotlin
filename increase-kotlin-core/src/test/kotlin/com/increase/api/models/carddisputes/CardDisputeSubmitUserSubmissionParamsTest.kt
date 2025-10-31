@@ -2,7 +2,6 @@
 
 package com.increase.api.models.carddisputes
 
-import com.increase.api.core.JsonValue
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -86,7 +85,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .reason("x")
                                             .build()
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerCanceledMerchandise
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .returnAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerCanceledMerchandise
@@ -203,8 +208,20 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             )
                                             .build()
                                     )
-                                    .other(JsonValue.from(mapOf<String, Any>()))
-                                    .timeshare(JsonValue.from(mapOf<String, Any>()))
+                                    .other(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerCanceledServices
+                                            .Other
+                                            .builder()
+                                            .build()
+                                    )
+                                    .timeshare(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerCanceledServices
+                                            .Timeshare
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
                             .consumerCounterfeitMerchandise(
@@ -243,7 +260,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .ReturnOutcome
                                             .NOT_RETURNED
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerDamagedOrDefectiveMerchandise
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .returnAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerDamagedOrDefectiveMerchandise
@@ -302,7 +325,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .ReturnOutcome
                                             .NOT_RETURNED
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerMerchandiseMisrepresentation
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .returnAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerMerchandiseMisrepresentation
@@ -445,7 +474,15 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                     .ReturnOutcome
                                                     .NOT_RETURNED
                                             )
-                                            .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                            .notReturned(
+                                                CardDisputeSubmitUserSubmissionParams.Visa
+                                                    .Chargeback
+                                                    .ConsumerMerchandiseNotReceived
+                                                    .Delayed
+                                                    .NotReturned
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .returnAttempted(
                                                 CardDisputeSubmitUserSubmissionParams.Visa
                                                     .Chargeback
@@ -487,10 +524,21 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .canceledAt(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
-                                    .noCancellation(JsonValue.from(mapOf<String, Any>()))
+                                    .noCancellation(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerMerchandiseNotReceived
+                                            .NoCancellation
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
-                            .consumerNonReceiptOfCash(JsonValue.from(mapOf<String, Any>()))
+                            .consumerNonReceiptOfCash(
+                                CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                    .ConsumerNonReceiptOfCash
+                                    .builder()
+                                    .build()
+                            )
                             .consumerOriginalCreditTransactionNotAccepted(
                                 CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                     .ConsumerOriginalCreditTransactionNotAccepted
@@ -523,7 +571,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .ReturnOutcome
                                             .NOT_RETURNED
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerQualityMerchandise
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .ongoingNegotiations(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerQualityMerchandise
@@ -723,7 +777,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .canceledAt(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
-                                    .noCancellation(JsonValue.from(mapOf<String, Any>()))
+                                    .noCancellation(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerServicesNotReceived
+                                            .NoCancellation
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
                             .fraud(
@@ -912,7 +972,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .reason("x")
                                                 .build()
                                         )
-                                        .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                        .notReturned(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerCanceledMerchandise
+                                                .NotReturned
+                                                .builder()
+                                                .build()
+                                        )
                                         .returnAttempted(
                                             CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                                 .ConsumerCanceledMerchandise
@@ -1033,8 +1099,20 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 )
                                                 .build()
                                         )
-                                        .other(JsonValue.from(mapOf<String, Any>()))
-                                        .timeshare(JsonValue.from(mapOf<String, Any>()))
+                                        .other(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerCanceledServices
+                                                .Other
+                                                .builder()
+                                                .build()
+                                        )
+                                        .timeshare(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerCanceledServices
+                                                .Timeshare
+                                                .builder()
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .consumerCounterfeitMerchandise(
@@ -1073,7 +1151,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .ReturnOutcome
                                                 .NOT_RETURNED
                                         )
-                                        .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                        .notReturned(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerDamagedOrDefectiveMerchandise
+                                                .NotReturned
+                                                .builder()
+                                                .build()
+                                        )
                                         .returnAttempted(
                                             CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                                 .ConsumerDamagedOrDefectiveMerchandise
@@ -1134,7 +1218,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .ReturnOutcome
                                                 .NOT_RETURNED
                                         )
-                                        .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                        .notReturned(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerMerchandiseMisrepresentation
+                                                .NotReturned
+                                                .builder()
+                                                .build()
+                                        )
                                         .returnAttempted(
                                             CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                                 .ConsumerMerchandiseMisrepresentation
@@ -1281,7 +1371,15 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                         .ReturnOutcome
                                                         .NOT_RETURNED
                                                 )
-                                                .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                                .notReturned(
+                                                    CardDisputeSubmitUserSubmissionParams.Visa
+                                                        .Chargeback
+                                                        .ConsumerMerchandiseNotReceived
+                                                        .Delayed
+                                                        .NotReturned
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .returnAttempted(
                                                     CardDisputeSubmitUserSubmissionParams.Visa
                                                         .Chargeback
@@ -1323,10 +1421,21 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .canceledAt(LocalDate.parse("2019-12-27"))
                                                 .build()
                                         )
-                                        .noCancellation(JsonValue.from(mapOf<String, Any>()))
+                                        .noCancellation(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerMerchandiseNotReceived
+                                                .NoCancellation
+                                                .builder()
+                                                .build()
+                                        )
                                         .build()
                                 )
-                                .consumerNonReceiptOfCash(JsonValue.from(mapOf<String, Any>()))
+                                .consumerNonReceiptOfCash(
+                                    CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                        .ConsumerNonReceiptOfCash
+                                        .builder()
+                                        .build()
+                                )
                                 .consumerOriginalCreditTransactionNotAccepted(
                                     CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                         .ConsumerOriginalCreditTransactionNotAccepted
@@ -1359,7 +1468,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .ReturnOutcome
                                                 .NOT_RETURNED
                                         )
-                                        .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                        .notReturned(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerQualityMerchandise
+                                                .NotReturned
+                                                .builder()
+                                                .build()
+                                        )
                                         .ongoingNegotiations(
                                             CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                                 .ConsumerQualityMerchandise
@@ -1565,7 +1680,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .canceledAt(LocalDate.parse("2019-12-27"))
                                                 .build()
                                         )
-                                        .noCancellation(JsonValue.from(mapOf<String, Any>()))
+                                        .noCancellation(
+                                            CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                                .ConsumerServicesNotReceived
+                                                .NoCancellation
+                                                .builder()
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .fraud(
@@ -1739,7 +1860,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .reason("x")
                                             .build()
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerCanceledMerchandise
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .returnAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerCanceledMerchandise
@@ -1856,8 +1983,20 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             )
                                             .build()
                                     )
-                                    .other(JsonValue.from(mapOf<String, Any>()))
-                                    .timeshare(JsonValue.from(mapOf<String, Any>()))
+                                    .other(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerCanceledServices
+                                            .Other
+                                            .builder()
+                                            .build()
+                                    )
+                                    .timeshare(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerCanceledServices
+                                            .Timeshare
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
                             .consumerCounterfeitMerchandise(
@@ -1896,7 +2035,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .ReturnOutcome
                                             .NOT_RETURNED
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerDamagedOrDefectiveMerchandise
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .returnAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerDamagedOrDefectiveMerchandise
@@ -1955,7 +2100,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .ReturnOutcome
                                             .NOT_RETURNED
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerMerchandiseMisrepresentation
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .returnAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerMerchandiseMisrepresentation
@@ -2098,7 +2249,15 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                     .ReturnOutcome
                                                     .NOT_RETURNED
                                             )
-                                            .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                            .notReturned(
+                                                CardDisputeSubmitUserSubmissionParams.Visa
+                                                    .Chargeback
+                                                    .ConsumerMerchandiseNotReceived
+                                                    .Delayed
+                                                    .NotReturned
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .returnAttempted(
                                                 CardDisputeSubmitUserSubmissionParams.Visa
                                                     .Chargeback
@@ -2140,10 +2299,21 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .canceledAt(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
-                                    .noCancellation(JsonValue.from(mapOf<String, Any>()))
+                                    .noCancellation(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerMerchandiseNotReceived
+                                            .NoCancellation
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
-                            .consumerNonReceiptOfCash(JsonValue.from(mapOf<String, Any>()))
+                            .consumerNonReceiptOfCash(
+                                CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                    .ConsumerNonReceiptOfCash
+                                    .builder()
+                                    .build()
+                            )
                             .consumerOriginalCreditTransactionNotAccepted(
                                 CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                     .ConsumerOriginalCreditTransactionNotAccepted
@@ -2176,7 +2346,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .ReturnOutcome
                                             .NOT_RETURNED
                                     )
-                                    .notReturned(JsonValue.from(mapOf<String, Any>()))
+                                    .notReturned(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerQualityMerchandise
+                                            .NotReturned
+                                            .builder()
+                                            .build()
+                                    )
                                     .ongoingNegotiations(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerQualityMerchandise
@@ -2376,7 +2552,13 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .canceledAt(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
-                                    .noCancellation(JsonValue.from(mapOf<String, Any>()))
+                                    .noCancellation(
+                                        CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
+                                            .ConsumerServicesNotReceived
+                                            .NoCancellation
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
                             .fraud(

@@ -6117,7 +6117,7 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val category: JsonField<Category>,
-            private val pulse: JsonValue,
+            private val pulse: JsonField<Pulse>,
             private val visa: JsonField<Visa>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -6127,7 +6127,7 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
-                @JsonProperty("pulse") @ExcludeMissing pulse: JsonValue = JsonMissing.of(),
+                @JsonProperty("pulse") @ExcludeMissing pulse: JsonField<Pulse> = JsonMissing.of(),
                 @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
             ) : this(category, pulse, visa, mutableMapOf())
 
@@ -6140,8 +6140,13 @@ private constructor(
              */
             fun category(): Category = category.getRequired("category")
 
-            /** Fields specific to the `pulse` network. */
-            @JsonProperty("pulse") @ExcludeMissing fun _pulse(): JsonValue = pulse
+            /**
+             * Fields specific to the `pulse` network.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun pulse(): Pulse? = pulse.getNullable("pulse")
 
             /**
              * Fields specific to the `visa` network.
@@ -6160,6 +6165,13 @@ private constructor(
             @JsonProperty("category")
             @ExcludeMissing
             fun _category(): JsonField<Category> = category
+
+            /**
+             * Returns the raw JSON value of [pulse].
+             *
+             * Unlike [pulse], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("pulse") @ExcludeMissing fun _pulse(): JsonField<Pulse> = pulse
 
             /**
              * Returns the raw JSON value of [visa].
@@ -6199,7 +6211,7 @@ private constructor(
             class Builder internal constructor() {
 
                 private var category: JsonField<Category>? = null
-                private var pulse: JsonValue? = null
+                private var pulse: JsonField<Pulse>? = null
                 private var visa: JsonField<Visa>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -6223,7 +6235,16 @@ private constructor(
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /** Fields specific to the `pulse` network. */
-                fun pulse(pulse: JsonValue) = apply { this.pulse = pulse }
+                fun pulse(pulse: Pulse?) = pulse(JsonField.ofNullable(pulse))
+
+                /**
+                 * Sets [Builder.pulse] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.pulse] with a well-typed [Pulse] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun pulse(pulse: JsonField<Pulse>) = apply { this.pulse = pulse }
 
                 /** Fields specific to the `visa` network. */
                 fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
@@ -6290,6 +6311,7 @@ private constructor(
                 }
 
                 category().validate()
+                pulse()?.validate()
                 visa()?.validate()
                 validated = true
             }
@@ -6309,7 +6331,9 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (category.asKnown()?.validity() ?: 0) + (visa.asKnown()?.validity() ?: 0)
+                (category.asKnown()?.validity() ?: 0) +
+                    (pulse.asKnown()?.validity() ?: 0) +
+                    (visa.asKnown()?.validity() ?: 0)
 
             /** The payment network used to process this card authorization. */
             class Category @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -6446,6 +6470,111 @@ private constructor(
                 override fun hashCode() = value.hashCode()
 
                 override fun toString() = value.toString()
+            }
+
+            /** Fields specific to the `pulse` network. */
+            class Pulse
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Pulse]. */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [Pulse]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(pulse: Pulse) = apply {
+                        additionalProperties = pulse.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Pulse].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Pulse = Pulse(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Pulse = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Pulse && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Pulse{additionalProperties=$additionalProperties}"
             }
 
             /** Fields specific to the `visa` network. */
@@ -8171,7 +8300,7 @@ private constructor(
         private constructor(
             private val category: JsonField<Category>,
             private val incrementalAuthorization: JsonField<IncrementalAuthorization>,
-            private val initialAuthorization: JsonValue,
+            private val initialAuthorization: JsonField<InitialAuthorization>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -8185,7 +8314,7 @@ private constructor(
                 incrementalAuthorization: JsonField<IncrementalAuthorization> = JsonMissing.of(),
                 @JsonProperty("initial_authorization")
                 @ExcludeMissing
-                initialAuthorization: JsonValue = JsonMissing.of(),
+                initialAuthorization: JsonField<InitialAuthorization> = JsonMissing.of(),
             ) : this(category, incrementalAuthorization, initialAuthorization, mutableMapOf())
 
             /**
@@ -8207,10 +8336,14 @@ private constructor(
             fun incrementalAuthorization(): IncrementalAuthorization? =
                 incrementalAuthorization.getNullable("incremental_authorization")
 
-            /** Fields specific to the category `initial_authorization`. */
-            @JsonProperty("initial_authorization")
-            @ExcludeMissing
-            fun _initialAuthorization(): JsonValue = initialAuthorization
+            /**
+             * Fields specific to the category `initial_authorization`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun initialAuthorization(): InitialAuthorization? =
+                initialAuthorization.getNullable("initial_authorization")
 
             /**
              * Returns the raw JSON value of [category].
@@ -8232,6 +8365,16 @@ private constructor(
             @ExcludeMissing
             fun _incrementalAuthorization(): JsonField<IncrementalAuthorization> =
                 incrementalAuthorization
+
+            /**
+             * Returns the raw JSON value of [initialAuthorization].
+             *
+             * Unlike [initialAuthorization], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("initial_authorization")
+            @ExcludeMissing
+            fun _initialAuthorization(): JsonField<InitialAuthorization> = initialAuthorization
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -8265,7 +8408,7 @@ private constructor(
 
                 private var category: JsonField<Category>? = null
                 private var incrementalAuthorization: JsonField<IncrementalAuthorization>? = null
-                private var initialAuthorization: JsonValue? = null
+                private var initialAuthorization: JsonField<InitialAuthorization>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(requestDetails: RequestDetails) = apply {
@@ -8306,9 +8449,20 @@ private constructor(
                 ) = apply { this.incrementalAuthorization = incrementalAuthorization }
 
                 /** Fields specific to the category `initial_authorization`. */
-                fun initialAuthorization(initialAuthorization: JsonValue) = apply {
-                    this.initialAuthorization = initialAuthorization
-                }
+                fun initialAuthorization(initialAuthorization: InitialAuthorization?) =
+                    initialAuthorization(JsonField.ofNullable(initialAuthorization))
+
+                /**
+                 * Sets [Builder.initialAuthorization] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.initialAuthorization] with a well-typed
+                 * [InitialAuthorization] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun initialAuthorization(initialAuthorization: JsonField<InitialAuthorization>) =
+                    apply {
+                        this.initialAuthorization = initialAuthorization
+                    }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -8364,6 +8518,7 @@ private constructor(
 
                 category().validate()
                 incrementalAuthorization()?.validate()
+                initialAuthorization()?.validate()
                 validated = true
             }
 
@@ -8383,7 +8538,8 @@ private constructor(
              */
             internal fun validity(): Int =
                 (category.asKnown()?.validity() ?: 0) +
-                    (incrementalAuthorization.asKnown()?.validity() ?: 0)
+                    (incrementalAuthorization.asKnown()?.validity() ?: 0) +
+                    (initialAuthorization.asKnown()?.validity() ?: 0)
 
             /**
              * The type of this request (e.g., an initial authorization or an incremental
@@ -8759,6 +8915,118 @@ private constructor(
 
                 override fun toString() =
                     "IncrementalAuthorization{cardPaymentId=$cardPaymentId, originalCardAuthorizationId=$originalCardAuthorizationId, additionalProperties=$additionalProperties}"
+            }
+
+            /** Fields specific to the category `initial_authorization`. */
+            class InitialAuthorization
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [InitialAuthorization].
+                     */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [InitialAuthorization]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(initialAuthorization: InitialAuthorization) = apply {
+                        additionalProperties =
+                            initialAuthorization.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [InitialAuthorization].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): InitialAuthorization =
+                        InitialAuthorization(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): InitialAuthorization = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is InitialAuthorization &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "InitialAuthorization{additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
