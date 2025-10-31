@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.343.0 (2025-10-31)
+
+Full Changelog: [v0.342.0...v0.343.0](https://github.com/Increase/increase-kotlin/compare/v0.342.0...v0.343.0)
+
+### Features
+
+* **api:** api update ([2d7a353](https://github.com/Increase/increase-kotlin/commit/2d7a3539335cab050c5c9c3907c2f3dbf5e5e08d))
+* **api:** api update ([7b83de4](https://github.com/Increase/increase-kotlin/commit/7b83de42067da619b7e3c2fe0983df4da056bd2f))
+* **api:** api update ([b426912](https://github.com/Increase/increase-kotlin/commit/b42691239e1f17f374065eb6f222f66d71f8de66))
+* **api:** api update ([b7010c9](https://github.com/Increase/increase-kotlin/commit/b7010c9a4931d44c6b3cd3d9817edf301c1856d1))
+* **api:** api update ([23da6ac](https://github.com/Increase/increase-kotlin/commit/23da6aca998dc6679e43de3f2a9d2522a3147284))
+* **api:** api update ([e9cbdfb](https://github.com/Increase/increase-kotlin/commit/e9cbdfb6f5d492d7844fb434759b8b442b4c3923))
+* **api:** api update ([b158f90](https://github.com/Increase/increase-kotlin/commit/b158f9007f694afcefdc21048129f0c1796edf55))
+* **api:** api update ([0ea88d7](https://github.com/Increase/increase-kotlin/commit/0ea88d75faeadeb73583a2b8571343e36cc0c6e3))
+* **api:** api update ([49be1f7](https://github.com/Increase/increase-kotlin/commit/49be1f71349a2a689a4c3de8f369a4f6094eeefe))
+* **api:** api update ([285ba01](https://github.com/Increase/increase-kotlin/commit/285ba0188428a9fee0f9f92d5cb868ccf9f216c2))
+* **api:** api update ([414081a](https://github.com/Increase/increase-kotlin/commit/414081a40dc1ba440a79959fd0ded22c014d27d5))
+* **api:** api update ([3a4fc11](https://github.com/Increase/increase-kotlin/commit/3a4fc11f1cf6f7a2ca277562d77b7aa69aaa7d04))
+* **api:** api update ([978d0f7](https://github.com/Increase/increase-kotlin/commit/978d0f730fe3f6f4e01d55b8f688d1a67d6e5797))
+* **api:** api update ([e6a11dd](https://github.com/Increase/increase-kotlin/commit/e6a11dd8ecfa58f4c0e58b8a108af6578f124427))
+* **api:** api update ([bcda1d2](https://github.com/Increase/increase-kotlin/commit/bcda1d291797144349141f6c665cb1686209aea8))
+* **api:** api update ([1f962ed](https://github.com/Increase/increase-kotlin/commit/1f962edca2c3a71400dadb891acf9f984d58be81))
+* **api:** api update ([61f1571](https://github.com/Increase/increase-kotlin/commit/61f1571204ccbd549d0cc251a96c16430efc4466))
+* **api:** api update ([1f8e948](https://github.com/Increase/increase-kotlin/commit/1f8e948e030bb9a5cbf78ef676e2dfebf8f861f3))
+* **api:** api update ([e0a85a7](https://github.com/Increase/increase-kotlin/commit/e0a85a75900eb75c307ba3c1fab696396e747969))
+* **api:** api update ([42e4a41](https://github.com/Increase/increase-kotlin/commit/42e4a4111fc4d20aface1fb9d1694b72dc8a1d4d))
+* **api:** api update ([dd6992f](https://github.com/Increase/increase-kotlin/commit/dd6992f56747f3233debde8e3b0a8b339798b0d7))
+* **api:** api update ([2f54ab7](https://github.com/Increase/increase-kotlin/commit/2f54ab768008b7b7054e060842249443236c8f45))
+* **api:** api update ([0b01d9e](https://github.com/Increase/increase-kotlin/commit/0b01d9e95ff69f149cabb863b91fe8420a8113c9))
+* **api:** api update ([94f0191](https://github.com/Increase/increase-kotlin/commit/94f019125c9e8b7fc930d91405c7f3a40bb76d21))
+* **api:** api update ([2d76a6c](https://github.com/Increase/increase-kotlin/commit/2d76a6c7f373f8914974c9e7dec3197148910de3))
+* **api:** api update ([dbee135](https://github.com/Increase/increase-kotlin/commit/dbee13502a95120d0c4c866dfc3ed45c62b427f2))
+* **api:** api update ([56201bf](https://github.com/Increase/increase-kotlin/commit/56201bfa6bd2d400f368d888136b0714828fbe2b))
+* **api:** api update ([00147f6](https://github.com/Increase/increase-kotlin/commit/00147f6421c6959d8ea394e901cf9c1ac5e1bf0e))
+* **api:** api update ([b87bf97](https://github.com/Increase/increase-kotlin/commit/b87bf97febc3495af6ddc8d1b62f350720614681))
+* **api:** api update ([e56cf53](https://github.com/Increase/increase-kotlin/commit/e56cf53b8a69eb55df6a2993ca128d2fd60496d8))
+
 ## 0.342.0 (2025-10-06)
 
 Full Changelog: [v0.341.0...v0.342.0](https://github.com/Increase/increase-kotlin/compare/v0.341.0...v0.342.0)
