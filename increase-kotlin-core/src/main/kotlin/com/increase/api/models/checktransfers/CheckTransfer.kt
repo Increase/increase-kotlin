@@ -1395,7 +1395,8 @@ private constructor(
 
             /**
              * The available balance of the account must be at least the amount of the check, and a
-             * Pending Transaction will be created for the full amount.
+             * Pending Transaction will be created for the full amount. This is the default behavior
+             * if `balance_check` is omitted.
              */
             val FULL = of("full")
 
@@ -1413,7 +1414,8 @@ private constructor(
         enum class Known {
             /**
              * The available balance of the account must be at least the amount of the check, and a
-             * Pending Transaction will be created for the full amount.
+             * Pending Transaction will be created for the full amount. This is the default behavior
+             * if `balance_check` is omitted.
              */
             FULL,
             /**
@@ -1436,7 +1438,8 @@ private constructor(
         enum class Value {
             /**
              * The available balance of the account must be at least the amount of the check, and a
-             * Pending Transaction will be created for the full amount.
+             * Pending Transaction will be created for the full amount. This is the default behavior
+             * if `balance_check` is omitted.
              */
             FULL,
             /**
