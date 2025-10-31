@@ -1122,6 +1122,7 @@ private constructor(
     private constructor(
         private val accountId: JsonField<String>,
         private val effectiveDate: JsonField<LocalDate>,
+        private val programId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1133,7 +1134,10 @@ private constructor(
             @JsonProperty("effective_date")
             @ExcludeMissing
             effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-        ) : this(accountId, effectiveDate, mutableMapOf())
+            @JsonProperty("program_id")
+            @ExcludeMissing
+            programId: JsonField<String> = JsonMissing.of(),
+        ) : this(accountId, effectiveDate, programId, mutableMapOf())
 
         /**
          * The Account to create a BAI2 report for. If not provided, all open accounts will be
@@ -1155,6 +1159,15 @@ private constructor(
         fun effectiveDate(): LocalDate? = effectiveDate.getNullable("effective_date")
 
         /**
+         * The Program to create a BAI2 report for. If not provided, all open accounts will be
+         * included.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun programId(): String? = programId.getNullable("program_id")
+
+        /**
          * Returns the raw JSON value of [accountId].
          *
          * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -1170,6 +1183,13 @@ private constructor(
         @JsonProperty("effective_date")
         @ExcludeMissing
         fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
+
+        /**
+         * Returns the raw JSON value of [programId].
+         *
+         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1194,11 +1214,13 @@ private constructor(
 
             private var accountId: JsonField<String> = JsonMissing.of()
             private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+            private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountStatementBai2: AccountStatementBai2) = apply {
                 accountId = accountStatementBai2.accountId
                 effectiveDate = accountStatementBai2.effectiveDate
+                programId = accountStatementBai2.programId
                 additionalProperties = accountStatementBai2.additionalProperties.toMutableMap()
             }
 
@@ -1235,6 +1257,21 @@ private constructor(
                 this.effectiveDate = effectiveDate
             }
 
+            /**
+             * The Program to create a BAI2 report for. If not provided, all open accounts will be
+             * included.
+             */
+            fun programId(programId: String) = programId(JsonField.of(programId))
+
+            /**
+             * Sets [Builder.programId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.programId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1260,7 +1297,12 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): AccountStatementBai2 =
-                AccountStatementBai2(accountId, effectiveDate, additionalProperties.toMutableMap())
+                AccountStatementBai2(
+                    accountId,
+                    effectiveDate,
+                    programId,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1272,6 +1314,7 @@ private constructor(
 
             accountId()
             effectiveDate()
+            programId()
             validated = true
         }
 
@@ -1291,7 +1334,8 @@ private constructor(
          */
         internal fun validity(): Int =
             (if (accountId.asKnown() == null) 0 else 1) +
-                (if (effectiveDate.asKnown() == null) 0 else 1)
+                (if (effectiveDate.asKnown() == null) 0 else 1) +
+                (if (programId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1301,17 +1345,18 @@ private constructor(
             return other is AccountStatementBai2 &&
                 accountId == other.accountId &&
                 effectiveDate == other.effectiveDate &&
+                programId == other.programId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(accountId, effectiveDate, additionalProperties)
+            Objects.hash(accountId, effectiveDate, programId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountStatementBai2{accountId=$accountId, effectiveDate=$effectiveDate, additionalProperties=$additionalProperties}"
+            "AccountStatementBai2{accountId=$accountId, effectiveDate=$effectiveDate, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
     /**
