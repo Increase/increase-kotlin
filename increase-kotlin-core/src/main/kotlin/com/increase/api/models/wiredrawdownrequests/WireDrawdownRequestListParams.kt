@@ -355,13 +355,13 @@ private constructor(
                 /** The drawdown request is queued to be submitted to Fedwire. */
                 val PENDING_SUBMISSION = of("pending_submission")
 
+                /** The drawdown request has been fulfilled by the recipient. */
+                val FULFILLED = of("fulfilled")
+
                 /**
                  * The drawdown request has been sent and the recipient should respond in some way.
                  */
                 val PENDING_RESPONSE = of("pending_response")
-
-                /** The drawdown request has been fulfilled by the recipient. */
-                val FULFILLED = of("fulfilled")
 
                 /** The drawdown request has been refused by the recipient. */
                 val REFUSED = of("refused")
@@ -373,12 +373,12 @@ private constructor(
             enum class Known {
                 /** The drawdown request is queued to be submitted to Fedwire. */
                 PENDING_SUBMISSION,
+                /** The drawdown request has been fulfilled by the recipient. */
+                FULFILLED,
                 /**
                  * The drawdown request has been sent and the recipient should respond in some way.
                  */
                 PENDING_RESPONSE,
-                /** The drawdown request has been fulfilled by the recipient. */
-                FULFILLED,
                 /** The drawdown request has been refused by the recipient. */
                 REFUSED,
             }
@@ -395,12 +395,12 @@ private constructor(
             enum class Value {
                 /** The drawdown request is queued to be submitted to Fedwire. */
                 PENDING_SUBMISSION,
+                /** The drawdown request has been fulfilled by the recipient. */
+                FULFILLED,
                 /**
                  * The drawdown request has been sent and the recipient should respond in some way.
                  */
                 PENDING_RESPONSE,
-                /** The drawdown request has been fulfilled by the recipient. */
-                FULFILLED,
                 /** The drawdown request has been refused by the recipient. */
                 REFUSED,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -417,8 +417,8 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                    PENDING_RESPONSE -> Value.PENDING_RESPONSE
                     FULFILLED -> Value.FULFILLED
+                    PENDING_RESPONSE -> Value.PENDING_RESPONSE
                     REFUSED -> Value.REFUSED
                     else -> Value._UNKNOWN
                 }
@@ -435,8 +435,8 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                    PENDING_RESPONSE -> Known.PENDING_RESPONSE
                     FULFILLED -> Known.FULFILLED
+                    PENDING_RESPONSE -> Known.PENDING_RESPONSE
                     REFUSED -> Known.REFUSED
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
