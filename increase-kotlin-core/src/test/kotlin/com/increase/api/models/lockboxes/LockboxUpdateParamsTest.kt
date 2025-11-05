@@ -11,9 +11,9 @@ internal class LockboxUpdateParamsTest {
     fun create() {
         LockboxUpdateParams.builder()
             .lockboxId("lockbox_3xt21ok13q19advds4t5")
+            .checkDepositBehavior(LockboxUpdateParams.CheckDepositBehavior.DISABLED)
             .description("x")
             .recipientName("x")
-            .status(LockboxUpdateParams.Status.INACTIVE)
             .build()
     }
 
@@ -31,16 +31,17 @@ internal class LockboxUpdateParamsTest {
         val params =
             LockboxUpdateParams.builder()
                 .lockboxId("lockbox_3xt21ok13q19advds4t5")
+                .checkDepositBehavior(LockboxUpdateParams.CheckDepositBehavior.DISABLED)
                 .description("x")
                 .recipientName("x")
-                .status(LockboxUpdateParams.Status.INACTIVE)
                 .build()
 
         val body = params._body()
 
+        assertThat(body.checkDepositBehavior())
+            .isEqualTo(LockboxUpdateParams.CheckDepositBehavior.DISABLED)
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.recipientName()).isEqualTo("x")
-        assertThat(body.status()).isEqualTo(LockboxUpdateParams.Status.INACTIVE)
     }
 
     @Test
