@@ -505,6 +505,7 @@ private constructor(
     private constructor(
         private val amount: JsonField<Long>,
         private val backFileId: JsonField<String>,
+        private val checkDepositId: JsonField<String>,
         private val frontFileId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -515,10 +516,13 @@ private constructor(
             @JsonProperty("back_file_id")
             @ExcludeMissing
             backFileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("check_deposit_id")
+            @ExcludeMissing
+            checkDepositId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("front_file_id")
             @ExcludeMissing
             frontFileId: JsonField<String> = JsonMissing.of(),
-        ) : this(amount, backFileId, frontFileId, mutableMapOf())
+        ) : this(amount, backFileId, checkDepositId, frontFileId, mutableMapOf())
 
         /**
          * The amount of the check.
@@ -535,6 +539,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun backFileId(): String? = backFileId.getNullable("back_file_id")
+
+        /**
+         * The identifier of the Check Deposit if this check was deposited.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun checkDepositId(): String? = checkDepositId.getNullable("check_deposit_id")
 
         /**
          * The identifier for the File containing the front of the check.
@@ -559,6 +571,16 @@ private constructor(
         @JsonProperty("back_file_id")
         @ExcludeMissing
         fun _backFileId(): JsonField<String> = backFileId
+
+        /**
+         * Returns the raw JSON value of [checkDepositId].
+         *
+         * Unlike [checkDepositId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        fun _checkDepositId(): JsonField<String> = checkDepositId
 
         /**
          * Returns the raw JSON value of [frontFileId].
@@ -590,6 +612,7 @@ private constructor(
              * ```kotlin
              * .amount()
              * .backFileId()
+             * .checkDepositId()
              * .frontFileId()
              * ```
              */
@@ -601,12 +624,14 @@ private constructor(
 
             private var amount: JsonField<Long>? = null
             private var backFileId: JsonField<String>? = null
+            private var checkDepositId: JsonField<String>? = null
             private var frontFileId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(check: Check) = apply {
                 amount = check.amount
                 backFileId = check.backFileId
+                checkDepositId = check.checkDepositId
                 frontFileId = check.frontFileId
                 additionalProperties = check.additionalProperties.toMutableMap()
             }
@@ -634,6 +659,21 @@ private constructor(
              * supported value.
              */
             fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
+
+            /** The identifier of the Check Deposit if this check was deposited. */
+            fun checkDepositId(checkDepositId: String?) =
+                checkDepositId(JsonField.ofNullable(checkDepositId))
+
+            /**
+             * Sets [Builder.checkDepositId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkDepositId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
 
             /** The identifier for the File containing the front of the check. */
             fun frontFileId(frontFileId: String?) = frontFileId(JsonField.ofNullable(frontFileId))
@@ -677,6 +717,7 @@ private constructor(
              * ```kotlin
              * .amount()
              * .backFileId()
+             * .checkDepositId()
              * .frontFileId()
              * ```
              *
@@ -686,6 +727,7 @@ private constructor(
                 Check(
                     checkRequired("amount", amount),
                     checkRequired("backFileId", backFileId),
+                    checkRequired("checkDepositId", checkDepositId),
                     checkRequired("frontFileId", frontFileId),
                     additionalProperties.toMutableMap(),
                 )
@@ -700,6 +742,7 @@ private constructor(
 
             amount()
             backFileId()
+            checkDepositId()
             frontFileId()
             validated = true
         }
@@ -721,6 +764,7 @@ private constructor(
         internal fun validity(): Int =
             (if (amount.asKnown() == null) 0 else 1) +
                 (if (backFileId.asKnown() == null) 0 else 1) +
+                (if (checkDepositId.asKnown() == null) 0 else 1) +
                 (if (frontFileId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
@@ -731,18 +775,19 @@ private constructor(
             return other is Check &&
                 amount == other.amount &&
                 backFileId == other.backFileId &&
+                checkDepositId == other.checkDepositId &&
                 frontFileId == other.frontFileId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(amount, backFileId, frontFileId, additionalProperties)
+            Objects.hash(amount, backFileId, checkDepositId, frontFileId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Check{amount=$amount, backFileId=$backFileId, frontFileId=$frontFileId, additionalProperties=$additionalProperties}"
+            "Check{amount=$amount, backFileId=$backFileId, checkDepositId=$checkDepositId, frontFileId=$frontFileId, additionalProperties=$additionalProperties}"
     }
 
     /** If the mail item has been rejected, why it was rejected. */
