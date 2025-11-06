@@ -18,6 +18,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
 import java.util.Collections
 import java.util.Objects
 
@@ -109,6 +110,16 @@ private constructor(
     fun thirdParty(): ThirdParty? = body.thirdParty()
 
     /**
+     * If provided, the check will be valid on or before this date. After this date, the check
+     * transfer will be stopped and deposits will not be accepted. For checks printed by Increase,
+     * this date is included on the check as its expiry.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun validUntilDate(): LocalDate? = body.validUntilDate()
+
+    /**
      * Returns the raw JSON value of [accountId].
      *
      * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -172,6 +183,13 @@ private constructor(
      * Unlike [thirdParty], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _thirdParty(): JsonField<ThirdParty> = body._thirdParty()
+
+    /**
+     * Returns the raw JSON value of [validUntilDate].
+     *
+     * Unlike [validUntilDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _validUntilDate(): JsonField<LocalDate> = body._validUntilDate()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -369,6 +387,26 @@ private constructor(
          */
         fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { body.thirdParty(thirdParty) }
 
+        /**
+         * If provided, the check will be valid on or before this date. After this date, the check
+         * transfer will be stopped and deposits will not be accepted. For checks printed by
+         * Increase, this date is included on the check as its expiry.
+         */
+        fun validUntilDate(validUntilDate: LocalDate) = apply {
+            body.validUntilDate(validUntilDate)
+        }
+
+        /**
+         * Sets [Builder.validUntilDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validUntilDate] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun validUntilDate(validUntilDate: JsonField<LocalDate>) = apply {
+            body.validUntilDate(validUntilDate)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -527,6 +565,7 @@ private constructor(
         private val physicalCheck: JsonField<PhysicalCheck>,
         private val requireApproval: JsonField<Boolean>,
         private val thirdParty: JsonField<ThirdParty>,
+        private val validUntilDate: JsonField<LocalDate>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -557,6 +596,9 @@ private constructor(
             @JsonProperty("third_party")
             @ExcludeMissing
             thirdParty: JsonField<ThirdParty> = JsonMissing.of(),
+            @JsonProperty("valid_until_date")
+            @ExcludeMissing
+            validUntilDate: JsonField<LocalDate> = JsonMissing.of(),
         ) : this(
             accountId,
             amount,
@@ -567,6 +609,7 @@ private constructor(
             physicalCheck,
             requireApproval,
             thirdParty,
+            validUntilDate,
             mutableMapOf(),
         )
 
@@ -653,6 +696,16 @@ private constructor(
         fun thirdParty(): ThirdParty? = thirdParty.getNullable("third_party")
 
         /**
+         * If provided, the check will be valid on or before this date. After this date, the check
+         * transfer will be stopped and deposits will not be accepted. For checks printed by
+         * Increase, this date is included on the check as its expiry.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun validUntilDate(): LocalDate? = validUntilDate.getNullable("valid_until_date")
+
+        /**
          * Returns the raw JSON value of [accountId].
          *
          * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -734,6 +787,16 @@ private constructor(
         @ExcludeMissing
         fun _thirdParty(): JsonField<ThirdParty> = thirdParty
 
+        /**
+         * Returns the raw JSON value of [validUntilDate].
+         *
+         * Unlike [validUntilDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("valid_until_date")
+        @ExcludeMissing
+        fun _validUntilDate(): JsonField<LocalDate> = validUntilDate
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -774,6 +837,7 @@ private constructor(
             private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
+            private var validUntilDate: JsonField<LocalDate> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
@@ -786,6 +850,7 @@ private constructor(
                 physicalCheck = body.physicalCheck
                 requireApproval = body.requireApproval
                 thirdParty = body.thirdParty
+                validUntilDate = body.validUntilDate
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -933,6 +998,25 @@ private constructor(
                 this.thirdParty = thirdParty
             }
 
+            /**
+             * If provided, the check will be valid on or before this date. After this date, the
+             * check transfer will be stopped and deposits will not be accepted. For checks printed
+             * by Increase, this date is included on the check as its expiry.
+             */
+            fun validUntilDate(validUntilDate: LocalDate) =
+                validUntilDate(JsonField.of(validUntilDate))
+
+            /**
+             * Sets [Builder.validUntilDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.validUntilDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun validUntilDate(validUntilDate: JsonField<LocalDate>) = apply {
+                this.validUntilDate = validUntilDate
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -978,6 +1062,7 @@ private constructor(
                     physicalCheck,
                     requireApproval,
                     thirdParty,
+                    validUntilDate,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -998,6 +1083,7 @@ private constructor(
             physicalCheck()?.validate()
             requireApproval()
             thirdParty()?.validate()
+            validUntilDate()
             validated = true
         }
 
@@ -1024,7 +1110,8 @@ private constructor(
                 (if (checkNumber.asKnown() == null) 0 else 1) +
                 (physicalCheck.asKnown()?.validity() ?: 0) +
                 (if (requireApproval.asKnown() == null) 0 else 1) +
-                (thirdParty.asKnown()?.validity() ?: 0)
+                (thirdParty.asKnown()?.validity() ?: 0) +
+                (if (validUntilDate.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1041,6 +1128,7 @@ private constructor(
                 physicalCheck == other.physicalCheck &&
                 requireApproval == other.requireApproval &&
                 thirdParty == other.thirdParty &&
+                validUntilDate == other.validUntilDate &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1055,6 +1143,7 @@ private constructor(
                 physicalCheck,
                 requireApproval,
                 thirdParty,
+                validUntilDate,
                 additionalProperties,
             )
         }
@@ -1062,7 +1151,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, balanceCheck=$balanceCheck, checkNumber=$checkNumber, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, balanceCheck=$balanceCheck, checkNumber=$checkNumber, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, validUntilDate=$validUntilDate, additionalProperties=$additionalProperties}"
     }
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
