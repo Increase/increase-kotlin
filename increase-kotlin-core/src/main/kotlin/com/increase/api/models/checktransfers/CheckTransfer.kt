@@ -15,6 +15,7 @@ import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -47,6 +48,7 @@ private constructor(
     private val submission: JsonField<Submission>,
     private val thirdParty: JsonField<ThirdParty>,
     private val type: JsonField<Type>,
+    private val validUntilDate: JsonField<LocalDate>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -108,6 +110,9 @@ private constructor(
         @ExcludeMissing
         thirdParty: JsonField<ThirdParty> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("valid_until_date")
+        @ExcludeMissing
+        validUntilDate: JsonField<LocalDate> = JsonMissing.of(),
     ) : this(
         id,
         accountId,
@@ -133,6 +138,7 @@ private constructor(
         submission,
         thirdParty,
         type,
+        validUntilDate,
         mutableMapOf(),
     )
 
@@ -344,6 +350,16 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
+     * If set, the check will be valid on or before this date. After this date, the check transfer
+     * will be stopped and deposits will not be accepted. For checks printed by Increase, this date
+     * is included on the check as its expiry.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun validUntilDate(): LocalDate? = validUntilDate.getNullable("valid_until_date")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -546,6 +562,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    /**
+     * Returns the raw JSON value of [validUntilDate].
+     *
+     * Unlike [validUntilDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("valid_until_date")
+    @ExcludeMissing
+    fun _validUntilDate(): JsonField<LocalDate> = validUntilDate
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -589,6 +614,7 @@ private constructor(
          * .submission()
          * .thirdParty()
          * .type()
+         * .validUntilDate()
          * ```
          */
         fun builder() = Builder()
@@ -621,6 +647,7 @@ private constructor(
         private var submission: JsonField<Submission>? = null
         private var thirdParty: JsonField<ThirdParty>? = null
         private var type: JsonField<Type>? = null
+        private var validUntilDate: JsonField<LocalDate>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(checkTransfer: CheckTransfer) = apply {
@@ -648,6 +675,7 @@ private constructor(
             submission = checkTransfer.submission
             thirdParty = checkTransfer.thirdParty
             type = checkTransfer.type
+            validUntilDate = checkTransfer.validUntilDate
             additionalProperties = checkTransfer.additionalProperties.toMutableMap()
         }
 
@@ -1001,6 +1029,25 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * If set, the check will be valid on or before this date. After this date, the check
+         * transfer will be stopped and deposits will not be accepted. For checks printed by
+         * Increase, this date is included on the check as its expiry.
+         */
+        fun validUntilDate(validUntilDate: LocalDate?) =
+            validUntilDate(JsonField.ofNullable(validUntilDate))
+
+        /**
+         * Sets [Builder.validUntilDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validUntilDate] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun validUntilDate(validUntilDate: JsonField<LocalDate>) = apply {
+            this.validUntilDate = validUntilDate
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1051,6 +1098,7 @@ private constructor(
          * .submission()
          * .thirdParty()
          * .type()
+         * .validUntilDate()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -1081,6 +1129,7 @@ private constructor(
                 checkRequired("submission", submission),
                 checkRequired("thirdParty", thirdParty),
                 checkRequired("type", type),
+                checkRequired("validUntilDate", validUntilDate),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1116,6 +1165,7 @@ private constructor(
         submission()?.validate()
         thirdParty()?.validate()
         type().validate()
+        validUntilDate()
         validated = true
     }
 
@@ -1156,7 +1206,8 @@ private constructor(
             (stopPaymentRequest.asKnown()?.validity() ?: 0) +
             (submission.asKnown()?.validity() ?: 0) +
             (thirdParty.asKnown()?.validity() ?: 0) +
-            (type.asKnown()?.validity() ?: 0)
+            (type.asKnown()?.validity() ?: 0) +
+            (if (validUntilDate.asKnown() == null) 0 else 1)
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -7170,6 +7221,7 @@ private constructor(
             submission == other.submission &&
             thirdParty == other.thirdParty &&
             type == other.type &&
+            validUntilDate == other.validUntilDate &&
             additionalProperties == other.additionalProperties
     }
 
@@ -7199,6 +7251,7 @@ private constructor(
             submission,
             thirdParty,
             type,
+            validUntilDate,
             additionalProperties,
         )
     }
@@ -7206,5 +7259,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CheckTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, balanceCheck=$balanceCheck, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, fulfillmentMethod=$fulfillmentMethod, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, balanceCheck=$balanceCheck, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, fulfillmentMethod=$fulfillmentMethod, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, validUntilDate=$validUntilDate, additionalProperties=$additionalProperties}"
 }
