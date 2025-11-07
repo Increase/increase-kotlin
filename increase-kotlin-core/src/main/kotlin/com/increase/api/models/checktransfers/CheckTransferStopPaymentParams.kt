@@ -409,6 +409,9 @@ private constructor(
             /** The check was not authorized. */
             val NOT_AUTHORIZED = of("not_authorized")
 
+            /** The check was stopped for `valid_until_date` being in the past. */
+            val VALID_UNTIL_DATE_PASSED = of("valid_until_date_passed")
+
             /** The check was stopped for another reason. */
             val UNKNOWN = of("unknown")
 
@@ -421,6 +424,8 @@ private constructor(
             MAIL_DELIVERY_FAILED,
             /** The check was not authorized. */
             NOT_AUTHORIZED,
+            /** The check was stopped for `valid_until_date` being in the past. */
+            VALID_UNTIL_DATE_PASSED,
             /** The check was stopped for another reason. */
             UNKNOWN,
         }
@@ -439,6 +444,8 @@ private constructor(
             MAIL_DELIVERY_FAILED,
             /** The check was not authorized. */
             NOT_AUTHORIZED,
+            /** The check was stopped for `valid_until_date` being in the past. */
+            VALID_UNTIL_DATE_PASSED,
             /** The check was stopped for another reason. */
             UNKNOWN,
             /** An enum member indicating that [Reason] was instantiated with an unknown value. */
@@ -456,6 +463,7 @@ private constructor(
             when (this) {
                 MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
                 NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
+                VALID_UNTIL_DATE_PASSED -> Value.VALID_UNTIL_DATE_PASSED
                 UNKNOWN -> Value.UNKNOWN
                 else -> Value._UNKNOWN
             }
@@ -473,6 +481,7 @@ private constructor(
             when (this) {
                 MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
                 NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
+                VALID_UNTIL_DATE_PASSED -> Known.VALID_UNTIL_DATE_PASSED
                 UNKNOWN -> Known.UNKNOWN
                 else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
             }
