@@ -1317,6 +1317,9 @@ private constructor(
                  */
                 val NON_CONFORMING_ITEM = of("non_conforming_item")
 
+                /** The check has already been deposited elsewhere and so this is a duplicate. */
+                val PAID = of("paid")
+
                 fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -1342,6 +1345,8 @@ private constructor(
                  * low quality images.
                  */
                 NON_CONFORMING_ITEM,
+                /** The check has already been deposited elsewhere and so this is a duplicate. */
+                PAID,
             }
 
             /**
@@ -1374,6 +1379,8 @@ private constructor(
                  * low quality images.
                  */
                 NON_CONFORMING_ITEM,
+                /** The check has already been deposited elsewhere and so this is a duplicate. */
+                PAID,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -1393,6 +1400,7 @@ private constructor(
                     WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
                     ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
                     NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
+                    PAID -> Value.PAID
                     else -> Value._UNKNOWN
                 }
 
@@ -1411,6 +1419,7 @@ private constructor(
                     WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
                     ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
                     NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
+                    PAID -> Known.PAID
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
