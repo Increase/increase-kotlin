@@ -98,7 +98,8 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The identifier of the File containing the physical card's back image.
+     * The identifier of the File containing the physical card's back image. This will be missing
+     * until the image has been post-processed.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -106,7 +107,8 @@ private constructor(
     fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
 
     /**
-     * The identifier of the File containing the physical card's carrier image.
+     * The identifier of the File containing the physical card's carrier image. This will be missing
+     * until the image has been post-processed.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -147,7 +149,8 @@ private constructor(
     fun description(): String = description.getRequired("description")
 
     /**
-     * The identifier of the File containing the physical card's front image.
+     * The identifier of the File containing the physical card's front image. This will be missing
+     * until the image has been post-processed.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -385,7 +388,10 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** The identifier of the File containing the physical card's back image. */
+        /**
+         * The identifier of the File containing the physical card's back image. This will be
+         * missing until the image has been post-processed.
+         */
         fun backImageFileId(backImageFileId: String?) =
             backImageFileId(JsonField.ofNullable(backImageFileId))
 
@@ -400,7 +406,10 @@ private constructor(
             this.backImageFileId = backImageFileId
         }
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * The identifier of the File containing the physical card's carrier image. This will be
+         * missing until the image has been post-processed.
+         */
         fun carrierImageFileId(carrierImageFileId: String?) =
             carrierImageFileId(JsonField.ofNullable(carrierImageFileId))
 
@@ -467,7 +476,10 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** The identifier of the File containing the physical card's front image. */
+        /**
+         * The identifier of the File containing the physical card's front image. This will be
+         * missing until the image has been post-processed.
+         */
         fun frontImageFileId(frontImageFileId: String?) =
             frontImageFileId(JsonField.ofNullable(frontImageFileId))
 
