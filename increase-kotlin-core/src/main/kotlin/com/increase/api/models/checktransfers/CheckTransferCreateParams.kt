@@ -1473,6 +1473,7 @@ private constructor(
         private val memo: JsonField<String>,
         private val recipientName: JsonField<String>,
         private val attachmentFileId: JsonField<String>,
+        private val checkVoucherImageFileId: JsonField<String>,
         private val note: JsonField<String>,
         private val payer: JsonField<List<Payer>>,
         private val returnAddress: JsonField<ReturnAddress>,
@@ -1493,6 +1494,9 @@ private constructor(
             @JsonProperty("attachment_file_id")
             @ExcludeMissing
             attachmentFileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("check_voucher_image_file_id")
+            @ExcludeMissing
+            checkVoucherImageFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
             @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
             @JsonProperty("return_address")
@@ -1509,6 +1513,7 @@ private constructor(
             memo,
             recipientName,
             attachmentFileId,
+            checkVoucherImageFileId,
             note,
             payer,
             returnAddress,
@@ -1550,6 +1555,17 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun attachmentFileId(): String? = attachmentFileId.getNullable("attachment_file_id")
+
+        /**
+         * The ID of a File to be used as the check voucher image. This must have `purpose:
+         * check_voucher_image`. For details on pricing and restrictions, see
+         * https://increase.com/documentation/originating-checks#printing-checks .
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun checkVoucherImageFileId(): String? =
+            checkVoucherImageFileId.getNullable("check_voucher_image_file_id")
 
         /**
          * The descriptor that will be printed on the letter included with the check.
@@ -1634,6 +1650,16 @@ private constructor(
         fun _attachmentFileId(): JsonField<String> = attachmentFileId
 
         /**
+         * Returns the raw JSON value of [checkVoucherImageFileId].
+         *
+         * Unlike [checkVoucherImageFileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("check_voucher_image_file_id")
+        @ExcludeMissing
+        fun _checkVoucherImageFileId(): JsonField<String> = checkVoucherImageFileId
+
+        /**
          * Returns the raw JSON value of [note].
          *
          * Unlike [note], this method doesn't throw if the JSON field has an unexpected type.
@@ -1711,6 +1737,7 @@ private constructor(
             private var memo: JsonField<String>? = null
             private var recipientName: JsonField<String>? = null
             private var attachmentFileId: JsonField<String> = JsonMissing.of()
+            private var checkVoucherImageFileId: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
             private var payer: JsonField<MutableList<Payer>>? = null
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
@@ -1723,6 +1750,7 @@ private constructor(
                 memo = physicalCheck.memo
                 recipientName = physicalCheck.recipientName
                 attachmentFileId = physicalCheck.attachmentFileId
+                checkVoucherImageFileId = physicalCheck.checkVoucherImageFileId
                 note = physicalCheck.note
                 payer = physicalCheck.payer.map { it.toMutableList() }
                 returnAddress = physicalCheck.returnAddress
@@ -1789,6 +1817,25 @@ private constructor(
              */
             fun attachmentFileId(attachmentFileId: JsonField<String>) = apply {
                 this.attachmentFileId = attachmentFileId
+            }
+
+            /**
+             * The ID of a File to be used as the check voucher image. This must have `purpose:
+             * check_voucher_image`. For details on pricing and restrictions, see
+             * https://increase.com/documentation/originating-checks#printing-checks .
+             */
+            fun checkVoucherImageFileId(checkVoucherImageFileId: String) =
+                checkVoucherImageFileId(JsonField.of(checkVoucherImageFileId))
+
+            /**
+             * Sets [Builder.checkVoucherImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkVoucherImageFileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun checkVoucherImageFileId(checkVoucherImageFileId: JsonField<String>) = apply {
+                this.checkVoucherImageFileId = checkVoucherImageFileId
             }
 
             /** The descriptor that will be printed on the letter included with the check. */
@@ -1925,6 +1972,7 @@ private constructor(
                     checkRequired("memo", memo),
                     checkRequired("recipientName", recipientName),
                     attachmentFileId,
+                    checkVoucherImageFileId,
                     note,
                     (payer ?: JsonMissing.of()).map { it.toImmutable() },
                     returnAddress,
@@ -1945,6 +1993,7 @@ private constructor(
             memo()
             recipientName()
             attachmentFileId()
+            checkVoucherImageFileId()
             note()
             payer()?.forEach { it.validate() }
             returnAddress()?.validate()
@@ -1972,6 +2021,7 @@ private constructor(
                 (if (memo.asKnown() == null) 0 else 1) +
                 (if (recipientName.asKnown() == null) 0 else 1) +
                 (if (attachmentFileId.asKnown() == null) 0 else 1) +
+                (if (checkVoucherImageFileId.asKnown() == null) 0 else 1) +
                 (if (note.asKnown() == null) 0 else 1) +
                 (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
@@ -3064,6 +3114,7 @@ private constructor(
                 memo == other.memo &&
                 recipientName == other.recipientName &&
                 attachmentFileId == other.attachmentFileId &&
+                checkVoucherImageFileId == other.checkVoucherImageFileId &&
                 note == other.note &&
                 payer == other.payer &&
                 returnAddress == other.returnAddress &&
@@ -3078,6 +3129,7 @@ private constructor(
                 memo,
                 recipientName,
                 attachmentFileId,
+                checkVoucherImageFileId,
                 note,
                 payer,
                 returnAddress,
@@ -3090,7 +3142,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, note=$note, payer=$payer, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, payer=$payer, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
     }
 
     /**
