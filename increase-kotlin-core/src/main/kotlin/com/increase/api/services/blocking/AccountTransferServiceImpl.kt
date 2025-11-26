@@ -20,8 +20,9 @@ import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.accounttransfers.AccountTransferApproveParams
 import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
+import com.increase.api.models.accounttransfers.AccountTransferListPage
+import com.increase.api.models.accounttransfers.AccountTransferListPageResponse
 import com.increase.api.models.accounttransfers.AccountTransferListParams
-import com.increase.api.models.accounttransfers.AccountTransferListResponse
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 
 class AccountTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -53,7 +54,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: AccountTransferListParams,
         requestOptions: RequestOptions,
-    ): AccountTransferListResponse =
+    ): AccountTransferListPage =
         // get /account_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -142,13 +143,13 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<AccountTransferListResponse> =
-            jsonHandler<AccountTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountTransferListPageResponse> =
+            jsonHandler<AccountTransferListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccountTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountTransferListResponse> {
+        ): HttpResponseFor<AccountTransferListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,6 +166,13 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AccountTransferListPage.builder()
+                            .service(AccountTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

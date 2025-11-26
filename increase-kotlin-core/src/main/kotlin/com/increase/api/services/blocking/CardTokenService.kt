@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardtokens.CardToken
 import com.increase.api.models.cardtokens.CardTokenCapabilities
 import com.increase.api.models.cardtokens.CardTokenCapabilitiesParams
+import com.increase.api.models.cardtokens.CardTokenListPage
 import com.increase.api.models.cardtokens.CardTokenListParams
-import com.increase.api.models.cardtokens.CardTokenListResponse
 import com.increase.api.models.cardtokens.CardTokenRetrieveParams
 
 interface CardTokenService {
@@ -48,10 +48,10 @@ interface CardTokenService {
     fun list(
         params: CardTokenListParams = CardTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardTokenListResponse
+    ): CardTokenListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardTokenListResponse =
+    fun list(requestOptions: RequestOptions): CardTokenListPage =
         list(CardTokenListParams.none(), requestOptions)
 
     /**
@@ -121,11 +121,11 @@ interface CardTokenService {
         fun list(
             params: CardTokenListParams = CardTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardTokenListResponse>
+        ): HttpResponseFor<CardTokenListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardTokenListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardTokenListPage> =
             list(CardTokenListParams.none(), requestOptions)
 
         /**

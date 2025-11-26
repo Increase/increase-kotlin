@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentCreateParams
+import com.increase.api.models.documents.DocumentListPageAsync
+import com.increase.api.models.documents.DocumentListPageResponse
 import com.increase.api.models.documents.DocumentListParams
-import com.increase.api.models.documents.DocumentListResponse
 import com.increase.api.models.documents.DocumentRetrieveParams
 
 class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -51,7 +52,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
     override suspend fun list(
         params: DocumentListParams,
         requestOptions: RequestOptions,
-    ): DocumentListResponse =
+    ): DocumentListPageAsync =
         // get /documents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -126,13 +127,13 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<DocumentListResponse> =
-            jsonHandler<DocumentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListPageResponse> =
+            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: DocumentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DocumentListResponse> {
+        ): HttpResponseFor<DocumentListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -149,6 +150,13 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        DocumentListPageAsync.builder()
+                            .service(DocumentServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
+import com.increase.api.models.checkdeposits.CheckDepositListPageAsync
 import com.increase.api.models.checkdeposits.CheckDepositListParams
-import com.increase.api.models.checkdeposits.CheckDepositListResponse
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 
 interface CheckDepositServiceAsync {
@@ -54,10 +54,10 @@ interface CheckDepositServiceAsync {
     suspend fun list(
         params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CheckDepositListResponse
+    ): CheckDepositListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CheckDepositListResponse =
+    suspend fun list(requestOptions: RequestOptions): CheckDepositListPageAsync =
         list(CheckDepositListParams.none(), requestOptions)
 
     /**
@@ -120,13 +120,13 @@ interface CheckDepositServiceAsync {
         suspend fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CheckDepositListResponse>
+        ): HttpResponseFor<CheckDepositListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CheckDepositListResponse> =
+        ): HttpResponseFor<CheckDepositListPageAsync> =
             list(CheckDepositListParams.none(), requestOptions)
     }
 }

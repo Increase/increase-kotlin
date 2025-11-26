@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountnumbers.AccountNumber
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
+import com.increase.api.models.accountnumbers.AccountNumberListPage
 import com.increase.api.models.accountnumbers.AccountNumberListParams
-import com.increase.api.models.accountnumbers.AccountNumberListResponse
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 
@@ -73,10 +73,10 @@ interface AccountNumberService {
     fun list(
         params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountNumberListResponse
+    ): AccountNumberListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountNumberListResponse =
+    fun list(requestOptions: RequestOptions): AccountNumberListPage =
         list(AccountNumberListParams.none(), requestOptions)
 
     /**
@@ -165,11 +165,11 @@ interface AccountNumberService {
         fun list(
             params: AccountNumberListParams = AccountNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountNumberListResponse>
+        ): HttpResponseFor<AccountNumberListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListPage> =
             list(AccountNumberListParams.none(), requestOptions)
     }
 }

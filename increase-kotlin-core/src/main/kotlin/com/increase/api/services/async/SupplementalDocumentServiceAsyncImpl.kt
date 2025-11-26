@@ -17,8 +17,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageAsync
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageResponse
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
-import com.increase.api.models.supplementaldocuments.SupplementalDocumentListResponse
 
 class SupplementalDocumentServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : SupplementalDocumentServiceAsync {
@@ -45,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
     override suspend fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions,
-    ): SupplementalDocumentListResponse =
+    ): SupplementalDocumentListPageAsync =
         // get /entity_supplemental_documents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -90,13 +91,13 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
             }
         }
 
-        private val listHandler: Handler<SupplementalDocumentListResponse> =
-            jsonHandler<SupplementalDocumentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SupplementalDocumentListPageResponse> =
+            jsonHandler<SupplementalDocumentListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: SupplementalDocumentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SupplementalDocumentListResponse> {
+        ): HttpResponseFor<SupplementalDocumentListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -113,6 +114,13 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SupplementalDocumentListPageAsync.builder()
+                            .service(SupplementalDocumentServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -20,8 +20,9 @@ import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
+import com.increase.api.models.accounts.AccountListPageAsync
+import com.increase.api.models.accounts.AccountListPageResponse
 import com.increase.api.models.accounts.AccountListParams
-import com.increase.api.models.accounts.AccountListResponse
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
@@ -62,7 +63,7 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override suspend fun list(
         params: AccountListParams,
         requestOptions: RequestOptions,
-    ): AccountListResponse =
+    ): AccountListPageAsync =
         // get /accounts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -180,13 +181,13 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<AccountListResponse> =
-            jsonHandler<AccountListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountListPageResponse> =
+            jsonHandler<AccountListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: AccountListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountListResponse> {
+        ): HttpResponseFor<AccountListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -203,6 +204,13 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AccountListPageAsync.builder()
+                            .service(AccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

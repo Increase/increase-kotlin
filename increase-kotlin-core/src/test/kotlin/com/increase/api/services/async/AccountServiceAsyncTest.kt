@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCreateParams
-import com.increase.api.models.accounts.AccountListParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -81,32 +80,9 @@ internal class AccountServiceAsyncTest {
                 .build()
         val accountServiceAsync = client.accounts()
 
-        val accounts =
-            accountServiceAsync.list(
-                AccountListParams.builder()
-                    .createdAt(
-                        AccountListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .entityId("entity_id")
-                    .idempotencyKey("x")
-                    .informationalEntityId("informational_entity_id")
-                    .limit(1L)
-                    .programId("program_id")
-                    .status(
-                        AccountListParams.Status.builder()
-                            .addIn(AccountListParams.Status.In.CLOSED)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = accountServiceAsync.list()
 
-        accounts.validate()
+        page.response().validate()
     }
 
     @Test

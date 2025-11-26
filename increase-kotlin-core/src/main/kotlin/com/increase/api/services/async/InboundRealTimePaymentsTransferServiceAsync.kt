@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageAsync
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
-import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 
 interface InboundRealTimePaymentsTransferServiceAsync {
@@ -64,10 +64,10 @@ interface InboundRealTimePaymentsTransferServiceAsync {
         params: InboundRealTimePaymentsTransferListParams =
             InboundRealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundRealTimePaymentsTransferListResponse
+    ): InboundRealTimePaymentsTransferListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListResponse =
+    suspend fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPageAsync =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 
     /**
@@ -133,13 +133,13 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             params: InboundRealTimePaymentsTransferListParams =
                 InboundRealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListResponse>
+        ): HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListResponse> =
+        ): HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync> =
             list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
     }
 }

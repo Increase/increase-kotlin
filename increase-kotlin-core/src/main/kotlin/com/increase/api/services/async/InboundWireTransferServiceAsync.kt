@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageAsync
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
-import com.increase.api.models.inboundwiretransfers.InboundWireTransferListResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 
@@ -54,10 +54,10 @@ interface InboundWireTransferServiceAsync {
     suspend fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundWireTransferListResponse
+    ): InboundWireTransferListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): InboundWireTransferListResponse =
+    suspend fun list(requestOptions: RequestOptions): InboundWireTransferListPageAsync =
         list(InboundWireTransferListParams.none(), requestOptions)
 
     /** Reverse an Inbound Wire Transfer */
@@ -134,13 +134,13 @@ interface InboundWireTransferServiceAsync {
         suspend fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundWireTransferListResponse>
+        ): HttpResponseFor<InboundWireTransferListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InboundWireTransferListResponse> =
+        ): HttpResponseFor<InboundWireTransferListPageAsync> =
             list(InboundWireTransferListParams.none(), requestOptions)
 
         /**

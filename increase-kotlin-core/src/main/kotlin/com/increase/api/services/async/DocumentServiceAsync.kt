@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentCreateParams
+import com.increase.api.models.documents.DocumentListPageAsync
 import com.increase.api.models.documents.DocumentListParams
-import com.increase.api.models.documents.DocumentListResponse
 import com.increase.api.models.documents.DocumentRetrieveParams
 
 interface DocumentServiceAsync {
@@ -53,10 +53,10 @@ interface DocumentServiceAsync {
     suspend fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentListResponse
+    ): DocumentListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): DocumentListResponse =
+    suspend fun list(requestOptions: RequestOptions): DocumentListPageAsync =
         list(DocumentListParams.none(), requestOptions)
 
     /**
@@ -118,11 +118,11 @@ interface DocumentServiceAsync {
         suspend fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentListResponse>
+        ): HttpResponseFor<DocumentListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListResponse> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPageAsync> =
             list(DocumentListParams.none(), requestOptions)
     }
 }

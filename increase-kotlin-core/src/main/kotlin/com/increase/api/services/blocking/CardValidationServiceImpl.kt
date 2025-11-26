@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cardvalidations.CardValidation
 import com.increase.api.models.cardvalidations.CardValidationCreateParams
+import com.increase.api.models.cardvalidations.CardValidationListPage
+import com.increase.api.models.cardvalidations.CardValidationListPageResponse
 import com.increase.api.models.cardvalidations.CardValidationListParams
-import com.increase.api.models.cardvalidations.CardValidationListResponse
 import com.increase.api.models.cardvalidations.CardValidationRetrieveParams
 
 class CardValidationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -51,7 +52,7 @@ class CardValidationServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: CardValidationListParams,
         requestOptions: RequestOptions,
-    ): CardValidationListResponse =
+    ): CardValidationListPage =
         // get /card_validations
         withRawResponse().list(params, requestOptions).parse()
 
@@ -126,13 +127,13 @@ class CardValidationServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<CardValidationListResponse> =
-            jsonHandler<CardValidationListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardValidationListPageResponse> =
+            jsonHandler<CardValidationListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardValidationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardValidationListResponse> {
+        ): HttpResponseFor<CardValidationListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -149,6 +150,13 @@ class CardValidationServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CardValidationListPage.builder()
+                            .service(CardValidationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

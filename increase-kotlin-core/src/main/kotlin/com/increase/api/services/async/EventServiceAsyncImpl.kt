@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.events.Event
+import com.increase.api.models.events.EventListPageAsync
+import com.increase.api.models.events.EventListPageResponse
 import com.increase.api.models.events.EventListParams
-import com.increase.api.models.events.EventListResponse
 import com.increase.api.models.events.EventRetrieveParams
 
 class EventServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -42,7 +43,7 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override suspend fun list(
         params: EventListParams,
         requestOptions: RequestOptions,
-    ): EventListResponse =
+    ): EventListPageAsync =
         // get /events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -88,13 +89,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<EventListResponse> =
-            jsonHandler<EventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventListPageResponse> =
+            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: EventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventListResponse> {
+        ): HttpResponseFor<EventListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -111,6 +112,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EventListPageAsync.builder()
+                            .service(EventServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

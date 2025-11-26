@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPageAsync
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 
@@ -55,10 +55,10 @@ interface BookkeepingAccountServiceAsync {
     suspend fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BookkeepingAccountListResponse
+    ): BookkeepingAccountListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListResponse =
+    suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListPageAsync =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
@@ -140,13 +140,13 @@ interface BookkeepingAccountServiceAsync {
         suspend fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BookkeepingAccountListResponse>
+        ): HttpResponseFor<BookkeepingAccountListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<BookkeepingAccountListResponse> =
+        ): HttpResponseFor<BookkeepingAccountListPageAsync> =
             list(BookkeepingAccountListParams.none(), requestOptions)
 
         /**

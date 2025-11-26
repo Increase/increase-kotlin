@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPage
 import com.increase.api.models.accountstatements.AccountStatementListParams
-import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 
 interface AccountStatementService {
@@ -47,10 +47,10 @@ interface AccountStatementService {
     fun list(
         params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountStatementListResponse
+    ): AccountStatementListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountStatementListResponse =
+    fun list(requestOptions: RequestOptions): AccountStatementListPage =
         list(AccountStatementListParams.none(), requestOptions)
 
     /**
@@ -106,11 +106,11 @@ interface AccountStatementService {
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountStatementListResponse>
+        ): HttpResponseFor<AccountStatementListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountStatementListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountStatementListPage> =
             list(AccountStatementListParams.none(), requestOptions)
     }
 }

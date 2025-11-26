@@ -5,8 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -68,31 +66,9 @@ internal class RealTimePaymentsTransferServiceAsyncTest {
                 .build()
         val realTimePaymentsTransferServiceAsync = client.realTimePaymentsTransfers()
 
-        val realTimePaymentsTransfers =
-            realTimePaymentsTransferServiceAsync.list(
-                RealTimePaymentsTransferListParams.builder()
-                    .accountId("account_id")
-                    .createdAt(
-                        RealTimePaymentsTransferListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .externalAccountId("external_account_id")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        RealTimePaymentsTransferListParams.Status.builder()
-                            .addIn(RealTimePaymentsTransferListParams.Status.In.PENDING_APPROVAL)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = realTimePaymentsTransferServiceAsync.list()
 
-        realTimePaymentsTransfers.validate()
+        page.response().validate()
     }
 
     @Test

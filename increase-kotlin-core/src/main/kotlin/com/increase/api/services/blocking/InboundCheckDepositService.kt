@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPage
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 
@@ -55,10 +55,10 @@ interface InboundCheckDepositService {
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundCheckDepositListResponse
+    ): InboundCheckDepositListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundCheckDepositListResponse =
+    fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
@@ -159,11 +159,11 @@ interface InboundCheckDepositService {
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundCheckDepositListResponse>
+        ): HttpResponseFor<InboundCheckDepositListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> =
             list(InboundCheckDepositListParams.none(), requestOptions)
 
         /**

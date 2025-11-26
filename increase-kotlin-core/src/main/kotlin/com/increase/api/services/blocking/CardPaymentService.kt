@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.cardpayments.CardPaymentListPage
 import com.increase.api.models.cardpayments.CardPaymentListParams
-import com.increase.api.models.cardpayments.CardPaymentListResponse
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 
 interface CardPaymentService {
@@ -47,10 +47,10 @@ interface CardPaymentService {
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPaymentListResponse
+    ): CardPaymentListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardPaymentListResponse =
+    fun list(requestOptions: RequestOptions): CardPaymentListPage =
         list(CardPaymentListParams.none(), requestOptions)
 
     /**
@@ -102,11 +102,11 @@ interface CardPaymentService {
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPaymentListResponse>
+        ): HttpResponseFor<CardPaymentListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListPage> =
             list(CardPaymentListParams.none(), requestOptions)
     }
 }

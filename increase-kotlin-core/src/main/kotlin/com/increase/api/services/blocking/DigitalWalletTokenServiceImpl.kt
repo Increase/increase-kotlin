@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 
 class DigitalWalletTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -42,7 +43,7 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: DigitalWalletTokenListParams,
         requestOptions: RequestOptions,
-    ): DigitalWalletTokenListResponse =
+    ): DigitalWalletTokenListPage =
         // get /digital_wallet_tokens
         withRawResponse().list(params, requestOptions).parse()
 
@@ -89,13 +90,13 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<DigitalWalletTokenListResponse> =
-            jsonHandler<DigitalWalletTokenListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DigitalWalletTokenListPageResponse> =
+            jsonHandler<DigitalWalletTokenListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DigitalWalletTokenListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DigitalWalletTokenListResponse> {
+        ): HttpResponseFor<DigitalWalletTokenListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -112,6 +113,13 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        DigitalWalletTokenListPage.builder()
+                            .service(DigitalWalletTokenServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

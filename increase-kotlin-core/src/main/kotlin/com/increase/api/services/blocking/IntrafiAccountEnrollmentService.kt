@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPage
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 
@@ -66,10 +66,10 @@ interface IntrafiAccountEnrollmentService {
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiAccountEnrollmentListResponse
+    ): IntrafiAccountEnrollmentListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListResponse =
+    fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPage =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
@@ -170,13 +170,13 @@ interface IntrafiAccountEnrollmentService {
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse>
+        ): HttpResponseFor<IntrafiAccountEnrollmentListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse> =
+        ): HttpResponseFor<IntrafiAccountEnrollmentListPage> =
             list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
         /**

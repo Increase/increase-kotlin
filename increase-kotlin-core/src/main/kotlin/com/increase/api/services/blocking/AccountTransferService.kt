@@ -10,8 +10,8 @@ import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.accounttransfers.AccountTransferApproveParams
 import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
+import com.increase.api.models.accounttransfers.AccountTransferListPage
 import com.increase.api.models.accounttransfers.AccountTransferListParams
-import com.increase.api.models.accounttransfers.AccountTransferListResponse
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 
 interface AccountTransferService {
@@ -56,10 +56,10 @@ interface AccountTransferService {
     fun list(
         params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountTransferListResponse
+    ): AccountTransferListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountTransferListResponse =
+    fun list(requestOptions: RequestOptions): AccountTransferListPage =
         list(AccountTransferListParams.none(), requestOptions)
 
     /** Approves an Account Transfer in status `pending_approval`. */
@@ -161,11 +161,11 @@ interface AccountTransferService {
         fun list(
             params: AccountTransferListParams = AccountTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountTransferListResponse>
+        ): HttpResponseFor<AccountTransferListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountTransferListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountTransferListPage> =
             list(AccountTransferListParams.none(), requestOptions)
 
         /**
