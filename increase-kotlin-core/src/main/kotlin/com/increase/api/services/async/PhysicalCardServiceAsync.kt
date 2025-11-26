@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
-import com.increase.api.models.physicalcards.PhysicalCardListPageAsync
 import com.increase.api.models.physicalcards.PhysicalCardListParams
+import com.increase.api.models.physicalcards.PhysicalCardListResponse
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 
@@ -69,10 +69,10 @@ interface PhysicalCardServiceAsync {
     suspend fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCardListPageAsync
+    ): PhysicalCardListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): PhysicalCardListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): PhysicalCardListResponse =
         list(PhysicalCardListParams.none(), requestOptions)
 
     /**
@@ -154,13 +154,13 @@ interface PhysicalCardServiceAsync {
         suspend fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCardListPageAsync>
+        ): HttpResponseFor<PhysicalCardListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<PhysicalCardListPageAsync> =
+        ): HttpResponseFor<PhysicalCardListResponse> =
             list(PhysicalCardListParams.none(), requestOptions)
     }
 }

@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.transactions.Transaction
-import com.increase.api.models.transactions.TransactionListPage
 import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionListResponse
 import com.increase.api.models.transactions.TransactionRetrieveParams
 
 interface TransactionService {
@@ -47,10 +47,10 @@ interface TransactionService {
     fun list(
         params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TransactionListPage
+    ): TransactionListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): TransactionListPage =
+    fun list(requestOptions: RequestOptions): TransactionListResponse =
         list(TransactionListParams.none(), requestOptions)
 
     /**
@@ -102,11 +102,11 @@ interface TransactionService {
         fun list(
             params: TransactionListParams = TransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TransactionListPage>
+        ): HttpResponseFor<TransactionListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListResponse> =
             list(TransactionListParams.none(), requestOptions)
     }
 }

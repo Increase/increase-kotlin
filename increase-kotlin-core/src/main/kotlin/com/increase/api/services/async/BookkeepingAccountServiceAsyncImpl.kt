@@ -19,9 +19,8 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPageAsync
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPageResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 
@@ -56,7 +55,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
     override suspend fun list(
         params: BookkeepingAccountListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingAccountListPageAsync =
+    ): BookkeepingAccountListResponse =
         // get /bookkeeping_accounts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -139,13 +138,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
             }
         }
 
-        private val listHandler: Handler<BookkeepingAccountListPageResponse> =
-            jsonHandler<BookkeepingAccountListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingAccountListResponse> =
+            jsonHandler<BookkeepingAccountListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: BookkeepingAccountListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BookkeepingAccountListPageAsync> {
+        ): HttpResponseFor<BookkeepingAccountListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,13 +161,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        BookkeepingAccountListPageAsync.builder()
-                            .service(BookkeepingAccountServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

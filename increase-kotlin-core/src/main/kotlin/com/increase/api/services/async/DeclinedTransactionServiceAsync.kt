@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.declinedtransactions.DeclinedTransaction
-import com.increase.api.models.declinedtransactions.DeclinedTransactionListPageAsync
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListResponse
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 
 interface DeclinedTransactionServiceAsync {
@@ -53,10 +53,10 @@ interface DeclinedTransactionServiceAsync {
     suspend fun list(
         params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DeclinedTransactionListPageAsync
+    ): DeclinedTransactionListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): DeclinedTransactionListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): DeclinedTransactionListResponse =
         list(DeclinedTransactionListParams.none(), requestOptions)
 
     /**
@@ -116,13 +116,13 @@ interface DeclinedTransactionServiceAsync {
         suspend fun list(
             params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DeclinedTransactionListPageAsync>
+        ): HttpResponseFor<DeclinedTransactionListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<DeclinedTransactionListPageAsync> =
+        ): HttpResponseFor<DeclinedTransactionListResponse> =
             list(DeclinedTransactionListParams.none(), requestOptions)
     }
 }

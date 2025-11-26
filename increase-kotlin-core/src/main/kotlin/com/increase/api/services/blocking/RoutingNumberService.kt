@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.routingnumbers.RoutingNumberListPage
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
+import com.increase.api.models.routingnumbers.RoutingNumberListResponse
 
 interface RoutingNumberService {
 
@@ -32,7 +32,7 @@ interface RoutingNumberService {
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoutingNumberListPage
+    ): RoutingNumberListResponse
 
     /**
      * A view of [RoutingNumberService] that provides access to raw HTTP responses for each method.
@@ -56,6 +56,6 @@ interface RoutingNumberService {
         fun list(
             params: RoutingNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoutingNumberListPage>
+        ): HttpResponseFor<RoutingNumberListResponse>
     }
 }

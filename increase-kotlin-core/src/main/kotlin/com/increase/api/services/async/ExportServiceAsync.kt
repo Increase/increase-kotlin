@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportListPageAsync
 import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportListResponse
 import com.increase.api.models.exports.ExportRetrieveParams
 
 interface ExportServiceAsync {
@@ -53,10 +53,10 @@ interface ExportServiceAsync {
     suspend fun list(
         params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExportListPageAsync
+    ): ExportListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): ExportListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): ExportListResponse =
         list(ExportListParams.none(), requestOptions)
 
     /**
@@ -117,11 +117,11 @@ interface ExportServiceAsync {
         suspend fun list(
             params: ExportListParams = ExportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExportListPageAsync>
+        ): HttpResponseFor<ExportListResponse>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPageAsync> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListResponse> =
             list(ExportListParams.none(), requestOptions)
     }
 }

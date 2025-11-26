@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
-import com.increase.api.models.checkdeposits.CheckDepositListPage
 import com.increase.api.models.checkdeposits.CheckDepositListParams
+import com.increase.api.models.checkdeposits.CheckDepositListResponse
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 
 interface CheckDepositService {
@@ -54,10 +54,10 @@ interface CheckDepositService {
     fun list(
         params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CheckDepositListPage
+    ): CheckDepositListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CheckDepositListPage =
+    fun list(requestOptions: RequestOptions): CheckDepositListResponse =
         list(CheckDepositListParams.none(), requestOptions)
 
     /**
@@ -119,11 +119,11 @@ interface CheckDepositService {
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CheckDepositListPage>
+        ): HttpResponseFor<CheckDepositListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListResponse> =
             list(CheckDepositListParams.none(), requestOptions)
     }
 }

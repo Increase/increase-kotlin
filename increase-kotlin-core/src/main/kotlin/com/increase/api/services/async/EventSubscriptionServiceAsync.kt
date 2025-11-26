@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageAsync
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 
@@ -82,10 +82,10 @@ interface EventSubscriptionServiceAsync {
     suspend fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventSubscriptionListPageAsync
+    ): EventSubscriptionListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): EventSubscriptionListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): EventSubscriptionListResponse =
         list(EventSubscriptionListParams.none(), requestOptions)
 
     /**
@@ -181,13 +181,13 @@ interface EventSubscriptionServiceAsync {
         suspend fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventSubscriptionListPageAsync>
+        ): HttpResponseFor<EventSubscriptionListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<EventSubscriptionListPageAsync> =
+        ): HttpResponseFor<EventSubscriptionListResponse> =
             list(EventSubscriptionListParams.none(), requestOptions)
     }
 }

@@ -12,8 +12,8 @@ import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
 import com.increase.api.models.cards.CardIframeUrl
-import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardListResponse
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -76,10 +76,10 @@ interface CardServiceAsync {
     suspend fun list(
         params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardListPageAsync
+    ): CardListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CardListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): CardListResponse =
         list(CardListParams.none(), requestOptions)
 
     /**
@@ -213,11 +213,11 @@ interface CardServiceAsync {
         suspend fun list(
             params: CardListParams = CardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardListPageAsync>
+        ): HttpResponseFor<CardListResponse>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPageAsync> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardListResponse> =
             list(CardListParams.none(), requestOptions)
 
         /**

@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.achprenotifications.AchPrenotification
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
-import com.increase.api.models.achprenotifications.AchPrenotificationListPageAsync
-import com.increase.api.models.achprenotifications.AchPrenotificationListPageResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
+import com.increase.api.models.achprenotifications.AchPrenotificationListResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 
 class AchPrenotificationServiceAsyncImpl
@@ -54,7 +53,7 @@ internal constructor(private val clientOptions: ClientOptions) : AchPrenotificat
     override suspend fun list(
         params: AchPrenotificationListParams,
         requestOptions: RequestOptions,
-    ): AchPrenotificationListPageAsync =
+    ): AchPrenotificationListResponse =
         // get /ach_prenotifications
         withRawResponse().list(params, requestOptions).parse()
 
@@ -129,13 +128,13 @@ internal constructor(private val clientOptions: ClientOptions) : AchPrenotificat
             }
         }
 
-        private val listHandler: Handler<AchPrenotificationListPageResponse> =
-            jsonHandler<AchPrenotificationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchPrenotificationListResponse> =
+            jsonHandler<AchPrenotificationListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: AchPrenotificationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AchPrenotificationListPageAsync> {
+        ): HttpResponseFor<AchPrenotificationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -152,13 +151,6 @@ internal constructor(private val clientOptions: ClientOptions) : AchPrenotificat
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AchPrenotificationListPageAsync.builder()
-                            .service(AchPrenotificationServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

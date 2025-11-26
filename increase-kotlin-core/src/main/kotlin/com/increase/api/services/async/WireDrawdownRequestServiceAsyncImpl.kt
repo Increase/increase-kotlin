@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
-import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageAsync
-import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 
 class WireDrawdownRequestServiceAsyncImpl
@@ -55,7 +54,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
     override suspend fun list(
         params: WireDrawdownRequestListParams,
         requestOptions: RequestOptions,
-    ): WireDrawdownRequestListPageAsync =
+    ): WireDrawdownRequestListResponse =
         // get /wire_drawdown_requests
         withRawResponse().list(params, requestOptions).parse()
 
@@ -130,13 +129,13 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
             }
         }
 
-        private val listHandler: Handler<WireDrawdownRequestListPageResponse> =
-            jsonHandler<WireDrawdownRequestListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireDrawdownRequestListResponse> =
+            jsonHandler<WireDrawdownRequestListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: WireDrawdownRequestListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<WireDrawdownRequestListPageAsync> {
+        ): HttpResponseFor<WireDrawdownRequestListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -153,13 +152,6 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        WireDrawdownRequestListPageAsync.builder()
-                            .service(WireDrawdownRequestServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

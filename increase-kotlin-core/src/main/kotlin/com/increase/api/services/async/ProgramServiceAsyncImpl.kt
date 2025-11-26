@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.programs.Program
-import com.increase.api.models.programs.ProgramListPageAsync
-import com.increase.api.models.programs.ProgramListPageResponse
 import com.increase.api.models.programs.ProgramListParams
+import com.increase.api.models.programs.ProgramListResponse
 import com.increase.api.models.programs.ProgramRetrieveParams
 
 class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -43,7 +42,7 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override suspend fun list(
         params: ProgramListParams,
         requestOptions: RequestOptions,
-    ): ProgramListPageAsync =
+    ): ProgramListResponse =
         // get /programs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -90,13 +89,13 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<ProgramListPageResponse> =
-            jsonHandler<ProgramListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ProgramListResponse> =
+            jsonHandler<ProgramListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: ProgramListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ProgramListPageAsync> {
+        ): HttpResponseFor<ProgramListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -113,13 +112,6 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ProgramListPageAsync.builder()
-                            .service(ProgramServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

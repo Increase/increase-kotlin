@@ -10,8 +10,8 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfile
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchiveParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
-import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPageAsync
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 
 interface PhysicalCardProfileServiceAsync {
@@ -62,10 +62,10 @@ interface PhysicalCardProfileServiceAsync {
     suspend fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCardProfileListPageAsync
+    ): PhysicalCardProfileListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): PhysicalCardProfileListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): PhysicalCardProfileListResponse =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
@@ -183,13 +183,13 @@ interface PhysicalCardProfileServiceAsync {
         suspend fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCardProfileListPageAsync>
+        ): HttpResponseFor<PhysicalCardProfileListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<PhysicalCardProfileListPageAsync> =
+        ): HttpResponseFor<PhysicalCardProfileListResponse> =
             list(PhysicalCardProfileListParams.none(), requestOptions)
 
         /**

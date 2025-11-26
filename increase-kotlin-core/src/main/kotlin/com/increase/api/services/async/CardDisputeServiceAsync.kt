@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeListResponse
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
@@ -56,10 +56,10 @@ interface CardDisputeServiceAsync {
     suspend fun list(
         params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardDisputeListPageAsync
+    ): CardDisputeListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CardDisputeListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): CardDisputeListResponse =
         list(CardDisputeListParams.none(), requestOptions)
 
     /** Submit a User Submission for a Card Dispute */
@@ -157,13 +157,11 @@ interface CardDisputeServiceAsync {
         suspend fun list(
             params: CardDisputeListParams = CardDisputeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardDisputeListPageAsync>
+        ): HttpResponseFor<CardDisputeListResponse>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CardDisputeListPageAsync> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardDisputeListResponse> =
             list(CardDisputeListParams.none(), requestOptions)
 
         /**

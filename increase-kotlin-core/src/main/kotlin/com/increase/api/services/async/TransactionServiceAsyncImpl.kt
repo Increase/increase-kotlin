@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.transactions.Transaction
-import com.increase.api.models.transactions.TransactionListPageAsync
-import com.increase.api.models.transactions.TransactionListPageResponse
 import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionListResponse
 import com.increase.api.models.transactions.TransactionRetrieveParams
 
 class TransactionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -43,7 +42,7 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
     override suspend fun list(
         params: TransactionListParams,
         requestOptions: RequestOptions,
-    ): TransactionListPageAsync =
+    ): TransactionListResponse =
         // get /transactions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -90,13 +89,13 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<TransactionListPageResponse> =
-            jsonHandler<TransactionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TransactionListResponse> =
+            jsonHandler<TransactionListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: TransactionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TransactionListPageAsync> {
+        ): HttpResponseFor<TransactionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -113,13 +112,6 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        TransactionListPageAsync.builder()
-                            .service(TransactionServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

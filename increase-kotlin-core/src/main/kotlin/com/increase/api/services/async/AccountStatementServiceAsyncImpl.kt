@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.accountstatements.AccountStatement
-import com.increase.api.models.accountstatements.AccountStatementListPageAsync
-import com.increase.api.models.accountstatements.AccountStatementListPageResponse
 import com.increase.api.models.accountstatements.AccountStatementListParams
+import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 
 class AccountStatementServiceAsyncImpl
@@ -45,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
     override suspend fun list(
         params: AccountStatementListParams,
         requestOptions: RequestOptions,
-    ): AccountStatementListPageAsync =
+    ): AccountStatementListResponse =
         // get /account_statements
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
             }
         }
 
-        private val listHandler: Handler<AccountStatementListPageResponse> =
-            jsonHandler<AccountStatementListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountStatementListResponse> =
+            jsonHandler<AccountStatementListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: AccountStatementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountStatementListPageAsync> {
+        ): HttpResponseFor<AccountStatementListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AccountStatementListPageAsync.builder()
-                            .service(AccountStatementServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

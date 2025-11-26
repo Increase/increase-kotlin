@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingentries.BookkeepingEntry
-import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPage
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 
 interface BookkeepingEntryService {
@@ -47,10 +47,10 @@ interface BookkeepingEntryService {
     fun list(
         params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BookkeepingEntryListPage
+    ): BookkeepingEntryListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BookkeepingEntryListPage =
+    fun list(requestOptions: RequestOptions): BookkeepingEntryListResponse =
         list(BookkeepingEntryListParams.none(), requestOptions)
 
     /**
@@ -106,11 +106,11 @@ interface BookkeepingEntryService {
         fun list(
             params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BookkeepingEntryListPage>
+        ): HttpResponseFor<BookkeepingEntryListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingEntryListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingEntryListResponse> =
             list(BookkeepingEntryListParams.none(), requestOptions)
     }
 }

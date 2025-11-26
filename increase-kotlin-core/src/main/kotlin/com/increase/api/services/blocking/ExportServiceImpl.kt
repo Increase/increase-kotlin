@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportListPage
-import com.increase.api.models.exports.ExportListPageResponse
 import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportListResponse
 import com.increase.api.models.exports.ExportRetrieveParams
 
 class ExportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -43,7 +42,10 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /exports/{export_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: ExportListParams, requestOptions: RequestOptions): ExportListPage =
+    override fun list(
+        params: ExportListParams,
+        requestOptions: RequestOptions,
+    ): ExportListResponse =
         // get /exports
         withRawResponse().list(params, requestOptions).parse()
 
@@ -114,13 +116,13 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<ExportListPageResponse> =
-            jsonHandler<ExportListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExportListResponse> =
+            jsonHandler<ExportListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExportListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ExportListPage> {
+        ): HttpResponseFor<ExportListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -137,13 +139,6 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ExportListPage.builder()
-                            .service(ExportServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

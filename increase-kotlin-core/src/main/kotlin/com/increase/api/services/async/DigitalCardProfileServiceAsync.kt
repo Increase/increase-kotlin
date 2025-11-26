@@ -10,8 +10,8 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageAsync
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 
 interface DigitalCardProfileServiceAsync {
@@ -62,10 +62,10 @@ interface DigitalCardProfileServiceAsync {
     suspend fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfileListPageAsync
+    ): DigitalCardProfileListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListResponse =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
@@ -176,13 +176,13 @@ interface DigitalCardProfileServiceAsync {
         suspend fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfileListPageAsync>
+        ): HttpResponseFor<DigitalCardProfileListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<DigitalCardProfileListPageAsync> =
+        ): HttpResponseFor<DigitalCardProfileListResponse> =
             list(DigitalCardProfileListParams.none(), requestOptions)
 
         /**
