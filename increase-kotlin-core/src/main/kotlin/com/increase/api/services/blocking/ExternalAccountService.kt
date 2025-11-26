@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.externalaccounts.ExternalAccount
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
-import com.increase.api.models.externalaccounts.ExternalAccountListPage
 import com.increase.api.models.externalaccounts.ExternalAccountListParams
+import com.increase.api.models.externalaccounts.ExternalAccountListResponse
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 
@@ -73,10 +73,10 @@ interface ExternalAccountService {
     fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalAccountListPage
+    ): ExternalAccountListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ExternalAccountListPage =
+    fun list(requestOptions: RequestOptions): ExternalAccountListResponse =
         list(ExternalAccountListParams.none(), requestOptions)
 
     /**
@@ -169,11 +169,11 @@ interface ExternalAccountService {
         fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalAccountListPage>
+        ): HttpResponseFor<ExternalAccountListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ExternalAccountListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ExternalAccountListResponse> =
             list(ExternalAccountListParams.none(), requestOptions)
     }
 }

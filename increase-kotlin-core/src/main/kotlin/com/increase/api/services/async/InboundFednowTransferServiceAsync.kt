@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransfer
-import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListPageAsync
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListParams
+import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListResponse
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferRetrieveParams
 
 interface InboundFednowTransferServiceAsync {
@@ -57,10 +57,10 @@ interface InboundFednowTransferServiceAsync {
     suspend fun list(
         params: InboundFednowTransferListParams = InboundFednowTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundFednowTransferListPageAsync
+    ): InboundFednowTransferListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): InboundFednowTransferListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): InboundFednowTransferListResponse =
         list(InboundFednowTransferListParams.none(), requestOptions)
 
     /**
@@ -122,13 +122,13 @@ interface InboundFednowTransferServiceAsync {
         suspend fun list(
             params: InboundFednowTransferListParams = InboundFednowTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundFednowTransferListPageAsync>
+        ): HttpResponseFor<InboundFednowTransferListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InboundFednowTransferListPageAsync> =
+        ): HttpResponseFor<InboundFednowTransferListResponse> =
             list(InboundFednowTransferListParams.none(), requestOptions)
     }
 }

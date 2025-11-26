@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.cardpayments.CardPayment
-import com.increase.api.models.cardpayments.CardPaymentListPageAsync
-import com.increase.api.models.cardpayments.CardPaymentListPageResponse
 import com.increase.api.models.cardpayments.CardPaymentListParams
+import com.increase.api.models.cardpayments.CardPaymentListResponse
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 
 class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -43,7 +42,7 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
     override suspend fun list(
         params: CardPaymentListParams,
         requestOptions: RequestOptions,
-    ): CardPaymentListPageAsync =
+    ): CardPaymentListResponse =
         // get /card_payments
         withRawResponse().list(params, requestOptions).parse()
 
@@ -90,13 +89,13 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<CardPaymentListPageResponse> =
-            jsonHandler<CardPaymentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPaymentListResponse> =
+            jsonHandler<CardPaymentListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: CardPaymentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPaymentListPageAsync> {
+        ): HttpResponseFor<CardPaymentListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -113,13 +112,6 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardPaymentListPageAsync.builder()
-                            .service(CardPaymentServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

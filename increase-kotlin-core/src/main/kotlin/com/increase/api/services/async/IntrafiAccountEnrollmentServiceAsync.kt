@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 
@@ -66,10 +66,10 @@ interface IntrafiAccountEnrollmentServiceAsync {
     suspend fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiAccountEnrollmentListPageAsync
+    ): IntrafiAccountEnrollmentListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListResponse =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
@@ -170,13 +170,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
         suspend fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>
+        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<IntrafiAccountEnrollmentListPageAsync> =
+        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse> =
             list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
         /**

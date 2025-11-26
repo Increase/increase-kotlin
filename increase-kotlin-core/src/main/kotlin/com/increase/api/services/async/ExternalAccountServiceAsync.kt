@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.externalaccounts.ExternalAccount
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
-import com.increase.api.models.externalaccounts.ExternalAccountListPageAsync
 import com.increase.api.models.externalaccounts.ExternalAccountListParams
+import com.increase.api.models.externalaccounts.ExternalAccountListResponse
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 
@@ -76,10 +76,10 @@ interface ExternalAccountServiceAsync {
     suspend fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalAccountListPageAsync
+    ): ExternalAccountListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): ExternalAccountListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): ExternalAccountListResponse =
         list(ExternalAccountListParams.none(), requestOptions)
 
     /**
@@ -172,13 +172,13 @@ interface ExternalAccountServiceAsync {
         suspend fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalAccountListPageAsync>
+        ): HttpResponseFor<ExternalAccountListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<ExternalAccountListPageAsync> =
+        ): HttpResponseFor<ExternalAccountListResponse> =
             list(ExternalAccountListParams.none(), requestOptions)
     }
 }

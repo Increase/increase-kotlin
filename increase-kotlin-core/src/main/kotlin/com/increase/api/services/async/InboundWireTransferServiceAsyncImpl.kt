@@ -17,9 +17,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
-import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageAsync
-import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 
@@ -48,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
     override suspend fun list(
         params: InboundWireTransferListParams,
         requestOptions: RequestOptions,
-    ): InboundWireTransferListPageAsync =
+    ): InboundWireTransferListResponse =
         // get /inbound_wire_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -102,13 +101,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
             }
         }
 
-        private val listHandler: Handler<InboundWireTransferListPageResponse> =
-            jsonHandler<InboundWireTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundWireTransferListResponse> =
+            jsonHandler<InboundWireTransferListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: InboundWireTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundWireTransferListPageAsync> {
+        ): HttpResponseFor<InboundWireTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -125,13 +124,6 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        InboundWireTransferListPageAsync.builder()
-                            .service(InboundWireTransferServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

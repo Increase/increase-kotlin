@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
-import com.increase.api.models.inboundachtransfers.InboundAchTransferListPage
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 
@@ -53,10 +53,10 @@ interface InboundAchTransferService {
     fun list(
         params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundAchTransferListPage
+    ): InboundAchTransferListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundAchTransferListPage =
+    fun list(requestOptions: RequestOptions): InboundAchTransferListResponse =
         list(InboundAchTransferListParams.none(), requestOptions)
 
     /** Create a notification of change for an Inbound ACH Transfer */
@@ -179,11 +179,11 @@ interface InboundAchTransferService {
         fun list(
             params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundAchTransferListPage>
+        ): HttpResponseFor<InboundAchTransferListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundAchTransferListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundAchTransferListResponse> =
             list(InboundAchTransferListParams.none(), requestOptions)
 
         /**

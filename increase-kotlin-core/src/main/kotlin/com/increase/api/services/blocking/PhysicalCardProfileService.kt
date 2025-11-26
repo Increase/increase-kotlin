@@ -10,8 +10,8 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfile
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchiveParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
-import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPage
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 
 interface PhysicalCardProfileService {
@@ -62,10 +62,10 @@ interface PhysicalCardProfileService {
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCardProfileListPage
+    ): PhysicalCardProfileListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PhysicalCardProfileListPage =
+    fun list(requestOptions: RequestOptions): PhysicalCardProfileListResponse =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
@@ -180,11 +180,11 @@ interface PhysicalCardProfileService {
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCardProfileListPage>
+        ): HttpResponseFor<PhysicalCardProfileListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardProfileListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardProfileListResponse> =
             list(PhysicalCardProfileListParams.none(), requestOptions)
 
         /**

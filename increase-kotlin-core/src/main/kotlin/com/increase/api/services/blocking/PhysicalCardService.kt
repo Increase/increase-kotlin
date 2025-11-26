@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
-import com.increase.api.models.physicalcards.PhysicalCardListPage
 import com.increase.api.models.physicalcards.PhysicalCardListParams
+import com.increase.api.models.physicalcards.PhysicalCardListResponse
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 
@@ -69,10 +69,10 @@ interface PhysicalCardService {
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCardListPage
+    ): PhysicalCardListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PhysicalCardListPage =
+    fun list(requestOptions: RequestOptions): PhysicalCardListResponse =
         list(PhysicalCardListParams.none(), requestOptions)
 
     /**
@@ -153,11 +153,11 @@ interface PhysicalCardService {
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCardListPage>
+        ): HttpResponseFor<PhysicalCardListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListResponse> =
             list(PhysicalCardListParams.none(), requestOptions)
     }
 }

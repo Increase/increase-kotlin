@@ -20,9 +20,8 @@ import com.increase.api.models.cardpushtransfers.CardPushTransfer
 import com.increase.api.models.cardpushtransfers.CardPushTransferApproveParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCancelParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListPageAsync
-import com.increase.api.models.cardpushtransfers.CardPushTransferListPageResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
+import com.increase.api.models.cardpushtransfers.CardPushTransferListResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferRetrieveParams
 
 class CardPushTransferServiceAsyncImpl
@@ -56,7 +55,7 @@ internal constructor(private val clientOptions: ClientOptions) : CardPushTransfe
     override suspend fun list(
         params: CardPushTransferListParams,
         requestOptions: RequestOptions,
-    ): CardPushTransferListPageAsync =
+    ): CardPushTransferListResponse =
         // get /card_push_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -145,13 +144,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardPushTransfe
             }
         }
 
-        private val listHandler: Handler<CardPushTransferListPageResponse> =
-            jsonHandler<CardPushTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPushTransferListResponse> =
+            jsonHandler<CardPushTransferListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: CardPushTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPushTransferListPageAsync> {
+        ): HttpResponseFor<CardPushTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -168,13 +167,6 @@ internal constructor(private val clientOptions: ClientOptions) : CardPushTransfe
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardPushTransferListPageAsync.builder()
-                            .service(CardPushTransferServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

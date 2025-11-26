@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageAsync
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 
@@ -62,7 +61,7 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
     override suspend fun list(
         params: EventSubscriptionListParams,
         requestOptions: RequestOptions,
-    ): EventSubscriptionListPageAsync =
+    ): EventSubscriptionListResponse =
         // get /event_subscriptions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -168,13 +167,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
             }
         }
 
-        private val listHandler: Handler<EventSubscriptionListPageResponse> =
-            jsonHandler<EventSubscriptionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventSubscriptionListResponse> =
+            jsonHandler<EventSubscriptionListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: EventSubscriptionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventSubscriptionListPageAsync> {
+        ): HttpResponseFor<EventSubscriptionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -191,13 +190,6 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        EventSubscriptionListPageAsync.builder()
-                            .service(EventSubscriptionServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

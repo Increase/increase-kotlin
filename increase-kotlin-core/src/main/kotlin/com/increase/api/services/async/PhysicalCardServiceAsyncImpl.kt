@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
-import com.increase.api.models.physicalcards.PhysicalCardListPageAsync
-import com.increase.api.models.physicalcards.PhysicalCardListPageResponse
 import com.increase.api.models.physicalcards.PhysicalCardListParams
+import com.increase.api.models.physicalcards.PhysicalCardListResponse
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 
@@ -60,7 +59,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
     override suspend fun list(
         params: PhysicalCardListParams,
         requestOptions: RequestOptions,
-    ): PhysicalCardListPageAsync =
+    ): PhysicalCardListResponse =
         // get /physical_cards
         withRawResponse().list(params, requestOptions).parse()
 
@@ -166,13 +165,13 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<PhysicalCardListPageResponse> =
-            jsonHandler<PhysicalCardListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhysicalCardListResponse> =
+            jsonHandler<PhysicalCardListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: PhysicalCardListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhysicalCardListPageAsync> {
+        ): HttpResponseFor<PhysicalCardListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -189,13 +188,6 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        PhysicalCardListPageAsync.builder()
-                            .service(PhysicalCardServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

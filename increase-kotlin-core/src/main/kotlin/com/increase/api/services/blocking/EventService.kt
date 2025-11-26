@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.events.Event
-import com.increase.api.models.events.EventListPage
 import com.increase.api.models.events.EventListParams
+import com.increase.api.models.events.EventListResponse
 import com.increase.api.models.events.EventRetrieveParams
 
 interface EventService {
@@ -46,10 +46,10 @@ interface EventService {
     fun list(
         params: EventListParams = EventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventListPage
+    ): EventListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EventListPage =
+    fun list(requestOptions: RequestOptions): EventListResponse =
         list(EventListParams.none(), requestOptions)
 
     /** A view of [EventService] that provides access to raw HTTP responses for each method. */
@@ -94,11 +94,11 @@ interface EventService {
         fun list(
             params: EventListParams = EventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventListPage>
+        ): HttpResponseFor<EventListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListResponse> =
             list(EventListParams.none(), requestOptions)
     }
 }

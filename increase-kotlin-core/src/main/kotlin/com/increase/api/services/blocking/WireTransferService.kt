@@ -10,8 +10,8 @@ import com.increase.api.models.wiretransfers.WireTransfer
 import com.increase.api.models.wiretransfers.WireTransferApproveParams
 import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferListPage
 import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferListResponse
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 
 interface WireTransferService {
@@ -56,10 +56,10 @@ interface WireTransferService {
     fun list(
         params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WireTransferListPage
+    ): WireTransferListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WireTransferListPage =
+    fun list(requestOptions: RequestOptions): WireTransferListResponse =
         list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
@@ -157,11 +157,11 @@ interface WireTransferService {
         fun list(
             params: WireTransferListParams = WireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WireTransferListPage>
+        ): HttpResponseFor<WireTransferListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListResponse> =
             list(WireTransferListParams.none(), requestOptions)
 
         /**

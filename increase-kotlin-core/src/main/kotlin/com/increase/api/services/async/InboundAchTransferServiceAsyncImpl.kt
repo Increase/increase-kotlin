@@ -19,9 +19,8 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
-import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageAsync
-import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 
@@ -49,7 +48,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
     override suspend fun list(
         params: InboundAchTransferListParams,
         requestOptions: RequestOptions,
-    ): InboundAchTransferListPageAsync =
+    ): InboundAchTransferListResponse =
         // get /inbound_ach_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -117,13 +116,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
             }
         }
 
-        private val listHandler: Handler<InboundAchTransferListPageResponse> =
-            jsonHandler<InboundAchTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundAchTransferListResponse> =
+            jsonHandler<InboundAchTransferListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: InboundAchTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundAchTransferListPageAsync> {
+        ): HttpResponseFor<InboundAchTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -140,13 +139,6 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        InboundAchTransferListPageAsync.builder()
-                            .service(InboundAchTransferServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

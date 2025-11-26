@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.files.File
 import com.increase.api.models.files.FileCreateParams
-import com.increase.api.models.files.FileListPage
 import com.increase.api.models.files.FileListParams
+import com.increase.api.models.files.FileListResponse
 import com.increase.api.models.files.FileRetrieveParams
 
 interface FileService {
@@ -57,10 +57,10 @@ interface FileService {
     fun list(
         params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FileListPage
+    ): FileListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FileListPage =
+    fun list(requestOptions: RequestOptions): FileListResponse =
         list(FileListParams.none(), requestOptions)
 
     /** A view of [FileService] that provides access to raw HTTP responses for each method. */
@@ -115,11 +115,11 @@ interface FileService {
         fun list(
             params: FileListParams = FileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FileListPage>
+        ): HttpResponseFor<FileListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FileListResponse> =
             list(FileListParams.none(), requestOptions)
     }
 }

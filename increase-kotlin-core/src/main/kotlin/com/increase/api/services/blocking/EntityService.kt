@@ -12,8 +12,8 @@ import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityListPage
 import com.increase.api.models.entities.EntityListParams
+import com.increase.api.models.entities.EntityListResponse
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
@@ -78,10 +78,10 @@ interface EntityService {
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EntityListPage
+    ): EntityListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EntityListPage =
+    fun list(requestOptions: RequestOptions): EntityListResponse =
         list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
@@ -265,11 +265,11 @@ interface EntityService {
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EntityListPage>
+        ): HttpResponseFor<EntityListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListResponse> =
             list(EntityListParams.none(), requestOptions)
 
         /**

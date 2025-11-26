@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.pendingtransactions.PendingTransaction
 import com.increase.api.models.pendingtransactions.PendingTransactionCreateParams
-import com.increase.api.models.pendingtransactions.PendingTransactionListPageAsync
-import com.increase.api.models.pendingtransactions.PendingTransactionListPageResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
+import com.increase.api.models.pendingtransactions.PendingTransactionListResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionReleaseParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 
@@ -55,7 +54,7 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
     override suspend fun list(
         params: PendingTransactionListParams,
         requestOptions: RequestOptions,
-    ): PendingTransactionListPageAsync =
+    ): PendingTransactionListResponse =
         // get /pending_transactions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -137,13 +136,13 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
             }
         }
 
-        private val listHandler: Handler<PendingTransactionListPageResponse> =
-            jsonHandler<PendingTransactionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PendingTransactionListResponse> =
+            jsonHandler<PendingTransactionListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: PendingTransactionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PendingTransactionListPageAsync> {
+        ): HttpResponseFor<PendingTransactionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -160,13 +159,6 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        PendingTransactionListPageAsync.builder()
-                            .service(PendingTransactionServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

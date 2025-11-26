@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportListPageAsync
-import com.increase.api.models.exports.ExportListPageResponse
 import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportListResponse
 import com.increase.api.models.exports.ExportRetrieveParams
 
 class ExportServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -52,7 +51,7 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override suspend fun list(
         params: ExportListParams,
         requestOptions: RequestOptions,
-    ): ExportListPageAsync =
+    ): ExportListResponse =
         // get /exports
         withRawResponse().list(params, requestOptions).parse()
 
@@ -125,13 +124,13 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<ExportListPageResponse> =
-            jsonHandler<ExportListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExportListResponse> =
+            jsonHandler<ExportListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: ExportListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ExportListPageAsync> {
+        ): HttpResponseFor<ExportListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -148,13 +147,6 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ExportListPageAsync.builder()
-                            .service(ExportServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

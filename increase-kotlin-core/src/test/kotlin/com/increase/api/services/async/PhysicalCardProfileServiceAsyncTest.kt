@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -65,9 +66,21 @@ internal class PhysicalCardProfileServiceAsyncTest {
                 .build()
         val physicalCardProfileServiceAsync = client.physicalCardProfiles()
 
-        val page = physicalCardProfileServiceAsync.list()
+        val physicalCardProfiles =
+            physicalCardProfileServiceAsync.list(
+                PhysicalCardProfileListParams.builder()
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        PhysicalCardProfileListParams.Status.builder()
+                            .addIn(PhysicalCardProfileListParams.Status.In.PENDING_CREATING)
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        physicalCardProfiles.validate()
     }
 
     @Test

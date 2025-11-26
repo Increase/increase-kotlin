@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
-import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListPageAsync
-import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListPageResponse
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListResponse
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 
 class InboundWireDrawdownRequestServiceAsyncImpl
@@ -49,7 +48,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override suspend fun list(
         params: InboundWireDrawdownRequestListParams,
         requestOptions: RequestOptions,
-    ): InboundWireDrawdownRequestListPageAsync =
+    ): InboundWireDrawdownRequestListResponse =
         // get /inbound_wire_drawdown_requests
         withRawResponse().list(params, requestOptions).parse()
 
@@ -96,13 +95,13 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<InboundWireDrawdownRequestListPageResponse> =
-            jsonHandler<InboundWireDrawdownRequestListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundWireDrawdownRequestListResponse> =
+            jsonHandler<InboundWireDrawdownRequestListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: InboundWireDrawdownRequestListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundWireDrawdownRequestListPageAsync> {
+        ): HttpResponseFor<InboundWireDrawdownRequestListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -119,13 +118,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        InboundWireDrawdownRequestListPageAsync.builder()
-                            .service(InboundWireDrawdownRequestServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

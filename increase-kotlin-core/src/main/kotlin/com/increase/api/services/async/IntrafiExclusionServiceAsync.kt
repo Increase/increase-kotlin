@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageAsync
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 
 interface IntrafiExclusionServiceAsync {
@@ -58,10 +58,10 @@ interface IntrafiExclusionServiceAsync {
     suspend fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiExclusionListPageAsync
+    ): IntrafiExclusionListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): IntrafiExclusionListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): IntrafiExclusionListResponse =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
@@ -148,13 +148,13 @@ interface IntrafiExclusionServiceAsync {
         suspend fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiExclusionListPageAsync>
+        ): HttpResponseFor<IntrafiExclusionListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<IntrafiExclusionListPageAsync> =
+        ): HttpResponseFor<IntrafiExclusionListResponse> =
             list(IntrafiExclusionListParams.none(), requestOptions)
 
         /**

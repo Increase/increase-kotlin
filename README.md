@@ -57,8 +57,6 @@ val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name("New Account!")
-    .entityId("entity_n8y8tnk2p9339ti393yi")
-    .programId("program_i2v2os4mwza1oetokh9i")
     .build()
 val account: Account = client.accounts().create(params)
 ```
@@ -160,8 +158,6 @@ val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name("New Account!")
-    .entityId("entity_n8y8tnk2p9339ti393yi")
-    .programId("program_i2v2os4mwza1oetokh9i")
     .build()
 val account: Account = client.async().accounts().create(params)
 ```
@@ -180,8 +176,6 @@ val client: IncreaseClientAsync = IncreaseOkHttpClientAsync.fromEnv()
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name("New Account!")
-    .entityId("entity_n8y8tnk2p9339ti393yi")
-    .programId("program_i2v2os4mwza1oetokh9i")
     .build()
 val account: Account = client.accounts().create(params)
 ```
@@ -266,8 +260,6 @@ import com.increase.api.models.accounts.AccountCreateParams
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name("New Account!")
-    .entityId("entity_n8y8tnk2p9339ti393yi")
-    .programId("program_i2v2os4mwza1oetokh9i")
     .build()
 val account: HttpResponseFor<Account> = client.accounts().withRawResponse().create(params)
 
@@ -307,59 +299,6 @@ The SDK throws custom unchecked exception types:
 - [`IncreaseInvalidDataException`](increase-kotlin-core/src/main/kotlin/com/increase/api/errors/IncreaseInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
 - [`IncreaseException`](increase-kotlin-core/src/main/kotlin/com/increase/api/errors/IncreaseException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
-
-## Pagination
-
-The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
-
-### Auto-pagination
-
-To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
-
-When using the synchronous client, the method returns a [`Sequence`](https://kotlinlang.org/docs/sequences.html)
-
-```kotlin
-import com.increase.api.models.accounts.AccountListPage
-
-val page: AccountListPage = client.accounts().list()
-page.autoPager()
-    .take(50)
-    .forEach { account -> println(account) }
-```
-
-When using the asynchronous client, the method returns a [`Flow`](https://kotlinlang.org/docs/flow.html):
-
-```kotlin
-import com.increase.api.models.accounts.AccountListPageAsync
-
-val page: AccountListPageAsync = client.async().accounts().list()
-page.autoPager()
-    .take(50)
-    .forEach { account -> println(account) }
-```
-
-### Manual pagination
-
-To access individual page items and manually request the next page, use the `items()`,
-`hasNextPage()`, and `nextPage()` methods:
-
-```kotlin
-import com.increase.api.models.accounts.Account
-import com.increase.api.models.accounts.AccountListPage
-
-val page: AccountListPage = client.accounts().list()
-while (true) {
-    for (account in page.items()) {
-        println(account)
-    }
-
-    if (!page.hasNextPage()) {
-        break
-    }
-
-    page = page.nextPage()
-}
-```
 
 ## Logging
 
@@ -579,8 +518,6 @@ import com.increase.api.models.accounts.AccountCreateParams
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name(JsonValue.from(42))
-    .entityId("entity_n8y8tnk2p9339ti393yi")
-    .programId("program_i2v2os4mwza1oetokh9i")
     .build()
 ```
 
