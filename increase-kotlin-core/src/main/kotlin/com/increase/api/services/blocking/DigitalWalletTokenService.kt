@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 
 interface DigitalWalletTokenService {
@@ -50,10 +50,10 @@ interface DigitalWalletTokenService {
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalWalletTokenListPage
+    ): DigitalWalletTokenListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
+    fun list(requestOptions: RequestOptions): DigitalWalletTokenListResponse =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
     /**
@@ -109,11 +109,11 @@ interface DigitalWalletTokenService {
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalWalletTokenListPage>
+        ): HttpResponseFor<DigitalWalletTokenListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListResponse> =
             list(DigitalWalletTokenListParams.none(), requestOptions)
     }
 }

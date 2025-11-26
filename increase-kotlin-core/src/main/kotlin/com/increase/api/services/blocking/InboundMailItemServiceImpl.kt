@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListPage
-import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemListResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 
 class InboundMailItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -45,7 +44,7 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: InboundMailItemListParams,
         requestOptions: RequestOptions,
-    ): InboundMailItemListPage =
+    ): InboundMailItemListResponse =
         // get /inbound_mail_items
         withRawResponse().list(params, requestOptions).parse()
 
@@ -99,13 +98,13 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<InboundMailItemListPageResponse> =
-            jsonHandler<InboundMailItemListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundMailItemListResponse> =
+            jsonHandler<InboundMailItemListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundMailItemListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundMailItemListPage> {
+        ): HttpResponseFor<InboundMailItemListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -122,13 +121,6 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        InboundMailItemListPage.builder()
-                            .service(InboundMailItemServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -20,9 +20,8 @@ import com.increase.api.models.wiretransfers.WireTransfer
 import com.increase.api.models.wiretransfers.WireTransferApproveParams
 import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferListPageAsync
-import com.increase.api.models.wiretransfers.WireTransferListPageResponse
 import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferListResponse
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 
 class WireTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -54,7 +53,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
     override suspend fun list(
         params: WireTransferListParams,
         requestOptions: RequestOptions,
-    ): WireTransferListPageAsync =
+    ): WireTransferListResponse =
         // get /wire_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -143,13 +142,13 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<WireTransferListPageResponse> =
-            jsonHandler<WireTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireTransferListResponse> =
+            jsonHandler<WireTransferListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: WireTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<WireTransferListPageAsync> {
+        ): HttpResponseFor<WireTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -166,13 +165,6 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        WireTransferListPageAsync.builder()
-                            .service(WireTransferServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

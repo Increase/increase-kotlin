@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
-import com.increase.api.models.accountstatements.AccountStatementListPageAsync
 import com.increase.api.models.accountstatements.AccountStatementListParams
+import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 
 interface AccountStatementServiceAsync {
@@ -50,10 +50,10 @@ interface AccountStatementServiceAsync {
     suspend fun list(
         params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountStatementListPageAsync
+    ): AccountStatementListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): AccountStatementListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): AccountStatementListResponse =
         list(AccountStatementListParams.none(), requestOptions)
 
     /**
@@ -109,13 +109,13 @@ interface AccountStatementServiceAsync {
         suspend fun list(
             params: AccountStatementListParams = AccountStatementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountStatementListPageAsync>
+        ): HttpResponseFor<AccountStatementListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<AccountStatementListPageAsync> =
+        ): HttpResponseFor<AccountStatementListResponse> =
             list(AccountStatementListParams.none(), requestOptions)
     }
 }

@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportListPage
 import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportListResponse
 import com.increase.api.models.exports.ExportRetrieveParams
 
 interface ExportService {
@@ -53,10 +53,10 @@ interface ExportService {
     fun list(
         params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExportListPage
+    ): ExportListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ExportListPage =
+    fun list(requestOptions: RequestOptions): ExportListResponse =
         list(ExportListParams.none(), requestOptions)
 
     /** A view of [ExportService] that provides access to raw HTTP responses for each method. */
@@ -111,11 +111,11 @@ interface ExportService {
         fun list(
             params: ExportListParams = ExportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExportListPage>
+        ): HttpResponseFor<ExportListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListResponse> =
             list(ExportListParams.none(), requestOptions)
     }
 }

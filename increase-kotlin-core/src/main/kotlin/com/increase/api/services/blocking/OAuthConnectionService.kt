@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthconnections.OAuthConnection
-import com.increase.api.models.oauthconnections.OAuthConnectionListPage
 import com.increase.api.models.oauthconnections.OAuthConnectionListParams
+import com.increase.api.models.oauthconnections.OAuthConnectionListResponse
 import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 
 interface OAuthConnectionService {
@@ -47,10 +47,10 @@ interface OAuthConnectionService {
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthConnectionListPage
+    ): OAuthConnectionListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OAuthConnectionListPage =
+    fun list(requestOptions: RequestOptions): OAuthConnectionListResponse =
         list(OAuthConnectionListParams.none(), requestOptions)
 
     /**
@@ -106,11 +106,11 @@ interface OAuthConnectionService {
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthConnectionListPage>
+        ): HttpResponseFor<OAuthConnectionListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListResponse> =
             list(OAuthConnectionListParams.none(), requestOptions)
     }
 }

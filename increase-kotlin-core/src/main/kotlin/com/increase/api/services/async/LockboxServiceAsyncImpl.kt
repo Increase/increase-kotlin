@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxListPageAsync
-import com.increase.api.models.lockboxes.LockboxListPageResponse
 import com.increase.api.models.lockboxes.LockboxListParams
+import com.increase.api.models.lockboxes.LockboxListResponse
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 
@@ -60,7 +59,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override suspend fun list(
         params: LockboxListParams,
         requestOptions: RequestOptions,
-    ): LockboxListPageAsync =
+    ): LockboxListResponse =
         // get /lockboxes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -164,13 +163,13 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<LockboxListPageResponse> =
-            jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LockboxListResponse> =
+            jsonHandler<LockboxListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: LockboxListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LockboxListPageAsync> {
+        ): HttpResponseFor<LockboxListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -187,13 +186,6 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        LockboxListPageAsync.builder()
-                            .service(LockboxServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

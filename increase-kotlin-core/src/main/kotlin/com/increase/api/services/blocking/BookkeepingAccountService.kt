@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPage
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 
@@ -55,10 +55,10 @@ interface BookkeepingAccountService {
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BookkeepingAccountListPage
+    ): BookkeepingAccountListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BookkeepingAccountListPage =
+    fun list(requestOptions: RequestOptions): BookkeepingAccountListResponse =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
@@ -140,11 +140,11 @@ interface BookkeepingAccountService {
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BookkeepingAccountListPage>
+        ): HttpResponseFor<BookkeepingAccountListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListResponse> =
             list(BookkeepingAccountListParams.none(), requestOptions)
 
         /**

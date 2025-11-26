@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -67,9 +68,16 @@ internal class BookkeepingAccountServiceAsyncTest {
                 .build()
         val bookkeepingAccountServiceAsync = client.bookkeepingAccounts()
 
-        val page = bookkeepingAccountServiceAsync.list()
+        val bookkeepingAccounts =
+            bookkeepingAccountServiceAsync.list(
+                BookkeepingAccountListParams.builder()
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        page.response().validate()
+        bookkeepingAccounts.validate()
     }
 
     @Test

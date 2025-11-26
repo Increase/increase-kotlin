@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageAsync
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 
@@ -57,7 +56,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override suspend fun list(
         params: IntrafiAccountEnrollmentListParams,
         requestOptions: RequestOptions,
-    ): IntrafiAccountEnrollmentListPageAsync =
+    ): IntrafiAccountEnrollmentListResponse =
         // get /intrafi_account_enrollments
         withRawResponse().list(params, requestOptions).parse()
 
@@ -139,13 +138,13 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<IntrafiAccountEnrollmentListPageResponse> =
-            jsonHandler<IntrafiAccountEnrollmentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntrafiAccountEnrollmentListResponse> =
+            jsonHandler<IntrafiAccountEnrollmentListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: IntrafiAccountEnrollmentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IntrafiAccountEnrollmentListPageAsync> {
+        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,13 +161,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        IntrafiAccountEnrollmentListPageAsync.builder()
-                            .service(IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

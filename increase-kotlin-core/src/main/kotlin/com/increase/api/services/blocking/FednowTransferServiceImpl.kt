@@ -20,9 +20,8 @@ import com.increase.api.models.fednowtransfers.FednowTransfer
 import com.increase.api.models.fednowtransfers.FednowTransferApproveParams
 import com.increase.api.models.fednowtransfers.FednowTransferCancelParams
 import com.increase.api.models.fednowtransfers.FednowTransferCreateParams
-import com.increase.api.models.fednowtransfers.FednowTransferListPage
-import com.increase.api.models.fednowtransfers.FednowTransferListPageResponse
 import com.increase.api.models.fednowtransfers.FednowTransferListParams
+import com.increase.api.models.fednowtransfers.FednowTransferListResponse
 import com.increase.api.models.fednowtransfers.FednowTransferRetrieveParams
 
 class FednowTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -54,7 +53,7 @@ class FednowTransferServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: FednowTransferListParams,
         requestOptions: RequestOptions,
-    ): FednowTransferListPage =
+    ): FednowTransferListResponse =
         // get /fednow_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -143,13 +142,13 @@ class FednowTransferServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<FednowTransferListPageResponse> =
-            jsonHandler<FednowTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FednowTransferListResponse> =
+            jsonHandler<FednowTransferListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FednowTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FednowTransferListPage> {
+        ): HttpResponseFor<FednowTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -166,13 +165,6 @@ class FednowTransferServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        FednowTransferListPage.builder()
-                            .service(FednowTransferServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

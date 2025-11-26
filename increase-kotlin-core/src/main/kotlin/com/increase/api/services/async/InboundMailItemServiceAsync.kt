@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemListResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 
 interface InboundMailItemServiceAsync {
@@ -51,10 +51,10 @@ interface InboundMailItemServiceAsync {
     suspend fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundMailItemListPageAsync
+    ): InboundMailItemListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): InboundMailItemListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): InboundMailItemListResponse =
         list(InboundMailItemListParams.none(), requestOptions)
 
     /** Action a Inbound Mail Item */
@@ -124,13 +124,13 @@ interface InboundMailItemServiceAsync {
         suspend fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundMailItemListPageAsync>
+        ): HttpResponseFor<InboundMailItemListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InboundMailItemListPageAsync> =
+        ): HttpResponseFor<InboundMailItemListResponse> =
             list(InboundMailItemListParams.none(), requestOptions)
 
         /**

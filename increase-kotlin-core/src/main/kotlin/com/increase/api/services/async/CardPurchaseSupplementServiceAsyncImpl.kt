@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageAsync
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 
 class CardPurchaseSupplementServiceAsyncImpl
@@ -47,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override suspend fun list(
         params: CardPurchaseSupplementListParams,
         requestOptions: RequestOptions,
-    ): CardPurchaseSupplementListPageAsync =
+    ): CardPurchaseSupplementListResponse =
         // get /card_purchase_supplements
         withRawResponse().list(params, requestOptions).parse()
 
@@ -94,13 +93,13 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<CardPurchaseSupplementListPageResponse> =
-            jsonHandler<CardPurchaseSupplementListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPurchaseSupplementListResponse> =
+            jsonHandler<CardPurchaseSupplementListResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: CardPurchaseSupplementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPurchaseSupplementListPageAsync> {
+        ): HttpResponseFor<CardPurchaseSupplementListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -117,13 +116,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardPurchaseSupplementListPageAsync.builder()
-                            .service(CardPurchaseSupplementServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

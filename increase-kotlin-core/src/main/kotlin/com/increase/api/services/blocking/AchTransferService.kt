@@ -10,8 +10,8 @@ import com.increase.api.models.achtransfers.AchTransfer
 import com.increase.api.models.achtransfers.AchTransferApproveParams
 import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
-import com.increase.api.models.achtransfers.AchTransferListPage
 import com.increase.api.models.achtransfers.AchTransferListParams
+import com.increase.api.models.achtransfers.AchTransferListResponse
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 
 interface AchTransferService {
@@ -56,10 +56,10 @@ interface AchTransferService {
     fun list(
         params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransferListPage
+    ): AchTransferListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AchTransferListPage =
+    fun list(requestOptions: RequestOptions): AchTransferListResponse =
         list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
@@ -156,11 +156,11 @@ interface AchTransferService {
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransferListPage>
+        ): HttpResponseFor<AchTransferListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListResponse> =
             list(AchTransferListParams.none(), requestOptions)
 
         /**

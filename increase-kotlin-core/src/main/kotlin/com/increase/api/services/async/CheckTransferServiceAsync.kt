@@ -10,8 +10,8 @@ import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.checktransfers.CheckTransferApproveParams
 import com.increase.api.models.checktransfers.CheckTransferCancelParams
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
-import com.increase.api.models.checktransfers.CheckTransferListPageAsync
 import com.increase.api.models.checktransfers.CheckTransferListParams
+import com.increase.api.models.checktransfers.CheckTransferListResponse
 import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
 
@@ -57,10 +57,10 @@ interface CheckTransferServiceAsync {
     suspend fun list(
         params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CheckTransferListPageAsync
+    ): CheckTransferListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CheckTransferListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): CheckTransferListResponse =
         list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
@@ -183,13 +183,13 @@ interface CheckTransferServiceAsync {
         suspend fun list(
             params: CheckTransferListParams = CheckTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CheckTransferListPageAsync>
+        ): HttpResponseFor<CheckTransferListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CheckTransferListPageAsync> =
+        ): HttpResponseFor<CheckTransferListResponse> =
             list(CheckTransferListParams.none(), requestOptions)
 
         /**

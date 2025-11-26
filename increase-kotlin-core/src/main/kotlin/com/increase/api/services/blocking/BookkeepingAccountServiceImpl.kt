@@ -19,9 +19,8 @@ import com.increase.api.core.prepare
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPage
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPageResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 
@@ -54,7 +53,7 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: BookkeepingAccountListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingAccountListPage =
+    ): BookkeepingAccountListResponse =
         // get /bookkeeping_accounts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -137,13 +136,13 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<BookkeepingAccountListPageResponse> =
-            jsonHandler<BookkeepingAccountListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingAccountListResponse> =
+            jsonHandler<BookkeepingAccountListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BookkeepingAccountListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BookkeepingAccountListPage> {
+        ): HttpResponseFor<BookkeepingAccountListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -160,13 +159,6 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        BookkeepingAccountListPage.builder()
-                            .service(BookkeepingAccountServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

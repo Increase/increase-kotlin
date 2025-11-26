@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
-import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageAsync
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListResponse
 
 interface SupplementalDocumentServiceAsync {
 
@@ -35,7 +35,7 @@ interface SupplementalDocumentServiceAsync {
     suspend fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SupplementalDocumentListPageAsync
+    ): SupplementalDocumentListResponse
 
     /**
      * A view of [SupplementalDocumentServiceAsync] that provides access to raw HTTP responses for
@@ -70,6 +70,6 @@ interface SupplementalDocumentServiceAsync {
         suspend fun list(
             params: SupplementalDocumentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SupplementalDocumentListPageAsync>
+        ): HttpResponseFor<SupplementalDocumentListResponse>
     }
 }

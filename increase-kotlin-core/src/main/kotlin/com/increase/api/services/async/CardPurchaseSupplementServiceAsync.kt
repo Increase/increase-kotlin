@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageAsync
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 
 interface CardPurchaseSupplementServiceAsync {
@@ -57,10 +57,10 @@ interface CardPurchaseSupplementServiceAsync {
     suspend fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPurchaseSupplementListPageAsync
+    ): CardPurchaseSupplementListResponse
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPageAsync =
+    suspend fun list(requestOptions: RequestOptions): CardPurchaseSupplementListResponse =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
     /**
@@ -122,13 +122,13 @@ interface CardPurchaseSupplementServiceAsync {
         suspend fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPurchaseSupplementListPageAsync>
+        ): HttpResponseFor<CardPurchaseSupplementListResponse>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CardPurchaseSupplementListPageAsync> =
+        ): HttpResponseFor<CardPurchaseSupplementListResponse> =
             list(CardPurchaseSupplementListParams.none(), requestOptions)
     }
 }

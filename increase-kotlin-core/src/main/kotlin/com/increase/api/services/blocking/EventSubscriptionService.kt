@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListPage
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 
@@ -76,10 +76,10 @@ interface EventSubscriptionService {
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventSubscriptionListPage
+    ): EventSubscriptionListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EventSubscriptionListPage =
+    fun list(requestOptions: RequestOptions): EventSubscriptionListResponse =
         list(EventSubscriptionListParams.none(), requestOptions)
 
     /**
@@ -175,11 +175,11 @@ interface EventSubscriptionService {
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventSubscriptionListPage>
+        ): HttpResponseFor<EventSubscriptionListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListResponse> =
             list(EventSubscriptionListParams.none(), requestOptions)
     }
 }

@@ -10,8 +10,8 @@ import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfe
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPage
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListResponse
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 
 interface RealTimePaymentsTransferService {
@@ -67,10 +67,10 @@ interface RealTimePaymentsTransferService {
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RealTimePaymentsTransferListPage
+    ): RealTimePaymentsTransferListResponse
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
+    fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListResponse =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
     /** Approves a Real-Time Payments Transfer in a pending_approval state. */
@@ -199,13 +199,13 @@ interface RealTimePaymentsTransferService {
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RealTimePaymentsTransferListPage>
+        ): HttpResponseFor<RealTimePaymentsTransferListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<RealTimePaymentsTransferListPage> =
+        ): HttpResponseFor<RealTimePaymentsTransferListResponse> =
             list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
         /**
