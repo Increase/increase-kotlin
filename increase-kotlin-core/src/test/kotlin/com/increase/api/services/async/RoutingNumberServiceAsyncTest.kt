@@ -20,15 +20,11 @@ internal class RoutingNumberServiceAsyncTest {
                 .build()
         val routingNumberServiceAsync = client.routingNumbers()
 
-        val routingNumbers =
+        val page =
             routingNumberServiceAsync.list(
-                RoutingNumberListParams.builder()
-                    .routingNumber("xxxxxxxxx")
-                    .cursor("cursor")
-                    .limit(1L)
-                    .build()
+                RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
             )
 
-        routingNumbers.validate()
+        page.response().validate()
     }
 }

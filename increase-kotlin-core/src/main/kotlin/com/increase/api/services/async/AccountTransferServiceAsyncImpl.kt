@@ -20,8 +20,9 @@ import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.accounttransfers.AccountTransferApproveParams
 import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
+import com.increase.api.models.accounttransfers.AccountTransferListPageAsync
+import com.increase.api.models.accounttransfers.AccountTransferListPageResponse
 import com.increase.api.models.accounttransfers.AccountTransferListParams
-import com.increase.api.models.accounttransfers.AccountTransferListResponse
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 
 class AccountTransferServiceAsyncImpl
@@ -55,7 +56,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
     override suspend fun list(
         params: AccountTransferListParams,
         requestOptions: RequestOptions,
-    ): AccountTransferListResponse =
+    ): AccountTransferListPageAsync =
         // get /account_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -144,13 +145,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             }
         }
 
-        private val listHandler: Handler<AccountTransferListResponse> =
-            jsonHandler<AccountTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountTransferListPageResponse> =
+            jsonHandler<AccountTransferListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: AccountTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountTransferListResponse> {
+        ): HttpResponseFor<AccountTransferListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -167,6 +168,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AccountTransferListPageAsync.builder()
+                            .service(AccountTransferServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

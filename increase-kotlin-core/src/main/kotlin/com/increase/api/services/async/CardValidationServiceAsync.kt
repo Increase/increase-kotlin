@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardvalidations.CardValidation
 import com.increase.api.models.cardvalidations.CardValidationCreateParams
+import com.increase.api.models.cardvalidations.CardValidationListPageAsync
 import com.increase.api.models.cardvalidations.CardValidationListParams
-import com.increase.api.models.cardvalidations.CardValidationListResponse
 import com.increase.api.models.cardvalidations.CardValidationRetrieveParams
 
 interface CardValidationServiceAsync {
@@ -54,10 +54,10 @@ interface CardValidationServiceAsync {
     suspend fun list(
         params: CardValidationListParams = CardValidationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardValidationListResponse
+    ): CardValidationListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CardValidationListResponse =
+    suspend fun list(requestOptions: RequestOptions): CardValidationListPageAsync =
         list(CardValidationListParams.none(), requestOptions)
 
     /**
@@ -120,13 +120,13 @@ interface CardValidationServiceAsync {
         suspend fun list(
             params: CardValidationListParams = CardValidationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardValidationListResponse>
+        ): HttpResponseFor<CardValidationListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CardValidationListResponse> =
+        ): HttpResponseFor<CardValidationListPageAsync> =
             list(CardValidationListParams.none(), requestOptions)
     }
 }

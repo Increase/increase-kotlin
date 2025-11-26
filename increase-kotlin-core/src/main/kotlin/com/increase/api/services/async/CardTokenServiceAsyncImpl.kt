@@ -18,8 +18,9 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.cardtokens.CardToken
 import com.increase.api.models.cardtokens.CardTokenCapabilities
 import com.increase.api.models.cardtokens.CardTokenCapabilitiesParams
+import com.increase.api.models.cardtokens.CardTokenListPageAsync
+import com.increase.api.models.cardtokens.CardTokenListPageResponse
 import com.increase.api.models.cardtokens.CardTokenListParams
-import com.increase.api.models.cardtokens.CardTokenListResponse
 import com.increase.api.models.cardtokens.CardTokenRetrieveParams
 
 class CardTokenServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -44,7 +45,7 @@ class CardTokenServiceAsyncImpl internal constructor(private val clientOptions: 
     override suspend fun list(
         params: CardTokenListParams,
         requestOptions: RequestOptions,
-    ): CardTokenListResponse =
+    ): CardTokenListPageAsync =
         // get /card_tokens
         withRawResponse().list(params, requestOptions).parse()
 
@@ -98,13 +99,13 @@ class CardTokenServiceAsyncImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<CardTokenListResponse> =
-            jsonHandler<CardTokenListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardTokenListPageResponse> =
+            jsonHandler<CardTokenListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: CardTokenListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardTokenListResponse> {
+        ): HttpResponseFor<CardTokenListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,6 +122,13 @@ class CardTokenServiceAsyncImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CardTokenListPageAsync.builder()
+                            .service(CardTokenServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

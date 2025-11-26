@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.achprenotifications.AchPrenotification
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
+import com.increase.api.models.achprenotifications.AchPrenotificationListPage
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
-import com.increase.api.models.achprenotifications.AchPrenotificationListResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 
 interface AchPrenotificationService {
@@ -57,10 +57,10 @@ interface AchPrenotificationService {
     fun list(
         params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchPrenotificationListResponse
+    ): AchPrenotificationListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AchPrenotificationListResponse =
+    fun list(requestOptions: RequestOptions): AchPrenotificationListPage =
         list(AchPrenotificationListParams.none(), requestOptions)
 
     /**
@@ -126,11 +126,11 @@ interface AchPrenotificationService {
         fun list(
             params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchPrenotificationListResponse>
+        ): HttpResponseFor<AchPrenotificationListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListPage> =
             list(AchPrenotificationListParams.none(), requestOptions)
     }
 }

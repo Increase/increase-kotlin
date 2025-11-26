@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentCreateParams
+import com.increase.api.models.documents.DocumentListPage
 import com.increase.api.models.documents.DocumentListParams
-import com.increase.api.models.documents.DocumentListResponse
 import com.increase.api.models.documents.DocumentRetrieveParams
 
 interface DocumentService {
@@ -53,10 +53,10 @@ interface DocumentService {
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentListResponse
+    ): DocumentListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DocumentListResponse =
+    fun list(requestOptions: RequestOptions): DocumentListPage =
         list(DocumentListParams.none(), requestOptions)
 
     /** A view of [DocumentService] that provides access to raw HTTP responses for each method. */
@@ -114,11 +114,11 @@ interface DocumentService {
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentListResponse>
+        ): HttpResponseFor<DocumentListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
             list(DocumentListParams.none(), requestOptions)
     }
 }

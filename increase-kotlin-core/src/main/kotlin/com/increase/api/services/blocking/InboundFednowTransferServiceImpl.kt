@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransfer
+import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListPage
+import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListPageResponse
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListParams
-import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListResponse
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferRetrieveParams
 
 class InboundFednowTransferServiceImpl
@@ -44,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFednowTr
     override fun list(
         params: InboundFednowTransferListParams,
         requestOptions: RequestOptions,
-    ): InboundFednowTransferListResponse =
+    ): InboundFednowTransferListPage =
         // get /inbound_fednow_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFednowTr
             }
         }
 
-        private val listHandler: Handler<InboundFednowTransferListResponse> =
-            jsonHandler<InboundFednowTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundFednowTransferListPageResponse> =
+            jsonHandler<InboundFednowTransferListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundFednowTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundFednowTransferListResponse> {
+        ): HttpResponseFor<InboundFednowTransferListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFednowTr
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InboundFednowTransferListPage.builder()
+                            .service(InboundFednowTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

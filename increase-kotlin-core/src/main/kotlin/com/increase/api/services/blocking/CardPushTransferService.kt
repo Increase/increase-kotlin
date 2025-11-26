@@ -10,8 +10,8 @@ import com.increase.api.models.cardpushtransfers.CardPushTransfer
 import com.increase.api.models.cardpushtransfers.CardPushTransferApproveParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCancelParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
+import com.increase.api.models.cardpushtransfers.CardPushTransferListPage
 import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferRetrieveParams
 
 interface CardPushTransferService {
@@ -56,10 +56,10 @@ interface CardPushTransferService {
     fun list(
         params: CardPushTransferListParams = CardPushTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPushTransferListResponse
+    ): CardPushTransferListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardPushTransferListResponse =
+    fun list(requestOptions: RequestOptions): CardPushTransferListPage =
         list(CardPushTransferListParams.none(), requestOptions)
 
     /** Approves a Card Push Transfer in a pending_approval state. */
@@ -161,11 +161,11 @@ interface CardPushTransferService {
         fun list(
             params: CardPushTransferListParams = CardPushTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPushTransferListResponse>
+        ): HttpResponseFor<CardPushTransferListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPushTransferListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPushTransferListPage> =
             list(CardPushTransferListParams.none(), requestOptions)
 
         /**

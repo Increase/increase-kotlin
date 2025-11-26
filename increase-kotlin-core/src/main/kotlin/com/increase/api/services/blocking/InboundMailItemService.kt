@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
+import com.increase.api.models.inboundmailitems.InboundMailItemListPage
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 
 interface InboundMailItemService {
@@ -48,10 +48,10 @@ interface InboundMailItemService {
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundMailItemListResponse
+    ): InboundMailItemListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundMailItemListResponse =
+    fun list(requestOptions: RequestOptions): InboundMailItemListPage =
         list(InboundMailItemListParams.none(), requestOptions)
 
     /** Action a Inbound Mail Item */
@@ -121,11 +121,11 @@ interface InboundMailItemService {
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundMailItemListResponse>
+        ): HttpResponseFor<InboundMailItemListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundMailItemListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundMailItemListPage> =
             list(InboundMailItemListParams.none(), requestOptions)
 
         /**

@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.cardpayments.CardPaymentListPageAsync
 import com.increase.api.models.cardpayments.CardPaymentListParams
-import com.increase.api.models.cardpayments.CardPaymentListResponse
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 
 interface CardPaymentServiceAsync {
@@ -47,10 +47,10 @@ interface CardPaymentServiceAsync {
     suspend fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPaymentListResponse
+    ): CardPaymentListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CardPaymentListResponse =
+    suspend fun list(requestOptions: RequestOptions): CardPaymentListPageAsync =
         list(CardPaymentListParams.none(), requestOptions)
 
     /**
@@ -103,11 +103,13 @@ interface CardPaymentServiceAsync {
         suspend fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPaymentListResponse>
+        ): HttpResponseFor<CardPaymentListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListResponse> =
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<CardPaymentListPageAsync> =
             list(CardPaymentListParams.none(), requestOptions)
     }
 }

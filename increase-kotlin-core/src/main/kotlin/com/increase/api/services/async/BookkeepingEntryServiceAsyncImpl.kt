@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.bookkeepingentries.BookkeepingEntry
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageAsync
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
-import com.increase.api.models.bookkeepingentries.BookkeepingEntryListResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 
 class BookkeepingEntryServiceAsyncImpl
@@ -44,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
     override suspend fun list(
         params: BookkeepingEntryListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingEntryListResponse =
+    ): BookkeepingEntryListPageAsync =
         // get /bookkeeping_entries
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             }
         }
 
-        private val listHandler: Handler<BookkeepingEntryListResponse> =
-            jsonHandler<BookkeepingEntryListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingEntryListPageResponse> =
+            jsonHandler<BookkeepingEntryListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: BookkeepingEntryListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BookkeepingEntryListResponse> {
+        ): HttpResponseFor<BookkeepingEntryListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BookkeepingEntryListPageAsync.builder()
+                            .service(BookkeepingEntryServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

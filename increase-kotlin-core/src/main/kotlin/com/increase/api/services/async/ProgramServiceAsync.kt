@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.programs.Program
+import com.increase.api.models.programs.ProgramListPageAsync
 import com.increase.api.models.programs.ProgramListParams
-import com.increase.api.models.programs.ProgramListResponse
 import com.increase.api.models.programs.ProgramRetrieveParams
 
 interface ProgramServiceAsync {
@@ -46,10 +46,10 @@ interface ProgramServiceAsync {
     suspend fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProgramListResponse
+    ): ProgramListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): ProgramListResponse =
+    suspend fun list(requestOptions: RequestOptions): ProgramListPageAsync =
         list(ProgramListParams.none(), requestOptions)
 
     /**
@@ -101,11 +101,11 @@ interface ProgramServiceAsync {
         suspend fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProgramListResponse>
+        ): HttpResponseFor<ProgramListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListResponse> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPageAsync> =
             list(ProgramListParams.none(), requestOptions)
     }
 }

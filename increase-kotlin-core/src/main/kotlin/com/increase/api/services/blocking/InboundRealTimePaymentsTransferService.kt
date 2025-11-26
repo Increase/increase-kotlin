@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPage
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
-import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 
 interface InboundRealTimePaymentsTransferService {
@@ -64,10 +64,10 @@ interface InboundRealTimePaymentsTransferService {
         params: InboundRealTimePaymentsTransferListParams =
             InboundRealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundRealTimePaymentsTransferListResponse
+    ): InboundRealTimePaymentsTransferListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListResponse =
+    fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPage =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 
     /**
@@ -133,13 +133,13 @@ interface InboundRealTimePaymentsTransferService {
             params: InboundRealTimePaymentsTransferListParams =
                 InboundRealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListResponse>
+        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListResponse> =
+        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
             list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
     }
 }

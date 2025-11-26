@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.programs.Program
+import com.increase.api.models.programs.ProgramListPage
 import com.increase.api.models.programs.ProgramListParams
-import com.increase.api.models.programs.ProgramListResponse
 import com.increase.api.models.programs.ProgramRetrieveParams
 
 interface ProgramService {
@@ -46,10 +46,10 @@ interface ProgramService {
     fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProgramListResponse
+    ): ProgramListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ProgramListResponse =
+    fun list(requestOptions: RequestOptions): ProgramListPage =
         list(ProgramListParams.none(), requestOptions)
 
     /** A view of [ProgramService] that provides access to raw HTTP responses for each method. */
@@ -94,11 +94,11 @@ interface ProgramService {
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProgramListResponse>
+        ): HttpResponseFor<ProgramListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> =
             list(ProgramListParams.none(), requestOptions)
     }
 }

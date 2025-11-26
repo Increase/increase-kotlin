@@ -10,8 +10,8 @@ import com.increase.api.models.fednowtransfers.FednowTransfer
 import com.increase.api.models.fednowtransfers.FednowTransferApproveParams
 import com.increase.api.models.fednowtransfers.FednowTransferCancelParams
 import com.increase.api.models.fednowtransfers.FednowTransferCreateParams
+import com.increase.api.models.fednowtransfers.FednowTransferListPageAsync
 import com.increase.api.models.fednowtransfers.FednowTransferListParams
-import com.increase.api.models.fednowtransfers.FednowTransferListResponse
 import com.increase.api.models.fednowtransfers.FednowTransferRetrieveParams
 
 interface FednowTransferServiceAsync {
@@ -56,10 +56,10 @@ interface FednowTransferServiceAsync {
     suspend fun list(
         params: FednowTransferListParams = FednowTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FednowTransferListResponse
+    ): FednowTransferListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): FednowTransferListResponse =
+    suspend fun list(requestOptions: RequestOptions): FednowTransferListPageAsync =
         list(FednowTransferListParams.none(), requestOptions)
 
     /** Approve a FedNow Transfer */
@@ -158,13 +158,13 @@ interface FednowTransferServiceAsync {
         suspend fun list(
             params: FednowTransferListParams = FednowTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FednowTransferListResponse>
+        ): HttpResponseFor<FednowTransferListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<FednowTransferListResponse> =
+        ): HttpResponseFor<FednowTransferListPageAsync> =
             list(FednowTransferListParams.none(), requestOptions)
 
         /**

@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransfer
+import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListPageAsync
+import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListPageResponse
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListParams
-import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferListResponse
 import com.increase.api.models.inboundfednowtransfers.InboundFednowTransferRetrieveParams
 
 class InboundFednowTransferServiceAsyncImpl
@@ -45,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFednowTr
     override suspend fun list(
         params: InboundFednowTransferListParams,
         requestOptions: RequestOptions,
-    ): InboundFednowTransferListResponse =
+    ): InboundFednowTransferListPageAsync =
         // get /inbound_fednow_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +93,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFednowTr
             }
         }
 
-        private val listHandler: Handler<InboundFednowTransferListResponse> =
-            jsonHandler<InboundFednowTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundFednowTransferListPageResponse> =
+            jsonHandler<InboundFednowTransferListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: InboundFednowTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundFednowTransferListResponse> {
+        ): HttpResponseFor<InboundFednowTransferListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,6 +116,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFednowTr
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InboundFednowTransferListPageAsync.builder()
+                            .service(InboundFednowTransferServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
