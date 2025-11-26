@@ -14,8 +14,9 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
+import com.increase.api.models.routingnumbers.RoutingNumberListPageAsync
+import com.increase.api.models.routingnumbers.RoutingNumberListPageResponse
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
-import com.increase.api.models.routingnumbers.RoutingNumberListResponse
 
 class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RoutingNumberServiceAsync {
@@ -32,7 +33,7 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
     override suspend fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions,
-    ): RoutingNumberListResponse =
+    ): RoutingNumberListPageAsync =
         // get /routing_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -49,13 +50,13 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val listHandler: Handler<RoutingNumberListResponse> =
-            jsonHandler<RoutingNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoutingNumberListPageResponse> =
+            jsonHandler<RoutingNumberListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: RoutingNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RoutingNumberListResponse> {
+        ): HttpResponseFor<RoutingNumberListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -72,6 +73,13 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        RoutingNumberListPageAsync.builder()
+                            .service(RoutingNumberServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

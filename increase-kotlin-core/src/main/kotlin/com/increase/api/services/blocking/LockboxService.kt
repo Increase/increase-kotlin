@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPage
 import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxListResponse
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 
@@ -71,10 +71,10 @@ interface LockboxService {
     fun list(
         params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LockboxListResponse
+    ): LockboxListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): LockboxListResponse =
+    fun list(requestOptions: RequestOptions): LockboxListPage =
         list(LockboxListParams.none(), requestOptions)
 
     /** A view of [LockboxService] that provides access to raw HTTP responses for each method. */
@@ -153,11 +153,11 @@ interface LockboxService {
         fun list(
             params: LockboxListParams = LockboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LockboxListResponse>
+        ): HttpResponseFor<LockboxListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPage> =
             list(LockboxListParams.none(), requestOptions)
     }
 }

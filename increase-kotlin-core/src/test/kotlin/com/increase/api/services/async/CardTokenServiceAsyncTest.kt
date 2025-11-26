@@ -4,8 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.cardtokens.CardTokenListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -35,23 +33,9 @@ internal class CardTokenServiceAsyncTest {
                 .build()
         val cardTokenServiceAsync = client.cardTokens()
 
-        val cardTokens =
-            cardTokenServiceAsync.list(
-                CardTokenListParams.builder()
-                    .createdAt(
-                        CardTokenListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .limit(1L)
-                    .build()
-            )
+        val page = cardTokenServiceAsync.list()
 
-        cardTokens.validate()
+        page.response().validate()
     }
 
     @Test

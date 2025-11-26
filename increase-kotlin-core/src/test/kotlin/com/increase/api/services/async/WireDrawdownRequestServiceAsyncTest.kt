@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
-import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -82,20 +81,8 @@ internal class WireDrawdownRequestServiceAsyncTest {
                 .build()
         val wireDrawdownRequestServiceAsync = client.wireDrawdownRequests()
 
-        val wireDrawdownRequests =
-            wireDrawdownRequestServiceAsync.list(
-                WireDrawdownRequestListParams.builder()
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        WireDrawdownRequestListParams.Status.builder()
-                            .addIn(WireDrawdownRequestListParams.Status.In.PENDING_SUBMISSION)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = wireDrawdownRequestServiceAsync.list()
 
-        wireDrawdownRequests.validate()
+        page.response().validate()
     }
 }

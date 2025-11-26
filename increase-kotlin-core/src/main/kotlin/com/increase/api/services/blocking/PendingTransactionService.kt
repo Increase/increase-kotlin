@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.pendingtransactions.PendingTransaction
 import com.increase.api.models.pendingtransactions.PendingTransactionCreateParams
+import com.increase.api.models.pendingtransactions.PendingTransactionListPage
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
-import com.increase.api.models.pendingtransactions.PendingTransactionListResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionReleaseParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 
@@ -63,10 +63,10 @@ interface PendingTransactionService {
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PendingTransactionListResponse
+    ): PendingTransactionListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PendingTransactionListResponse =
+    fun list(requestOptions: RequestOptions): PendingTransactionListPage =
         list(PendingTransactionListParams.none(), requestOptions)
 
     /**
@@ -157,11 +157,11 @@ interface PendingTransactionService {
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PendingTransactionListResponse>
+        ): HttpResponseFor<PendingTransactionListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PendingTransactionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PendingTransactionListPage> =
             list(PendingTransactionListParams.none(), requestOptions)
 
         /**

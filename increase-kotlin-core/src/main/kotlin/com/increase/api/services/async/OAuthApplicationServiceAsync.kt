@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthapplications.OAuthApplication
+import com.increase.api.models.oauthapplications.OAuthApplicationListPageAsync
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
-import com.increase.api.models.oauthapplications.OAuthApplicationListResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 
 interface OAuthApplicationServiceAsync {
@@ -50,10 +50,10 @@ interface OAuthApplicationServiceAsync {
     suspend fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthApplicationListResponse
+    ): OAuthApplicationListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): OAuthApplicationListResponse =
+    suspend fun list(requestOptions: RequestOptions): OAuthApplicationListPageAsync =
         list(OAuthApplicationListParams.none(), requestOptions)
 
     /**
@@ -109,13 +109,13 @@ interface OAuthApplicationServiceAsync {
         suspend fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthApplicationListResponse>
+        ): HttpResponseFor<OAuthApplicationListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<OAuthApplicationListResponse> =
+        ): HttpResponseFor<OAuthApplicationListPageAsync> =
             list(OAuthApplicationListParams.none(), requestOptions)
     }
 }

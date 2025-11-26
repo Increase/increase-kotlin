@@ -10,8 +10,8 @@ import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
+import com.increase.api.models.accounts.AccountListPageAsync
 import com.increase.api.models.accounts.AccountListParams
-import com.increase.api.models.accounts.AccountListResponse
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
@@ -74,10 +74,10 @@ interface AccountServiceAsync {
     suspend fun list(
         params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountListResponse
+    ): AccountListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): AccountListResponse =
+    suspend fun list(requestOptions: RequestOptions): AccountListPageAsync =
         list(AccountListParams.none(), requestOptions)
 
     /**
@@ -202,11 +202,11 @@ interface AccountServiceAsync {
         suspend fun list(
             params: AccountListParams = AccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountListResponse>
+        ): HttpResponseFor<AccountListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListResponse> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListPageAsync> =
             list(AccountListParams.none(), requestOptions)
 
         /**

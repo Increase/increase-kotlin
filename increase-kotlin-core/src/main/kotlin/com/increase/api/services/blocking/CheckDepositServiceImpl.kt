@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
+import com.increase.api.models.checkdeposits.CheckDepositListPage
+import com.increase.api.models.checkdeposits.CheckDepositListPageResponse
 import com.increase.api.models.checkdeposits.CheckDepositListParams
-import com.increase.api.models.checkdeposits.CheckDepositListResponse
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 
 class CheckDepositServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -51,7 +52,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: CheckDepositListParams,
         requestOptions: RequestOptions,
-    ): CheckDepositListResponse =
+    ): CheckDepositListPage =
         // get /check_deposits
         withRawResponse().list(params, requestOptions).parse()
 
@@ -126,13 +127,13 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<CheckDepositListResponse> =
-            jsonHandler<CheckDepositListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CheckDepositListPageResponse> =
+            jsonHandler<CheckDepositListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CheckDepositListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CheckDepositListResponse> {
+        ): HttpResponseFor<CheckDepositListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -149,6 +150,13 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CheckDepositListPage.builder()
+                            .service(CheckDepositServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

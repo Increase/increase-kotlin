@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -55,17 +54,9 @@ internal class IntrafiExclusionServiceAsyncTest {
                 .build()
         val intrafiExclusionServiceAsync = client.intrafiExclusions()
 
-        val intrafiExclusions =
-            intrafiExclusionServiceAsync.list(
-                IntrafiExclusionListParams.builder()
-                    .cursor("cursor")
-                    .entityId("entity_id")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
-            )
+        val page = intrafiExclusionServiceAsync.list()
 
-        intrafiExclusions.validate()
+        page.response().validate()
     }
 
     @Test

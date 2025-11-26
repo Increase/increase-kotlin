@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 
 interface IntrafiExclusionService {
@@ -55,10 +55,10 @@ interface IntrafiExclusionService {
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiExclusionListResponse
+    ): IntrafiExclusionListPage
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IntrafiExclusionListResponse =
+    fun list(requestOptions: RequestOptions): IntrafiExclusionListPage =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
@@ -142,11 +142,11 @@ interface IntrafiExclusionService {
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiExclusionListResponse>
+        ): HttpResponseFor<IntrafiExclusionListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none(), requestOptions)
 
         /**

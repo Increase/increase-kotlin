@@ -20,8 +20,9 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPage
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 
 class DigitalCardProfileServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -53,7 +54,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: DigitalCardProfileListParams,
         requestOptions: RequestOptions,
-    ): DigitalCardProfileListResponse =
+    ): DigitalCardProfileListPage =
         // get /digital_card_profiles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -142,13 +143,13 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<DigitalCardProfileListResponse> =
-            jsonHandler<DigitalCardProfileListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DigitalCardProfileListPageResponse> =
+            jsonHandler<DigitalCardProfileListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DigitalCardProfileListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DigitalCardProfileListResponse> {
+        ): HttpResponseFor<DigitalCardProfileListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,6 +166,13 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        DigitalCardProfileListPage.builder()
+                            .service(DigitalCardProfileServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

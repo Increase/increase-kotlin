@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListPageAsync
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListParams
-import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListResponse
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 
 interface InboundWireDrawdownRequestServiceAsync {
@@ -60,10 +60,10 @@ interface InboundWireDrawdownRequestServiceAsync {
     suspend fun list(
         params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundWireDrawdownRequestListResponse
+    ): InboundWireDrawdownRequestListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListResponse =
+    suspend fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListPageAsync =
         list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 
     /**
@@ -129,13 +129,13 @@ interface InboundWireDrawdownRequestServiceAsync {
             params: InboundWireDrawdownRequestListParams =
                 InboundWireDrawdownRequestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundWireDrawdownRequestListResponse>
+        ): HttpResponseFor<InboundWireDrawdownRequestListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<InboundWireDrawdownRequestListResponse> =
+        ): HttpResponseFor<InboundWireDrawdownRequestListPageAsync> =
             list(InboundWireDrawdownRequestListParams.none(), requestOptions)
     }
 }

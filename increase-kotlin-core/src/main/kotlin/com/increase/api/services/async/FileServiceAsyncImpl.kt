@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.files.File
 import com.increase.api.models.files.FileCreateParams
+import com.increase.api.models.files.FileListPageAsync
+import com.increase.api.models.files.FileListPageResponse
 import com.increase.api.models.files.FileListParams
-import com.increase.api.models.files.FileListResponse
 import com.increase.api.models.files.FileRetrieveParams
 
 class FileServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -48,7 +49,7 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override suspend fun list(
         params: FileListParams,
         requestOptions: RequestOptions,
-    ): FileListResponse =
+    ): FileListPageAsync =
         // get /files
         withRawResponse().list(params, requestOptions).parse()
 
@@ -121,13 +122,13 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<FileListResponse> =
-            jsonHandler<FileListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FileListPageResponse> =
+            jsonHandler<FileListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: FileListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FileListResponse> {
+        ): HttpResponseFor<FileListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -144,6 +145,13 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        FileListPageAsync.builder()
+                            .service(FileServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

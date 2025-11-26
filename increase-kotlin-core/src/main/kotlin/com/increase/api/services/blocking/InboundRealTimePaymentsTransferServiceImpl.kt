@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPage
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
-import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 
 class InboundRealTimePaymentsTransferServiceImpl
@@ -48,7 +49,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: InboundRealTimePaymentsTransferListParams,
         requestOptions: RequestOptions,
-    ): InboundRealTimePaymentsTransferListResponse =
+    ): InboundRealTimePaymentsTransferListPage =
         // get /inbound_real_time_payments_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -98,13 +99,13 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<InboundRealTimePaymentsTransferListResponse> =
-            jsonHandler<InboundRealTimePaymentsTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundRealTimePaymentsTransferListPageResponse> =
+            jsonHandler<InboundRealTimePaymentsTransferListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundRealTimePaymentsTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListResponse> {
+        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,6 +122,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InboundRealTimePaymentsTransferListPage.builder()
+                            .service(InboundRealTimePaymentsTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

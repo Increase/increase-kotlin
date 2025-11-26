@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
+import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
+import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 
 class InboundMailItemServiceAsyncImpl
@@ -46,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
     override suspend fun list(
         params: InboundMailItemListParams,
         requestOptions: RequestOptions,
-    ): InboundMailItemListResponse =
+    ): InboundMailItemListPageAsync =
         // get /inbound_mail_items
         withRawResponse().list(params, requestOptions).parse()
 
@@ -100,13 +101,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
             }
         }
 
-        private val listHandler: Handler<InboundMailItemListResponse> =
-            jsonHandler<InboundMailItemListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundMailItemListPageResponse> =
+            jsonHandler<InboundMailItemListPageResponse>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: InboundMailItemListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundMailItemListResponse> {
+        ): HttpResponseFor<InboundMailItemListPageAsync> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,6 +124,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InboundMailItemListPageAsync.builder()
+                            .service(InboundMailItemServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

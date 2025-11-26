@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardtokens.CardToken
 import com.increase.api.models.cardtokens.CardTokenCapabilities
 import com.increase.api.models.cardtokens.CardTokenCapabilitiesParams
+import com.increase.api.models.cardtokens.CardTokenListPageAsync
 import com.increase.api.models.cardtokens.CardTokenListParams
-import com.increase.api.models.cardtokens.CardTokenListResponse
 import com.increase.api.models.cardtokens.CardTokenRetrieveParams
 
 interface CardTokenServiceAsync {
@@ -48,10 +48,10 @@ interface CardTokenServiceAsync {
     suspend fun list(
         params: CardTokenListParams = CardTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardTokenListResponse
+    ): CardTokenListPageAsync
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): CardTokenListResponse =
+    suspend fun list(requestOptions: RequestOptions): CardTokenListPageAsync =
         list(CardTokenListParams.none(), requestOptions)
 
     /**
@@ -128,11 +128,11 @@ interface CardTokenServiceAsync {
         suspend fun list(
             params: CardTokenListParams = CardTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardTokenListResponse>
+        ): HttpResponseFor<CardTokenListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardTokenListResponse> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardTokenListPageAsync> =
             list(CardTokenListParams.none(), requestOptions)
 
         /**
