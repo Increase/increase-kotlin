@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.364.0 (2025-12-04)
+
+Full Changelog: [v0.363.0...v0.364.0](https://github.com/Increase/increase-kotlin/compare/v0.363.0...v0.364.0)
+
+### Features
+
+* **api:** api update ([1c7e3e5](https://github.com/Increase/increase-kotlin/commit/1c7e3e5951ecd302104816858368ac31c6d764bc))
+
+
+### Documentation
+
+* remove `$` for better copy-pasteabality ([333d8b5](https://github.com/Increase/increase-kotlin/commit/333d8b5fe6945826f393ea0ddc16550e9cae6587))
+
 ## 0.363.0 (2025-12-01)
 
 Full Changelog: [v0.362.0...v0.363.0](https://github.com/Increase/increase-kotlin/compare/v0.362.0...v0.363.0)
