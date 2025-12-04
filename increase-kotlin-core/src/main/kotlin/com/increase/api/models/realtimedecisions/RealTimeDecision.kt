@@ -1509,6 +1509,7 @@ private constructor(
     private constructor(
         private val accountId: JsonField<String>,
         private val additionalAmounts: JsonField<AdditionalAmounts>,
+        private val approval: JsonField<Approval>,
         private val cardId: JsonField<String>,
         private val decision: JsonField<Decision>,
         private val decline: JsonField<Decline>,
@@ -1524,6 +1525,7 @@ private constructor(
         private val networkDetails: JsonField<NetworkDetails>,
         private val networkIdentifiers: JsonField<NetworkIdentifiers>,
         private val networkRiskScore: JsonField<Long>,
+        private val partialApprovalCapability: JsonField<PartialApprovalCapability>,
         private val physicalCardId: JsonField<String>,
         private val presentmentAmount: JsonField<Long>,
         private val presentmentCurrency: JsonField<String>,
@@ -1545,6 +1547,9 @@ private constructor(
             @JsonProperty("additional_amounts")
             @ExcludeMissing
             additionalAmounts: JsonField<AdditionalAmounts> = JsonMissing.of(),
+            @JsonProperty("approval")
+            @ExcludeMissing
+            approval: JsonField<Approval> = JsonMissing.of(),
             @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("decision")
             @ExcludeMissing
@@ -1586,6 +1591,9 @@ private constructor(
             @JsonProperty("network_risk_score")
             @ExcludeMissing
             networkRiskScore: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("partial_approval_capability")
+            @ExcludeMissing
+            partialApprovalCapability: JsonField<PartialApprovalCapability> = JsonMissing.of(),
             @JsonProperty("physical_card_id")
             @ExcludeMissing
             physicalCardId: JsonField<String> = JsonMissing.of(),
@@ -1619,6 +1627,7 @@ private constructor(
         ) : this(
             accountId,
             additionalAmounts,
+            approval,
             cardId,
             decision,
             decline,
@@ -1634,6 +1643,7 @@ private constructor(
             networkDetails,
             networkIdentifiers,
             networkRiskScore,
+            partialApprovalCapability,
             physicalCardId,
             presentmentAmount,
             presentmentCurrency,
@@ -1665,6 +1675,15 @@ private constructor(
          */
         fun additionalAmounts(): AdditionalAmounts =
             additionalAmounts.getRequired("additional_amounts")
+
+        /**
+         * Present if and only if `decision` is `approve`. Contains information related to the
+         * approval of the authorization.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun approval(): Approval? = approval.getNullable("approval")
 
         /**
          * The identifier of the Card that is being authorized.
@@ -1798,6 +1817,15 @@ private constructor(
         fun networkRiskScore(): Long? = networkRiskScore.getNullable("network_risk_score")
 
         /**
+         * Whether or not the authorization supports partial approvals.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun partialApprovalCapability(): PartialApprovalCapability =
+            partialApprovalCapability.getRequired("partial_approval_capability")
+
+        /**
          * If the authorization was made in-person with a physical card, the Physical Card that was
          * used.
          *
@@ -1903,6 +1931,13 @@ private constructor(
         @JsonProperty("additional_amounts")
         @ExcludeMissing
         fun _additionalAmounts(): JsonField<AdditionalAmounts> = additionalAmounts
+
+        /**
+         * Returns the raw JSON value of [approval].
+         *
+         * Unlike [approval], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
 
         /**
          * Returns the raw JSON value of [cardId].
@@ -2045,6 +2080,17 @@ private constructor(
         fun _networkRiskScore(): JsonField<Long> = networkRiskScore
 
         /**
+         * Returns the raw JSON value of [partialApprovalCapability].
+         *
+         * Unlike [partialApprovalCapability], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("partial_approval_capability")
+        @ExcludeMissing
+        fun _partialApprovalCapability(): JsonField<PartialApprovalCapability> =
+            partialApprovalCapability
+
+        /**
          * Returns the raw JSON value of [physicalCardId].
          *
          * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected
@@ -2164,6 +2210,7 @@ private constructor(
              * ```kotlin
              * .accountId()
              * .additionalAmounts()
+             * .approval()
              * .cardId()
              * .decision()
              * .decline()
@@ -2179,6 +2226,7 @@ private constructor(
              * .networkDetails()
              * .networkIdentifiers()
              * .networkRiskScore()
+             * .partialApprovalCapability()
              * .physicalCardId()
              * .presentmentAmount()
              * .presentmentCurrency()
@@ -2199,6 +2247,7 @@ private constructor(
 
             private var accountId: JsonField<String>? = null
             private var additionalAmounts: JsonField<AdditionalAmounts>? = null
+            private var approval: JsonField<Approval>? = null
             private var cardId: JsonField<String>? = null
             private var decision: JsonField<Decision>? = null
             private var decline: JsonField<Decline>? = null
@@ -2214,6 +2263,7 @@ private constructor(
             private var networkDetails: JsonField<NetworkDetails>? = null
             private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
             private var networkRiskScore: JsonField<Long>? = null
+            private var partialApprovalCapability: JsonField<PartialApprovalCapability>? = null
             private var physicalCardId: JsonField<String>? = null
             private var presentmentAmount: JsonField<Long>? = null
             private var presentmentCurrency: JsonField<String>? = null
@@ -2229,6 +2279,7 @@ private constructor(
             internal fun from(cardAuthorization: CardAuthorization) = apply {
                 accountId = cardAuthorization.accountId
                 additionalAmounts = cardAuthorization.additionalAmounts
+                approval = cardAuthorization.approval
                 cardId = cardAuthorization.cardId
                 decision = cardAuthorization.decision
                 decline = cardAuthorization.decline
@@ -2244,6 +2295,7 @@ private constructor(
                 networkDetails = cardAuthorization.networkDetails
                 networkIdentifiers = cardAuthorization.networkIdentifiers
                 networkRiskScore = cardAuthorization.networkRiskScore
+                partialApprovalCapability = cardAuthorization.partialApprovalCapability
                 physicalCardId = cardAuthorization.physicalCardId
                 presentmentAmount = cardAuthorization.presentmentAmount
                 presentmentCurrency = cardAuthorization.presentmentCurrency
@@ -2287,6 +2339,21 @@ private constructor(
             fun additionalAmounts(additionalAmounts: JsonField<AdditionalAmounts>) = apply {
                 this.additionalAmounts = additionalAmounts
             }
+
+            /**
+             * Present if and only if `decision` is `approve`. Contains information related to the
+             * approval of the authorization.
+             */
+            fun approval(approval: Approval?) = approval(JsonField.ofNullable(approval))
+
+            /**
+             * Sets [Builder.approval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.approval] with a well-typed [Approval] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
             /** The identifier of the Card that is being authorized. */
             fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -2531,6 +2598,21 @@ private constructor(
                 this.networkRiskScore = networkRiskScore
             }
 
+            /** Whether or not the authorization supports partial approvals. */
+            fun partialApprovalCapability(partialApprovalCapability: PartialApprovalCapability) =
+                partialApprovalCapability(JsonField.of(partialApprovalCapability))
+
+            /**
+             * Sets [Builder.partialApprovalCapability] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.partialApprovalCapability] with a well-typed
+             * [PartialApprovalCapability] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun partialApprovalCapability(
+                partialApprovalCapability: JsonField<PartialApprovalCapability>
+            ) = apply { this.partialApprovalCapability = partialApprovalCapability }
+
             /**
              * If the authorization was made in-person with a physical card, the Physical Card that
              * was used.
@@ -2730,6 +2812,7 @@ private constructor(
              * ```kotlin
              * .accountId()
              * .additionalAmounts()
+             * .approval()
              * .cardId()
              * .decision()
              * .decline()
@@ -2745,6 +2828,7 @@ private constructor(
              * .networkDetails()
              * .networkIdentifiers()
              * .networkRiskScore()
+             * .partialApprovalCapability()
              * .physicalCardId()
              * .presentmentAmount()
              * .presentmentCurrency()
@@ -2763,6 +2847,7 @@ private constructor(
                 CardAuthorization(
                     checkRequired("accountId", accountId),
                     checkRequired("additionalAmounts", additionalAmounts),
+                    checkRequired("approval", approval),
                     checkRequired("cardId", cardId),
                     checkRequired("decision", decision),
                     checkRequired("decline", decline),
@@ -2778,6 +2863,7 @@ private constructor(
                     checkRequired("networkDetails", networkDetails),
                     checkRequired("networkIdentifiers", networkIdentifiers),
                     checkRequired("networkRiskScore", networkRiskScore),
+                    checkRequired("partialApprovalCapability", partialApprovalCapability),
                     checkRequired("physicalCardId", physicalCardId),
                     checkRequired("presentmentAmount", presentmentAmount),
                     checkRequired("presentmentCurrency", presentmentCurrency),
@@ -2801,6 +2887,7 @@ private constructor(
 
             accountId()
             additionalAmounts().validate()
+            approval()?.validate()
             cardId()
             decision()?.validate()
             decline()?.validate()
@@ -2816,6 +2903,7 @@ private constructor(
             networkDetails().validate()
             networkIdentifiers().validate()
             networkRiskScore()
+            partialApprovalCapability().validate()
             physicalCardId()
             presentmentAmount()
             presentmentCurrency()
@@ -2846,6 +2934,7 @@ private constructor(
         internal fun validity(): Int =
             (if (accountId.asKnown() == null) 0 else 1) +
                 (additionalAmounts.asKnown()?.validity() ?: 0) +
+                (approval.asKnown()?.validity() ?: 0) +
                 (if (cardId.asKnown() == null) 0 else 1) +
                 (decision.asKnown()?.validity() ?: 0) +
                 (decline.asKnown()?.validity() ?: 0) +
@@ -2861,6 +2950,7 @@ private constructor(
                 (networkDetails.asKnown()?.validity() ?: 0) +
                 (networkIdentifiers.asKnown()?.validity() ?: 0) +
                 (if (networkRiskScore.asKnown() == null) 0 else 1) +
+                (partialApprovalCapability.asKnown()?.validity() ?: 0) +
                 (if (physicalCardId.asKnown() == null) 0 else 1) +
                 (if (presentmentAmount.asKnown() == null) 0 else 1) +
                 (if (presentmentCurrency.asKnown() == null) 0 else 1) +
@@ -5666,6 +5756,190 @@ private constructor(
                 "AdditionalAmounts{clinic=$clinic, dental=$dental, original=$original, prescription=$prescription, surcharge=$surcharge, totalCumulative=$totalCumulative, totalHealthcare=$totalHealthcare, transit=$transit, unknown=$unknown, vision=$vision, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * Present if and only if `decision` is `approve`. Contains information related to the
+         * approval of the authorization.
+         */
+        class Approval
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val partialAmount: JsonField<Long>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("partial_amount")
+                @ExcludeMissing
+                partialAmount: JsonField<Long> = JsonMissing.of()
+            ) : this(partialAmount, mutableMapOf())
+
+            /**
+             * If the authorization was partially approved, this field contains the approved amount
+             * in the minor unit of the settlement currency.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun partialAmount(): Long? = partialAmount.getNullable("partial_amount")
+
+            /**
+             * Returns the raw JSON value of [partialAmount].
+             *
+             * Unlike [partialAmount], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("partial_amount")
+            @ExcludeMissing
+            fun _partialAmount(): JsonField<Long> = partialAmount
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Approval].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .partialAmount()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Approval]. */
+            class Builder internal constructor() {
+
+                private var partialAmount: JsonField<Long>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(approval: Approval) = apply {
+                    partialAmount = approval.partialAmount
+                    additionalProperties = approval.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * If the authorization was partially approved, this field contains the approved
+                 * amount in the minor unit of the settlement currency.
+                 */
+                fun partialAmount(partialAmount: Long?) =
+                    partialAmount(JsonField.ofNullable(partialAmount))
+
+                /**
+                 * Alias for [Builder.partialAmount].
+                 *
+                 * This unboxed primitive overload exists for backwards compatibility.
+                 */
+                fun partialAmount(partialAmount: Long) = partialAmount(partialAmount as Long?)
+
+                /**
+                 * Sets [Builder.partialAmount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.partialAmount] with a well-typed [Long] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun partialAmount(partialAmount: JsonField<Long>) = apply {
+                    this.partialAmount = partialAmount
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Approval].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .partialAmount()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Approval =
+                    Approval(
+                        checkRequired("partialAmount", partialAmount),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Approval = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                partialAmount()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (partialAmount.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Approval &&
+                    partialAmount == other.partialAmount &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(partialAmount, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Approval{partialAmount=$partialAmount, additionalProperties=$additionalProperties}"
+        }
+
         /** Whether or not the authorization was approved. */
         class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
@@ -8268,6 +8542,148 @@ private constructor(
                 "NetworkIdentifiers{authorizationIdentificationResponse=$authorizationIdentificationResponse, retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
         }
 
+        /** Whether or not the authorization supports partial approvals. */
+        class PartialApprovalCapability
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** This transaction supports partial approvals. */
+                val SUPPORTED = of("supported")
+
+                /** This transaction does not support partial approvals. */
+                val NOT_SUPPORTED = of("not_supported")
+
+                fun of(value: String) = PartialApprovalCapability(JsonField.of(value))
+            }
+
+            /** An enum containing [PartialApprovalCapability]'s known values. */
+            enum class Known {
+                /** This transaction supports partial approvals. */
+                SUPPORTED,
+                /** This transaction does not support partial approvals. */
+                NOT_SUPPORTED,
+            }
+
+            /**
+             * An enum containing [PartialApprovalCapability]'s known values, as well as an
+             * [_UNKNOWN] member.
+             *
+             * An instance of [PartialApprovalCapability] can contain an unknown value in a couple
+             * of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** This transaction supports partial approvals. */
+                SUPPORTED,
+                /** This transaction does not support partial approvals. */
+                NOT_SUPPORTED,
+                /**
+                 * An enum member indicating that [PartialApprovalCapability] was instantiated with
+                 * an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SUPPORTED -> Value.SUPPORTED
+                    NOT_SUPPORTED -> Value.NOT_SUPPORTED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SUPPORTED -> Known.SUPPORTED
+                    NOT_SUPPORTED -> Known.NOT_SUPPORTED
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown PartialApprovalCapability: $value"
+                        )
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): PartialApprovalCapability = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PartialApprovalCapability && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         /**
          * The processing category describes the intent behind the authorization, such as whether it
          * was used for bill payments or an automatic fuel dispenser.
@@ -10424,6 +10840,7 @@ private constructor(
             return other is CardAuthorization &&
                 accountId == other.accountId &&
                 additionalAmounts == other.additionalAmounts &&
+                approval == other.approval &&
                 cardId == other.cardId &&
                 decision == other.decision &&
                 decline == other.decline &&
@@ -10439,6 +10856,7 @@ private constructor(
                 networkDetails == other.networkDetails &&
                 networkIdentifiers == other.networkIdentifiers &&
                 networkRiskScore == other.networkRiskScore &&
+                partialApprovalCapability == other.partialApprovalCapability &&
                 physicalCardId == other.physicalCardId &&
                 presentmentAmount == other.presentmentAmount &&
                 presentmentCurrency == other.presentmentCurrency &&
@@ -10456,6 +10874,7 @@ private constructor(
             Objects.hash(
                 accountId,
                 additionalAmounts,
+                approval,
                 cardId,
                 decision,
                 decline,
@@ -10471,6 +10890,7 @@ private constructor(
                 networkDetails,
                 networkIdentifiers,
                 networkRiskScore,
+                partialApprovalCapability,
                 physicalCardId,
                 presentmentAmount,
                 presentmentCurrency,
@@ -10488,7 +10908,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthorization{accountId=$accountId, additionalAmounts=$additionalAmounts, cardId=$cardId, decision=$decision, decline=$decline, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
+            "CardAuthorization{accountId=$accountId, additionalAmounts=$additionalAmounts, approval=$approval, cardId=$cardId, decision=$decision, decline=$decline, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, partialApprovalCapability=$partialApprovalCapability, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
     }
 
     /** The category of the Real-Time Decision. */
