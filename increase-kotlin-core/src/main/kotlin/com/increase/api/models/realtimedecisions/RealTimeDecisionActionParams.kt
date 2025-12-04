@@ -1771,6 +1771,7 @@ private constructor(
         private constructor(
             private val cardholderAddressVerificationResult:
                 JsonField<CardholderAddressVerificationResult>,
+            private val partialAmount: JsonField<Long>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -1780,8 +1781,11 @@ private constructor(
                 @ExcludeMissing
                 cardholderAddressVerificationResult:
                     JsonField<CardholderAddressVerificationResult> =
-                    JsonMissing.of()
-            ) : this(cardholderAddressVerificationResult, mutableMapOf())
+                    JsonMissing.of(),
+                @JsonProperty("partial_amount")
+                @ExcludeMissing
+                partialAmount: JsonField<Long> = JsonMissing.of(),
+            ) : this(cardholderAddressVerificationResult, partialAmount, mutableMapOf())
 
             /**
              * Your decisions on whether or not each provided address component is a match. Your
@@ -1799,6 +1803,16 @@ private constructor(
                 )
 
             /**
+             * If the transaction supports partial approvals (`partial_approval_capability:
+             * supported`) the `partial_amount` can be provided in the transaction's settlement
+             * currency to approve a lower amount than was requested.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun partialAmount(): Long? = partialAmount.getNullable("partial_amount")
+
+            /**
              * Returns the raw JSON value of [cardholderAddressVerificationResult].
              *
              * Unlike [cardholderAddressVerificationResult], this method doesn't throw if the JSON
@@ -1808,6 +1822,16 @@ private constructor(
             @ExcludeMissing
             fun _cardholderAddressVerificationResult():
                 JsonField<CardholderAddressVerificationResult> = cardholderAddressVerificationResult
+
+            /**
+             * Returns the raw JSON value of [partialAmount].
+             *
+             * Unlike [partialAmount], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("partial_amount")
+            @ExcludeMissing
+            fun _partialAmount(): JsonField<Long> = partialAmount
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1833,11 +1857,13 @@ private constructor(
                 private var cardholderAddressVerificationResult:
                     JsonField<CardholderAddressVerificationResult> =
                     JsonMissing.of()
+                private var partialAmount: JsonField<Long> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(approval: Approval) = apply {
                     cardholderAddressVerificationResult =
                         approval.cardholderAddressVerificationResult
+                    partialAmount = approval.partialAmount
                     additionalProperties = approval.additionalProperties.toMutableMap()
                 }
 
@@ -1870,6 +1896,24 @@ private constructor(
                     this.cardholderAddressVerificationResult = cardholderAddressVerificationResult
                 }
 
+                /**
+                 * If the transaction supports partial approvals (`partial_approval_capability:
+                 * supported`) the `partial_amount` can be provided in the transaction's settlement
+                 * currency to approve a lower amount than was requested.
+                 */
+                fun partialAmount(partialAmount: Long) = partialAmount(JsonField.of(partialAmount))
+
+                /**
+                 * Sets [Builder.partialAmount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.partialAmount] with a well-typed [Long] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun partialAmount(partialAmount: JsonField<Long>) = apply {
+                    this.partialAmount = partialAmount
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -1900,6 +1944,7 @@ private constructor(
                 fun build(): Approval =
                     Approval(
                         cardholderAddressVerificationResult,
+                        partialAmount,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -1912,6 +1957,7 @@ private constructor(
                 }
 
                 cardholderAddressVerificationResult()?.validate()
+                partialAmount()
                 validated = true
             }
 
@@ -1930,7 +1976,8 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (cardholderAddressVerificationResult.asKnown()?.validity() ?: 0)
+                (cardholderAddressVerificationResult.asKnown()?.validity() ?: 0) +
+                    (if (partialAmount.asKnown() == null) 0 else 1)
 
             /**
              * Your decisions on whether or not each provided address component is a match. Your
@@ -2478,17 +2525,22 @@ private constructor(
                 return other is Approval &&
                     cardholderAddressVerificationResult ==
                         other.cardholderAddressVerificationResult &&
+                    partialAmount == other.partialAmount &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(cardholderAddressVerificationResult, additionalProperties)
+                Objects.hash(
+                    cardholderAddressVerificationResult,
+                    partialAmount,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Approval{cardholderAddressVerificationResult=$cardholderAddressVerificationResult, additionalProperties=$additionalProperties}"
+                "Approval{cardholderAddressVerificationResult=$cardholderAddressVerificationResult, partialAmount=$partialAmount, additionalProperties=$additionalProperties}"
         }
 
         /**
