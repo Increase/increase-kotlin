@@ -9181,6 +9181,12 @@ private constructor(
                      */
                     val CASH_DISBURSEMENT = of("cash_disbursement")
 
+                    /**
+                     * A balance inquiry transaction is used to check the balance of an account
+                     * associated with a card.
+                     */
+                    val BALANCE_INQUIRY = of("balance_inquiry")
+
                     /** The processing category is unknown. */
                     val UNKNOWN = of("unknown")
 
@@ -9221,6 +9227,11 @@ private constructor(
                      * point of sale.
                      */
                     CASH_DISBURSEMENT,
+                    /**
+                     * A balance inquiry transaction is used to check the balance of an account
+                     * associated with a card.
+                     */
+                    BALANCE_INQUIRY,
                     /** The processing category is unknown. */
                     UNKNOWN,
                 }
@@ -9269,6 +9280,11 @@ private constructor(
                      * point of sale.
                      */
                     CASH_DISBURSEMENT,
+                    /**
+                     * A balance inquiry transaction is used to check the balance of an account
+                     * associated with a card.
+                     */
+                    BALANCE_INQUIRY,
                     /** The processing category is unknown. */
                     UNKNOWN,
                     /**
@@ -9295,6 +9311,7 @@ private constructor(
                         QUASI_CASH -> Value.QUASI_CASH
                         REFUND -> Value.REFUND
                         CASH_DISBURSEMENT -> Value.CASH_DISBURSEMENT
+                        BALANCE_INQUIRY -> Value.BALANCE_INQUIRY
                         UNKNOWN -> Value.UNKNOWN
                         else -> Value._UNKNOWN
                     }
@@ -9318,6 +9335,7 @@ private constructor(
                         QUASI_CASH -> Known.QUASI_CASH
                         REFUND -> Known.REFUND
                         CASH_DISBURSEMENT -> Known.CASH_DISBURSEMENT
+                        BALANCE_INQUIRY -> Known.BALANCE_INQUIRY
                         UNKNOWN -> Known.UNKNOWN
                         else ->
                             throw IncreaseInvalidDataException("Unknown ProcessingCategory: $value")
