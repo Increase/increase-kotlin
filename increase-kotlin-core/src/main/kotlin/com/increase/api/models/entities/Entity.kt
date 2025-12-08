@@ -7301,6 +7301,9 @@ private constructor(
                 /** Oscilar. See https://oscilar.com for more information. */
                 val OSCILAR = of("oscilar")
 
+                /** Persona. See https://withpersona.com for more information. */
+                val PERSONA = of("persona")
+
                 fun of(value: String) = Vendor(JsonField.of(value))
             }
 
@@ -7312,6 +7315,8 @@ private constructor(
                 MIDDESK,
                 /** Oscilar. See https://oscilar.com for more information. */
                 OSCILAR,
+                /** Persona. See https://withpersona.com for more information. */
+                PERSONA,
             }
 
             /**
@@ -7330,6 +7335,8 @@ private constructor(
                 MIDDESK,
                 /** Oscilar. See https://oscilar.com for more information. */
                 OSCILAR,
+                /** Persona. See https://withpersona.com for more information. */
+                PERSONA,
                 /**
                  * An enum member indicating that [Vendor] was instantiated with an unknown value.
                  */
@@ -7348,6 +7355,7 @@ private constructor(
                     ALLOY -> Value.ALLOY
                     MIDDESK -> Value.MIDDESK
                     OSCILAR -> Value.OSCILAR
+                    PERSONA -> Value.PERSONA
                     else -> Value._UNKNOWN
                 }
 
@@ -7365,6 +7373,7 @@ private constructor(
                     ALLOY -> Known.ALLOY
                     MIDDESK -> Known.MIDDESK
                     OSCILAR -> Known.OSCILAR
+                    PERSONA -> Known.PERSONA
                     else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
                 }
 
