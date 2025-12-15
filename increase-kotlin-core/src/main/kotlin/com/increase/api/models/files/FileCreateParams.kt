@@ -605,7 +605,8 @@ private constructor(
 
             /**
              * A document to be printed on an additional page and mailed with a check that you've
-             * requested Increase print.
+             * requested Increase print. This must be a PDF whose pages are all US letter size and
+             * all have the same orientation.
              */
             val CHECK_ATTACHMENT = of("check_attachment")
 
@@ -686,7 +687,8 @@ private constructor(
             MAILED_CHECK_IMAGE,
             /**
              * A document to be printed on an additional page and mailed with a check that you've
-             * requested Increase print.
+             * requested Increase print. This must be a PDF whose pages are all US letter size and
+             * all have the same orientation.
              */
             CHECK_ATTACHMENT,
             /**
@@ -757,7 +759,8 @@ private constructor(
             MAILED_CHECK_IMAGE,
             /**
              * A document to be printed on an additional page and mailed with a check that you've
-             * requested Increase print.
+             * requested Increase print. This must be a PDF whose pages are all US letter size and
+             * all have the same orientation.
              */
             CHECK_ATTACHMENT,
             /**
