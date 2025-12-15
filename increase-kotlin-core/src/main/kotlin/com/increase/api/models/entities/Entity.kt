@@ -851,6 +851,7 @@ private constructor(
     private constructor(
         private val address: JsonField<Address>,
         private val beneficialOwners: JsonField<List<BeneficialOwner>>,
+        private val email: JsonField<String>,
         private val incorporationState: JsonField<String>,
         private val industryCode: JsonField<String>,
         private val name: JsonField<String>,
@@ -865,6 +866,7 @@ private constructor(
             @JsonProperty("beneficial_owners")
             @ExcludeMissing
             beneficialOwners: JsonField<List<BeneficialOwner>> = JsonMissing.of(),
+            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
             @JsonProperty("incorporation_state")
             @ExcludeMissing
             incorporationState: JsonField<String> = JsonMissing.of(),
@@ -879,6 +881,7 @@ private constructor(
         ) : this(
             address,
             beneficialOwners,
+            email,
             incorporationState,
             industryCode,
             name,
@@ -903,6 +906,14 @@ private constructor(
          */
         fun beneficialOwners(): List<BeneficialOwner> =
             beneficialOwners.getRequired("beneficial_owners")
+
+        /**
+         * An email address for the business.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun email(): String? = email.getNullable("email")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
@@ -962,6 +973,13 @@ private constructor(
         @JsonProperty("beneficial_owners")
         @ExcludeMissing
         fun _beneficialOwners(): JsonField<List<BeneficialOwner>> = beneficialOwners
+
+        /**
+         * Returns the raw JSON value of [email].
+         *
+         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /**
          * Returns the raw JSON value of [incorporationState].
@@ -1028,6 +1046,7 @@ private constructor(
              * ```kotlin
              * .address()
              * .beneficialOwners()
+             * .email()
              * .incorporationState()
              * .industryCode()
              * .name()
@@ -1043,6 +1062,7 @@ private constructor(
 
             private var address: JsonField<Address>? = null
             private var beneficialOwners: JsonField<MutableList<BeneficialOwner>>? = null
+            private var email: JsonField<String>? = null
             private var incorporationState: JsonField<String>? = null
             private var industryCode: JsonField<String>? = null
             private var name: JsonField<String>? = null
@@ -1053,6 +1073,7 @@ private constructor(
             internal fun from(corporation: Corporation) = apply {
                 address = corporation.address
                 beneficialOwners = corporation.beneficialOwners.map { it.toMutableList() }
+                email = corporation.email
                 incorporationState = corporation.incorporationState
                 industryCode = corporation.industryCode
                 name = corporation.name
@@ -1102,6 +1123,18 @@ private constructor(
                         checkKnown("beneficialOwners", it).add(beneficialOwner)
                     }
             }
+
+            /** An email address for the business. */
+            fun email(email: String?) = email(JsonField.ofNullable(email))
+
+            /**
+             * Sets [Builder.email] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.email] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun email(email: JsonField<String>) = apply { this.email = email }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
@@ -1206,6 +1239,7 @@ private constructor(
              * ```kotlin
              * .address()
              * .beneficialOwners()
+             * .email()
              * .incorporationState()
              * .industryCode()
              * .name()
@@ -1219,6 +1253,7 @@ private constructor(
                 Corporation(
                     checkRequired("address", address),
                     checkRequired("beneficialOwners", beneficialOwners).map { it.toImmutable() },
+                    checkRequired("email", email),
                     checkRequired("incorporationState", incorporationState),
                     checkRequired("industryCode", industryCode),
                     checkRequired("name", name),
@@ -1237,6 +1272,7 @@ private constructor(
 
             address().validate()
             beneficialOwners().forEach { it.validate() }
+            email()
             incorporationState()
             industryCode()
             name()
@@ -1262,6 +1298,7 @@ private constructor(
         internal fun validity(): Int =
             (address.asKnown()?.validity() ?: 0) +
                 (beneficialOwners.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (email.asKnown() == null) 0 else 1) +
                 (if (incorporationState.asKnown() == null) 0 else 1) +
                 (if (industryCode.asKnown() == null) 0 else 1) +
                 (if (name.asKnown() == null) 0 else 1) +
@@ -3116,6 +3153,7 @@ private constructor(
             return other is Corporation &&
                 address == other.address &&
                 beneficialOwners == other.beneficialOwners &&
+                email == other.email &&
                 incorporationState == other.incorporationState &&
                 industryCode == other.industryCode &&
                 name == other.name &&
@@ -3128,6 +3166,7 @@ private constructor(
             Objects.hash(
                 address,
                 beneficialOwners,
+                email,
                 incorporationState,
                 industryCode,
                 name,
@@ -3140,7 +3179,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, beneficialOwners=$beneficialOwners, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, beneficialOwners=$beneficialOwners, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /**

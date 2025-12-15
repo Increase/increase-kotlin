@@ -105,6 +105,7 @@ internal class EntityCreateParamsTest {
                         EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                             .REGULATED_FINANCIAL_INSTITUTION
                     )
+                    .email("dev@stainless.com")
                     .incorporationState("NY")
                     .industryCode("x")
                     .website("https://example.com")
@@ -506,6 +507,7 @@ internal class EntityCreateParamsTest {
                             EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                                 .REGULATED_FINANCIAL_INSTITUTION
                         )
+                        .email("dev@stainless.com")
                         .incorporationState("NY")
                         .industryCode("x")
                         .website("https://example.com")
@@ -904,6 +906,7 @@ internal class EntityCreateParamsTest {
                         EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                             .REGULATED_FINANCIAL_INSTITUTION
                     )
+                    .email("dev@stainless.com")
                     .incorporationState("NY")
                     .industryCode("x")
                     .website("https://example.com")

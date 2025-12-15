@@ -924,6 +924,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
+        private val email: JsonField<String>,
         private val industryCode: JsonField<String>,
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -932,11 +933,12 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
             @JsonProperty("industry_code")
             @ExcludeMissing
             industryCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(address, industryCode, name, mutableMapOf())
+        ) : this(address, email, industryCode, name, mutableMapOf())
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -946,6 +948,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun address(): Address? = address.getNullable("address")
+
+        /**
+         * An email address for the business. Not every program requires an email for submitted
+         * Entities.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun email(): String? = email.getNullable("email")
 
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
@@ -972,6 +983,13 @@ private constructor(
          * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        /**
+         * Returns the raw JSON value of [email].
+         *
+         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /**
          * Returns the raw JSON value of [industryCode].
@@ -1012,12 +1030,14 @@ private constructor(
         class Builder internal constructor() {
 
             private var address: JsonField<Address> = JsonMissing.of()
+            private var email: JsonField<String> = JsonMissing.of()
             private var industryCode: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(corporation: Corporation) = apply {
                 address = corporation.address
+                email = corporation.email
                 industryCode = corporation.industryCode
                 name = corporation.name
                 additionalProperties = corporation.additionalProperties.toMutableMap()
@@ -1037,6 +1057,21 @@ private constructor(
              * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
+
+            /**
+             * An email address for the business. Not every program requires an email for submitted
+             * Entities.
+             */
+            fun email(email: String) = email(JsonField.of(email))
+
+            /**
+             * Sets [Builder.email] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.email] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun email(email: JsonField<String>) = apply { this.email = email }
 
             /**
              * The North American Industry Classification System (NAICS) code for the corporation's
@@ -1094,7 +1129,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Corporation =
-                Corporation(address, industryCode, name, additionalProperties.toMutableMap())
+                Corporation(address, email, industryCode, name, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -1105,6 +1140,7 @@ private constructor(
             }
 
             address()?.validate()
+            email()
             industryCode()
             name()
             validated = true
@@ -1126,6 +1162,7 @@ private constructor(
          */
         internal fun validity(): Int =
             (address.asKnown()?.validity() ?: 0) +
+                (if (email.asKnown() == null) 0 else 1) +
                 (if (industryCode.asKnown() == null) 0 else 1) +
                 (if (name.asKnown() == null) 0 else 1)
 
@@ -1458,19 +1495,20 @@ private constructor(
 
             return other is Corporation &&
                 address == other.address &&
+                email == other.email &&
                 industryCode == other.industryCode &&
                 name == other.name &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(address, industryCode, name, additionalProperties)
+            Objects.hash(address, email, industryCode, name, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, industryCode=$industryCode, name=$name, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, email=$email, industryCode=$industryCode, name=$name, additionalProperties=$additionalProperties}"
     }
 
     /**
