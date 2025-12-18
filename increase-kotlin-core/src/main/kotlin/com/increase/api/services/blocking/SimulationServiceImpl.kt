@@ -35,8 +35,6 @@ import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.CheckTransferServiceImpl
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestServiceImpl
-import com.increase.api.services.blocking.simulations.DocumentService
-import com.increase.api.services.blocking.simulations.DocumentServiceImpl
 import com.increase.api.services.blocking.simulations.ExportService
 import com.increase.api.services.blocking.simulations.ExportServiceImpl
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
@@ -183,8 +181,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         AccountStatementServiceImpl(clientOptions)
     }
 
-    private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
-
     private val exports: ExportService by lazy { ExportServiceImpl(clientOptions) }
 
     private val cardTokens: CardTokenService by lazy { CardTokenServiceImpl(clientOptions) }
@@ -256,8 +252,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     override fun programs(): ProgramService = programs
 
     override fun accountStatements(): AccountStatementService = accountStatements
-
-    override fun documents(): DocumentService = documents
 
     override fun exports(): ExportService = exports
 
@@ -387,10 +381,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             AccountStatementServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val documents: DocumentService.WithRawResponse by lazy {
-            DocumentServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val exports: ExportService.WithRawResponse by lazy {
             ExportServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -479,8 +469,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun accountStatements(): AccountStatementService.WithRawResponse =
             accountStatements
-
-        override fun documents(): DocumentService.WithRawResponse = documents
 
         override fun exports(): ExportService.WithRawResponse = exports
 
