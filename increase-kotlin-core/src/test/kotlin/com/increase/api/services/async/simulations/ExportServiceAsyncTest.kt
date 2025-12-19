@@ -22,7 +22,14 @@ internal class ExportServiceAsyncTest {
 
         val export =
             exportServiceAsync.create(
-                ExportCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+                ExportCreateParams.builder()
+                    .category(ExportCreateParams.Category.FORM_1099_INT)
+                    .form1099Int(
+                        ExportCreateParams.Form1099Int.builder()
+                            .accountId("account_in71c4amph0vgo2qllky")
+                            .build()
+                    )
+                    .build()
             )
 
         export.validate()
