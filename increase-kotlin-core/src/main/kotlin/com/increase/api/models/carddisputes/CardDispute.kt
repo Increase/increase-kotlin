@@ -10920,6 +10920,7 @@ private constructor(
             private val category: JsonField<Category>,
             private val chargeback: JsonField<Chargeback>,
             private val createdAt: JsonField<OffsetDateTime>,
+            private val explanation: JsonField<String>,
             private val furtherInformationRequestedAt: JsonField<OffsetDateTime>,
             private val furtherInformationRequestedReason: JsonField<String>,
             private val merchantPrearbitrationDecline: JsonField<MerchantPrearbitrationDecline>,
@@ -10947,6 +10948,9 @@ private constructor(
                 @JsonProperty("created_at")
                 @ExcludeMissing
                 createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("explanation")
+                @ExcludeMissing
+                explanation: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("further_information_requested_at")
                 @ExcludeMissing
                 furtherInformationRequestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -10973,6 +10977,7 @@ private constructor(
                 category,
                 chargeback,
                 createdAt,
+                explanation,
                 furtherInformationRequestedAt,
                 furtherInformationRequestedReason,
                 merchantPrearbitrationDecline,
@@ -11040,6 +11045,15 @@ private constructor(
              *   value).
              */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            /**
+             * The free-form explanation provided to Increase to provide more context for the user
+             * submission. This field is not sent directly to the card networks.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun explanation(): String? = explanation.getNullable("explanation")
 
             /**
              * The date and time at which Increase requested further information from the user for
@@ -11164,6 +11178,16 @@ private constructor(
             fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
             /**
+             * Returns the raw JSON value of [explanation].
+             *
+             * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            fun _explanation(): JsonField<String> = explanation
+
+            /**
              * Returns the raw JSON value of [furtherInformationRequestedAt].
              *
              * Unlike [furtherInformationRequestedAt], this method doesn't throw if the JSON field
@@ -11248,6 +11272,7 @@ private constructor(
                  * .category()
                  * .chargeback()
                  * .createdAt()
+                 * .explanation()
                  * .furtherInformationRequestedAt()
                  * .furtherInformationRequestedReason()
                  * .merchantPrearbitrationDecline()
@@ -11268,6 +11293,7 @@ private constructor(
                 private var category: JsonField<Category>? = null
                 private var chargeback: JsonField<Chargeback>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
+                private var explanation: JsonField<String>? = null
                 private var furtherInformationRequestedAt: JsonField<OffsetDateTime>? = null
                 private var furtherInformationRequestedReason: JsonField<String>? = null
                 private var merchantPrearbitrationDecline:
@@ -11285,6 +11311,7 @@ private constructor(
                     category = userSubmission.category
                     chargeback = userSubmission.chargeback
                     createdAt = userSubmission.createdAt
+                    explanation = userSubmission.explanation
                     furtherInformationRequestedAt = userSubmission.furtherInformationRequestedAt
                     furtherInformationRequestedReason =
                         userSubmission.furtherInformationRequestedReason
@@ -11413,6 +11440,24 @@ private constructor(
                  */
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
+                }
+
+                /**
+                 * The free-form explanation provided to Increase to provide more context for the
+                 * user submission. This field is not sent directly to the card networks.
+                 */
+                fun explanation(explanation: String?) =
+                    explanation(JsonField.ofNullable(explanation))
+
+                /**
+                 * Sets [Builder.explanation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.explanation] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun explanation(explanation: JsonField<String>) = apply {
+                    this.explanation = explanation
                 }
 
                 /**
@@ -11565,6 +11610,7 @@ private constructor(
                  * .category()
                  * .chargeback()
                  * .createdAt()
+                 * .explanation()
                  * .furtherInformationRequestedAt()
                  * .furtherInformationRequestedReason()
                  * .merchantPrearbitrationDecline()
@@ -11583,6 +11629,7 @@ private constructor(
                         checkRequired("category", category),
                         checkRequired("chargeback", chargeback),
                         checkRequired("createdAt", createdAt),
+                        checkRequired("explanation", explanation),
                         checkRequired(
                             "furtherInformationRequestedAt",
                             furtherInformationRequestedAt,
@@ -11615,6 +11662,7 @@ private constructor(
                 category().validate()
                 chargeback()?.validate()
                 createdAt()
+                explanation()
                 furtherInformationRequestedAt()
                 furtherInformationRequestedReason()
                 merchantPrearbitrationDecline()?.validate()
@@ -11645,6 +11693,7 @@ private constructor(
                     (category.asKnown()?.validity() ?: 0) +
                     (chargeback.asKnown()?.validity() ?: 0) +
                     (if (createdAt.asKnown() == null) 0 else 1) +
+                    (if (explanation.asKnown() == null) 0 else 1) +
                     (if (furtherInformationRequestedAt.asKnown() == null) 0 else 1) +
                     (if (furtherInformationRequestedReason.asKnown() == null) 0 else 1) +
                     (merchantPrearbitrationDecline.asKnown()?.validity() ?: 0) +
@@ -39572,6 +39621,7 @@ private constructor(
                     category == other.category &&
                     chargeback == other.chargeback &&
                     createdAt == other.createdAt &&
+                    explanation == other.explanation &&
                     furtherInformationRequestedAt == other.furtherInformationRequestedAt &&
                     furtherInformationRequestedReason == other.furtherInformationRequestedReason &&
                     merchantPrearbitrationDecline == other.merchantPrearbitrationDecline &&
@@ -39589,6 +39639,7 @@ private constructor(
                     category,
                     chargeback,
                     createdAt,
+                    explanation,
                     furtherInformationRequestedAt,
                     furtherInformationRequestedReason,
                     merchantPrearbitrationDecline,
@@ -39602,7 +39653,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UserSubmission{acceptedAt=$acceptedAt, amount=$amount, attachmentFiles=$attachmentFiles, category=$category, chargeback=$chargeback, createdAt=$createdAt, furtherInformationRequestedAt=$furtherInformationRequestedAt, furtherInformationRequestedReason=$furtherInformationRequestedReason, merchantPrearbitrationDecline=$merchantPrearbitrationDecline, status=$status, updatedAt=$updatedAt, userPrearbitration=$userPrearbitration, additionalProperties=$additionalProperties}"
+                "UserSubmission{acceptedAt=$acceptedAt, amount=$amount, attachmentFiles=$attachmentFiles, category=$category, chargeback=$chargeback, createdAt=$createdAt, explanation=$explanation, furtherInformationRequestedAt=$furtherInformationRequestedAt, furtherInformationRequestedReason=$furtherInformationRequestedReason, merchantPrearbitrationDecline=$merchantPrearbitrationDecline, status=$status, updatedAt=$updatedAt, userPrearbitration=$userPrearbitration, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
