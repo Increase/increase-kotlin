@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.382.0 (2026-01-05)
+
+Full Changelog: [v0.381.0...v0.382.0](https://github.com/Increase/increase-kotlin/compare/v0.381.0...v0.382.0)
+
+### Features
+
+* **api:** api update ([0286e8e](https://github.com/Increase/increase-kotlin/commit/0286e8ee9c0e36525817f0f63e7fcdaa657e598f))
+* **client:** add `HttpRequest#url()` method ([991c506](https://github.com/Increase/increase-kotlin/commit/991c5064398f05ff7a8617363b88c2d9652f8f79))
+
 ## 0.381.0 (2026-01-01)
 
 Full Changelog: [v0.380.0...v0.381.0](https://github.com/Increase/increase-kotlin/compare/v0.380.0...v0.381.0)
