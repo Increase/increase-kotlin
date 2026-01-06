@@ -101,6 +101,14 @@ private constructor(
     fun supplementalDocuments(): List<SupplementalDocument>? = body.supplementalDocuments()
 
     /**
+     * The terms that the Entity agreed to. Not all programs are required to submit this data.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun termsAgreements(): List<TermsAgreement>? = body.termsAgreements()
+
+    /**
      * If you are using a third-party service for identity verification, you can use this field to
      * associate this Entity with the identifier that represents them in that service.
      *
@@ -175,6 +183,13 @@ private constructor(
      */
     fun _supplementalDocuments(): JsonField<List<SupplementalDocument>> =
         body._supplementalDocuments()
+
+    /**
+     * Returns the raw JSON value of [termsAgreements].
+     *
+     * Unlike [termsAgreements], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _termsAgreements(): JsonField<List<TermsAgreement>> = body._termsAgreements()
 
     /**
      * Returns the raw JSON value of [thirdPartyVerification].
@@ -376,6 +391,33 @@ private constructor(
         }
 
         /**
+         * The terms that the Entity agreed to. Not all programs are required to submit this data.
+         */
+        fun termsAgreements(termsAgreements: List<TermsAgreement>) = apply {
+            body.termsAgreements(termsAgreements)
+        }
+
+        /**
+         * Sets [Builder.termsAgreements] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.termsAgreements] with a well-typed
+         * `List<TermsAgreement>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun termsAgreements(termsAgreements: JsonField<List<TermsAgreement>>) = apply {
+            body.termsAgreements(termsAgreements)
+        }
+
+        /**
+         * Adds a single [TermsAgreement] to [termsAgreements].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTermsAgreement(termsAgreement: TermsAgreement) = apply {
+            body.addTermsAgreement(termsAgreement)
+        }
+
+        /**
          * If you are using a third-party service for identity verification, you can use this field
          * to associate this Entity with the identifier that represents them in that service.
          */
@@ -560,6 +602,7 @@ private constructor(
         private val naturalPerson: JsonField<NaturalPerson>,
         private val riskRating: JsonField<RiskRating>,
         private val supplementalDocuments: JsonField<List<SupplementalDocument>>,
+        private val termsAgreements: JsonField<List<TermsAgreement>>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
         private val trust: JsonField<Trust>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -589,6 +632,9 @@ private constructor(
             @JsonProperty("supplemental_documents")
             @ExcludeMissing
             supplementalDocuments: JsonField<List<SupplementalDocument>> = JsonMissing.of(),
+            @JsonProperty("terms_agreements")
+            @ExcludeMissing
+            termsAgreements: JsonField<List<TermsAgreement>> = JsonMissing.of(),
             @JsonProperty("third_party_verification")
             @ExcludeMissing
             thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
@@ -602,6 +648,7 @@ private constructor(
             naturalPerson,
             riskRating,
             supplementalDocuments,
+            termsAgreements,
             thirdPartyVerification,
             trust,
             mutableMapOf(),
@@ -678,6 +725,15 @@ private constructor(
          */
         fun supplementalDocuments(): List<SupplementalDocument>? =
             supplementalDocuments.getNullable("supplemental_documents")
+
+        /**
+         * The terms that the Entity agreed to. Not all programs are required to submit this data.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun termsAgreements(): List<TermsAgreement>? =
+            termsAgreements.getNullable("terms_agreements")
 
         /**
          * If you are using a third-party service for identity verification, you can use this field
@@ -771,6 +827,16 @@ private constructor(
         fun _supplementalDocuments(): JsonField<List<SupplementalDocument>> = supplementalDocuments
 
         /**
+         * Returns the raw JSON value of [termsAgreements].
+         *
+         * Unlike [termsAgreements], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("terms_agreements")
+        @ExcludeMissing
+        fun _termsAgreements(): JsonField<List<TermsAgreement>> = termsAgreements
+
+        /**
          * Returns the raw JSON value of [thirdPartyVerification].
          *
          * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
@@ -823,6 +889,7 @@ private constructor(
             private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
             private var supplementalDocuments: JsonField<MutableList<SupplementalDocument>>? = null
+            private var termsAgreements: JsonField<MutableList<TermsAgreement>>? = null
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
             private var trust: JsonField<Trust> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -836,6 +903,7 @@ private constructor(
                 naturalPerson = body.naturalPerson
                 riskRating = body.riskRating
                 supplementalDocuments = body.supplementalDocuments.map { it.toMutableList() }
+                termsAgreements = body.termsAgreements.map { it.toMutableList() }
                 thirdPartyVerification = body.thirdPartyVerification
                 trust = body.trust
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -983,6 +1051,36 @@ private constructor(
             }
 
             /**
+             * The terms that the Entity agreed to. Not all programs are required to submit this
+             * data.
+             */
+            fun termsAgreements(termsAgreements: List<TermsAgreement>) =
+                termsAgreements(JsonField.of(termsAgreements))
+
+            /**
+             * Sets [Builder.termsAgreements] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.termsAgreements] with a well-typed
+             * `List<TermsAgreement>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun termsAgreements(termsAgreements: JsonField<List<TermsAgreement>>) = apply {
+                this.termsAgreements = termsAgreements.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [TermsAgreement] to [termsAgreements].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addTermsAgreement(termsAgreement: TermsAgreement) = apply {
+                termsAgreements =
+                    (termsAgreements ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("termsAgreements", it).add(termsAgreement)
+                    }
+            }
+
+            /**
              * If you are using a third-party service for identity verification, you can use this
              * field to associate this Entity with the identifier that represents them in that
              * service.
@@ -1057,6 +1155,7 @@ private constructor(
                     naturalPerson,
                     riskRating,
                     (supplementalDocuments ?: JsonMissing.of()).map { it.toImmutable() },
+                    (termsAgreements ?: JsonMissing.of()).map { it.toImmutable() },
                     thirdPartyVerification,
                     trust,
                     additionalProperties.toMutableMap(),
@@ -1078,6 +1177,7 @@ private constructor(
             naturalPerson()?.validate()
             riskRating()?.validate()
             supplementalDocuments()?.forEach { it.validate() }
+            termsAgreements()?.forEach { it.validate() }
             thirdPartyVerification()?.validate()
             trust()?.validate()
             validated = true
@@ -1106,6 +1206,7 @@ private constructor(
                 (naturalPerson.asKnown()?.validity() ?: 0) +
                 (riskRating.asKnown()?.validity() ?: 0) +
                 (supplementalDocuments.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (termsAgreements.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (thirdPartyVerification.asKnown()?.validity() ?: 0) +
                 (trust.asKnown()?.validity() ?: 0)
 
@@ -1123,6 +1224,7 @@ private constructor(
                 naturalPerson == other.naturalPerson &&
                 riskRating == other.riskRating &&
                 supplementalDocuments == other.supplementalDocuments &&
+                termsAgreements == other.termsAgreements &&
                 thirdPartyVerification == other.thirdPartyVerification &&
                 trust == other.trust &&
                 additionalProperties == other.additionalProperties
@@ -1138,6 +1240,7 @@ private constructor(
                 naturalPerson,
                 riskRating,
                 supplementalDocuments,
+                termsAgreements,
                 thirdPartyVerification,
                 trust,
                 additionalProperties,
@@ -1147,7 +1250,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
+            "Body{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Entity to create. */
@@ -11034,6 +11137,249 @@ private constructor(
 
         override fun toString() =
             "SupplementalDocument{fileId=$fileId, additionalProperties=$additionalProperties}"
+    }
+
+    class TermsAgreement
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val agreedAt: JsonField<OffsetDateTime>,
+        private val ipAddress: JsonField<String>,
+        private val termsUrl: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("agreed_at")
+            @ExcludeMissing
+            agreedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("ip_address")
+            @ExcludeMissing
+            ipAddress: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("terms_url")
+            @ExcludeMissing
+            termsUrl: JsonField<String> = JsonMissing.of(),
+        ) : this(agreedAt, ipAddress, termsUrl, mutableMapOf())
+
+        /**
+         * The timestamp of when the Entity agreed to the terms.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun agreedAt(): OffsetDateTime = agreedAt.getRequired("agreed_at")
+
+        /**
+         * The IP address the Entity accessed reviewed the terms from.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun ipAddress(): String = ipAddress.getRequired("ip_address")
+
+        /**
+         * The URL of the terms agreement. This link will be provided by your bank partner.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun termsUrl(): String = termsUrl.getRequired("terms_url")
+
+        /**
+         * Returns the raw JSON value of [agreedAt].
+         *
+         * Unlike [agreedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("agreed_at")
+        @ExcludeMissing
+        fun _agreedAt(): JsonField<OffsetDateTime> = agreedAt
+
+        /**
+         * Returns the raw JSON value of [ipAddress].
+         *
+         * Unlike [ipAddress], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("ip_address") @ExcludeMissing fun _ipAddress(): JsonField<String> = ipAddress
+
+        /**
+         * Returns the raw JSON value of [termsUrl].
+         *
+         * Unlike [termsUrl], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("terms_url") @ExcludeMissing fun _termsUrl(): JsonField<String> = termsUrl
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [TermsAgreement].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .agreedAt()
+             * .ipAddress()
+             * .termsUrl()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [TermsAgreement]. */
+        class Builder internal constructor() {
+
+            private var agreedAt: JsonField<OffsetDateTime>? = null
+            private var ipAddress: JsonField<String>? = null
+            private var termsUrl: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(termsAgreement: TermsAgreement) = apply {
+                agreedAt = termsAgreement.agreedAt
+                ipAddress = termsAgreement.ipAddress
+                termsUrl = termsAgreement.termsUrl
+                additionalProperties = termsAgreement.additionalProperties.toMutableMap()
+            }
+
+            /** The timestamp of when the Entity agreed to the terms. */
+            fun agreedAt(agreedAt: OffsetDateTime) = agreedAt(JsonField.of(agreedAt))
+
+            /**
+             * Sets [Builder.agreedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.agreedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun agreedAt(agreedAt: JsonField<OffsetDateTime>) = apply { this.agreedAt = agreedAt }
+
+            /** The IP address the Entity accessed reviewed the terms from. */
+            fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+
+            /**
+             * Sets [Builder.ipAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ipAddress] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ipAddress(ipAddress: JsonField<String>) = apply { this.ipAddress = ipAddress }
+
+            /** The URL of the terms agreement. This link will be provided by your bank partner. */
+            fun termsUrl(termsUrl: String) = termsUrl(JsonField.of(termsUrl))
+
+            /**
+             * Sets [Builder.termsUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.termsUrl] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun termsUrl(termsUrl: JsonField<String>) = apply { this.termsUrl = termsUrl }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [TermsAgreement].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .agreedAt()
+             * .ipAddress()
+             * .termsUrl()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): TermsAgreement =
+                TermsAgreement(
+                    checkRequired("agreedAt", agreedAt),
+                    checkRequired("ipAddress", ipAddress),
+                    checkRequired("termsUrl", termsUrl),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): TermsAgreement = apply {
+            if (validated) {
+                return@apply
+            }
+
+            agreedAt()
+            ipAddress()
+            termsUrl()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (agreedAt.asKnown() == null) 0 else 1) +
+                (if (ipAddress.asKnown() == null) 0 else 1) +
+                (if (termsUrl.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TermsAgreement &&
+                agreedAt == other.agreedAt &&
+                ipAddress == other.ipAddress &&
+                termsUrl == other.termsUrl &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(agreedAt, ipAddress, termsUrl, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "TermsAgreement{agreedAt=$agreedAt, ipAddress=$ipAddress, termsUrl=$termsUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
