@@ -595,6 +595,7 @@ internal class CardDisputeCreateParamsTest {
                                     .reason("x")
                                     .build()
                             )
+                            .explanation("x")
                             .merchantResolutionAttempted(
                                 CardDisputeCreateParams.Visa.ConsumerServicesNotAsDescribed
                                     .MerchantResolutionAttempted
@@ -1306,6 +1307,7 @@ internal class CardDisputeCreateParamsTest {
                                         .reason("x")
                                         .build()
                                 )
+                                .explanation("x")
                                 .merchantResolutionAttempted(
                                     CardDisputeCreateParams.Visa.ConsumerServicesNotAsDescribed
                                         .MerchantResolutionAttempted
@@ -1989,6 +1991,7 @@ internal class CardDisputeCreateParamsTest {
                                     .reason("x")
                                     .build()
                             )
+                            .explanation("x")
                             .merchantResolutionAttempted(
                                 CardDisputeCreateParams.Visa.ConsumerServicesNotAsDescribed
                                     .MerchantResolutionAttempted
