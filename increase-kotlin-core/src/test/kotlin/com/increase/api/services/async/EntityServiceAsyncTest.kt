@@ -501,6 +501,7 @@ internal class EntityServiceAsyncTest {
                                     .build()
                             )
                             .email("dev@stainless.com")
+                            .incorporationState("x")
                             .industryCode("x")
                             .name("x")
                             .build()
