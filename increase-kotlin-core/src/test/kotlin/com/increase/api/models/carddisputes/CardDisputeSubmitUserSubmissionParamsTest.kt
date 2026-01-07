@@ -734,6 +734,7 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .reason("x")
                                             .build()
                                     )
+                                    .explanation("x")
                                     .merchantResolutionAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerServicesNotAsDescribed
@@ -1638,6 +1639,7 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                                 .reason("x")
                                                 .build()
                                         )
+                                        .explanation("x")
                                         .merchantResolutionAttempted(
                                             CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                                 .ConsumerServicesNotAsDescribed
@@ -2511,6 +2513,7 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                                             .reason("x")
                                             .build()
                                     )
+                                    .explanation("x")
                                     .merchantResolutionAttempted(
                                         CardDisputeSubmitUserSubmissionParams.Visa.Chargeback
                                             .ConsumerServicesNotAsDescribed

@@ -23141,6 +23141,7 @@ private constructor(
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val cardholderCancellation: JsonField<CardholderCancellation>,
+                private val explanation: JsonField<String>,
                 private val merchantResolutionAttempted: JsonField<MerchantResolutionAttempted>,
                 private val receivedAt: JsonField<LocalDate>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -23151,6 +23152,9 @@ private constructor(
                     @JsonProperty("cardholder_cancellation")
                     @ExcludeMissing
                     cardholderCancellation: JsonField<CardholderCancellation> = JsonMissing.of(),
+                    @JsonProperty("explanation")
+                    @ExcludeMissing
+                    explanation: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("merchant_resolution_attempted")
                     @ExcludeMissing
                     merchantResolutionAttempted: JsonField<MerchantResolutionAttempted> =
@@ -23160,6 +23164,7 @@ private constructor(
                     receivedAt: JsonField<LocalDate> = JsonMissing.of(),
                 ) : this(
                     cardholderCancellation,
+                    explanation,
                     merchantResolutionAttempted,
                     receivedAt,
                     mutableMapOf(),
@@ -23174,6 +23179,15 @@ private constructor(
                  */
                 fun cardholderCancellation(): CardholderCancellation =
                     cardholderCancellation.getRequired("cardholder_cancellation")
+
+                /**
+                 * Explanation of what was ordered and was not as described.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun explanation(): String = explanation.getRequired("explanation")
 
                 /**
                  * Merchant resolution attempted.
@@ -23204,6 +23218,16 @@ private constructor(
                 @ExcludeMissing
                 fun _cardholderCancellation(): JsonField<CardholderCancellation> =
                     cardholderCancellation
+
+                /**
+                 * Returns the raw JSON value of [explanation].
+                 *
+                 * Unlike [explanation], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("explanation")
+                @ExcludeMissing
+                fun _explanation(): JsonField<String> = explanation
 
                 /**
                  * Returns the raw JSON value of [merchantResolutionAttempted].
@@ -23247,6 +23271,7 @@ private constructor(
                      * The following fields are required:
                      * ```kotlin
                      * .cardholderCancellation()
+                     * .explanation()
                      * .merchantResolutionAttempted()
                      * .receivedAt()
                      * ```
@@ -23258,6 +23283,7 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var cardholderCancellation: JsonField<CardholderCancellation>? = null
+                    private var explanation: JsonField<String>? = null
                     private var merchantResolutionAttempted:
                         JsonField<MerchantResolutionAttempted>? =
                         null
@@ -23269,6 +23295,7 @@ private constructor(
                     ) = apply {
                         cardholderCancellation =
                             consumerServicesNotAsDescribed.cardholderCancellation
+                        explanation = consumerServicesNotAsDescribed.explanation
                         merchantResolutionAttempted =
                             consumerServicesNotAsDescribed.merchantResolutionAttempted
                         receivedAt = consumerServicesNotAsDescribed.receivedAt
@@ -23290,6 +23317,20 @@ private constructor(
                     fun cardholderCancellation(
                         cardholderCancellation: JsonField<CardholderCancellation>
                     ) = apply { this.cardholderCancellation = cardholderCancellation }
+
+                    /** Explanation of what was ordered and was not as described. */
+                    fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+                    /**
+                     * Sets [Builder.explanation] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.explanation] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun explanation(explanation: JsonField<String>) = apply {
+                        this.explanation = explanation
+                    }
 
                     /** Merchant resolution attempted. */
                     fun merchantResolutionAttempted(
@@ -23352,6 +23393,7 @@ private constructor(
                      * The following fields are required:
                      * ```kotlin
                      * .cardholderCancellation()
+                     * .explanation()
                      * .merchantResolutionAttempted()
                      * .receivedAt()
                      * ```
@@ -23361,6 +23403,7 @@ private constructor(
                     fun build(): ConsumerServicesNotAsDescribed =
                         ConsumerServicesNotAsDescribed(
                             checkRequired("cardholderCancellation", cardholderCancellation),
+                            checkRequired("explanation", explanation),
                             checkRequired(
                                 "merchantResolutionAttempted",
                                 merchantResolutionAttempted,
@@ -23378,6 +23421,7 @@ private constructor(
                     }
 
                     cardholderCancellation().validate()
+                    explanation()
                     merchantResolutionAttempted().validate()
                     receivedAt()
                     validated = true
@@ -23399,6 +23443,7 @@ private constructor(
                  */
                 internal fun validity(): Int =
                     (cardholderCancellation.asKnown()?.validity() ?: 0) +
+                        (if (explanation.asKnown() == null) 0 else 1) +
                         (merchantResolutionAttempted.asKnown()?.validity() ?: 0) +
                         (if (receivedAt.asKnown() == null) 0 else 1)
 
@@ -23964,6 +24009,7 @@ private constructor(
 
                     return other is ConsumerServicesNotAsDescribed &&
                         cardholderCancellation == other.cardholderCancellation &&
+                        explanation == other.explanation &&
                         merchantResolutionAttempted == other.merchantResolutionAttempted &&
                         receivedAt == other.receivedAt &&
                         additionalProperties == other.additionalProperties
@@ -23972,6 +24018,7 @@ private constructor(
                 private val hashCode: Int by lazy {
                     Objects.hash(
                         cardholderCancellation,
+                        explanation,
                         merchantResolutionAttempted,
                         receivedAt,
                         additionalProperties,
@@ -23981,7 +24028,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "ConsumerServicesNotAsDescribed{cardholderCancellation=$cardholderCancellation, merchantResolutionAttempted=$merchantResolutionAttempted, receivedAt=$receivedAt, additionalProperties=$additionalProperties}"
+                    "ConsumerServicesNotAsDescribed{cardholderCancellation=$cardholderCancellation, explanation=$explanation, merchantResolutionAttempted=$merchantResolutionAttempted, receivedAt=$receivedAt, additionalProperties=$additionalProperties}"
             }
 
             /**
