@@ -925,6 +925,7 @@ private constructor(
     private constructor(
         private val address: JsonField<Address>,
         private val email: JsonField<String>,
+        private val incorporationState: JsonField<String>,
         private val industryCode: JsonField<String>,
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -934,11 +935,14 @@ private constructor(
         private constructor(
             @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("incorporation_state")
+            @ExcludeMissing
+            incorporationState: JsonField<String> = JsonMissing.of(),
             @JsonProperty("industry_code")
             @ExcludeMissing
             industryCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(address, email, industryCode, name, mutableMapOf())
+        ) : this(address, email, incorporationState, industryCode, name, mutableMapOf())
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -957,6 +961,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun email(): String? = email.getNullable("email")
+
+        /**
+         * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
+         * state of incorporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun incorporationState(): String? = incorporationState.getNullable("incorporation_state")
 
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
@@ -990,6 +1003,16 @@ private constructor(
          * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+
+        /**
+         * Returns the raw JSON value of [incorporationState].
+         *
+         * Unlike [incorporationState], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("incorporation_state")
+        @ExcludeMissing
+        fun _incorporationState(): JsonField<String> = incorporationState
 
         /**
          * Returns the raw JSON value of [industryCode].
@@ -1031,6 +1054,7 @@ private constructor(
 
             private var address: JsonField<Address> = JsonMissing.of()
             private var email: JsonField<String> = JsonMissing.of()
+            private var incorporationState: JsonField<String> = JsonMissing.of()
             private var industryCode: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1038,6 +1062,7 @@ private constructor(
             internal fun from(corporation: Corporation) = apply {
                 address = corporation.address
                 email = corporation.email
+                incorporationState = corporation.incorporationState
                 industryCode = corporation.industryCode
                 name = corporation.name
                 additionalProperties = corporation.additionalProperties.toMutableMap()
@@ -1072,6 +1097,24 @@ private constructor(
              * supported value.
              */
             fun email(email: JsonField<String>) = apply { this.email = email }
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
+             * state of incorporation.
+             */
+            fun incorporationState(incorporationState: String) =
+                incorporationState(JsonField.of(incorporationState))
+
+            /**
+             * Sets [Builder.incorporationState] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.incorporationState] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun incorporationState(incorporationState: JsonField<String>) = apply {
+                this.incorporationState = incorporationState
+            }
 
             /**
              * The North American Industry Classification System (NAICS) code for the corporation's
@@ -1129,7 +1172,14 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Corporation =
-                Corporation(address, email, industryCode, name, additionalProperties.toMutableMap())
+                Corporation(
+                    address,
+                    email,
+                    incorporationState,
+                    industryCode,
+                    name,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1141,6 +1191,7 @@ private constructor(
 
             address()?.validate()
             email()
+            incorporationState()
             industryCode()
             name()
             validated = true
@@ -1163,6 +1214,7 @@ private constructor(
         internal fun validity(): Int =
             (address.asKnown()?.validity() ?: 0) +
                 (if (email.asKnown() == null) 0 else 1) +
+                (if (incorporationState.asKnown() == null) 0 else 1) +
                 (if (industryCode.asKnown() == null) 0 else 1) +
                 (if (name.asKnown() == null) 0 else 1)
 
@@ -1496,19 +1548,27 @@ private constructor(
             return other is Corporation &&
                 address == other.address &&
                 email == other.email &&
+                incorporationState == other.incorporationState &&
                 industryCode == other.industryCode &&
                 name == other.name &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(address, email, industryCode, name, additionalProperties)
+            Objects.hash(
+                address,
+                email,
+                incorporationState,
+                industryCode,
+                name,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, email=$email, industryCode=$industryCode, name=$name, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, additionalProperties=$additionalProperties}"
     }
 
     /**
