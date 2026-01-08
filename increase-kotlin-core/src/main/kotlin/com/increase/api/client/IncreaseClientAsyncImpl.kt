@@ -110,6 +110,8 @@ import com.increase.api.services.async.SimulationServiceAsync
 import com.increase.api.services.async.SimulationServiceAsyncImpl
 import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import com.increase.api.services.async.SupplementalDocumentServiceAsyncImpl
+import com.increase.api.services.async.SwiftTransferServiceAsync
+import com.increase.api.services.async.SwiftTransferServiceAsyncImpl
 import com.increase.api.services.async.TransactionServiceAsync
 import com.increase.api.services.async.TransactionServiceAsyncImpl
 import com.increase.api.services.async.WebhookServiceAsync
@@ -241,6 +243,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     private val inboundFednowTransfers: InboundFednowTransferServiceAsync by lazy {
         InboundFednowTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val swiftTransfers: SwiftTransferServiceAsync by lazy {
+        SwiftTransferServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val checkDeposits: CheckDepositServiceAsync by lazy {
@@ -425,6 +431,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun inboundFednowTransfers(): InboundFednowTransferServiceAsync =
         inboundFednowTransfers
 
+    override fun swiftTransfers(): SwiftTransferServiceAsync = swiftTransfers
+
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
     override fun lockboxes(): LockboxServiceAsync = lockboxes
@@ -602,6 +610,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         private val inboundFednowTransfers:
             InboundFednowTransferServiceAsync.WithRawResponse by lazy {
             InboundFednowTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val swiftTransfers: SwiftTransferServiceAsync.WithRawResponse by lazy {
+            SwiftTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val checkDeposits: CheckDepositServiceAsync.WithRawResponse by lazy {
@@ -799,6 +811,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun inboundFednowTransfers(): InboundFednowTransferServiceAsync.WithRawResponse =
             inboundFednowTransfers
+
+        override fun swiftTransfers(): SwiftTransferServiceAsync.WithRawResponse = swiftTransfers
 
         override fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse = checkDeposits
 
