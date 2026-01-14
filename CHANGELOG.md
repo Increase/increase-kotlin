@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.387.0 (2026-01-14)
+
+Full Changelog: [v0.386.0...v0.387.0](https://github.com/Increase/increase-kotlin/compare/v0.386.0...v0.387.0)
+
+### Features
+
+* **api:** api update ([ef90891](https://github.com/Increase/increase-kotlin/commit/ef90891a4288f785cf658fa95f0f05dddf537c31))
+* **client:** allow configuring dispatcher executor service ([cc9d9d5](https://github.com/Increase/increase-kotlin/commit/cc9d9d599aac5beb1fbb0722ffd7abae63c7eec4))
+
+
+### Chores
+
+* **internal:** codegen related update ([5c85c44](https://github.com/Increase/increase-kotlin/commit/5c85c44f089516ec81d99e5e0fbc02056959f580))
+* **internal:** codegen related update ([a02f553](https://github.com/Increase/increase-kotlin/commit/a02f553d32f903757049bb85c383c2cc4db6456d))
+* **internal:** refactor build files to support future stainless package uploads ([8caf04c](https://github.com/Increase/increase-kotlin/commit/8caf04c18cc4b465b07e86d20a0f62f1d8f9b159))
+
 ## 0.386.0 (2026-01-08)
 
 Full Changelog: [v0.385.0...v0.386.0](https://github.com/Increase/increase-kotlin/compare/v0.385.0...v0.386.0)
