@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.388.1 (2026-01-16)
+
+Full Changelog: [v0.388.0...v0.388.1](https://github.com/Increase/increase-kotlin/compare/v0.388.0...v0.388.1)
+
+### Bug Fixes
+
+* **client:** disallow coercion from float to int ([3c2459a](https://github.com/Increase/increase-kotlin/commit/3c2459ab09b70bf19c130b389a00e35107443384))
+* date time deserialization leniency ([247b0cb](https://github.com/Increase/increase-kotlin/commit/247b0cb979b3deb83a160310570317d4c1f376ac))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([1b6d2fe](https://github.com/Increase/increase-kotlin/commit/1b6d2fe924aa7a8d5ef1759eaef8fb43c4dab656))
+* test on Jackson 2.14.0 to avoid encountering FasterXML/jackson-databind[#3240](https://github.com/Increase/increase-kotlin/issues/3240) in tests ([247b0cb](https://github.com/Increase/increase-kotlin/commit/247b0cb979b3deb83a160310570317d4c1f376ac))
+
 ## 0.388.0 (2026-01-16)
 
 Full Changelog: [v0.387.0...v0.388.0](https://github.com/Increase/increase-kotlin/compare/v0.387.0...v0.388.0)
