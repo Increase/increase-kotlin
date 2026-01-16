@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":increase-kotlin"))
+    implementation(project(":increase-kotlin-core"))
+    implementation(project(":increase-kotlin-client-okhttp"))
 }
 
 application {
