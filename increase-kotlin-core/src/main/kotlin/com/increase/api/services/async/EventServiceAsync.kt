@@ -6,10 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.events.Event
 import com.increase.api.models.events.EventListPageAsync
 import com.increase.api.models.events.EventListParams
 import com.increase.api.models.events.EventRetrieveParams
+import com.increase.api.models.events.UnwrapWebhookEvent
 
 interface EventServiceAsync {
 
@@ -51,6 +53,13 @@ interface EventServiceAsync {
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): EventListPageAsync =
         list(EventListParams.none(), requestOptions)
+
+    /**
+     * Unwraps a webhook event from its JSON representation.
+     *
+     * @throws IncreaseInvalidDataException if the body could not be parsed.
+     */
+    fun unwrap(body: String): UnwrapWebhookEvent
 
     /** A view of [EventServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
