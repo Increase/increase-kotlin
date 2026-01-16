@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.388.2 (2026-01-16)
+
+Full Changelog: [v0.388.1...v0.388.2](https://github.com/Increase/increase-kotlin/compare/v0.388.1...v0.388.2)
+
+### Bug Fixes
+
+* **client:** fully respect max retries ([c39bc7b](https://github.com/Increase/increase-kotlin/commit/c39bc7b501a841d79884db9a9f85a5db598ce606))
+* **client:** send retry count header for max retries 0 ([c39bc7b](https://github.com/Increase/increase-kotlin/commit/c39bc7b501a841d79884db9a9f85a5db598ce606))
+
+
+### Chores
+
+* **internal:** depend on packages directly in example ([c39bc7b](https://github.com/Increase/increase-kotlin/commit/c39bc7b501a841d79884db9a9f85a5db598ce606))
+
 ## 0.388.1 (2026-01-16)
 
 Full Changelog: [v0.388.0...v0.388.1](https://github.com/Increase/increase-kotlin/compare/v0.388.0...v0.388.1)
