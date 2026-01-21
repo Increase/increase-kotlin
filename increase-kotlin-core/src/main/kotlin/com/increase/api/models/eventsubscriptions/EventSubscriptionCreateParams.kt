@@ -995,6 +995,12 @@ private constructor(
             /** Occurs whenever a Physical Card Profile is updated. */
             val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
+            /** Occurs whenever a Physical Check is created. */
+            val PHYSICAL_CHECK_CREATED = of("physical_check.created")
+
+            /** Occurs whenever a Physical Check is updated. */
+            val PHYSICAL_CHECK_UPDATED = of("physical_check.updated")
+
             /** Occurs whenever a Program is created. */
             val PROGRAM_CREATED = of("program.created")
 
@@ -1252,6 +1258,10 @@ private constructor(
             PHYSICAL_CARD_PROFILE_CREATED,
             /** Occurs whenever a Physical Card Profile is updated. */
             PHYSICAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Physical Check is created. */
+            PHYSICAL_CHECK_CREATED,
+            /** Occurs whenever a Physical Check is updated. */
+            PHYSICAL_CHECK_UPDATED,
             /** Occurs whenever a Program is created. */
             PROGRAM_CREATED,
             /** Occurs whenever a Program is updated. */
@@ -1486,6 +1496,10 @@ private constructor(
             PHYSICAL_CARD_PROFILE_CREATED,
             /** Occurs whenever a Physical Card Profile is updated. */
             PHYSICAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Physical Check is created. */
+            PHYSICAL_CHECK_CREATED,
+            /** Occurs whenever a Physical Check is updated. */
+            PHYSICAL_CHECK_UPDATED,
             /** Occurs whenever a Program is created. */
             PROGRAM_CREATED,
             /** Occurs whenever a Program is updated. */
@@ -1642,6 +1656,8 @@ private constructor(
                 PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
                 PHYSICAL_CARD_PROFILE_CREATED -> Value.PHYSICAL_CARD_PROFILE_CREATED
                 PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
+                PHYSICAL_CHECK_CREATED -> Value.PHYSICAL_CHECK_CREATED
+                PHYSICAL_CHECK_UPDATED -> Value.PHYSICAL_CHECK_UPDATED
                 PROGRAM_CREATED -> Value.PROGRAM_CREATED
                 PROGRAM_UPDATED -> Value.PROGRAM_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
@@ -1769,6 +1785,8 @@ private constructor(
                 PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
                 PHYSICAL_CARD_PROFILE_CREATED -> Known.PHYSICAL_CARD_PROFILE_CREATED
                 PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
+                PHYSICAL_CHECK_CREATED -> Known.PHYSICAL_CHECK_CREATED
+                PHYSICAL_CHECK_UPDATED -> Known.PHYSICAL_CHECK_UPDATED
                 PROGRAM_CREATED -> Known.PROGRAM_CREATED
                 PROGRAM_UPDATED -> Known.PROGRAM_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
