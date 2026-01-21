@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.389.0 (2026-01-21)
+
+Full Changelog: [v0.388.2...v0.389.0](https://github.com/Increase/increase-kotlin/compare/v0.388.2...v0.389.0)
+
+### Features
+
+* **api:** api update ([bdf2fe3](https://github.com/Increase/increase-kotlin/commit/bdf2fe3f20cac75de8f0676a546858eac5c686ae))
+
+
+### Chores
+
+* **ci:** upgrade `actions/setup-java` ([2d1dbe0](https://github.com/Increase/increase-kotlin/commit/2d1dbe081ef1f7fa9074fcdc7a909fad4664112d))
+
 ## 0.388.2 (2026-01-16)
 
 Full Changelog: [v0.388.1...v0.388.2](https://github.com/Increase/increase-kotlin/compare/v0.388.1...v0.388.2)
