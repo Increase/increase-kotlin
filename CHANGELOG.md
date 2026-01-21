@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.390.0 (2026-01-21)
+
+Full Changelog: [v0.389.0...v0.390.0](https://github.com/Increase/increase-kotlin/compare/v0.389.0...v0.390.0)
+
+### Features
+
+* **client:** send `X-Stainless-Kotlin-Version` header ([3c3d7be](https://github.com/Increase/increase-kotlin/commit/3c3d7beaedbb56644b7dbc7d134d3601839338ae))
+
 ## 0.389.0 (2026-01-21)
 
 Full Changelog: [v0.388.2...v0.389.0](https://github.com/Increase/increase-kotlin/compare/v0.388.2...v0.389.0)
