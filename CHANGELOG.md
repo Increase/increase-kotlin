@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.391.1 (2026-01-23)
+
+Full Changelog: [v0.391.0...v0.391.1](https://github.com/Increase/increase-kotlin/compare/v0.391.0...v0.391.1)
+
+### Bug Fixes
+
+* **client:** preserve time zone in lenient date-time parsing ([de515cd](https://github.com/Increase/increase-kotlin/commit/de515cdada7a6a2ccfaeada76daef1cb07f3cc33))
+
+
+### Chores
+
+* **internal:** correct cache invalidation for `SKIP_MOCK_TESTS` ([3dc8de0](https://github.com/Increase/increase-kotlin/commit/3dc8de0c4d3c82250cf3dddcf07b13a3db93c1d8))
+
 ## 0.391.0 (2026-01-22)
 
 Full Changelog: [v0.390.0...v0.391.0](https://github.com/Increase/increase-kotlin/compare/v0.390.0...v0.391.0)
