@@ -3008,30 +3008,16 @@ private constructor(
     class Mailing
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val imageId: JsonField<String>,
         private val mailedAt: JsonField<OffsetDateTime>,
-        private val trackingNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("image_id") @ExcludeMissing imageId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mailed_at")
             @ExcludeMissing
-            mailedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("tracking_number")
-            @ExcludeMissing
-            trackingNumber: JsonField<String> = JsonMissing.of(),
-        ) : this(imageId, mailedAt, trackingNumber, mutableMapOf())
-
-        /**
-         * The ID of the file corresponding to an image of the check that was mailed, if available.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun imageId(): String? = imageId.getNullable("image_id")
+            mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        ) : this(mailedAt, mutableMapOf())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
@@ -3043,21 +3029,6 @@ private constructor(
         fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
         /**
-         * The tracking number of the shipment, if available for the shipping method.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun trackingNumber(): String? = trackingNumber.getNullable("tracking_number")
-
-        /**
-         * Returns the raw JSON value of [imageId].
-         *
-         * Unlike [imageId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("image_id") @ExcludeMissing fun _imageId(): JsonField<String> = imageId
-
-        /**
          * Returns the raw JSON value of [mailedAt].
          *
          * Unlike [mailedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -3065,16 +3036,6 @@ private constructor(
         @JsonProperty("mailed_at")
         @ExcludeMissing
         fun _mailedAt(): JsonField<OffsetDateTime> = mailedAt
-
-        /**
-         * Returns the raw JSON value of [trackingNumber].
-         *
-         * Unlike [trackingNumber], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("tracking_number")
-        @ExcludeMissing
-        fun _trackingNumber(): JsonField<String> = trackingNumber
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3095,9 +3056,7 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .imageId()
              * .mailedAt()
-             * .trackingNumber()
              * ```
              */
             fun builder() = Builder()
@@ -3106,32 +3065,13 @@ private constructor(
         /** A builder for [Mailing]. */
         class Builder internal constructor() {
 
-            private var imageId: JsonField<String>? = null
             private var mailedAt: JsonField<OffsetDateTime>? = null
-            private var trackingNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(mailing: Mailing) = apply {
-                imageId = mailing.imageId
                 mailedAt = mailing.mailedAt
-                trackingNumber = mailing.trackingNumber
                 additionalProperties = mailing.additionalProperties.toMutableMap()
             }
-
-            /**
-             * The ID of the file corresponding to an image of the check that was mailed, if
-             * available.
-             */
-            fun imageId(imageId: String?) = imageId(JsonField.ofNullable(imageId))
-
-            /**
-             * Sets [Builder.imageId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.imageId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun imageId(imageId: JsonField<String>) = apply { this.imageId = imageId }
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -3147,21 +3087,6 @@ private constructor(
              * supported value.
              */
             fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
-
-            /** The tracking number of the shipment, if available for the shipping method. */
-            fun trackingNumber(trackingNumber: String?) =
-                trackingNumber(JsonField.ofNullable(trackingNumber))
-
-            /**
-             * Sets [Builder.trackingNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.trackingNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun trackingNumber(trackingNumber: JsonField<String>) = apply {
-                this.trackingNumber = trackingNumber
-            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3189,20 +3114,13 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .imageId()
              * .mailedAt()
-             * .trackingNumber()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Mailing =
-                Mailing(
-                    checkRequired("imageId", imageId),
-                    checkRequired("mailedAt", mailedAt),
-                    checkRequired("trackingNumber", trackingNumber),
-                    additionalProperties.toMutableMap(),
-                )
+                Mailing(checkRequired("mailedAt", mailedAt), additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -3212,9 +3130,7 @@ private constructor(
                 return@apply
             }
 
-            imageId()
             mailedAt()
-            trackingNumber()
             validated = true
         }
 
@@ -3232,10 +3148,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (if (imageId.asKnown() == null) 0 else 1) +
-                (if (mailedAt.asKnown() == null) 0 else 1) +
-                (if (trackingNumber.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (mailedAt.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -3243,20 +3156,16 @@ private constructor(
             }
 
             return other is Mailing &&
-                imageId == other.imageId &&
                 mailedAt == other.mailedAt &&
-                trackingNumber == other.trackingNumber &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(imageId, mailedAt, trackingNumber, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(mailedAt, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Mailing{imageId=$imageId, mailedAt=$mailedAt, trackingNumber=$trackingNumber, additionalProperties=$additionalProperties}"
+            "Mailing{mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -6260,20 +6169,36 @@ private constructor(
     class Submission
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val previewFileId: JsonField<String>,
         private val submittedAddress: JsonField<SubmittedAddress>,
         private val submittedAt: JsonField<OffsetDateTime>,
+        private val trackingNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("preview_file_id")
+            @ExcludeMissing
+            previewFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("submitted_address")
             @ExcludeMissing
             submittedAddress: JsonField<SubmittedAddress> = JsonMissing.of(),
             @JsonProperty("submitted_at")
             @ExcludeMissing
             submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        ) : this(submittedAddress, submittedAt, mutableMapOf())
+            @JsonProperty("tracking_number")
+            @ExcludeMissing
+            trackingNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(previewFileId, submittedAddress, submittedAt, trackingNumber, mutableMapOf())
+
+        /**
+         * The ID of the file corresponding to an image of the check that was mailed, if available.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun previewFileId(): String? = previewFileId.getNullable("preview_file_id")
 
         /**
          * The address we submitted to the printer. This is what is physically printed on the check.
@@ -6290,6 +6215,24 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+
+        /**
+         * The tracking number for the check shipment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun trackingNumber(): String? = trackingNumber.getNullable("tracking_number")
+
+        /**
+         * Returns the raw JSON value of [previewFileId].
+         *
+         * Unlike [previewFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("preview_file_id")
+        @ExcludeMissing
+        fun _previewFileId(): JsonField<String> = previewFileId
 
         /**
          * Returns the raw JSON value of [submittedAddress].
@@ -6310,6 +6253,16 @@ private constructor(
         @ExcludeMissing
         fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
 
+        /**
+         * Returns the raw JSON value of [trackingNumber].
+         *
+         * Unlike [trackingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("tracking_number")
+        @ExcludeMissing
+        fun _trackingNumber(): JsonField<String> = trackingNumber
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -6329,8 +6282,10 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
+             * .previewFileId()
              * .submittedAddress()
              * .submittedAt()
+             * .trackingNumber()
              * ```
              */
             fun builder() = Builder()
@@ -6339,14 +6294,36 @@ private constructor(
         /** A builder for [Submission]. */
         class Builder internal constructor() {
 
+            private var previewFileId: JsonField<String>? = null
             private var submittedAddress: JsonField<SubmittedAddress>? = null
             private var submittedAt: JsonField<OffsetDateTime>? = null
+            private var trackingNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(submission: Submission) = apply {
+                previewFileId = submission.previewFileId
                 submittedAddress = submission.submittedAddress
                 submittedAt = submission.submittedAt
+                trackingNumber = submission.trackingNumber
                 additionalProperties = submission.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The ID of the file corresponding to an image of the check that was mailed, if
+             * available.
+             */
+            fun previewFileId(previewFileId: String?) =
+                previewFileId(JsonField.ofNullable(previewFileId))
+
+            /**
+             * Sets [Builder.previewFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.previewFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun previewFileId(previewFileId: JsonField<String>) = apply {
+                this.previewFileId = previewFileId
             }
 
             /**
@@ -6381,6 +6358,21 @@ private constructor(
                 this.submittedAt = submittedAt
             }
 
+            /** The tracking number for the check shipment. */
+            fun trackingNumber(trackingNumber: String?) =
+                trackingNumber(JsonField.ofNullable(trackingNumber))
+
+            /**
+             * Sets [Builder.trackingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trackingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun trackingNumber(trackingNumber: JsonField<String>) = apply {
+                this.trackingNumber = trackingNumber
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -6407,16 +6399,20 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
+             * .previewFileId()
              * .submittedAddress()
              * .submittedAt()
+             * .trackingNumber()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Submission =
                 Submission(
+                    checkRequired("previewFileId", previewFileId),
                     checkRequired("submittedAddress", submittedAddress),
                     checkRequired("submittedAt", submittedAt),
+                    checkRequired("trackingNumber", trackingNumber),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -6428,8 +6424,10 @@ private constructor(
                 return@apply
             }
 
+            previewFileId()
             submittedAddress().validate()
             submittedAt()
+            trackingNumber()
             validated = true
         }
 
@@ -6448,8 +6446,10 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (submittedAddress.asKnown()?.validity() ?: 0) +
-                (if (submittedAt.asKnown() == null) 0 else 1)
+            (if (previewFileId.asKnown() == null) 0 else 1) +
+                (submittedAddress.asKnown()?.validity() ?: 0) +
+                (if (submittedAt.asKnown() == null) 0 else 1) +
+                (if (trackingNumber.asKnown() == null) 0 else 1)
 
         /**
          * The address we submitted to the printer. This is what is physically printed on the check.
@@ -6822,19 +6822,27 @@ private constructor(
             }
 
             return other is Submission &&
+                previewFileId == other.previewFileId &&
                 submittedAddress == other.submittedAddress &&
                 submittedAt == other.submittedAt &&
+                trackingNumber == other.trackingNumber &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(submittedAddress, submittedAt, additionalProperties)
+            Objects.hash(
+                previewFileId,
+                submittedAddress,
+                submittedAt,
+                trackingNumber,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Submission{submittedAddress=$submittedAddress, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+            "Submission{previewFileId=$previewFileId, submittedAddress=$submittedAddress, submittedAt=$submittedAt, trackingNumber=$trackingNumber, additionalProperties=$additionalProperties}"
     }
 
     /**
