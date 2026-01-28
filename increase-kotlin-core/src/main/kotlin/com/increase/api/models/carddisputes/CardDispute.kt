@@ -40,6 +40,7 @@ private constructor(
     private val userSubmissionRequiredBy: JsonField<OffsetDateTime>,
     private val visa: JsonField<Visa>,
     private val win: JsonField<Win>,
+    private val withdrawal: JsonField<Withdrawal>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -66,6 +67,9 @@ private constructor(
         userSubmissionRequiredBy: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
         @JsonProperty("win") @ExcludeMissing win: JsonField<Win> = JsonMissing.of(),
+        @JsonProperty("withdrawal")
+        @ExcludeMissing
+        withdrawal: JsonField<Withdrawal> = JsonMissing.of(),
     ) : this(
         id,
         amount,
@@ -80,6 +84,7 @@ private constructor(
         userSubmissionRequiredBy,
         visa,
         win,
+        withdrawal,
         mutableMapOf(),
     )
 
@@ -197,6 +202,14 @@ private constructor(
     fun win(): Win? = win.getNullable("win")
 
     /**
+     * If the Card Dispute has been withdrawn, this will contain details of the withdrawal.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun withdrawal(): Withdrawal? = withdrawal.getNullable("withdrawal")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -297,6 +310,15 @@ private constructor(
      */
     @JsonProperty("win") @ExcludeMissing fun _win(): JsonField<Win> = win
 
+    /**
+     * Returns the raw JSON value of [withdrawal].
+     *
+     * Unlike [withdrawal], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("withdrawal")
+    @ExcludeMissing
+    fun _withdrawal(): JsonField<Withdrawal> = withdrawal
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -329,6 +351,7 @@ private constructor(
          * .userSubmissionRequiredBy()
          * .visa()
          * .win()
+         * .withdrawal()
          * ```
          */
         fun builder() = Builder()
@@ -350,6 +373,7 @@ private constructor(
         private var userSubmissionRequiredBy: JsonField<OffsetDateTime>? = null
         private var visa: JsonField<Visa>? = null
         private var win: JsonField<Win>? = null
+        private var withdrawal: JsonField<Withdrawal>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardDispute: CardDispute) = apply {
@@ -366,6 +390,7 @@ private constructor(
             userSubmissionRequiredBy = cardDispute.userSubmissionRequiredBy
             visa = cardDispute.visa
             win = cardDispute.win
+            withdrawal = cardDispute.withdrawal
             additionalProperties = cardDispute.additionalProperties.toMutableMap()
         }
 
@@ -544,6 +569,18 @@ private constructor(
          */
         fun win(win: JsonField<Win>) = apply { this.win = win }
 
+        /** If the Card Dispute has been withdrawn, this will contain details of the withdrawal. */
+        fun withdrawal(withdrawal: Withdrawal?) = withdrawal(JsonField.ofNullable(withdrawal))
+
+        /**
+         * Sets [Builder.withdrawal] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.withdrawal] with a well-typed [Withdrawal] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun withdrawal(withdrawal: JsonField<Withdrawal>) = apply { this.withdrawal = withdrawal }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -583,6 +620,7 @@ private constructor(
          * .userSubmissionRequiredBy()
          * .visa()
          * .win()
+         * .withdrawal()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -602,6 +640,7 @@ private constructor(
                 checkRequired("userSubmissionRequiredBy", userSubmissionRequiredBy),
                 checkRequired("visa", visa),
                 checkRequired("win", win),
+                checkRequired("withdrawal", withdrawal),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -626,6 +665,7 @@ private constructor(
         userSubmissionRequiredBy()
         visa()?.validate()
         win()?.validate()
+        withdrawal()?.validate()
         validated = true
     }
 
@@ -655,7 +695,8 @@ private constructor(
             (type.asKnown()?.validity() ?: 0) +
             (if (userSubmissionRequiredBy.asKnown() == null) 0 else 1) +
             (visa.asKnown()?.validity() ?: 0) +
-            (win.asKnown()?.validity() ?: 0)
+            (win.asKnown()?.validity() ?: 0) +
+            (withdrawal.asKnown()?.validity() ?: 0)
 
     /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
     class Loss
@@ -39892,6 +39933,171 @@ private constructor(
         override fun toString() = "Win{wonAt=$wonAt, additionalProperties=$additionalProperties}"
     }
 
+    /** If the Card Dispute has been withdrawn, this will contain details of the withdrawal. */
+    class Withdrawal
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val explanation: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            explanation: JsonField<String> = JsonMissing.of()
+        ) : this(explanation, mutableMapOf())
+
+        /**
+         * The explanation for the withdrawal of the Card Dispute.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun explanation(): String? = explanation.getNullable("explanation")
+
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Withdrawal].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .explanation()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [Withdrawal]. */
+        class Builder internal constructor() {
+
+            private var explanation: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(withdrawal: Withdrawal) = apply {
+                explanation = withdrawal.explanation
+                additionalProperties = withdrawal.additionalProperties.toMutableMap()
+            }
+
+            /** The explanation for the withdrawal of the Card Dispute. */
+            fun explanation(explanation: String?) = explanation(JsonField.ofNullable(explanation))
+
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Withdrawal].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .explanation()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Withdrawal =
+                Withdrawal(
+                    checkRequired("explanation", explanation),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Withdrawal = apply {
+            if (validated) {
+                return@apply
+            }
+
+            explanation()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (if (explanation.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Withdrawal &&
+                explanation == other.explanation &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(explanation, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Withdrawal{explanation=$explanation, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -39911,6 +40117,7 @@ private constructor(
             userSubmissionRequiredBy == other.userSubmissionRequiredBy &&
             visa == other.visa &&
             win == other.win &&
+            withdrawal == other.withdrawal &&
             additionalProperties == other.additionalProperties
     }
 
@@ -39929,6 +40136,7 @@ private constructor(
             userSubmissionRequiredBy,
             visa,
             win,
+            withdrawal,
             additionalProperties,
         )
     }
@@ -39936,5 +40144,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardDispute{id=$id, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, additionalProperties=$additionalProperties}"
+        "CardDispute{id=$id, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
 }
