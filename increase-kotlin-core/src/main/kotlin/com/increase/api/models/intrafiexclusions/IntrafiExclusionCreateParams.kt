@@ -27,14 +27,6 @@ private constructor(
 ) : Params {
 
     /**
-     * The name of the financial institution to be excluded.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun bankName(): String = body.bankName()
-
-    /**
      * The identifier of the Entity whose deposits will be excluded.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -43,11 +35,15 @@ private constructor(
     fun entityId(): String = body.entityId()
 
     /**
-     * Returns the raw JSON value of [bankName].
+     * The FDIC certificate number of the financial institution to be excluded. An FDIC certificate
+     * number uniquely identifies a financial institution, and is different than a routing number.
+     * To find one, we recommend searching by Bank Name using the
+     * [FDIC's bankfind tool](https://banks.data.fdic.gov/bankfind-suite/bankfind).
      *
-     * Unlike [bankName], this method doesn't throw if the JSON field has an unexpected type.
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun _bankName(): JsonField<String> = body._bankName()
+    fun fdicCertificateNumber(): String = body.fdicCertificateNumber()
 
     /**
      * Returns the raw JSON value of [entityId].
@@ -55,6 +51,14 @@ private constructor(
      * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _entityId(): JsonField<String> = body._entityId()
+
+    /**
+     * Returns the raw JSON value of [fdicCertificateNumber].
+     *
+     * Unlike [fdicCertificateNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _fdicCertificateNumber(): JsonField<String> = body._fdicCertificateNumber()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -73,8 +77,8 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .bankName()
          * .entityId()
+         * .fdicCertificateNumber()
          * ```
          */
         fun builder() = Builder()
@@ -98,21 +102,10 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [bankName]
          * - [entityId]
+         * - [fdicCertificateNumber]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        /** The name of the financial institution to be excluded. */
-        fun bankName(bankName: String) = apply { body.bankName(bankName) }
-
-        /**
-         * Sets [Builder.bankName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.bankName] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun bankName(bankName: JsonField<String>) = apply { body.bankName(bankName) }
 
         /** The identifier of the Entity whose deposits will be excluded. */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
@@ -124,6 +117,27 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
+
+        /**
+         * The FDIC certificate number of the financial institution to be excluded. An FDIC
+         * certificate number uniquely identifies a financial institution, and is different than a
+         * routing number. To find one, we recommend searching by Bank Name using the
+         * [FDIC's bankfind tool](https://banks.data.fdic.gov/bankfind-suite/bankfind).
+         */
+        fun fdicCertificateNumber(fdicCertificateNumber: String) = apply {
+            body.fdicCertificateNumber(fdicCertificateNumber)
+        }
+
+        /**
+         * Sets [Builder.fdicCertificateNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fdicCertificateNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
+            body.fdicCertificateNumber(fdicCertificateNumber)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -249,8 +263,8 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .bankName()
          * .entityId()
+         * .fdicCertificateNumber()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -272,28 +286,20 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val bankName: JsonField<String>,
         private val entityId: JsonField<String>,
+        private val fdicCertificateNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("bank_name")
-            @ExcludeMissing
-            bankName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("entity_id")
             @ExcludeMissing
             entityId: JsonField<String> = JsonMissing.of(),
-        ) : this(bankName, entityId, mutableMapOf())
-
-        /**
-         * The name of the financial institution to be excluded.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun bankName(): String = bankName.getRequired("bank_name")
+            @JsonProperty("fdic_certificate_number")
+            @ExcludeMissing
+            fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(entityId, fdicCertificateNumber, mutableMapOf())
 
         /**
          * The identifier of the Entity whose deposits will be excluded.
@@ -304,11 +310,16 @@ private constructor(
         fun entityId(): String = entityId.getRequired("entity_id")
 
         /**
-         * Returns the raw JSON value of [bankName].
+         * The FDIC certificate number of the financial institution to be excluded. An FDIC
+         * certificate number uniquely identifies a financial institution, and is different than a
+         * routing number. To find one, we recommend searching by Bank Name using the
+         * [FDIC's bankfind tool](https://banks.data.fdic.gov/bankfind-suite/bankfind).
          *
-         * Unlike [bankName], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
+        fun fdicCertificateNumber(): String =
+            fdicCertificateNumber.getRequired("fdic_certificate_number")
 
         /**
          * Returns the raw JSON value of [entityId].
@@ -316,6 +327,16 @@ private constructor(
          * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+
+        /**
+         * Returns the raw JSON value of [fdicCertificateNumber].
+         *
+         * Unlike [fdicCertificateNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("fdic_certificate_number")
+        @ExcludeMissing
+        fun _fdicCertificateNumber(): JsonField<String> = fdicCertificateNumber
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -336,8 +357,8 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .bankName()
              * .entityId()
+             * .fdicCertificateNumber()
              * ```
              */
             fun builder() = Builder()
@@ -346,27 +367,15 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var bankName: JsonField<String>? = null
             private var entityId: JsonField<String>? = null
+            private var fdicCertificateNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
-                bankName = body.bankName
                 entityId = body.entityId
+                fdicCertificateNumber = body.fdicCertificateNumber
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
-
-            /** The name of the financial institution to be excluded. */
-            fun bankName(bankName: String) = bankName(JsonField.of(bankName))
-
-            /**
-             * Sets [Builder.bankName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.bankName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
             /** The identifier of the Entity whose deposits will be excluded. */
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -379,6 +388,26 @@ private constructor(
              * supported value.
              */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+
+            /**
+             * The FDIC certificate number of the financial institution to be excluded. An FDIC
+             * certificate number uniquely identifies a financial institution, and is different than
+             * a routing number. To find one, we recommend searching by Bank Name using the
+             * [FDIC's bankfind tool](https://banks.data.fdic.gov/bankfind-suite/bankfind).
+             */
+            fun fdicCertificateNumber(fdicCertificateNumber: String) =
+                fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
+
+            /**
+             * Sets [Builder.fdicCertificateNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fdicCertificateNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
+                this.fdicCertificateNumber = fdicCertificateNumber
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -406,16 +435,16 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .bankName()
              * .entityId()
+             * .fdicCertificateNumber()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
                 Body(
-                    checkRequired("bankName", bankName),
                     checkRequired("entityId", entityId),
+                    checkRequired("fdicCertificateNumber", fdicCertificateNumber),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -427,8 +456,8 @@ private constructor(
                 return@apply
             }
 
-            bankName()
             entityId()
+            fdicCertificateNumber()
             validated = true
         }
 
@@ -447,7 +476,8 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (bankName.asKnown() == null) 0 else 1) + (if (entityId.asKnown() == null) 0 else 1)
+            (if (entityId.asKnown() == null) 0 else 1) +
+                (if (fdicCertificateNumber.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -455,17 +485,19 @@ private constructor(
             }
 
             return other is Body &&
-                bankName == other.bankName &&
                 entityId == other.entityId &&
+                fdicCertificateNumber == other.fdicCertificateNumber &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(bankName, entityId, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(entityId, fdicCertificateNumber, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
+            "Body{entityId=$entityId, fdicCertificateNumber=$fdicCertificateNumber, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
