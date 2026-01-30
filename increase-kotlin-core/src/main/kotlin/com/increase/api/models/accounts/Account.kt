@@ -165,10 +165,10 @@ private constructor(
     /**
      * Whether the Account is funded by a loan or by deposits.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun funding(): Funding? = funding.getNullable("funding")
+    fun funding(): Funding = funding.getRequired("funding")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -583,7 +583,7 @@ private constructor(
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** Whether the Account is funded by a loan or by deposits. */
-        fun funding(funding: Funding?) = funding(JsonField.ofNullable(funding))
+        fun funding(funding: Funding) = funding(JsonField.of(funding))
 
         /**
          * Sets [Builder.funding] to an arbitrary JSON value.
@@ -830,7 +830,7 @@ private constructor(
         createdAt()
         currency().validate()
         entityId()
-        funding()?.validate()
+        funding().validate()
         idempotencyKey()
         informationalEntityId()
         interestAccrued()
