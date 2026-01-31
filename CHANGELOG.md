@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.404.0 (2026-01-31)
+
+Full Changelog: [v0.403.0...v0.404.0](https://github.com/Increase/increase-kotlin/compare/v0.403.0...v0.404.0)
+
+### Features
+
+* **api:** api update ([0d27af2](https://github.com/Increase/increase-kotlin/commit/0d27af2ad59b4eac8551049d75edeeab89279b17))
+
+
+### Chores
+
+* **internal:** allow passing args to `./scripts/test` ([74f2429](https://github.com/Increase/increase-kotlin/commit/74f2429696c32a9fd9afa9730ce892c4d070f5ec))
+
 ## 0.403.0 (2026-01-30)
 
 Full Changelog: [v0.402.0...v0.403.0](https://github.com/Increase/increase-kotlin/compare/v0.402.0...v0.403.0)
