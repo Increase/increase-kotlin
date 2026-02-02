@@ -575,6 +575,20 @@ private constructor(
                  */
                 val ACCOUNT_REVENUE_PAYMENT = of("account_revenue_payment")
 
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                val BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION =
+                    of("blockchain_onramp_transfer_intention")
+
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT =
+                    of("blockchain_offramp_transfer_settlement")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
@@ -726,6 +740,16 @@ private constructor(
                  * object.
                  */
                 ACCOUNT_REVENUE_PAYMENT,
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -883,6 +907,16 @@ private constructor(
                  * object.
                  */
                 ACCOUNT_REVENUE_PAYMENT,
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -938,6 +972,10 @@ private constructor(
                     SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
                     ACCOUNT_REVENUE_PAYMENT -> Value.ACCOUNT_REVENUE_PAYMENT
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
+                        Value.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
+                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -993,6 +1031,10 @@ private constructor(
                     SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
                     ACCOUNT_REVENUE_PAYMENT -> Known.ACCOUNT_REVENUE_PAYMENT
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
+                        Known.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
+                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
