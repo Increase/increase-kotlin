@@ -2315,7 +2315,6 @@ private constructor(
     private constructor(
         private val accountId: JsonField<String>,
         private val createdAt: JsonField<CreatedAt>,
-        private val programId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2327,10 +2326,7 @@ private constructor(
             @JsonProperty("created_at")
             @ExcludeMissing
             createdAt: JsonField<CreatedAt> = JsonMissing.of(),
-            @JsonProperty("program_id")
-            @ExcludeMissing
-            programId: JsonField<String> = JsonMissing.of(),
-        ) : this(accountId, createdAt, programId, mutableMapOf())
+        ) : this(accountId, createdAt, mutableMapOf())
 
         /**
          * Filter exported Balances to the specified Account.
@@ -2349,14 +2345,6 @@ private constructor(
         fun createdAt(): CreatedAt? = createdAt.getNullable("created_at")
 
         /**
-         * Filter exported Balances to the specified Program.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun programId(): String? = programId.getNullable("program_id")
-
-        /**
          * Returns the raw JSON value of [accountId].
          *
          * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -2371,13 +2359,6 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
-
-        /**
-         * Returns the raw JSON value of [programId].
-         *
-         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2402,13 +2383,11 @@ private constructor(
 
             private var accountId: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
-            private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balanceCsv: BalanceCsv) = apply {
                 accountId = balanceCsv.accountId
                 createdAt = balanceCsv.createdAt
-                programId = balanceCsv.programId
                 additionalProperties = balanceCsv.additionalProperties.toMutableMap()
             }
 
@@ -2436,18 +2415,6 @@ private constructor(
              */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
-            /** Filter exported Balances to the specified Program. */
-            fun programId(programId: String) = programId(JsonField.of(programId))
-
-            /**
-             * Sets [Builder.programId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.programId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -2473,7 +2440,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): BalanceCsv =
-                BalanceCsv(accountId, createdAt, programId, additionalProperties.toMutableMap())
+                BalanceCsv(accountId, createdAt, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -2485,7 +2452,6 @@ private constructor(
 
             accountId()
             createdAt()?.validate()
-            programId()
             validated = true
         }
 
@@ -2504,9 +2470,7 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (accountId.asKnown() == null) 0 else 1) +
-                (createdAt.asKnown()?.validity() ?: 0) +
-                (if (programId.asKnown() == null) 0 else 1)
+            (if (accountId.asKnown() == null) 0 else 1) + (createdAt.asKnown()?.validity() ?: 0)
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
@@ -2808,18 +2772,17 @@ private constructor(
             return other is BalanceCsv &&
                 accountId == other.accountId &&
                 createdAt == other.createdAt &&
-                programId == other.programId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(accountId, createdAt, programId, additionalProperties)
+            Objects.hash(accountId, createdAt, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, programId=$programId, additionalProperties=$additionalProperties}"
+            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
     }
 
     /**
