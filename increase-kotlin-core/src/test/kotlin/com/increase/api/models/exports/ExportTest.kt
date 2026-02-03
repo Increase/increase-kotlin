@@ -66,8 +66,6 @@ internal class ExportTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                 .entityCsv(Export.EntityCsv.builder().build())
-                .fileDownloadUrl("https://example.com/file")
-                .fileId("file_makxrc67oh9l6sg7w9yc")
                 .form1099Int(
                     Export.Form1099Int.builder()
                         .accountId("account_id")
@@ -89,6 +87,7 @@ internal class ExportTest {
                         .build()
                 )
                 .idempotencyKey(null)
+                .result(Export.Result.builder().fileId("file_makxrc67oh9l6sg7w9yc").build())
                 .status(Export.Status.COMPLETE)
                 .transactionCsv(
                     Export.TransactionCsv.builder()
@@ -161,8 +160,6 @@ internal class ExportTest {
         assertThat(export.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(export.dashboardTableCsv()).isEqualTo(Export.DashboardTableCsv.builder().build())
         assertThat(export.entityCsv()).isEqualTo(Export.EntityCsv.builder().build())
-        assertThat(export.fileDownloadUrl()).isEqualTo("https://example.com/file")
-        assertThat(export.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(export.form1099Int())
             .isEqualTo(
                 Export.Form1099Int.builder()
@@ -185,6 +182,8 @@ internal class ExportTest {
                 Export.FundingInstructions.builder().accountNumberId("account_number_id").build()
             )
         assertThat(export.idempotencyKey()).isNull()
+        assertThat(export.result())
+            .isEqualTo(Export.Result.builder().fileId("file_makxrc67oh9l6sg7w9yc").build())
         assertThat(export.status()).isEqualTo(Export.Status.COMPLETE)
         assertThat(export.transactionCsv())
             .isEqualTo(
@@ -258,8 +257,6 @@ internal class ExportTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                 .entityCsv(Export.EntityCsv.builder().build())
-                .fileDownloadUrl("https://example.com/file")
-                .fileId("file_makxrc67oh9l6sg7w9yc")
                 .form1099Int(
                     Export.Form1099Int.builder()
                         .accountId("account_id")
@@ -281,6 +278,7 @@ internal class ExportTest {
                         .build()
                 )
                 .idempotencyKey(null)
+                .result(Export.Result.builder().fileId("file_makxrc67oh9l6sg7w9yc").build())
                 .status(Export.Status.COMPLETE)
                 .transactionCsv(
                     Export.TransactionCsv.builder()
