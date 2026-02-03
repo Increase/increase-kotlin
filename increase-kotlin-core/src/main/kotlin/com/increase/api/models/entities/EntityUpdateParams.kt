@@ -928,6 +928,7 @@ private constructor(
         private val incorporationState: JsonField<String>,
         private val industryCode: JsonField<String>,
         private val name: JsonField<String>,
+        private val taxIdentifier: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -942,7 +943,18 @@ private constructor(
             @ExcludeMissing
             industryCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(address, email, incorporationState, industryCode, name, mutableMapOf())
+            @JsonProperty("tax_identifier")
+            @ExcludeMissing
+            taxIdentifier: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            address,
+            email,
+            incorporationState,
+            industryCode,
+            name,
+            taxIdentifier,
+            mutableMapOf(),
+        )
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -991,6 +1003,14 @@ private constructor(
         fun name(): String? = name.getNullable("name")
 
         /**
+         * The Employer Identification Number (EIN) for the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun taxIdentifier(): String? = taxIdentifier.getNullable("tax_identifier")
+
+        /**
          * Returns the raw JSON value of [address].
          *
          * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
@@ -1031,6 +1051,16 @@ private constructor(
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+        /**
+         * Returns the raw JSON value of [taxIdentifier].
+         *
+         * Unlike [taxIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier(): JsonField<String> = taxIdentifier
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -1057,6 +1087,7 @@ private constructor(
             private var incorporationState: JsonField<String> = JsonMissing.of()
             private var industryCode: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
+            private var taxIdentifier: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(corporation: Corporation) = apply {
@@ -1065,6 +1096,7 @@ private constructor(
                 incorporationState = corporation.incorporationState
                 industryCode = corporation.industryCode
                 name = corporation.name
+                taxIdentifier = corporation.taxIdentifier
                 additionalProperties = corporation.additionalProperties.toMutableMap()
             }
 
@@ -1147,6 +1179,20 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /** The Employer Identification Number (EIN) for the corporation. */
+            fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
+
+            /**
+             * Sets [Builder.taxIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
+                this.taxIdentifier = taxIdentifier
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1178,6 +1224,7 @@ private constructor(
                     incorporationState,
                     industryCode,
                     name,
+                    taxIdentifier,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1194,6 +1241,7 @@ private constructor(
             incorporationState()
             industryCode()
             name()
+            taxIdentifier()
             validated = true
         }
 
@@ -1216,7 +1264,8 @@ private constructor(
                 (if (email.asKnown() == null) 0 else 1) +
                 (if (incorporationState.asKnown() == null) 0 else 1) +
                 (if (industryCode.asKnown() == null) 0 else 1) +
-                (if (name.asKnown() == null) 0 else 1)
+                (if (name.asKnown() == null) 0 else 1) +
+                (if (taxIdentifier.asKnown() == null) 0 else 1)
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -1551,6 +1600,7 @@ private constructor(
                 incorporationState == other.incorporationState &&
                 industryCode == other.industryCode &&
                 name == other.name &&
+                taxIdentifier == other.taxIdentifier &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1561,6 +1611,7 @@ private constructor(
                 incorporationState,
                 industryCode,
                 name,
+                taxIdentifier,
                 additionalProperties,
             )
         }
@@ -1568,7 +1619,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, taxIdentifier=$taxIdentifier, additionalProperties=$additionalProperties}"
     }
 
     /**
