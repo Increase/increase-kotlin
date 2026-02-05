@@ -482,6 +482,13 @@ private constructor(
                     of("blockchain_onramp_transfer_instruction")
 
                 /**
+                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_offramp_transfer_instruction` object.
+                 */
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION =
+                    of("blockchain_offramp_transfer_instruction")
+
+                /**
                  * Blockchain Off-Ramp Transfer Intention: details will be under the
                  * `blockchain_offramp_transfer_intention` object.
                  */
@@ -557,6 +564,11 @@ private constructor(
                  * `blockchain_onramp_transfer_instruction` object.
                  */
                 BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_offramp_transfer_instruction` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
                 /**
                  * Blockchain Off-Ramp Transfer Intention: details will be under the
                  * `blockchain_offramp_transfer_intention` object.
@@ -638,6 +650,11 @@ private constructor(
                  */
                 BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
                 /**
+                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_offramp_transfer_instruction` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
+                /**
                  * Blockchain Off-Ramp Transfer Intention: details will be under the
                  * `blockchain_offramp_transfer_intention` object.
                  */
@@ -673,6 +690,8 @@ private constructor(
                     CARD_PUSH_TRANSFER_INSTRUCTION -> Value.CARD_PUSH_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
+                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION ->
                         Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION
                     OTHER -> Value.OTHER
@@ -706,6 +725,8 @@ private constructor(
                     CARD_PUSH_TRANSFER_INSTRUCTION -> Known.CARD_PUSH_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
+                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION ->
                         Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION
                     OTHER -> Known.OTHER
