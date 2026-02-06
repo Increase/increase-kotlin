@@ -273,7 +273,8 @@ private constructor(
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /**
-     * The Standard Entry Class (SEC) code to use for the ACH Prenotification.
+     * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to use
+     * for the ACH Prenotification.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -830,7 +831,10 @@ private constructor(
             this.routingNumber = routingNumber
         }
 
-        /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+        /**
+         * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to
+         * use for the ACH Prenotification.
+         */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) =
             standardEntryClassCode(JsonField.ofNullable(standardEntryClassCode))
 
@@ -3224,7 +3228,10 @@ private constructor(
             "PrenotificationReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, additionalProperties=$additionalProperties}"
     }
 
-    /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+    /**
+     * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to use
+     * for the ACH Prenotification.
+     */
     class StandardEntryClassCode
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -3241,16 +3248,26 @@ private constructor(
 
         companion object {
 
-            /** Corporate Credit and Debit (CCD). */
+            /** Corporate Credit and Debit (CCD) is used for business-to-business payments. */
             val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            /** Corporate Trade Exchange (CTX). */
+            /**
+             * Corporate Trade Exchange (CTX) allows for including extensive remittance information
+             * with business-to-business payments.
+             */
             val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            /** Prearranged Payments and Deposits (PPD). */
+            /**
+             * Prearranged Payments and Deposits (PPD) is used for credits or debits originated by
+             * an organization to a consumer, such as payroll direct deposits.
+             */
             val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            /** Internet Initiated (WEB). */
+            /**
+             * Internet Initiated (WEB) is used for consumer payments initiated or authorized via
+             * the Internet. Debits can only be initiated by non-consumers to debit a consumer’s
+             * account. Credits can only be used for consumer to consumer transactions.
+             */
             val INTERNET_INITIATED = of("internet_initiated")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
@@ -3258,13 +3275,23 @@ private constructor(
 
         /** An enum containing [StandardEntryClassCode]'s known values. */
         enum class Known {
-            /** Corporate Credit and Debit (CCD). */
+            /** Corporate Credit and Debit (CCD) is used for business-to-business payments. */
             CORPORATE_CREDIT_OR_DEBIT,
-            /** Corporate Trade Exchange (CTX). */
+            /**
+             * Corporate Trade Exchange (CTX) allows for including extensive remittance information
+             * with business-to-business payments.
+             */
             CORPORATE_TRADE_EXCHANGE,
-            /** Prearranged Payments and Deposits (PPD). */
+            /**
+             * Prearranged Payments and Deposits (PPD) is used for credits or debits originated by
+             * an organization to a consumer, such as payroll direct deposits.
+             */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
-            /** Internet Initiated (WEB). */
+            /**
+             * Internet Initiated (WEB) is used for consumer payments initiated or authorized via
+             * the Internet. Debits can only be initiated by non-consumers to debit a consumer’s
+             * account. Credits can only be used for consumer to consumer transactions.
+             */
             INTERNET_INITIATED,
         }
 
@@ -3280,13 +3307,23 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** Corporate Credit and Debit (CCD). */
+            /** Corporate Credit and Debit (CCD) is used for business-to-business payments. */
             CORPORATE_CREDIT_OR_DEBIT,
-            /** Corporate Trade Exchange (CTX). */
+            /**
+             * Corporate Trade Exchange (CTX) allows for including extensive remittance information
+             * with business-to-business payments.
+             */
             CORPORATE_TRADE_EXCHANGE,
-            /** Prearranged Payments and Deposits (PPD). */
+            /**
+             * Prearranged Payments and Deposits (PPD) is used for credits or debits originated by
+             * an organization to a consumer, such as payroll direct deposits.
+             */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
-            /** Internet Initiated (WEB). */
+            /**
+             * Internet Initiated (WEB) is used for consumer payments initiated or authorized via
+             * the Internet. Debits can only be initiated by non-consumers to debit a consumer’s
+             * account. Credits can only be used for consumer to consumer transactions.
+             */
             INTERNET_INITIATED,
             /**
              * An enum member indicating that [StandardEntryClassCode] was instantiated with an
