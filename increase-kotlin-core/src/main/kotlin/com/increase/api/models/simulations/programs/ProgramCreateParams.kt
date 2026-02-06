@@ -644,17 +644,11 @@ private constructor(
 
         companion object {
 
-            /** Blue Ridge Bank, N.A. */
-            val BLUE_RIDGE_BANK = of("blue_ridge_bank")
-
             /** Core Bank */
             val CORE_BANK = of("core_bank")
 
             /** First Internet Bank of Indiana */
             val FIRST_INTERNET_BANK = of("first_internet_bank")
-
-            /** Global Innovations Bank */
-            val GLOBAL_INNOVATIONS_BANK = of("global_innovations_bank")
 
             /** Grasshopper Bank */
             val GRASSHOPPER_BANK = of("grasshopper_bank")
@@ -667,14 +661,10 @@ private constructor(
 
         /** An enum containing [Bank]'s known values. */
         enum class Known {
-            /** Blue Ridge Bank, N.A. */
-            BLUE_RIDGE_BANK,
             /** Core Bank */
             CORE_BANK,
             /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
-            /** Global Innovations Bank */
-            GLOBAL_INNOVATIONS_BANK,
             /** Grasshopper Bank */
             GRASSHOPPER_BANK,
             /** Twin City Bank */
@@ -691,14 +681,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** Blue Ridge Bank, N.A. */
-            BLUE_RIDGE_BANK,
             /** Core Bank */
             CORE_BANK,
             /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
-            /** Global Innovations Bank */
-            GLOBAL_INNOVATIONS_BANK,
             /** Grasshopper Bank */
             GRASSHOPPER_BANK,
             /** Twin City Bank */
@@ -716,10 +702,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
                 CORE_BANK -> Value.CORE_BANK
                 FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
-                GLOBAL_INNOVATIONS_BANK -> Value.GLOBAL_INNOVATIONS_BANK
                 GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
                 TWIN_CITY_BANK -> Value.TWIN_CITY_BANK
                 else -> Value._UNKNOWN
@@ -736,10 +720,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
                 CORE_BANK -> Known.CORE_BANK
                 FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
-                GLOBAL_INNOVATIONS_BANK -> Known.GLOBAL_INNOVATIONS_BANK
                 GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
                 TWIN_CITY_BANK -> Known.TWIN_CITY_BANK
                 else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
