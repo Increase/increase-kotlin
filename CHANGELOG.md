@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.416.0 (2026-02-06)
+
+Full Changelog: [v0.415.0...v0.416.0](https://github.com/Increase/increase-kotlin/compare/v0.415.0...v0.416.0)
+
+### Features
+
+* **api:** add webhook signature verification ([a8f534d](https://github.com/Increase/increase-kotlin/commit/a8f534dd36cf83e8d3acde60880306010657966b))
+
 ## 0.415.0 (2026-02-06)
 
 Full Changelog: [v0.414.0...v0.415.0](https://github.com/Increase/increase-kotlin/compare/v0.414.0...v0.415.0)
