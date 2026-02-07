@@ -506,6 +506,8 @@ private constructor(
     class Element
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val category: JsonField<Category>,
+        private val createdAt: JsonField<OffsetDateTime>,
         private val cardAuthentication: JsonField<CardAuthentication>,
         private val cardAuthorization: JsonField<CardAuthorization>,
         private val cardAuthorizationExpiration: JsonField<CardAuthorizationExpiration>,
@@ -518,14 +520,18 @@ private constructor(
         private val cardReversal: JsonField<CardReversal>,
         private val cardSettlement: JsonField<CardSettlement>,
         private val cardValidation: JsonField<CardValidation>,
-        private val category: JsonField<Category>,
-        private val createdAt: JsonField<OffsetDateTime>,
         private val other: JsonField<Other>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("card_authentication")
             @ExcludeMissing
             cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
@@ -562,14 +568,10 @@ private constructor(
             @JsonProperty("card_validation")
             @ExcludeMissing
             cardValidation: JsonField<CardValidation> = JsonMissing.of(),
-            @JsonProperty("category")
-            @ExcludeMissing
-            category: JsonField<Category> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("other") @ExcludeMissing other: JsonField<Other> = JsonMissing.of(),
         ) : this(
+            category,
+            createdAt,
             cardAuthentication,
             cardAuthorization,
             cardAuthorizationExpiration,
@@ -582,11 +584,27 @@ private constructor(
             cardReversal,
             cardSettlement,
             cardValidation,
-            category,
-            createdAt,
             other,
             mutableMapOf(),
         )
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the card
+         * payment element was created.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * A Card Authentication object. This field will be present in the JSON response if and only
@@ -717,24 +735,6 @@ private constructor(
         fun cardValidation(): CardValidation? = cardValidation.getNullable("card_validation")
 
         /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun category(): Category = category.getRequired("category")
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the card
-         * payment element was created.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-        /**
          * If the category of this Transaction source is equal to `other`, this field will contain
          * an empty object, otherwise it will contain null.
          *
@@ -742,6 +742,22 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun other(): Other? = other.getNullable("other")
+
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /**
          * Returns the raw JSON value of [cardAuthentication].
@@ -863,22 +879,6 @@ private constructor(
         fun _cardValidation(): JsonField<CardValidation> = cardValidation
 
         /**
-         * Returns the raw JSON value of [category].
-         *
-         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
-
-        /**
-         * Returns the raw JSON value of [createdAt].
-         *
-         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
-
-        /**
          * Returns the raw JSON value of [other].
          *
          * Unlike [other], this method doesn't throw if the JSON field has an unexpected type.
@@ -904,21 +904,8 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .cardAuthentication()
-             * .cardAuthorization()
-             * .cardAuthorizationExpiration()
-             * .cardBalanceInquiry()
-             * .cardDecline()
-             * .cardFinancial()
-             * .cardFuelConfirmation()
-             * .cardIncrement()
-             * .cardRefund()
-             * .cardReversal()
-             * .cardSettlement()
-             * .cardValidation()
              * .category()
              * .createdAt()
-             * .other()
              * ```
              */
             fun builder() = Builder()
@@ -927,24 +914,27 @@ private constructor(
         /** A builder for [Element]. */
         class Builder internal constructor() {
 
-            private var cardAuthentication: JsonField<CardAuthentication>? = null
-            private var cardAuthorization: JsonField<CardAuthorization>? = null
-            private var cardAuthorizationExpiration: JsonField<CardAuthorizationExpiration>? = null
-            private var cardBalanceInquiry: JsonField<CardBalanceInquiry>? = null
-            private var cardDecline: JsonField<CardDecline>? = null
-            private var cardFinancial: JsonField<CardFinancial>? = null
-            private var cardFuelConfirmation: JsonField<CardFuelConfirmation>? = null
-            private var cardIncrement: JsonField<CardIncrement>? = null
-            private var cardRefund: JsonField<CardRefund>? = null
-            private var cardReversal: JsonField<CardReversal>? = null
-            private var cardSettlement: JsonField<CardSettlement>? = null
-            private var cardValidation: JsonField<CardValidation>? = null
             private var category: JsonField<Category>? = null
             private var createdAt: JsonField<OffsetDateTime>? = null
-            private var other: JsonField<Other>? = null
+            private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
+            private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
+            private var cardAuthorizationExpiration: JsonField<CardAuthorizationExpiration> =
+                JsonMissing.of()
+            private var cardBalanceInquiry: JsonField<CardBalanceInquiry> = JsonMissing.of()
+            private var cardDecline: JsonField<CardDecline> = JsonMissing.of()
+            private var cardFinancial: JsonField<CardFinancial> = JsonMissing.of()
+            private var cardFuelConfirmation: JsonField<CardFuelConfirmation> = JsonMissing.of()
+            private var cardIncrement: JsonField<CardIncrement> = JsonMissing.of()
+            private var cardRefund: JsonField<CardRefund> = JsonMissing.of()
+            private var cardReversal: JsonField<CardReversal> = JsonMissing.of()
+            private var cardSettlement: JsonField<CardSettlement> = JsonMissing.of()
+            private var cardValidation: JsonField<CardValidation> = JsonMissing.of()
+            private var other: JsonField<Other> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(element: Element) = apply {
+                category = element.category
+                createdAt = element.createdAt
                 cardAuthentication = element.cardAuthentication
                 cardAuthorization = element.cardAuthorization
                 cardAuthorizationExpiration = element.cardAuthorizationExpiration
@@ -957,10 +947,40 @@ private constructor(
                 cardReversal = element.cardReversal
                 cardSettlement = element.cardSettlement
                 cardValidation = element.cardValidation
-                category = element.category
-                createdAt = element.createdAt
                 other = element.other
                 additionalProperties = element.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
+             */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * card payment element was created.
+             */
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
             }
 
             /**
@@ -1200,38 +1220,6 @@ private constructor(
             }
 
             /**
-             * The type of the resource. We may add additional possible values for this enum over
-             * time; your application should be able to handle such additions gracefully.
-             */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /**
-             * Sets [Builder.category] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.category] with a well-typed [Category] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun category(category: JsonField<Category>) = apply { this.category = category }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * card payment element was created.
-             */
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            /**
-             * Sets [Builder.createdAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            /**
              * If the category of this Transaction source is equal to `other`, this field will
              * contain an empty object, otherwise it will contain null.
              */
@@ -1272,42 +1260,29 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .cardAuthentication()
-             * .cardAuthorization()
-             * .cardAuthorizationExpiration()
-             * .cardBalanceInquiry()
-             * .cardDecline()
-             * .cardFinancial()
-             * .cardFuelConfirmation()
-             * .cardIncrement()
-             * .cardRefund()
-             * .cardReversal()
-             * .cardSettlement()
-             * .cardValidation()
              * .category()
              * .createdAt()
-             * .other()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Element =
                 Element(
-                    checkRequired("cardAuthentication", cardAuthentication),
-                    checkRequired("cardAuthorization", cardAuthorization),
-                    checkRequired("cardAuthorizationExpiration", cardAuthorizationExpiration),
-                    checkRequired("cardBalanceInquiry", cardBalanceInquiry),
-                    checkRequired("cardDecline", cardDecline),
-                    checkRequired("cardFinancial", cardFinancial),
-                    checkRequired("cardFuelConfirmation", cardFuelConfirmation),
-                    checkRequired("cardIncrement", cardIncrement),
-                    checkRequired("cardRefund", cardRefund),
-                    checkRequired("cardReversal", cardReversal),
-                    checkRequired("cardSettlement", cardSettlement),
-                    checkRequired("cardValidation", cardValidation),
                     checkRequired("category", category),
                     checkRequired("createdAt", createdAt),
-                    checkRequired("other", other),
+                    cardAuthentication,
+                    cardAuthorization,
+                    cardAuthorizationExpiration,
+                    cardBalanceInquiry,
+                    cardDecline,
+                    cardFinancial,
+                    cardFuelConfirmation,
+                    cardIncrement,
+                    cardRefund,
+                    cardReversal,
+                    cardSettlement,
+                    cardValidation,
+                    other,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1319,6 +1294,8 @@ private constructor(
                 return@apply
             }
 
+            category().validate()
+            createdAt()
             cardAuthentication()?.validate()
             cardAuthorization()?.validate()
             cardAuthorizationExpiration()?.validate()
@@ -1331,8 +1308,6 @@ private constructor(
             cardReversal()?.validate()
             cardSettlement()?.validate()
             cardValidation()?.validate()
-            category().validate()
-            createdAt()
             other()?.validate()
             validated = true
         }
@@ -1352,7 +1327,9 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (cardAuthentication.asKnown()?.validity() ?: 0) +
+            (category.asKnown()?.validity() ?: 0) +
+                (if (createdAt.asKnown() == null) 0 else 1) +
+                (cardAuthentication.asKnown()?.validity() ?: 0) +
                 (cardAuthorization.asKnown()?.validity() ?: 0) +
                 (cardAuthorizationExpiration.asKnown()?.validity() ?: 0) +
                 (cardBalanceInquiry.asKnown()?.validity() ?: 0) +
@@ -1364,9 +1341,268 @@ private constructor(
                 (cardReversal.asKnown()?.validity() ?: 0) +
                 (cardSettlement.asKnown()?.validity() ?: 0) +
                 (cardValidation.asKnown()?.validity() ?: 0) +
-                (category.asKnown()?.validity() ?: 0) +
-                (if (createdAt.asKnown() == null) 0 else 1) +
                 (other.asKnown()?.validity() ?: 0)
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** Card Authorization: details will be under the `card_authorization` object. */
+                val CARD_AUTHORIZATION = of("card_authorization")
+
+                /** Card Authentication: details will be under the `card_authentication` object. */
+                val CARD_AUTHENTICATION = of("card_authentication")
+
+                /**
+                 * Card Balance Inquiry: details will be under the `card_balance_inquiry` object.
+                 */
+                val CARD_BALANCE_INQUIRY = of("card_balance_inquiry")
+
+                /** Inbound Card Validation: details will be under the `card_validation` object. */
+                val CARD_VALIDATION = of("card_validation")
+
+                /** Card Decline: details will be under the `card_decline` object. */
+                val CARD_DECLINE = of("card_decline")
+
+                /** Card Reversal: details will be under the `card_reversal` object. */
+                val CARD_REVERSAL = of("card_reversal")
+
+                /**
+                 * Card Authorization Expiration: details will be under the
+                 * `card_authorization_expiration` object.
+                 */
+                val CARD_AUTHORIZATION_EXPIRATION = of("card_authorization_expiration")
+
+                /** Card Increment: details will be under the `card_increment` object. */
+                val CARD_INCREMENT = of("card_increment")
+
+                /** Card Settlement: details will be under the `card_settlement` object. */
+                val CARD_SETTLEMENT = of("card_settlement")
+
+                /** Card Refund: details will be under the `card_refund` object. */
+                val CARD_REFUND = of("card_refund")
+
+                /**
+                 * Card Fuel Confirmation: details will be under the `card_fuel_confirmation`
+                 * object.
+                 */
+                val CARD_FUEL_CONFIRMATION = of("card_fuel_confirmation")
+
+                /** Card Financial: details will be under the `card_financial` object. */
+                val CARD_FINANCIAL = of("card_financial")
+
+                /** Unknown card payment element. */
+                val OTHER = of("other")
+
+                fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /** Card Authorization: details will be under the `card_authorization` object. */
+                CARD_AUTHORIZATION,
+                /** Card Authentication: details will be under the `card_authentication` object. */
+                CARD_AUTHENTICATION,
+                /**
+                 * Card Balance Inquiry: details will be under the `card_balance_inquiry` object.
+                 */
+                CARD_BALANCE_INQUIRY,
+                /** Inbound Card Validation: details will be under the `card_validation` object. */
+                CARD_VALIDATION,
+                /** Card Decline: details will be under the `card_decline` object. */
+                CARD_DECLINE,
+                /** Card Reversal: details will be under the `card_reversal` object. */
+                CARD_REVERSAL,
+                /**
+                 * Card Authorization Expiration: details will be under the
+                 * `card_authorization_expiration` object.
+                 */
+                CARD_AUTHORIZATION_EXPIRATION,
+                /** Card Increment: details will be under the `card_increment` object. */
+                CARD_INCREMENT,
+                /** Card Settlement: details will be under the `card_settlement` object. */
+                CARD_SETTLEMENT,
+                /** Card Refund: details will be under the `card_refund` object. */
+                CARD_REFUND,
+                /**
+                 * Card Fuel Confirmation: details will be under the `card_fuel_confirmation`
+                 * object.
+                 */
+                CARD_FUEL_CONFIRMATION,
+                /** Card Financial: details will be under the `card_financial` object. */
+                CARD_FINANCIAL,
+                /** Unknown card payment element. */
+                OTHER,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** Card Authorization: details will be under the `card_authorization` object. */
+                CARD_AUTHORIZATION,
+                /** Card Authentication: details will be under the `card_authentication` object. */
+                CARD_AUTHENTICATION,
+                /**
+                 * Card Balance Inquiry: details will be under the `card_balance_inquiry` object.
+                 */
+                CARD_BALANCE_INQUIRY,
+                /** Inbound Card Validation: details will be under the `card_validation` object. */
+                CARD_VALIDATION,
+                /** Card Decline: details will be under the `card_decline` object. */
+                CARD_DECLINE,
+                /** Card Reversal: details will be under the `card_reversal` object. */
+                CARD_REVERSAL,
+                /**
+                 * Card Authorization Expiration: details will be under the
+                 * `card_authorization_expiration` object.
+                 */
+                CARD_AUTHORIZATION_EXPIRATION,
+                /** Card Increment: details will be under the `card_increment` object. */
+                CARD_INCREMENT,
+                /** Card Settlement: details will be under the `card_settlement` object. */
+                CARD_SETTLEMENT,
+                /** Card Refund: details will be under the `card_refund` object. */
+                CARD_REFUND,
+                /**
+                 * Card Fuel Confirmation: details will be under the `card_fuel_confirmation`
+                 * object.
+                 */
+                CARD_FUEL_CONFIRMATION,
+                /** Card Financial: details will be under the `card_financial` object. */
+                CARD_FINANCIAL,
+                /** Unknown card payment element. */
+                OTHER,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
+                    CARD_AUTHENTICATION -> Value.CARD_AUTHENTICATION
+                    CARD_BALANCE_INQUIRY -> Value.CARD_BALANCE_INQUIRY
+                    CARD_VALIDATION -> Value.CARD_VALIDATION
+                    CARD_DECLINE -> Value.CARD_DECLINE
+                    CARD_REVERSAL -> Value.CARD_REVERSAL
+                    CARD_AUTHORIZATION_EXPIRATION -> Value.CARD_AUTHORIZATION_EXPIRATION
+                    CARD_INCREMENT -> Value.CARD_INCREMENT
+                    CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_REFUND -> Value.CARD_REFUND
+                    CARD_FUEL_CONFIRMATION -> Value.CARD_FUEL_CONFIRMATION
+                    CARD_FINANCIAL -> Value.CARD_FINANCIAL
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
+                    CARD_AUTHENTICATION -> Known.CARD_AUTHENTICATION
+                    CARD_BALANCE_INQUIRY -> Known.CARD_BALANCE_INQUIRY
+                    CARD_VALIDATION -> Known.CARD_VALIDATION
+                    CARD_DECLINE -> Known.CARD_DECLINE
+                    CARD_REVERSAL -> Known.CARD_REVERSAL
+                    CARD_AUTHORIZATION_EXPIRATION -> Known.CARD_AUTHORIZATION_EXPIRATION
+                    CARD_INCREMENT -> Known.CARD_INCREMENT
+                    CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_REFUND -> Known.CARD_REFUND
+                    CARD_FUEL_CONFIRMATION -> Known.CARD_FUEL_CONFIRMATION
+                    CARD_FINANCIAL -> Known.CARD_FINANCIAL
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /**
          * A Card Authentication object. This field will be present in the JSON response if and only
@@ -73197,267 +73433,6 @@ private constructor(
         }
 
         /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         */
-        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** Card Authorization: details will be under the `card_authorization` object. */
-                val CARD_AUTHORIZATION = of("card_authorization")
-
-                /** Card Authentication: details will be under the `card_authentication` object. */
-                val CARD_AUTHENTICATION = of("card_authentication")
-
-                /**
-                 * Card Balance Inquiry: details will be under the `card_balance_inquiry` object.
-                 */
-                val CARD_BALANCE_INQUIRY = of("card_balance_inquiry")
-
-                /** Inbound Card Validation: details will be under the `card_validation` object. */
-                val CARD_VALIDATION = of("card_validation")
-
-                /** Card Decline: details will be under the `card_decline` object. */
-                val CARD_DECLINE = of("card_decline")
-
-                /** Card Reversal: details will be under the `card_reversal` object. */
-                val CARD_REVERSAL = of("card_reversal")
-
-                /**
-                 * Card Authorization Expiration: details will be under the
-                 * `card_authorization_expiration` object.
-                 */
-                val CARD_AUTHORIZATION_EXPIRATION = of("card_authorization_expiration")
-
-                /** Card Increment: details will be under the `card_increment` object. */
-                val CARD_INCREMENT = of("card_increment")
-
-                /** Card Settlement: details will be under the `card_settlement` object. */
-                val CARD_SETTLEMENT = of("card_settlement")
-
-                /** Card Refund: details will be under the `card_refund` object. */
-                val CARD_REFUND = of("card_refund")
-
-                /**
-                 * Card Fuel Confirmation: details will be under the `card_fuel_confirmation`
-                 * object.
-                 */
-                val CARD_FUEL_CONFIRMATION = of("card_fuel_confirmation")
-
-                /** Card Financial: details will be under the `card_financial` object. */
-                val CARD_FINANCIAL = of("card_financial")
-
-                /** Unknown card payment element. */
-                val OTHER = of("other")
-
-                fun of(value: String) = Category(JsonField.of(value))
-            }
-
-            /** An enum containing [Category]'s known values. */
-            enum class Known {
-                /** Card Authorization: details will be under the `card_authorization` object. */
-                CARD_AUTHORIZATION,
-                /** Card Authentication: details will be under the `card_authentication` object. */
-                CARD_AUTHENTICATION,
-                /**
-                 * Card Balance Inquiry: details will be under the `card_balance_inquiry` object.
-                 */
-                CARD_BALANCE_INQUIRY,
-                /** Inbound Card Validation: details will be under the `card_validation` object. */
-                CARD_VALIDATION,
-                /** Card Decline: details will be under the `card_decline` object. */
-                CARD_DECLINE,
-                /** Card Reversal: details will be under the `card_reversal` object. */
-                CARD_REVERSAL,
-                /**
-                 * Card Authorization Expiration: details will be under the
-                 * `card_authorization_expiration` object.
-                 */
-                CARD_AUTHORIZATION_EXPIRATION,
-                /** Card Increment: details will be under the `card_increment` object. */
-                CARD_INCREMENT,
-                /** Card Settlement: details will be under the `card_settlement` object. */
-                CARD_SETTLEMENT,
-                /** Card Refund: details will be under the `card_refund` object. */
-                CARD_REFUND,
-                /**
-                 * Card Fuel Confirmation: details will be under the `card_fuel_confirmation`
-                 * object.
-                 */
-                CARD_FUEL_CONFIRMATION,
-                /** Card Financial: details will be under the `card_financial` object. */
-                CARD_FINANCIAL,
-                /** Unknown card payment element. */
-                OTHER,
-            }
-
-            /**
-             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Category] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** Card Authorization: details will be under the `card_authorization` object. */
-                CARD_AUTHORIZATION,
-                /** Card Authentication: details will be under the `card_authentication` object. */
-                CARD_AUTHENTICATION,
-                /**
-                 * Card Balance Inquiry: details will be under the `card_balance_inquiry` object.
-                 */
-                CARD_BALANCE_INQUIRY,
-                /** Inbound Card Validation: details will be under the `card_validation` object. */
-                CARD_VALIDATION,
-                /** Card Decline: details will be under the `card_decline` object. */
-                CARD_DECLINE,
-                /** Card Reversal: details will be under the `card_reversal` object. */
-                CARD_REVERSAL,
-                /**
-                 * Card Authorization Expiration: details will be under the
-                 * `card_authorization_expiration` object.
-                 */
-                CARD_AUTHORIZATION_EXPIRATION,
-                /** Card Increment: details will be under the `card_increment` object. */
-                CARD_INCREMENT,
-                /** Card Settlement: details will be under the `card_settlement` object. */
-                CARD_SETTLEMENT,
-                /** Card Refund: details will be under the `card_refund` object. */
-                CARD_REFUND,
-                /**
-                 * Card Fuel Confirmation: details will be under the `card_fuel_confirmation`
-                 * object.
-                 */
-                CARD_FUEL_CONFIRMATION,
-                /** Card Financial: details will be under the `card_financial` object. */
-                CARD_FINANCIAL,
-                /** Unknown card payment element. */
-                OTHER,
-                /**
-                 * An enum member indicating that [Category] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
-                    CARD_AUTHENTICATION -> Value.CARD_AUTHENTICATION
-                    CARD_BALANCE_INQUIRY -> Value.CARD_BALANCE_INQUIRY
-                    CARD_VALIDATION -> Value.CARD_VALIDATION
-                    CARD_DECLINE -> Value.CARD_DECLINE
-                    CARD_REVERSAL -> Value.CARD_REVERSAL
-                    CARD_AUTHORIZATION_EXPIRATION -> Value.CARD_AUTHORIZATION_EXPIRATION
-                    CARD_INCREMENT -> Value.CARD_INCREMENT
-                    CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
-                    CARD_REFUND -> Value.CARD_REFUND
-                    CARD_FUEL_CONFIRMATION -> Value.CARD_FUEL_CONFIRMATION
-                    CARD_FINANCIAL -> Value.CARD_FINANCIAL
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
-                    CARD_AUTHENTICATION -> Known.CARD_AUTHENTICATION
-                    CARD_BALANCE_INQUIRY -> Known.CARD_BALANCE_INQUIRY
-                    CARD_VALIDATION -> Known.CARD_VALIDATION
-                    CARD_DECLINE -> Known.CARD_DECLINE
-                    CARD_REVERSAL -> Known.CARD_REVERSAL
-                    CARD_AUTHORIZATION_EXPIRATION -> Known.CARD_AUTHORIZATION_EXPIRATION
-                    CARD_INCREMENT -> Known.CARD_INCREMENT
-                    CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
-                    CARD_REFUND -> Known.CARD_REFUND
-                    CARD_FUEL_CONFIRMATION -> Known.CARD_FUEL_CONFIRMATION
-                    CARD_FINANCIAL -> Known.CARD_FINANCIAL
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): Category = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Category && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
          * If the category of this Transaction source is equal to `other`, this field will contain
          * an empty object, otherwise it will contain null.
          */
@@ -73571,6 +73546,8 @@ private constructor(
             }
 
             return other is Element &&
+                category == other.category &&
+                createdAt == other.createdAt &&
                 cardAuthentication == other.cardAuthentication &&
                 cardAuthorization == other.cardAuthorization &&
                 cardAuthorizationExpiration == other.cardAuthorizationExpiration &&
@@ -73583,14 +73560,14 @@ private constructor(
                 cardReversal == other.cardReversal &&
                 cardSettlement == other.cardSettlement &&
                 cardValidation == other.cardValidation &&
-                category == other.category &&
-                createdAt == other.createdAt &&
                 this.other == other.other &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                category,
+                createdAt,
                 cardAuthentication,
                 cardAuthorization,
                 cardAuthorizationExpiration,
@@ -73603,8 +73580,6 @@ private constructor(
                 cardReversal,
                 cardSettlement,
                 cardValidation,
-                category,
-                createdAt,
                 other,
                 additionalProperties,
             )
@@ -73613,7 +73588,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Element{cardAuthentication=$cardAuthentication, cardAuthorization=$cardAuthorization, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardBalanceInquiry=$cardBalanceInquiry, cardDecline=$cardDecline, cardFinancial=$cardFinancial, cardFuelConfirmation=$cardFuelConfirmation, cardIncrement=$cardIncrement, cardRefund=$cardRefund, cardReversal=$cardReversal, cardSettlement=$cardSettlement, cardValidation=$cardValidation, category=$category, createdAt=$createdAt, other=$other, additionalProperties=$additionalProperties}"
+            "Element{category=$category, createdAt=$createdAt, cardAuthentication=$cardAuthentication, cardAuthorization=$cardAuthorization, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardBalanceInquiry=$cardBalanceInquiry, cardDecline=$cardDecline, cardFinancial=$cardFinancial, cardFuelConfirmation=$cardFuelConfirmation, cardIncrement=$cardIncrement, cardRefund=$cardRefund, cardReversal=$cardReversal, cardSettlement=$cardSettlement, cardValidation=$cardValidation, other=$other, additionalProperties=$additionalProperties}"
     }
 
     /** The summarized state of this card payment. */

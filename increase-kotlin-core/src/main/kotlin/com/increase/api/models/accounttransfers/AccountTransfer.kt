@@ -1261,8 +1261,8 @@ private constructor(
     class CreatedBy
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val apiKey: JsonField<ApiKey>,
         private val category: JsonField<Category>,
+        private val apiKey: JsonField<ApiKey>,
         private val oauthApplication: JsonField<OAuthApplication>,
         private val user: JsonField<User>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1270,23 +1270,15 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("api_key") @ExcludeMissing apiKey: JsonField<ApiKey> = JsonMissing.of(),
             @JsonProperty("category")
             @ExcludeMissing
             category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("api_key") @ExcludeMissing apiKey: JsonField<ApiKey> = JsonMissing.of(),
             @JsonProperty("oauth_application")
             @ExcludeMissing
             oauthApplication: JsonField<OAuthApplication> = JsonMissing.of(),
             @JsonProperty("user") @ExcludeMissing user: JsonField<User> = JsonMissing.of(),
-        ) : this(apiKey, category, oauthApplication, user, mutableMapOf())
-
-        /**
-         * If present, details about the API key that created the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun apiKey(): ApiKey? = apiKey.getNullable("api_key")
+        ) : this(category, apiKey, oauthApplication, user, mutableMapOf())
 
         /**
          * The type of object that created this transfer.
@@ -1295,6 +1287,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun category(): Category = category.getRequired("category")
+
+        /**
+         * If present, details about the API key that created the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun apiKey(): ApiKey? = apiKey.getNullable("api_key")
 
         /**
          * If present, details about the OAuth Application that created the transfer.
@@ -1314,18 +1314,18 @@ private constructor(
         fun user(): User? = user.getNullable("user")
 
         /**
-         * Returns the raw JSON value of [apiKey].
-         *
-         * Unlike [apiKey], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<ApiKey> = apiKey
-
-        /**
          * Returns the raw JSON value of [category].
          *
          * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
+         * Returns the raw JSON value of [apiKey].
+         *
+         * Unlike [apiKey], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<ApiKey> = apiKey
 
         /**
          * Returns the raw JSON value of [oauthApplication].
@@ -1363,10 +1363,7 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .apiKey()
              * .category()
-             * .oauthApplication()
-             * .user()
              * ```
              */
             fun builder() = Builder()
@@ -1375,31 +1372,19 @@ private constructor(
         /** A builder for [CreatedBy]. */
         class Builder internal constructor() {
 
-            private var apiKey: JsonField<ApiKey>? = null
             private var category: JsonField<Category>? = null
-            private var oauthApplication: JsonField<OAuthApplication>? = null
-            private var user: JsonField<User>? = null
+            private var apiKey: JsonField<ApiKey> = JsonMissing.of()
+            private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
+            private var user: JsonField<User> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(createdBy: CreatedBy) = apply {
-                apiKey = createdBy.apiKey
                 category = createdBy.category
+                apiKey = createdBy.apiKey
                 oauthApplication = createdBy.oauthApplication
                 user = createdBy.user
                 additionalProperties = createdBy.additionalProperties.toMutableMap()
             }
-
-            /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
-
-            /**
-             * Sets [Builder.apiKey] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.apiKey] with a well-typed [ApiKey] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** The type of object that created this transfer. */
             fun category(category: Category) = category(JsonField.of(category))
@@ -1412,6 +1397,18 @@ private constructor(
              * supported value.
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /** If present, details about the API key that created the transfer. */
+            fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
+
+            /**
+             * Sets [Builder.apiKey] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.apiKey] with a well-typed [ApiKey] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: OAuthApplication?) =
@@ -1466,20 +1463,17 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .apiKey()
              * .category()
-             * .oauthApplication()
-             * .user()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): CreatedBy =
                 CreatedBy(
-                    checkRequired("apiKey", apiKey),
                     checkRequired("category", category),
-                    checkRequired("oauthApplication", oauthApplication),
-                    checkRequired("user", user),
+                    apiKey,
+                    oauthApplication,
+                    user,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1491,8 +1485,8 @@ private constructor(
                 return@apply
             }
 
-            apiKey()?.validate()
             category().validate()
+            apiKey()?.validate()
             oauthApplication()?.validate()
             user()?.validate()
             validated = true
@@ -1513,10 +1507,163 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (apiKey.asKnown()?.validity() ?: 0) +
-                (category.asKnown()?.validity() ?: 0) +
+            (category.asKnown()?.validity() ?: 0) +
+                (apiKey.asKnown()?.validity() ?: 0) +
                 (oauthApplication.asKnown()?.validity() ?: 0) +
                 (user.asKnown()?.validity() ?: 0)
+
+        /** The type of object that created this transfer. */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** An API key. Details will be under the `api_key` object. */
+                val API_KEY = of("api_key")
+
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
+                val OAUTH_APPLICATION = of("oauth_application")
+
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
+                val USER = of("user")
+
+                fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /** An API key. Details will be under the `api_key` object. */
+                API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
+                OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
+                USER,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** An API key. Details will be under the `api_key` object. */
+                API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
+                OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
+                USER,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    API_KEY -> Value.API_KEY
+                    OAUTH_APPLICATION -> Value.OAUTH_APPLICATION
+                    USER -> Value.USER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    API_KEY -> Known.API_KEY
+                    OAUTH_APPLICATION -> Known.OAUTH_APPLICATION
+                    USER -> Known.USER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /** If present, details about the API key that created the transfer. */
         class ApiKey
@@ -1686,159 +1833,6 @@ private constructor(
 
             override fun toString() =
                 "ApiKey{description=$description, additionalProperties=$additionalProperties}"
-        }
-
-        /** The type of object that created this transfer. */
-        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** An API key. Details will be under the `api_key` object. */
-                val API_KEY = of("api_key")
-
-                /**
-                 * An OAuth application you connected to Increase. Details will be under the
-                 * `oauth_application` object.
-                 */
-                val OAUTH_APPLICATION = of("oauth_application")
-
-                /** A User in the Increase dashboard. Details will be under the `user` object. */
-                val USER = of("user")
-
-                fun of(value: String) = Category(JsonField.of(value))
-            }
-
-            /** An enum containing [Category]'s known values. */
-            enum class Known {
-                /** An API key. Details will be under the `api_key` object. */
-                API_KEY,
-                /**
-                 * An OAuth application you connected to Increase. Details will be under the
-                 * `oauth_application` object.
-                 */
-                OAUTH_APPLICATION,
-                /** A User in the Increase dashboard. Details will be under the `user` object. */
-                USER,
-            }
-
-            /**
-             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Category] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** An API key. Details will be under the `api_key` object. */
-                API_KEY,
-                /**
-                 * An OAuth application you connected to Increase. Details will be under the
-                 * `oauth_application` object.
-                 */
-                OAUTH_APPLICATION,
-                /** A User in the Increase dashboard. Details will be under the `user` object. */
-                USER,
-                /**
-                 * An enum member indicating that [Category] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    API_KEY -> Value.API_KEY
-                    OAUTH_APPLICATION -> Value.OAUTH_APPLICATION
-                    USER -> Value.USER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    API_KEY -> Known.API_KEY
-                    OAUTH_APPLICATION -> Known.OAUTH_APPLICATION
-                    USER -> Known.USER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): Category = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Category && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
         }
 
         /** If present, details about the OAuth Application that created the transfer. */
@@ -2170,21 +2164,21 @@ private constructor(
             }
 
             return other is CreatedBy &&
-                apiKey == other.apiKey &&
                 category == other.category &&
+                apiKey == other.apiKey &&
                 oauthApplication == other.oauthApplication &&
                 user == other.user &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(apiKey, category, oauthApplication, user, additionalProperties)
+            Objects.hash(category, apiKey, oauthApplication, user, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+            "CreatedBy{category=$category, apiKey=$apiKey, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. */
