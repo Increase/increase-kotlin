@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.417.0 (2026-02-07)
+
+Full Changelog: [v0.416.0...v0.417.0](https://github.com/Increase/increase-kotlin/compare/v0.416.0...v0.417.0)
+
+### Features
+
+* **api:** api update ([bfec1de](https://github.com/Increase/increase-kotlin/commit/bfec1de7240f5f0e2d9e942edc9ee1eff2671d15))
+
+
+### Chores
+
+* **internal:** upgrade AssertJ ([46698d6](https://github.com/Increase/increase-kotlin/commit/46698d6756fc3d6805d87e7b921796acb05ec1bd))
+
 ## 0.416.0 (2026-02-06)
 
 Full Changelog: [v0.415.0...v0.416.0](https://github.com/Increase/increase-kotlin/compare/v0.415.0...v0.416.0)
