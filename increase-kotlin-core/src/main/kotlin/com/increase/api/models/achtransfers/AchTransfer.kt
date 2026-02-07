@@ -7323,7 +7323,7 @@ private constructor(
 
                 /**
                  * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated to
-                 * NSF.
+                 * "NSF."
                  */
                 val INSUFFICIENT_FUND = of("insufficient_fund")
 
@@ -7340,18 +7340,20 @@ private constructor(
                 val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
 
                 /**
-                 * Code R16. The account at the receiving bank was frozen per the Office of Foreign
-                 * Assets Control.
+                 * Code R16. This return code has two separate meanings. (1) The receiving bank
+                 * froze the account or (2) the Office of Foreign Assets Control (OFAC) instructed
+                 * the receiving bank to return the entry.
                  */
                 val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION =
                     of("account_frozen_entry_returned_per_ofac_instruction")
 
-                /** Code R23. The receiving bank account refused a credit transfer. */
+                /** Code R23. The receiving bank refused the credit transfer. */
                 val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
                 /**
                  * Code R05. The receiving bank rejected because of an incorrect Standard Entry
-                 * Class code.
+                 * Class code. Consumer accounts cannot be debited as `corporate_credit_or_debit` or
+                 * `corporate_trade_exchange`.
                  */
                 val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE =
                     of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
@@ -7363,7 +7365,10 @@ private constructor(
                 /** Code R08. The receiving bank stopped payment on this transfer. */
                 val PAYMENT_STOPPED = of("payment_stopped")
 
-                /** Code R20. The receiving bank account does not perform transfers. */
+                /**
+                 * Code R20. The account is not eligible for ACH, such as a savings account with
+                 * transaction limits.
+                 */
                 val NON_TRANSACTION_ACCOUNT = of("non_transaction_account")
 
                 /**
@@ -7383,8 +7388,8 @@ private constructor(
                 val AMOUNT_FIELD_ERROR = of("amount_field_error")
 
                 /**
-                 * Code R07. The customer at the receiving institution informed their bank that they
-                 * have revoked authorization for a previously authorized transfer.
+                 * Code R07. The customer revoked their authorization for a previously authorized
+                 * transfer.
                  */
                 val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
@@ -7394,7 +7399,7 @@ private constructor(
                 /** Code R17. The receiving bank is unable to process a field in the transfer. */
                 val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
-                /** Code R45. The individual name field was invalid. */
+                /** Code R45. A rare return reason. The individual name field was invalid. */
                 val ENR_INVALID_INDIVIDUAL_NAME = of("enr_invalid_individual_name")
 
                 /**
@@ -7639,7 +7644,7 @@ private constructor(
                 /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 val RETURN_OF_IMPROPER_DEBIT_ENTRY = of("return_of_improper_debit_entry")
 
-                /** Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry. */
+                /** Code R33. A rare return reason. Return of a destroyed check ("XCK") entry. */
                 val RETURN_OF_XCK_ENTRY = of("return_of_xck_entry")
 
                 /**
@@ -7693,7 +7698,7 @@ private constructor(
             enum class Known {
                 /**
                  * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated to
-                 * NSF.
+                 * "NSF."
                  */
                 INSUFFICIENT_FUND,
                 /**
@@ -7706,22 +7711,27 @@ private constructor(
                 /** Code R04. The account number is invalid at the receiving bank. */
                 INVALID_ACCOUNT_NUMBER_STRUCTURE,
                 /**
-                 * Code R16. The account at the receiving bank was frozen per the Office of Foreign
-                 * Assets Control.
+                 * Code R16. This return code has two separate meanings. (1) The receiving bank
+                 * froze the account or (2) the Office of Foreign Assets Control (OFAC) instructed
+                 * the receiving bank to return the entry.
                  */
                 ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION,
-                /** Code R23. The receiving bank account refused a credit transfer. */
+                /** Code R23. The receiving bank refused the credit transfer. */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                 /**
                  * Code R05. The receiving bank rejected because of an incorrect Standard Entry
-                 * Class code.
+                 * Class code. Consumer accounts cannot be debited as `corporate_credit_or_debit` or
+                 * `corporate_trade_exchange`.
                  */
                 UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE,
                 /** Code R29. The corporate customer at the receiving bank reversed the transfer. */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                 /** Code R08. The receiving bank stopped payment on this transfer. */
                 PAYMENT_STOPPED,
-                /** Code R20. The receiving bank account does not perform transfers. */
+                /**
+                 * Code R20. The account is not eligible for ACH, such as a savings account with
+                 * transaction limits.
+                 */
                 NON_TRANSACTION_ACCOUNT,
                 /**
                  * Code R09. The receiving bank account does not have enough available balance for
@@ -7735,15 +7745,15 @@ private constructor(
                 /** Code R19. The amount field is incorrect or too large. */
                 AMOUNT_FIELD_ERROR,
                 /**
-                 * Code R07. The customer at the receiving institution informed their bank that they
-                 * have revoked authorization for a previously authorized transfer.
+                 * Code R07. The customer revoked their authorization for a previously authorized
+                 * transfer.
                  */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
                 /** Code R17. The receiving bank is unable to process a field in the transfer. */
                 FILE_RECORD_EDIT_CRITERIA,
-                /** Code R45. The individual name field was invalid. */
+                /** Code R45. A rare return reason. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
                 /**
                  * Code R06. The originating financial institution asked for this transfer to be
@@ -7929,7 +7939,7 @@ private constructor(
                 RETURN_OF_IMPROPER_CREDIT_ENTRY,
                 /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 RETURN_OF_IMPROPER_DEBIT_ENTRY,
-                /** Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry. */
+                /** Code R33. A rare return reason. Return of a destroyed check ("XCK") entry. */
                 RETURN_OF_XCK_ENTRY,
                 /**
                  * Code R37. A rare return reason. The source document related to this ACH, usually
@@ -7980,7 +7990,7 @@ private constructor(
             enum class Value {
                 /**
                  * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated to
-                 * NSF.
+                 * "NSF."
                  */
                 INSUFFICIENT_FUND,
                 /**
@@ -7993,22 +8003,27 @@ private constructor(
                 /** Code R04. The account number is invalid at the receiving bank. */
                 INVALID_ACCOUNT_NUMBER_STRUCTURE,
                 /**
-                 * Code R16. The account at the receiving bank was frozen per the Office of Foreign
-                 * Assets Control.
+                 * Code R16. This return code has two separate meanings. (1) The receiving bank
+                 * froze the account or (2) the Office of Foreign Assets Control (OFAC) instructed
+                 * the receiving bank to return the entry.
                  */
                 ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION,
-                /** Code R23. The receiving bank account refused a credit transfer. */
+                /** Code R23. The receiving bank refused the credit transfer. */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                 /**
                  * Code R05. The receiving bank rejected because of an incorrect Standard Entry
-                 * Class code.
+                 * Class code. Consumer accounts cannot be debited as `corporate_credit_or_debit` or
+                 * `corporate_trade_exchange`.
                  */
                 UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE,
                 /** Code R29. The corporate customer at the receiving bank reversed the transfer. */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                 /** Code R08. The receiving bank stopped payment on this transfer. */
                 PAYMENT_STOPPED,
-                /** Code R20. The receiving bank account does not perform transfers. */
+                /**
+                 * Code R20. The account is not eligible for ACH, such as a savings account with
+                 * transaction limits.
+                 */
                 NON_TRANSACTION_ACCOUNT,
                 /**
                  * Code R09. The receiving bank account does not have enough available balance for
@@ -8022,15 +8037,15 @@ private constructor(
                 /** Code R19. The amount field is incorrect or too large. */
                 AMOUNT_FIELD_ERROR,
                 /**
-                 * Code R07. The customer at the receiving institution informed their bank that they
-                 * have revoked authorization for a previously authorized transfer.
+                 * Code R07. The customer revoked their authorization for a previously authorized
+                 * transfer.
                  */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
                 /** Code R17. The receiving bank is unable to process a field in the transfer. */
                 FILE_RECORD_EDIT_CRITERIA,
-                /** Code R45. The individual name field was invalid. */
+                /** Code R45. A rare return reason. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
                 /**
                  * Code R06. The originating financial institution asked for this transfer to be
@@ -8216,7 +8231,7 @@ private constructor(
                 RETURN_OF_IMPROPER_CREDIT_ENTRY,
                 /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 RETURN_OF_IMPROPER_DEBIT_ENTRY,
-                /** Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry. */
+                /** Code R33. A rare return reason. Return of a destroyed check ("XCK") entry. */
                 RETURN_OF_XCK_ENTRY,
                 /**
                  * Code R37. A rare return reason. The source document related to this ACH, usually
