@@ -12,9 +12,11 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -113,6 +115,14 @@ private constructor(
     fun vendorCsv(): VendorCsv? = body.vendorCsv()
 
     /**
+     * Options for the created export. Required if `category` is equal to `voided_check`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun voidedCheck(): VoidedCheck? = body.voidedCheck()
+
+    /**
      * Returns the raw JSON value of [category].
      *
      * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
@@ -188,6 +198,13 @@ private constructor(
      * Unlike [vendorCsv], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _vendorCsv(): JsonField<VendorCsv> = body._vendorCsv()
+
+    /**
+     * Returns the raw JSON value of [voidedCheck].
+     *
+     * Unlike [voidedCheck], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _voidedCheck(): JsonField<VoidedCheck> = body._voidedCheck()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -399,6 +416,20 @@ private constructor(
          */
         fun vendorCsv(vendorCsv: JsonField<VendorCsv>) = apply { body.vendorCsv(vendorCsv) }
 
+        /** Options for the created export. Required if `category` is equal to `voided_check`. */
+        fun voidedCheck(voidedCheck: VoidedCheck) = apply { body.voidedCheck(voidedCheck) }
+
+        /**
+         * Sets [Builder.voidedCheck] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.voidedCheck] with a well-typed [VoidedCheck] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun voidedCheck(voidedCheck: JsonField<VoidedCheck>) = apply {
+            body.voidedCheck(voidedCheck)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -555,6 +586,7 @@ private constructor(
         private val fundingInstructions: JsonField<FundingInstructions>,
         private val transactionCsv: JsonField<TransactionCsv>,
         private val vendorCsv: JsonField<VendorCsv>,
+        private val voidedCheck: JsonField<VoidedCheck>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -591,6 +623,9 @@ private constructor(
             @JsonProperty("vendor_csv")
             @ExcludeMissing
             vendorCsv: JsonField<VendorCsv> = JsonMissing.of(),
+            @JsonProperty("voided_check")
+            @ExcludeMissing
+            voidedCheck: JsonField<VoidedCheck> = JsonMissing.of(),
         ) : this(
             category,
             accountStatementBai2,
@@ -602,6 +637,7 @@ private constructor(
             fundingInstructions,
             transactionCsv,
             vendorCsv,
+            voidedCheck,
             mutableMapOf(),
         )
 
@@ -694,6 +730,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun vendorCsv(): VendorCsv? = vendorCsv.getNullable("vendor_csv")
+
+        /**
+         * Options for the created export. Required if `category` is equal to `voided_check`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun voidedCheck(): VoidedCheck? = voidedCheck.getNullable("voided_check")
 
         /**
          * Returns the raw JSON value of [category].
@@ -791,6 +835,15 @@ private constructor(
         @ExcludeMissing
         fun _vendorCsv(): JsonField<VendorCsv> = vendorCsv
 
+        /**
+         * Returns the raw JSON value of [voidedCheck].
+         *
+         * Unlike [voidedCheck], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voided_check")
+        @ExcludeMissing
+        fun _voidedCheck(): JsonField<VoidedCheck> = voidedCheck
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -831,6 +884,7 @@ private constructor(
             private var fundingInstructions: JsonField<FundingInstructions> = JsonMissing.of()
             private var transactionCsv: JsonField<TransactionCsv> = JsonMissing.of()
             private var vendorCsv: JsonField<VendorCsv> = JsonMissing.of()
+            private var voidedCheck: JsonField<VoidedCheck> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
@@ -844,6 +898,7 @@ private constructor(
                 fundingInstructions = body.fundingInstructions
                 transactionCsv = body.transactionCsv
                 vendorCsv = body.vendorCsv
+                voidedCheck = body.voidedCheck
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -1006,6 +1061,22 @@ private constructor(
              */
             fun vendorCsv(vendorCsv: JsonField<VendorCsv>) = apply { this.vendorCsv = vendorCsv }
 
+            /**
+             * Options for the created export. Required if `category` is equal to `voided_check`.
+             */
+            fun voidedCheck(voidedCheck: VoidedCheck) = voidedCheck(JsonField.of(voidedCheck))
+
+            /**
+             * Sets [Builder.voidedCheck] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voidedCheck] with a well-typed [VoidedCheck] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voidedCheck(voidedCheck: JsonField<VoidedCheck>) = apply {
+                this.voidedCheck = voidedCheck
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1049,6 +1120,7 @@ private constructor(
                     fundingInstructions,
                     transactionCsv,
                     vendorCsv,
+                    voidedCheck,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1070,6 +1142,7 @@ private constructor(
             fundingInstructions()?.validate()
             transactionCsv()?.validate()
             vendorCsv()?.validate()
+            voidedCheck()?.validate()
             validated = true
         }
 
@@ -1097,7 +1170,8 @@ private constructor(
                 (entityCsv.asKnown()?.validity() ?: 0) +
                 (fundingInstructions.asKnown()?.validity() ?: 0) +
                 (transactionCsv.asKnown()?.validity() ?: 0) +
-                (vendorCsv.asKnown()?.validity() ?: 0)
+                (vendorCsv.asKnown()?.validity() ?: 0) +
+                (voidedCheck.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1115,6 +1189,7 @@ private constructor(
                 fundingInstructions == other.fundingInstructions &&
                 transactionCsv == other.transactionCsv &&
                 vendorCsv == other.vendorCsv &&
+                voidedCheck == other.voidedCheck &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1130,6 +1205,7 @@ private constructor(
                 fundingInstructions,
                 transactionCsv,
                 vendorCsv,
+                voidedCheck,
                 additionalProperties,
             )
         }
@@ -1137,7 +1213,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
+            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, voidedCheck=$voidedCheck, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Export to create. */
@@ -1188,6 +1264,9 @@ private constructor(
             /** A PDF of funding instructions. */
             val FUNDING_INSTRUCTIONS = of("funding_instructions")
 
+            /** A PDF of a voided check. */
+            val VOIDED_CHECK = of("voided_check")
+
             fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -1217,6 +1296,8 @@ private constructor(
             ACCOUNT_VERIFICATION_LETTER,
             /** A PDF of funding instructions. */
             FUNDING_INSTRUCTIONS,
+            /** A PDF of a voided check. */
+            VOIDED_CHECK,
         }
 
         /**
@@ -1253,6 +1334,8 @@ private constructor(
             ACCOUNT_VERIFICATION_LETTER,
             /** A PDF of funding instructions. */
             FUNDING_INSTRUCTIONS,
+            /** A PDF of a voided check. */
+            VOIDED_CHECK,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1275,6 +1358,7 @@ private constructor(
                 VENDOR_CSV -> Value.VENDOR_CSV
                 ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                 FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
+                VOIDED_CHECK -> Value.VOIDED_CHECK
                 else -> Value._UNKNOWN
             }
 
@@ -1298,6 +1382,7 @@ private constructor(
                 VENDOR_CSV -> Known.VENDOR_CSV
                 ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                 FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
+                VOIDED_CHECK -> Known.VOIDED_CHECK
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
@@ -4129,6 +4214,384 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "VendorCsv{additionalProperties=$additionalProperties}"
+    }
+
+    /** Options for the created export. Required if `category` is equal to `voided_check`. */
+    class VoidedCheck
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val payer: JsonField<List<Payer>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
+        ) : this(accountNumberId, payer, mutableMapOf())
+
+        /**
+         * The Account Number for the voided check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * The payer information to be printed on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun payer(): List<Payer>? = payer.getNullable("payer")
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /**
+         * Returns the raw JSON value of [payer].
+         *
+         * Unlike [payer], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("payer") @ExcludeMissing fun _payer(): JsonField<List<Payer>> = payer
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [VoidedCheck].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumberId()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [VoidedCheck]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var payer: JsonField<MutableList<Payer>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(voidedCheck: VoidedCheck) = apply {
+                accountNumberId = voidedCheck.accountNumberId
+                payer = voidedCheck.payer.map { it.toMutableList() }
+                additionalProperties = voidedCheck.additionalProperties.toMutableMap()
+            }
+
+            /** The Account Number for the voided check. */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            /** The payer information to be printed on the check. */
+            fun payer(payer: List<Payer>) = payer(JsonField.of(payer))
+
+            /**
+             * Sets [Builder.payer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.payer] with a well-typed `List<Payer>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun payer(payer: JsonField<List<Payer>>) = apply {
+                this.payer = payer.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Payer] to [Builder.payer].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addPayer(payer: Payer) = apply {
+                this.payer =
+                    (this.payer ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("payer", it).add(payer)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [VoidedCheck].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumberId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): VoidedCheck =
+                VoidedCheck(
+                    checkRequired("accountNumberId", accountNumberId),
+                    (payer ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): VoidedCheck = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            payer()?.forEach { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (accountNumberId.asKnown() == null) 0 else 1) +
+                (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
+
+        class Payer
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val line: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("line") @ExcludeMissing line: JsonField<String> = JsonMissing.of()
+            ) : this(line, mutableMapOf())
+
+            /**
+             * The contents of the line.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun line(): String = line.getRequired("line")
+
+            /**
+             * Returns the raw JSON value of [line].
+             *
+             * Unlike [line], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("line") @ExcludeMissing fun _line(): JsonField<String> = line
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Payer].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .line()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Payer]. */
+            class Builder internal constructor() {
+
+                private var line: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(payer: Payer) = apply {
+                    line = payer.line
+                    additionalProperties = payer.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the line. */
+                fun line(line: String) = line(JsonField.of(line))
+
+                /**
+                 * Sets [Builder.line] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun line(line: JsonField<String>) = apply { this.line = line }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Payer].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .line()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Payer =
+                    Payer(checkRequired("line", line), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Payer = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                line()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (line.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Payer &&
+                    line == other.line &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(line, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Payer{line=$line, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is VoidedCheck &&
+                accountNumberId == other.accountNumberId &&
+                payer == other.payer &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(accountNumberId, payer, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "VoidedCheck{accountNumberId=$accountNumberId, payer=$payer, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
