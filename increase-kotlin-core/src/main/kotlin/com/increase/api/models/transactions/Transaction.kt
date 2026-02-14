@@ -1154,7 +1154,7 @@ private constructor(
         /**
          * A Card Financial object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_financial`. Card Financials are temporary holds placed on a
-         * customers funds with the intent to later clear a transaction.
+         * customer's funds with the intent to later clear a transaction.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1176,7 +1176,7 @@ private constructor(
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
-         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * While they are usually connected to a Card Settlement, an acquirer can also refund money
          * directly to a card without relation to a transaction.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -2231,7 +2231,7 @@ private constructor(
             /**
              * A Card Financial object. This field will be present in the JSON response if and only
              * if `category` is equal to `card_financial`. Card Financials are temporary holds
-             * placed on a customers funds with the intent to later clear a transaction.
+             * placed on a customer's funds with the intent to later clear a transaction.
              */
             fun cardFinancial(cardFinancial: CardFinancial?) =
                 cardFinancial(JsonField.ofNullable(cardFinancial))
@@ -2271,7 +2271,7 @@ private constructor(
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
              * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
-             * While they are usually connected to a Card Settlement an acquirer can also refund
+             * While they are usually connected to a Card Settlement, an acquirer can also refund
              * money directly to a card without relation to a transaction.
              */
             fun cardRefund(cardRefund: CardRefund?) = cardRefund(JsonField.ofNullable(cardRefund))
@@ -8593,7 +8593,7 @@ private constructor(
         /**
          * A Card Financial object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_financial`. Card Financials are temporary holds placed on a
-         * customers funds with the intent to later clear a transaction.
+         * customer's funds with the intent to later clear a transaction.
          */
         class CardFinancial
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -17427,7 +17427,7 @@ private constructor(
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
-         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * While they are usually connected to a Card Settlement, an acquirer can also refund money
          * directly to a card without relation to a transaction.
          */
         class CardRefund
@@ -17579,7 +17579,7 @@ private constructor(
             fun currency(): Currency = currency.getRequired("currency")
 
             /**
-             * Interchange assessed as a part of this transaciton.
+             * Interchange assessed as a part of this transaction.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -18052,7 +18052,7 @@ private constructor(
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-                /** Interchange assessed as a part of this transaciton. */
+                /** Interchange assessed as a part of this transaction. */
                 fun interchange(interchange: Interchange?) =
                     interchange(JsonField.ofNullable(interchange))
 
@@ -18896,7 +18896,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /** Interchange assessed as a part of this transaciton. */
+            /** Interchange assessed as a part of this transaction. */
             class Interchange
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
@@ -27133,8 +27133,8 @@ private constructor(
 
             /**
              * Surcharge amount details, if applicable. The amount is positive if the surcharge is
-             * added to to the overall transaction amount (surcharge), and negative if the surcharge
-             * is deducted from the overall transaction amount (discount).
+             * added to the overall transaction amount (surcharge), and negative if the surcharge is
+             * deducted from the overall transaction amount (discount).
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -27788,7 +27788,7 @@ private constructor(
 
                 /**
                  * Surcharge amount details, if applicable. The amount is positive if the surcharge
-                 * is added to to the overall transaction amount (surcharge), and negative if the
+                 * is added to the overall transaction amount (surcharge), and negative if the
                  * surcharge is deducted from the overall transaction amount (discount).
                  */
                 fun surcharge(surcharge: Surcharge?) = surcharge(JsonField.ofNullable(surcharge))
@@ -35848,8 +35848,8 @@ private constructor(
 
             /**
              * Surcharge amount details, if applicable. The amount is positive if the surcharge is
-             * added to to the overall transaction amount (surcharge), and negative if the surcharge
-             * is deducted from the overall transaction amount (discount).
+             * added to the overall transaction amount (surcharge), and negative if the surcharge is
+             * deducted from the overall transaction amount (discount).
              */
             class Surcharge
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)

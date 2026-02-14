@@ -21,7 +21,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Action a Inbound Mail Item */
+/** Action an Inbound Mail Item */
 class InboundMailItemActionParams
 private constructor(
     private val inboundMailItemId: String?,

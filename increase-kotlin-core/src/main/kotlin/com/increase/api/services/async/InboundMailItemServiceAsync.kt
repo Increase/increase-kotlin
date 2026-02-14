@@ -57,7 +57,7 @@ interface InboundMailItemServiceAsync {
     suspend fun list(requestOptions: RequestOptions): InboundMailItemListPageAsync =
         list(InboundMailItemListParams.none(), requestOptions)
 
-    /** Action a Inbound Mail Item */
+    /** Action an Inbound Mail Item */
     suspend fun action(
         inboundMailItemId: String,
         params: InboundMailItemActionParams,
