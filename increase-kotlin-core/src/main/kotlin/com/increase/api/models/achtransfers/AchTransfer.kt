@@ -383,7 +383,7 @@ private constructor(
     fun individualId(): String? = individualId.getNullable("individual_id")
 
     /**
-     * The name of the transfer recipient. This value is information and not verified by the
+     * The name of the transfer recipient. This value is informational and not verified by the
      * recipient's bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1278,7 +1278,7 @@ private constructor(
         }
 
         /**
-         * The name of the transfer recipient. This value is information and not verified by the
+         * The name of the transfer recipient. This value is informational and not verified by the
          * recipient's bank.
          */
         fun individualName(individualName: String?) =
@@ -9198,7 +9198,7 @@ private constructor(
 
         /**
          * When the transfer is expected to settle in the recipient's account. Credits may be
-         * available sooner, at the receiving banks discretion. The FedACH schedule is published
+         * available sooner, at the receiving bank's discretion. The FedACH schedule is published
          * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -9389,7 +9389,8 @@ private constructor(
 
             /**
              * When the transfer is expected to settle in the recipient's account. Credits may be
-             * available sooner, at the receiving banks discretion. The FedACH schedule is published
+             * available sooner, at the receiving bank's discretion. The FedACH schedule is
+             * published
              * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
              */
             fun expectedFundsSettlementAt(expectedFundsSettlementAt: OffsetDateTime) =
