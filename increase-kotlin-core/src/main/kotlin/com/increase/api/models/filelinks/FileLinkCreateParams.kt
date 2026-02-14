@@ -37,7 +37,7 @@ private constructor(
 
     /**
      * The time at which the File Link will expire. The default is 1 hour from the time of the
-     * request. The maxiumum is 1 day from the time of the request.
+     * request. The maximum is 1 day from the time of the request.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -117,7 +117,7 @@ private constructor(
 
         /**
          * The time at which the File Link will expire. The default is 1 hour from the time of the
-         * request. The maxiumum is 1 day from the time of the request.
+         * request. The maximum is 1 day from the time of the request.
          */
         fun expiresAt(expiresAt: OffsetDateTime) = apply { body.expiresAt(expiresAt) }
 
@@ -299,7 +299,7 @@ private constructor(
 
         /**
          * The time at which the File Link will expire. The default is 1 hour from the time of the
-         * request. The maxiumum is 1 day from the time of the request.
+         * request. The maximum is 1 day from the time of the request.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -374,7 +374,7 @@ private constructor(
 
             /**
              * The time at which the File Link will expire. The default is 1 hour from the time of
-             * the request. The maxiumum is 1 day from the time of the request.
+             * the request. The maximum is 1 day from the time of the request.
              */
             fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
 

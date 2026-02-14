@@ -5848,7 +5848,7 @@ private constructor(
             updatedAccountNumber.getNullable("updated_account_number")
 
         /**
-         * The new account number provided in the notification of change.
+         * The new routing number provided in the notification of change.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5930,7 +5930,7 @@ private constructor(
                 this.updatedAccountNumber = updatedAccountNumber
             }
 
-            /** The new account number provided in the notification of change. */
+            /** The new routing number provided in the notification of change. */
             fun updatedRoutingNumber(updatedRoutingNumber: String?) =
                 updatedRoutingNumber(JsonField.ofNullable(updatedRoutingNumber))
 
