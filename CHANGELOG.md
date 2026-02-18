@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.423.0 (2026-02-18)
+
+Full Changelog: [v0.422.0...v0.423.0](https://github.com/Increase/increase-kotlin/compare/v0.422.0...v0.423.0)
+
+### Features
+
+* **api:** api update ([a429dac](https://github.com/Increase/increase-kotlin/commit/a429dac22a7b7156b9f8774100f1e803cf13444a))
+
+
+### Chores
+
+* **internal:** remove unnecessary base URL ([63a7c69](https://github.com/Increase/increase-kotlin/commit/63a7c6972d28e2d1433d169938a36cfcee72e3ae))
+* **internal:** update `TestServerExtension` comment ([6541b8c](https://github.com/Increase/increase-kotlin/commit/6541b8cc89036a33658e9b78b8062bd27ffc6d5a))
+
 ## 0.422.0 (2026-02-14)
 
 Full Changelog: [v0.421.0...v0.422.0](https://github.com/Increase/increase-kotlin/compare/v0.421.0...v0.422.0)
