@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.424.0 (2026-02-18)
+
+Full Changelog: [v0.423.0...v0.424.0](https://github.com/Increase/increase-kotlin/compare/v0.423.0...v0.424.0)
+
+### Features
+
+* **client:** add connection pooling option ([fce7f09](https://github.com/Increase/increase-kotlin/commit/fce7f09dca7663fdfe7867e12064e2ded5beac5b))
+
+
+### Chores
+
+* **internal:** make `OkHttp` constructor internal ([6f749b4](https://github.com/Increase/increase-kotlin/commit/6f749b4bedaa89e298aef875754c693b0380d135))
+
 ## 0.423.0 (2026-02-18)
 
 Full Changelog: [v0.422.0...v0.423.0](https://github.com/Increase/increase-kotlin/compare/v0.422.0...v0.423.0)
