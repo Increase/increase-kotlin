@@ -2043,6 +2043,9 @@ private constructor(
                 /** The check was rejected at the user's request. */
                 val REQUESTED_BY_USER = of("requested_by_user")
 
+                /** The check is not a U.S. domestic check and cannot be processed. */
+                val INTERNATIONAL = of("international")
+
                 /** The check was rejected for an unknown reason. */
                 val UNKNOWN = of("unknown")
 
@@ -2071,6 +2074,8 @@ private constructor(
                 DEPOSIT_WINDOW_EXPIRED,
                 /** The check was rejected at the user's request. */
                 REQUESTED_BY_USER,
+                /** The check is not a U.S. domestic check and cannot be processed. */
+                INTERNATIONAL,
                 /** The check was rejected for an unknown reason. */
                 UNKNOWN,
             }
@@ -2105,6 +2110,8 @@ private constructor(
                 DEPOSIT_WINDOW_EXPIRED,
                 /** The check was rejected at the user's request. */
                 REQUESTED_BY_USER,
+                /** The check is not a U.S. domestic check and cannot be processed. */
+                INTERNATIONAL,
                 /** The check was rejected for an unknown reason. */
                 UNKNOWN,
                 /**
@@ -2132,6 +2139,7 @@ private constructor(
                     SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                     DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
                     REQUESTED_BY_USER -> Value.REQUESTED_BY_USER
+                    INTERNATIONAL -> Value.INTERNATIONAL
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -2157,6 +2165,7 @@ private constructor(
                     SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                     DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
                     REQUESTED_BY_USER -> Known.REQUESTED_BY_USER
+                    INTERNATIONAL -> Known.INTERNATIONAL
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
