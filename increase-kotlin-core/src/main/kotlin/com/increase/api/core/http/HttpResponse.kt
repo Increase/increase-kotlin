@@ -10,6 +10,12 @@ interface HttpResponse : AutoCloseable {
 
     fun headers(): Headers
 
+    /**
+     * Returns the value of the `Idempotent-Replayed` header, or null if there's no such header in
+     * the response.
+     */
+    fun idempotentReplayed(): String? = headers().values("Idempotent-Replayed").firstOrNull()
+
     fun body(): InputStream
 
     interface Handler<T> {
