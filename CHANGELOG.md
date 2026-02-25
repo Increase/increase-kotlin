@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.426.0 (2026-02-25)
+
+Full Changelog: [v0.425.0...v0.426.0](https://github.com/Increase/increase-kotlin/compare/v0.425.0...v0.426.0)
+
+### Features
+
+* **api:** api update ([72ccf21](https://github.com/Increase/increase-kotlin/commit/72ccf2111578c309107e7ef7c66c6fe1ef28feb4))
+* **api:** api update ([47d2a2a](https://github.com/Increase/increase-kotlin/commit/47d2a2a67e9664b487a0913ccfd1364d07ac8cd9))
+* **api:** api update ([6b1b39d](https://github.com/Increase/increase-kotlin/commit/6b1b39d8901eb3048e8ded5c21d8f4b8ea59172c))
+* **api:** api update ([6b4182e](https://github.com/Increase/increase-kotlin/commit/6b4182eff7a353e065e0e8a2d2b1d73d3c84a5a3))
+
+
+### Chores
+
+* drop apache dependency ([d4dae1f](https://github.com/Increase/increase-kotlin/commit/d4dae1fe5ab23a3d22ec9975f2d64318a47f322a))
+* **internal:** expand imports ([7cdfda8](https://github.com/Increase/increase-kotlin/commit/7cdfda865a168a3be4e89e5b366e4af192b820b2))
+* make `Properties` more resilient to `null` ([aa07027](https://github.com/Increase/increase-kotlin/commit/aa070279756e9098beb7e07016794a00161ca7c9))
+
 ## 0.425.0 (2026-02-23)
 
 Full Changelog: [v0.424.0...v0.425.0](https://github.com/Increase/increase-kotlin/compare/v0.424.0...v0.425.0)
