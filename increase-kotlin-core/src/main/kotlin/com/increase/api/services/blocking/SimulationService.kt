@@ -6,6 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.services.blocking.simulations.AccountStatementService
 import com.increase.api.services.blocking.simulations.AccountTransferService
 import com.increase.api.services.blocking.simulations.AchTransferService
+import com.increase.api.services.blocking.simulations.CardAuthenticationService
 import com.increase.api.services.blocking.simulations.CardAuthorizationExpirationService
 import com.increase.api.services.blocking.simulations.CardAuthorizationService
 import com.increase.api.services.blocking.simulations.CardBalanceInquiryService
@@ -68,6 +69,8 @@ interface SimulationService {
     fun cardFuelConfirmations(): CardFuelConfirmationService
 
     fun cardRefunds(): CardRefundService
+
+    fun cardAuthentications(): CardAuthenticationService
 
     fun cardDisputes(): CardDisputeService
 
@@ -142,6 +145,8 @@ interface SimulationService {
         fun cardFuelConfirmations(): CardFuelConfirmationService.WithRawResponse
 
         fun cardRefunds(): CardRefundService.WithRawResponse
+
+        fun cardAuthentications(): CardAuthenticationService.WithRawResponse
 
         fun cardDisputes(): CardDisputeService.WithRawResponse
 
