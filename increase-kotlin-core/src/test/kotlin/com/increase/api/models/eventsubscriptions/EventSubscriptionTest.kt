@@ -18,6 +18,13 @@ internal class EventSubscriptionTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .oauthConnectionId(null)
+                .addSelectedEventCategory(
+                    EventSubscription.SelectedEventCategory.builder()
+                        .eventCategory(
+                            EventSubscription.SelectedEventCategory.EventCategory.ACCOUNT_CREATED
+                        )
+                        .build()
+                )
                 .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -30,6 +37,14 @@ internal class EventSubscriptionTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(eventSubscription.idempotencyKey()).isNull()
         assertThat(eventSubscription.oauthConnectionId()).isNull()
+        assertThat(eventSubscription.selectedEventCategories())
+            .containsExactly(
+                EventSubscription.SelectedEventCategory.builder()
+                    .eventCategory(
+                        EventSubscription.SelectedEventCategory.EventCategory.ACCOUNT_CREATED
+                    )
+                    .build()
+            )
         assertThat(eventSubscription.selectedEventCategory()).isNull()
         assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.type()).isEqualTo(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -45,6 +60,13 @@ internal class EventSubscriptionTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .oauthConnectionId(null)
+                .addSelectedEventCategory(
+                    EventSubscription.SelectedEventCategory.builder()
+                        .eventCategory(
+                            EventSubscription.SelectedEventCategory.EventCategory.ACCOUNT_CREATED
+                        )
+                        .build()
+                )
                 .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
