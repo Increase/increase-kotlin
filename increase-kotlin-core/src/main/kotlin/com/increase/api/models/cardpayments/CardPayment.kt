@@ -1668,6 +1668,13 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val id: JsonField<String>,
+            private val billingAddressCity: JsonField<String>,
+            private val billingAddressCountry: JsonField<String>,
+            private val billingAddressLine1: JsonField<String>,
+            private val billingAddressLine2: JsonField<String>,
+            private val billingAddressLine3: JsonField<String>,
+            private val billingAddressPostalCode: JsonField<String>,
+            private val billingAddressState: JsonField<String>,
             private val cardId: JsonField<String>,
             private val cardPaymentId: JsonField<String>,
             private val cardholderEmail: JsonField<String>,
@@ -1692,6 +1699,27 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_city")
+                @ExcludeMissing
+                billingAddressCity: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_country")
+                @ExcludeMissing
+                billingAddressCountry: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_line1")
+                @ExcludeMissing
+                billingAddressLine1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_line2")
+                @ExcludeMissing
+                billingAddressLine2: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_line3")
+                @ExcludeMissing
+                billingAddressLine3: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_postal_code")
+                @ExcludeMissing
+                billingAddressPostalCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("billing_address_state")
+                @ExcludeMissing
+                billingAddressState: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("card_id")
                 @ExcludeMissing
                 cardId: JsonField<String> = JsonMissing.of(),
@@ -1746,6 +1774,13 @@ private constructor(
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(
                 id,
+                billingAddressCity,
+                billingAddressCountry,
+                billingAddressLine1,
+                billingAddressLine2,
+                billingAddressLine3,
+                billingAddressPostalCode,
+                billingAddressState,
                 cardId,
                 cardPaymentId,
                 cardholderEmail,
@@ -1775,6 +1810,76 @@ private constructor(
              *   value).
              */
             fun id(): String = id.getRequired("id")
+
+            /**
+             * The city of the cardholder billing address associated with the card used for this
+             * purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressCity(): String? =
+                billingAddressCity.getNullable("billing_address_city")
+
+            /**
+             * The country of the cardholder billing address associated with the card used for this
+             * purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressCountry(): String? =
+                billingAddressCountry.getNullable("billing_address_country")
+
+            /**
+             * The first line of the cardholder billing address associated with the card used for
+             * this purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressLine1(): String? =
+                billingAddressLine1.getNullable("billing_address_line1")
+
+            /**
+             * The second line of the cardholder billing address associated with the card used for
+             * this purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressLine2(): String? =
+                billingAddressLine2.getNullable("billing_address_line2")
+
+            /**
+             * The third line of the cardholder billing address associated with the card used for
+             * this purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressLine3(): String? =
+                billingAddressLine3.getNullable("billing_address_line3")
+
+            /**
+             * The postal code of the cardholder billing address associated with the card used for
+             * this purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressPostalCode(): String? =
+                billingAddressPostalCode.getNullable("billing_address_postal_code")
+
+            /**
+             * The US state of the cardholder billing address associated with the card used for this
+             * purchase.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun billingAddressState(): String? =
+                billingAddressState.getNullable("billing_address_state")
 
             /**
              * The identifier of the Card.
@@ -1944,6 +2049,76 @@ private constructor(
              * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+            /**
+             * Returns the raw JSON value of [billingAddressCity].
+             *
+             * Unlike [billingAddressCity], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_city")
+            @ExcludeMissing
+            fun _billingAddressCity(): JsonField<String> = billingAddressCity
+
+            /**
+             * Returns the raw JSON value of [billingAddressCountry].
+             *
+             * Unlike [billingAddressCountry], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_country")
+            @ExcludeMissing
+            fun _billingAddressCountry(): JsonField<String> = billingAddressCountry
+
+            /**
+             * Returns the raw JSON value of [billingAddressLine1].
+             *
+             * Unlike [billingAddressLine1], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_line1")
+            @ExcludeMissing
+            fun _billingAddressLine1(): JsonField<String> = billingAddressLine1
+
+            /**
+             * Returns the raw JSON value of [billingAddressLine2].
+             *
+             * Unlike [billingAddressLine2], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_line2")
+            @ExcludeMissing
+            fun _billingAddressLine2(): JsonField<String> = billingAddressLine2
+
+            /**
+             * Returns the raw JSON value of [billingAddressLine3].
+             *
+             * Unlike [billingAddressLine3], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_line3")
+            @ExcludeMissing
+            fun _billingAddressLine3(): JsonField<String> = billingAddressLine3
+
+            /**
+             * Returns the raw JSON value of [billingAddressPostalCode].
+             *
+             * Unlike [billingAddressPostalCode], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_postal_code")
+            @ExcludeMissing
+            fun _billingAddressPostalCode(): JsonField<String> = billingAddressPostalCode
+
+            /**
+             * Returns the raw JSON value of [billingAddressState].
+             *
+             * Unlike [billingAddressState], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("billing_address_state")
+            @ExcludeMissing
+            fun _billingAddressState(): JsonField<String> = billingAddressState
 
             /**
              * Returns the raw JSON value of [cardId].
@@ -2136,6 +2311,13 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .id()
+                 * .billingAddressCity()
+                 * .billingAddressCountry()
+                 * .billingAddressLine1()
+                 * .billingAddressLine2()
+                 * .billingAddressLine3()
+                 * .billingAddressPostalCode()
+                 * .billingAddressState()
                  * .cardId()
                  * .cardPaymentId()
                  * .cardholderEmail()
@@ -2163,6 +2345,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var id: JsonField<String>? = null
+                private var billingAddressCity: JsonField<String>? = null
+                private var billingAddressCountry: JsonField<String>? = null
+                private var billingAddressLine1: JsonField<String>? = null
+                private var billingAddressLine2: JsonField<String>? = null
+                private var billingAddressLine3: JsonField<String>? = null
+                private var billingAddressPostalCode: JsonField<String>? = null
+                private var billingAddressState: JsonField<String>? = null
                 private var cardId: JsonField<String>? = null
                 private var cardPaymentId: JsonField<String>? = null
                 private var cardholderEmail: JsonField<String>? = null
@@ -2185,6 +2374,13 @@ private constructor(
 
                 internal fun from(cardAuthentication: CardAuthentication) = apply {
                     id = cardAuthentication.id
+                    billingAddressCity = cardAuthentication.billingAddressCity
+                    billingAddressCountry = cardAuthentication.billingAddressCountry
+                    billingAddressLine1 = cardAuthentication.billingAddressLine1
+                    billingAddressLine2 = cardAuthentication.billingAddressLine2
+                    billingAddressLine3 = cardAuthentication.billingAddressLine3
+                    billingAddressPostalCode = cardAuthentication.billingAddressPostalCode
+                    billingAddressState = cardAuthentication.billingAddressState
                     cardId = cardAuthentication.cardId
                     cardPaymentId = cardAuthentication.cardPaymentId
                     cardholderEmail = cardAuthentication.cardholderEmail
@@ -2217,6 +2413,132 @@ private constructor(
                  * supported value.
                  */
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /**
+                 * The city of the cardholder billing address associated with the card used for this
+                 * purchase.
+                 */
+                fun billingAddressCity(billingAddressCity: String?) =
+                    billingAddressCity(JsonField.ofNullable(billingAddressCity))
+
+                /**
+                 * Sets [Builder.billingAddressCity] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressCity] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun billingAddressCity(billingAddressCity: JsonField<String>) = apply {
+                    this.billingAddressCity = billingAddressCity
+                }
+
+                /**
+                 * The country of the cardholder billing address associated with the card used for
+                 * this purchase.
+                 */
+                fun billingAddressCountry(billingAddressCountry: String?) =
+                    billingAddressCountry(JsonField.ofNullable(billingAddressCountry))
+
+                /**
+                 * Sets [Builder.billingAddressCountry] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressCountry] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun billingAddressCountry(billingAddressCountry: JsonField<String>) = apply {
+                    this.billingAddressCountry = billingAddressCountry
+                }
+
+                /**
+                 * The first line of the cardholder billing address associated with the card used
+                 * for this purchase.
+                 */
+                fun billingAddressLine1(billingAddressLine1: String?) =
+                    billingAddressLine1(JsonField.ofNullable(billingAddressLine1))
+
+                /**
+                 * Sets [Builder.billingAddressLine1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressLine1] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun billingAddressLine1(billingAddressLine1: JsonField<String>) = apply {
+                    this.billingAddressLine1 = billingAddressLine1
+                }
+
+                /**
+                 * The second line of the cardholder billing address associated with the card used
+                 * for this purchase.
+                 */
+                fun billingAddressLine2(billingAddressLine2: String?) =
+                    billingAddressLine2(JsonField.ofNullable(billingAddressLine2))
+
+                /**
+                 * Sets [Builder.billingAddressLine2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressLine2] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun billingAddressLine2(billingAddressLine2: JsonField<String>) = apply {
+                    this.billingAddressLine2 = billingAddressLine2
+                }
+
+                /**
+                 * The third line of the cardholder billing address associated with the card used
+                 * for this purchase.
+                 */
+                fun billingAddressLine3(billingAddressLine3: String?) =
+                    billingAddressLine3(JsonField.ofNullable(billingAddressLine3))
+
+                /**
+                 * Sets [Builder.billingAddressLine3] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressLine3] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun billingAddressLine3(billingAddressLine3: JsonField<String>) = apply {
+                    this.billingAddressLine3 = billingAddressLine3
+                }
+
+                /**
+                 * The postal code of the cardholder billing address associated with the card used
+                 * for this purchase.
+                 */
+                fun billingAddressPostalCode(billingAddressPostalCode: String?) =
+                    billingAddressPostalCode(JsonField.ofNullable(billingAddressPostalCode))
+
+                /**
+                 * Sets [Builder.billingAddressPostalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressPostalCode] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun billingAddressPostalCode(billingAddressPostalCode: JsonField<String>) = apply {
+                    this.billingAddressPostalCode = billingAddressPostalCode
+                }
+
+                /**
+                 * The US state of the cardholder billing address associated with the card used for
+                 * this purchase.
+                 */
+                fun billingAddressState(billingAddressState: String?) =
+                    billingAddressState(JsonField.ofNullable(billingAddressState))
+
+                /**
+                 * Sets [Builder.billingAddressState] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.billingAddressState] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun billingAddressState(billingAddressState: JsonField<String>) = apply {
+                    this.billingAddressState = billingAddressState
+                }
 
                 /** The identifier of the Card. */
                 fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -2528,6 +2850,13 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .id()
+                 * .billingAddressCity()
+                 * .billingAddressCountry()
+                 * .billingAddressLine1()
+                 * .billingAddressLine2()
+                 * .billingAddressLine3()
+                 * .billingAddressPostalCode()
+                 * .billingAddressState()
                  * .cardId()
                  * .cardPaymentId()
                  * .cardholderEmail()
@@ -2553,6 +2882,13 @@ private constructor(
                 fun build(): CardAuthentication =
                     CardAuthentication(
                         checkRequired("id", id),
+                        checkRequired("billingAddressCity", billingAddressCity),
+                        checkRequired("billingAddressCountry", billingAddressCountry),
+                        checkRequired("billingAddressLine1", billingAddressLine1),
+                        checkRequired("billingAddressLine2", billingAddressLine2),
+                        checkRequired("billingAddressLine3", billingAddressLine3),
+                        checkRequired("billingAddressPostalCode", billingAddressPostalCode),
+                        checkRequired("billingAddressState", billingAddressState),
                         checkRequired("cardId", cardId),
                         checkRequired("cardPaymentId", cardPaymentId),
                         checkRequired("cardholderEmail", cardholderEmail),
@@ -2583,6 +2919,13 @@ private constructor(
                 }
 
                 id()
+                billingAddressCity()
+                billingAddressCountry()
+                billingAddressLine1()
+                billingAddressLine2()
+                billingAddressLine3()
+                billingAddressPostalCode()
+                billingAddressState()
                 cardId()
                 cardPaymentId()
                 cardholderEmail()
@@ -2620,6 +2963,13 @@ private constructor(
              */
             internal fun validity(): Int =
                 (if (id.asKnown() == null) 0 else 1) +
+                    (if (billingAddressCity.asKnown() == null) 0 else 1) +
+                    (if (billingAddressCountry.asKnown() == null) 0 else 1) +
+                    (if (billingAddressLine1.asKnown() == null) 0 else 1) +
+                    (if (billingAddressLine2.asKnown() == null) 0 else 1) +
+                    (if (billingAddressLine3.asKnown() == null) 0 else 1) +
+                    (if (billingAddressPostalCode.asKnown() == null) 0 else 1) +
+                    (if (billingAddressState.asKnown() == null) 0 else 1) +
                     (if (cardId.asKnown() == null) 0 else 1) +
                     (if (cardPaymentId.asKnown() == null) 0 else 1) +
                     (if (cardholderEmail.asKnown() == null) 0 else 1) +
@@ -4339,6 +4689,13 @@ private constructor(
 
                 return other is CardAuthentication &&
                     id == other.id &&
+                    billingAddressCity == other.billingAddressCity &&
+                    billingAddressCountry == other.billingAddressCountry &&
+                    billingAddressLine1 == other.billingAddressLine1 &&
+                    billingAddressLine2 == other.billingAddressLine2 &&
+                    billingAddressLine3 == other.billingAddressLine3 &&
+                    billingAddressPostalCode == other.billingAddressPostalCode &&
+                    billingAddressState == other.billingAddressState &&
                     cardId == other.cardId &&
                     cardPaymentId == other.cardPaymentId &&
                     cardholderEmail == other.cardholderEmail &&
@@ -4363,6 +4720,13 @@ private constructor(
             private val hashCode: Int by lazy {
                 Objects.hash(
                     id,
+                    billingAddressCity,
+                    billingAddressCountry,
+                    billingAddressLine1,
+                    billingAddressLine2,
+                    billingAddressLine3,
+                    billingAddressPostalCode,
+                    billingAddressState,
                     cardId,
                     cardPaymentId,
                     cardholderEmail,
@@ -4388,7 +4752,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthentication{id=$id, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthentication{id=$id, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
