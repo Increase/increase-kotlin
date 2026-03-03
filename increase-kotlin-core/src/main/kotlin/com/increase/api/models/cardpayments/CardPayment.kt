@@ -1670,6 +1670,8 @@ private constructor(
             private val id: JsonField<String>,
             private val cardId: JsonField<String>,
             private val cardPaymentId: JsonField<String>,
+            private val cardholderEmail: JsonField<String>,
+            private val cardholderName: JsonField<String>,
             private val category: JsonField<Category>,
             private val challenge: JsonField<Challenge>,
             private val createdAt: JsonField<OffsetDateTime>,
@@ -1696,6 +1698,12 @@ private constructor(
                 @JsonProperty("card_payment_id")
                 @ExcludeMissing
                 cardPaymentId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("cardholder_email")
+                @ExcludeMissing
+                cardholderEmail: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("cardholder_name")
+                @ExcludeMissing
+                cardholderName: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
@@ -1740,6 +1748,8 @@ private constructor(
                 id,
                 cardId,
                 cardPaymentId,
+                cardholderEmail,
+                cardholderName,
                 category,
                 challenge,
                 createdAt,
@@ -1783,6 +1793,22 @@ private constructor(
              *   value).
              */
             fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+            /**
+             * The email address of the cardholder.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun cardholderEmail(): String? = cardholderEmail.getNullable("cardholder_email")
+
+            /**
+             * The name of the cardholder.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun cardholderName(): String? = cardholderName.getNullable("cardholder_name")
 
             /**
              * The category of the card authentication attempt.
@@ -1935,6 +1961,26 @@ private constructor(
             @JsonProperty("card_payment_id")
             @ExcludeMissing
             fun _cardPaymentId(): JsonField<String> = cardPaymentId
+
+            /**
+             * Returns the raw JSON value of [cardholderEmail].
+             *
+             * Unlike [cardholderEmail], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("cardholder_email")
+            @ExcludeMissing
+            fun _cardholderEmail(): JsonField<String> = cardholderEmail
+
+            /**
+             * Returns the raw JSON value of [cardholderName].
+             *
+             * Unlike [cardholderName], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("cardholder_name")
+            @ExcludeMissing
+            fun _cardholderName(): JsonField<String> = cardholderName
 
             /**
              * Returns the raw JSON value of [category].
@@ -2092,6 +2138,8 @@ private constructor(
                  * .id()
                  * .cardId()
                  * .cardPaymentId()
+                 * .cardholderEmail()
+                 * .cardholderName()
                  * .category()
                  * .challenge()
                  * .createdAt()
@@ -2117,6 +2165,8 @@ private constructor(
                 private var id: JsonField<String>? = null
                 private var cardId: JsonField<String>? = null
                 private var cardPaymentId: JsonField<String>? = null
+                private var cardholderEmail: JsonField<String>? = null
+                private var cardholderName: JsonField<String>? = null
                 private var category: JsonField<Category>? = null
                 private var challenge: JsonField<Challenge>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
@@ -2137,6 +2187,8 @@ private constructor(
                     id = cardAuthentication.id
                     cardId = cardAuthentication.cardId
                     cardPaymentId = cardAuthentication.cardPaymentId
+                    cardholderEmail = cardAuthentication.cardholderEmail
+                    cardholderName = cardAuthentication.cardholderName
                     category = cardAuthentication.category
                     challenge = cardAuthentication.challenge
                     createdAt = cardAuthentication.createdAt
@@ -2191,6 +2243,36 @@ private constructor(
                  */
                 fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                     this.cardPaymentId = cardPaymentId
+                }
+
+                /** The email address of the cardholder. */
+                fun cardholderEmail(cardholderEmail: String?) =
+                    cardholderEmail(JsonField.ofNullable(cardholderEmail))
+
+                /**
+                 * Sets [Builder.cardholderEmail] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.cardholderEmail] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun cardholderEmail(cardholderEmail: JsonField<String>) = apply {
+                    this.cardholderEmail = cardholderEmail
+                }
+
+                /** The name of the cardholder. */
+                fun cardholderName(cardholderName: String?) =
+                    cardholderName(JsonField.ofNullable(cardholderName))
+
+                /**
+                 * Sets [Builder.cardholderName] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.cardholderName] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun cardholderName(cardholderName: JsonField<String>) = apply {
+                    this.cardholderName = cardholderName
                 }
 
                 /** The category of the card authentication attempt. */
@@ -2448,6 +2530,8 @@ private constructor(
                  * .id()
                  * .cardId()
                  * .cardPaymentId()
+                 * .cardholderEmail()
+                 * .cardholderName()
                  * .category()
                  * .challenge()
                  * .createdAt()
@@ -2471,6 +2555,8 @@ private constructor(
                         checkRequired("id", id),
                         checkRequired("cardId", cardId),
                         checkRequired("cardPaymentId", cardPaymentId),
+                        checkRequired("cardholderEmail", cardholderEmail),
+                        checkRequired("cardholderName", cardholderName),
                         checkRequired("category", category),
                         checkRequired("challenge", challenge),
                         checkRequired("createdAt", createdAt),
@@ -2499,6 +2585,8 @@ private constructor(
                 id()
                 cardId()
                 cardPaymentId()
+                cardholderEmail()
+                cardholderName()
                 category()?.validate()
                 challenge()?.validate()
                 createdAt()
@@ -2534,6 +2622,8 @@ private constructor(
                 (if (id.asKnown() == null) 0 else 1) +
                     (if (cardId.asKnown() == null) 0 else 1) +
                     (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (if (cardholderEmail.asKnown() == null) 0 else 1) +
+                    (if (cardholderName.asKnown() == null) 0 else 1) +
                     (category.asKnown()?.validity() ?: 0) +
                     (challenge.asKnown()?.validity() ?: 0) +
                     (if (createdAt.asKnown() == null) 0 else 1) +
@@ -4251,6 +4341,8 @@ private constructor(
                     id == other.id &&
                     cardId == other.cardId &&
                     cardPaymentId == other.cardPaymentId &&
+                    cardholderEmail == other.cardholderEmail &&
+                    cardholderName == other.cardholderName &&
                     category == other.category &&
                     challenge == other.challenge &&
                     createdAt == other.createdAt &&
@@ -4273,6 +4365,8 @@ private constructor(
                     id,
                     cardId,
                     cardPaymentId,
+                    cardholderEmail,
+                    cardholderName,
                     category,
                     challenge,
                     createdAt,
@@ -4294,7 +4388,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthentication{id=$id, cardId=$cardId, cardPaymentId=$cardPaymentId, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthentication{id=$id, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
