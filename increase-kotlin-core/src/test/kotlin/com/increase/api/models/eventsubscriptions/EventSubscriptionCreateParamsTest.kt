@@ -12,8 +12,13 @@ internal class EventSubscriptionCreateParamsTest {
         EventSubscriptionCreateParams.builder()
             .url("https://website.com/webhooks")
             .oauthConnectionId("x")
-            .selectedEventCategory(
-                EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
+            .addSelectedEventCategory(
+                EventSubscriptionCreateParams.SelectedEventCategory.builder()
+                    .eventCategory(
+                        EventSubscriptionCreateParams.SelectedEventCategory.EventCategory
+                            .ACCOUNT_CREATED
+                    )
+                    .build()
             )
             .sharedSecret("x")
             .status(EventSubscriptionCreateParams.Status.ACTIVE)
@@ -26,8 +31,13 @@ internal class EventSubscriptionCreateParamsTest {
             EventSubscriptionCreateParams.builder()
                 .url("https://website.com/webhooks")
                 .oauthConnectionId("x")
-                .selectedEventCategory(
-                    EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
+                .addSelectedEventCategory(
+                    EventSubscriptionCreateParams.SelectedEventCategory.builder()
+                        .eventCategory(
+                            EventSubscriptionCreateParams.SelectedEventCategory.EventCategory
+                                .ACCOUNT_CREATED
+                        )
+                        .build()
                 )
                 .sharedSecret("x")
                 .status(EventSubscriptionCreateParams.Status.ACTIVE)
@@ -37,8 +47,15 @@ internal class EventSubscriptionCreateParamsTest {
 
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
         assertThat(body.oauthConnectionId()).isEqualTo("x")
-        assertThat(body.selectedEventCategory())
-            .isEqualTo(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
+        assertThat(body.selectedEventCategories())
+            .containsExactly(
+                EventSubscriptionCreateParams.SelectedEventCategory.builder()
+                    .eventCategory(
+                        EventSubscriptionCreateParams.SelectedEventCategory.EventCategory
+                            .ACCOUNT_CREATED
+                    )
+                    .build()
+            )
         assertThat(body.sharedSecret()).isEqualTo("x")
         assertThat(body.status()).isEqualTo(EventSubscriptionCreateParams.Status.ACTIVE)
     }
