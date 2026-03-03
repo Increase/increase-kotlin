@@ -9,15 +9,12 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
-import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import com.increase.api.models.entities.EntityUpdateParams
 
 interface EntityServiceAsync {
@@ -115,27 +112,6 @@ interface EntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /**
-     * Depending on your program, you may be required to re-confirm an Entity's details on a
-     * recurring basis. After making any required updates, call this endpoint to record that your
-     * user confirmed their details.
-     */
-    suspend fun confirm(
-        entityId: String,
-        params: EntityConfirmParams = EntityConfirmParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see confirm */
-    suspend fun confirm(
-        params: EntityConfirmParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** @see confirm */
-    suspend fun confirm(entityId: String, requestOptions: RequestOptions): Entity =
-        confirm(entityId, EntityConfirmParams.none(), requestOptions)
-
     /** Create a beneficial owner for a corporate Entity */
     suspend fun createBeneficialOwner(
         entityId: String,
@@ -146,19 +122,6 @@ interface EntityServiceAsync {
     /** @see createBeneficialOwner */
     suspend fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** Update a Natural Person or Corporation's address */
-    suspend fun updateAddress(
-        entityId: String,
-        params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateAddress */
-    suspend fun updateAddress(
-        params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -173,19 +136,6 @@ interface EntityServiceAsync {
     /** @see updateBeneficialOwnerAddress */
     suspend fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** Update the industry code for a corporate Entity */
-    suspend fun updateIndustryCode(
-        entityId: String,
-        params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateIndustryCode */
-    suspend fun updateIndustryCode(
-        params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -326,32 +276,6 @@ interface EntityServiceAsync {
         ): HttpResponseFor<Entity>
 
         /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
-         * the same as [EntityServiceAsync.confirm].
-         */
-        @MustBeClosed
-        suspend fun confirm(
-            entityId: String,
-            params: EntityConfirmParams = EntityConfirmParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see confirm */
-        @MustBeClosed
-        suspend fun confirm(
-            params: EntityConfirmParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /** @see confirm */
-        @MustBeClosed
-        suspend fun confirm(
-            entityId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> = confirm(entityId, EntityConfirmParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
          */
@@ -367,25 +291,6 @@ interface EntityServiceAsync {
         @MustBeClosed
         suspend fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
-         * otherwise the same as [EntityServiceAsync.updateAddress].
-         */
-        @MustBeClosed
-        suspend fun updateAddress(
-            entityId: String,
-            params: EntityUpdateAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see updateAddress */
-        @MustBeClosed
-        suspend fun updateAddress(
-            params: EntityUpdateAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
@@ -409,25 +314,6 @@ interface EntityServiceAsync {
         @MustBeClosed
         suspend fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
-         * otherwise the same as [EntityServiceAsync.updateIndustryCode].
-         */
-        @MustBeClosed
-        suspend fun updateIndustryCode(
-            entityId: String,
-            params: EntityUpdateIndustryCodeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see updateIndustryCode */
-        @MustBeClosed
-        suspend fun updateIndustryCode(
-            params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
     }
