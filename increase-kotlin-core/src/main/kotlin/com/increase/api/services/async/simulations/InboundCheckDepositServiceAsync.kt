@@ -7,6 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAdjustmentParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 
 interface InboundCheckDepositServiceAsync {
@@ -36,6 +37,37 @@ interface InboundCheckDepositServiceAsync {
     ): InboundCheckDeposit
 
     /**
+     * Simulates an adjustment on an Inbound Check Deposit. The Inbound Check Deposit must have a
+     * `status` of `accepted`.
+     */
+    suspend fun adjustment(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositAdjustmentParams = InboundCheckDepositAdjustmentParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit =
+        adjustment(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see adjustment */
+    suspend fun adjustment(
+        params: InboundCheckDepositAdjustmentParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit
+
+    /** @see adjustment */
+    suspend fun adjustment(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): InboundCheckDeposit =
+        adjustment(
+            inboundCheckDepositId,
+            InboundCheckDepositAdjustmentParams.none(),
+            requestOptions,
+        )
+
+    /**
      * A view of [InboundCheckDepositServiceAsync] that provides access to raw HTTP responses for
      * each method.
      */
@@ -59,5 +91,41 @@ interface InboundCheckDepositServiceAsync {
             params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/inbound_check_deposits/{inbound_check_deposit_id}/adjustment`, but is
+         * otherwise the same as [InboundCheckDepositServiceAsync.adjustment].
+         */
+        @MustBeClosed
+        suspend fun adjustment(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositAdjustmentParams =
+                InboundCheckDepositAdjustmentParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit> =
+            adjustment(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see adjustment */
+        @MustBeClosed
+        suspend fun adjustment(
+            params: InboundCheckDepositAdjustmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit>
+
+        /** @see adjustment */
+        @MustBeClosed
+        suspend fun adjustment(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundCheckDeposit> =
+            adjustment(
+                inboundCheckDepositId,
+                InboundCheckDepositAdjustmentParams.none(),
+                requestOptions,
+            )
     }
 }
