@@ -1692,6 +1692,11 @@ private constructor(
             private val purchaseAmount: JsonField<Long>,
             private val purchaseCurrency: JsonField<String>,
             private val realTimeDecisionId: JsonField<String>,
+            private val requestorAuthenticationIndicator:
+                JsonField<RequestorAuthenticationIndicator>,
+            private val requestorChallengeIndicator: JsonField<RequestorChallengeIndicator>,
+            private val requestorName: JsonField<String>,
+            private val requestorUrl: JsonField<String>,
             private val status: JsonField<Status>,
             private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1772,6 +1777,20 @@ private constructor(
                 @JsonProperty("real_time_decision_id")
                 @ExcludeMissing
                 realTimeDecisionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("requestor_authentication_indicator")
+                @ExcludeMissing
+                requestorAuthenticationIndicator: JsonField<RequestorAuthenticationIndicator> =
+                    JsonMissing.of(),
+                @JsonProperty("requestor_challenge_indicator")
+                @ExcludeMissing
+                requestorChallengeIndicator: JsonField<RequestorChallengeIndicator> =
+                    JsonMissing.of(),
+                @JsonProperty("requestor_name")
+                @ExcludeMissing
+                requestorName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("requestor_url")
+                @ExcludeMissing
+                requestorUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("status")
                 @ExcludeMissing
                 status: JsonField<Status> = JsonMissing.of(),
@@ -1802,6 +1821,10 @@ private constructor(
                 purchaseAmount,
                 purchaseCurrency,
                 realTimeDecisionId,
+                requestorAuthenticationIndicator,
+                requestorChallengeIndicator,
+                requestorName,
+                requestorUrl,
                 status,
                 type,
                 mutableMapOf(),
@@ -2039,6 +2062,43 @@ private constructor(
              */
             fun realTimeDecisionId(): String? =
                 realTimeDecisionId.getNullable("real_time_decision_id")
+
+            /**
+             * The 3DS requestor authentication indicator describes why the authentication attempt
+             * is performed, such as for a recurring transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun requestorAuthenticationIndicator(): RequestorAuthenticationIndicator? =
+                requestorAuthenticationIndicator.getNullable("requestor_authentication_indicator")
+
+            /**
+             * Indicates whether a challenge is requested for this transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun requestorChallengeIndicator(): RequestorChallengeIndicator? =
+                requestorChallengeIndicator.getNullable("requestor_challenge_indicator")
+
+            /**
+             * The name of the 3DS requestor.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun requestorName(): String = requestorName.getRequired("requestor_name")
+
+            /**
+             * The URL of the 3DS requestor.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun requestorUrl(): String = requestorUrl.getRequired("requestor_url")
 
             /**
              * The status of the card authentication.
@@ -2304,6 +2364,48 @@ private constructor(
             fun _realTimeDecisionId(): JsonField<String> = realTimeDecisionId
 
             /**
+             * Returns the raw JSON value of [requestorAuthenticationIndicator].
+             *
+             * Unlike [requestorAuthenticationIndicator], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("requestor_authentication_indicator")
+            @ExcludeMissing
+            fun _requestorAuthenticationIndicator(): JsonField<RequestorAuthenticationIndicator> =
+                requestorAuthenticationIndicator
+
+            /**
+             * Returns the raw JSON value of [requestorChallengeIndicator].
+             *
+             * Unlike [requestorChallengeIndicator], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("requestor_challenge_indicator")
+            @ExcludeMissing
+            fun _requestorChallengeIndicator(): JsonField<RequestorChallengeIndicator> =
+                requestorChallengeIndicator
+
+            /**
+             * Returns the raw JSON value of [requestorName].
+             *
+             * Unlike [requestorName], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("requestor_name")
+            @ExcludeMissing
+            fun _requestorName(): JsonField<String> = requestorName
+
+            /**
+             * Returns the raw JSON value of [requestorUrl].
+             *
+             * Unlike [requestorUrl], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("requestor_url")
+            @ExcludeMissing
+            fun _requestorUrl(): JsonField<String> = requestorUrl
+
+            /**
              * Returns the raw JSON value of [status].
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -2361,6 +2463,10 @@ private constructor(
                  * .purchaseAmount()
                  * .purchaseCurrency()
                  * .realTimeDecisionId()
+                 * .requestorAuthenticationIndicator()
+                 * .requestorChallengeIndicator()
+                 * .requestorName()
+                 * .requestorUrl()
                  * .status()
                  * .type()
                  * ```
@@ -2396,6 +2502,13 @@ private constructor(
                 private var purchaseAmount: JsonField<Long>? = null
                 private var purchaseCurrency: JsonField<String>? = null
                 private var realTimeDecisionId: JsonField<String>? = null
+                private var requestorAuthenticationIndicator:
+                    JsonField<RequestorAuthenticationIndicator>? =
+                    null
+                private var requestorChallengeIndicator: JsonField<RequestorChallengeIndicator>? =
+                    null
+                private var requestorName: JsonField<String>? = null
+                private var requestorUrl: JsonField<String>? = null
                 private var status: JsonField<Status>? = null
                 private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -2426,6 +2539,11 @@ private constructor(
                     purchaseAmount = cardAuthentication.purchaseAmount
                     purchaseCurrency = cardAuthentication.purchaseCurrency
                     realTimeDecisionId = cardAuthentication.realTimeDecisionId
+                    requestorAuthenticationIndicator =
+                        cardAuthentication.requestorAuthenticationIndicator
+                    requestorChallengeIndicator = cardAuthentication.requestorChallengeIndicator
+                    requestorName = cardAuthentication.requestorName
+                    requestorUrl = cardAuthentication.requestorUrl
                     status = cardAuthentication.status
                     type = cardAuthentication.type
                     additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
@@ -2841,6 +2959,75 @@ private constructor(
                     this.realTimeDecisionId = realTimeDecisionId
                 }
 
+                /**
+                 * The 3DS requestor authentication indicator describes why the authentication
+                 * attempt is performed, such as for a recurring transaction.
+                 */
+                fun requestorAuthenticationIndicator(
+                    requestorAuthenticationIndicator: RequestorAuthenticationIndicator?
+                ) =
+                    requestorAuthenticationIndicator(
+                        JsonField.ofNullable(requestorAuthenticationIndicator)
+                    )
+
+                /**
+                 * Sets [Builder.requestorAuthenticationIndicator] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.requestorAuthenticationIndicator] with a
+                 * well-typed [RequestorAuthenticationIndicator] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun requestorAuthenticationIndicator(
+                    requestorAuthenticationIndicator: JsonField<RequestorAuthenticationIndicator>
+                ) = apply {
+                    this.requestorAuthenticationIndicator = requestorAuthenticationIndicator
+                }
+
+                /** Indicates whether a challenge is requested for this transaction. */
+                fun requestorChallengeIndicator(
+                    requestorChallengeIndicator: RequestorChallengeIndicator?
+                ) = requestorChallengeIndicator(JsonField.ofNullable(requestorChallengeIndicator))
+
+                /**
+                 * Sets [Builder.requestorChallengeIndicator] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.requestorChallengeIndicator] with a well-typed
+                 * [RequestorChallengeIndicator] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun requestorChallengeIndicator(
+                    requestorChallengeIndicator: JsonField<RequestorChallengeIndicator>
+                ) = apply { this.requestorChallengeIndicator = requestorChallengeIndicator }
+
+                /** The name of the 3DS requestor. */
+                fun requestorName(requestorName: String) =
+                    requestorName(JsonField.of(requestorName))
+
+                /**
+                 * Sets [Builder.requestorName] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.requestorName] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun requestorName(requestorName: JsonField<String>) = apply {
+                    this.requestorName = requestorName
+                }
+
+                /** The URL of the 3DS requestor. */
+                fun requestorUrl(requestorUrl: String) = requestorUrl(JsonField.of(requestorUrl))
+
+                /**
+                 * Sets [Builder.requestorUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.requestorUrl] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun requestorUrl(requestorUrl: JsonField<String>) = apply {
+                    this.requestorUrl = requestorUrl
+                }
+
                 /** The status of the card authentication. */
                 fun status(status: Status) = status(JsonField.of(status))
 
@@ -2922,6 +3109,10 @@ private constructor(
                  * .purchaseAmount()
                  * .purchaseCurrency()
                  * .realTimeDecisionId()
+                 * .requestorAuthenticationIndicator()
+                 * .requestorChallengeIndicator()
+                 * .requestorName()
+                 * .requestorUrl()
                  * .status()
                  * .type()
                  * ```
@@ -2955,6 +3146,13 @@ private constructor(
                         checkRequired("purchaseAmount", purchaseAmount),
                         checkRequired("purchaseCurrency", purchaseCurrency),
                         checkRequired("realTimeDecisionId", realTimeDecisionId),
+                        checkRequired(
+                            "requestorAuthenticationIndicator",
+                            requestorAuthenticationIndicator,
+                        ),
+                        checkRequired("requestorChallengeIndicator", requestorChallengeIndicator),
+                        checkRequired("requestorName", requestorName),
+                        checkRequired("requestorUrl", requestorUrl),
                         checkRequired("status", status),
                         checkRequired("type", type),
                         additionalProperties.toMutableMap(),
@@ -2993,6 +3191,10 @@ private constructor(
                 purchaseAmount()
                 purchaseCurrency()
                 realTimeDecisionId()
+                requestorAuthenticationIndicator()?.validate()
+                requestorChallengeIndicator()?.validate()
+                requestorName()
+                requestorUrl()
                 status().validate()
                 type().validate()
                 validated = true
@@ -3038,6 +3240,10 @@ private constructor(
                     (if (purchaseAmount.asKnown() == null) 0 else 1) +
                     (if (purchaseCurrency.asKnown() == null) 0 else 1) +
                     (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
+                    (requestorAuthenticationIndicator.asKnown()?.validity() ?: 0) +
+                    (requestorChallengeIndicator.asKnown()?.validity() ?: 0) +
+                    (if (requestorName.asKnown() == null) 0 else 1) +
+                    (if (requestorUrl.asKnown() == null) 0 else 1) +
                     (status.asKnown()?.validity() ?: 0) +
                     (type.asKnown()?.validity() ?: 0)
 
@@ -5133,6 +5339,439 @@ private constructor(
                     "DeviceChannel{browser=$browser, category=$category, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * The 3DS requestor authentication indicator describes why the authentication attempt
+             * is performed, such as for a recurring transaction.
+             */
+            class RequestorAuthenticationIndicator
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The authentication is for a payment transaction. */
+                    val PAYMENT_TRANSACTION = of("payment_transaction")
+
+                    /** The authentication is for a recurring transaction. */
+                    val RECURRING_TRANSACTION = of("recurring_transaction")
+
+                    /** The authentication is for an installment transaction. */
+                    val INSTALLMENT_TRANSACTION = of("installment_transaction")
+
+                    /** The authentication is for adding a card. */
+                    val ADD_CARD = of("add_card")
+
+                    /** The authentication is for maintaining a card. */
+                    val MAINTAIN_CARD = of("maintain_card")
+
+                    /** The authentication is for EMV token cardholder verification. */
+                    val EMV_TOKEN_CARDHOLDER_VERIFICATION = of("emv_token_cardholder_verification")
+
+                    /** The authentication is for a billing agreement. */
+                    val BILLING_AGREEMENT = of("billing_agreement")
+
+                    fun of(value: String) = RequestorAuthenticationIndicator(JsonField.of(value))
+                }
+
+                /** An enum containing [RequestorAuthenticationIndicator]'s known values. */
+                enum class Known {
+                    /** The authentication is for a payment transaction. */
+                    PAYMENT_TRANSACTION,
+                    /** The authentication is for a recurring transaction. */
+                    RECURRING_TRANSACTION,
+                    /** The authentication is for an installment transaction. */
+                    INSTALLMENT_TRANSACTION,
+                    /** The authentication is for adding a card. */
+                    ADD_CARD,
+                    /** The authentication is for maintaining a card. */
+                    MAINTAIN_CARD,
+                    /** The authentication is for EMV token cardholder verification. */
+                    EMV_TOKEN_CARDHOLDER_VERIFICATION,
+                    /** The authentication is for a billing agreement. */
+                    BILLING_AGREEMENT,
+                }
+
+                /**
+                 * An enum containing [RequestorAuthenticationIndicator]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [RequestorAuthenticationIndicator] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The authentication is for a payment transaction. */
+                    PAYMENT_TRANSACTION,
+                    /** The authentication is for a recurring transaction. */
+                    RECURRING_TRANSACTION,
+                    /** The authentication is for an installment transaction. */
+                    INSTALLMENT_TRANSACTION,
+                    /** The authentication is for adding a card. */
+                    ADD_CARD,
+                    /** The authentication is for maintaining a card. */
+                    MAINTAIN_CARD,
+                    /** The authentication is for EMV token cardholder verification. */
+                    EMV_TOKEN_CARDHOLDER_VERIFICATION,
+                    /** The authentication is for a billing agreement. */
+                    BILLING_AGREEMENT,
+                    /**
+                     * An enum member indicating that [RequestorAuthenticationIndicator] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PAYMENT_TRANSACTION -> Value.PAYMENT_TRANSACTION
+                        RECURRING_TRANSACTION -> Value.RECURRING_TRANSACTION
+                        INSTALLMENT_TRANSACTION -> Value.INSTALLMENT_TRANSACTION
+                        ADD_CARD -> Value.ADD_CARD
+                        MAINTAIN_CARD -> Value.MAINTAIN_CARD
+                        EMV_TOKEN_CARDHOLDER_VERIFICATION -> Value.EMV_TOKEN_CARDHOLDER_VERIFICATION
+                        BILLING_AGREEMENT -> Value.BILLING_AGREEMENT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PAYMENT_TRANSACTION -> Known.PAYMENT_TRANSACTION
+                        RECURRING_TRANSACTION -> Known.RECURRING_TRANSACTION
+                        INSTALLMENT_TRANSACTION -> Known.INSTALLMENT_TRANSACTION
+                        ADD_CARD -> Known.ADD_CARD
+                        MAINTAIN_CARD -> Known.MAINTAIN_CARD
+                        EMV_TOKEN_CARDHOLDER_VERIFICATION -> Known.EMV_TOKEN_CARDHOLDER_VERIFICATION
+                        BILLING_AGREEMENT -> Known.BILLING_AGREEMENT
+                        else ->
+                            throw IncreaseInvalidDataException(
+                                "Unknown RequestorAuthenticationIndicator: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): RequestorAuthenticationIndicator = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is RequestorAuthenticationIndicator && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Indicates whether a challenge is requested for this transaction. */
+            class RequestorChallengeIndicator
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** No preference. */
+                    val NO_PREFERENCE = of("no_preference")
+
+                    /** No challenge requested. */
+                    val NO_CHALLENGE_REQUESTED = of("no_challenge_requested")
+
+                    /** Challenge requested, 3DS Requestor preference. */
+                    val CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE =
+                        of("challenge_requested_3ds_requestor_preference")
+
+                    /** Challenge requested, mandate. */
+                    val CHALLENGE_REQUESTED_MANDATE = of("challenge_requested_mandate")
+
+                    /** No challenge requested, transactional risk analysis already performed. */
+                    val NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED =
+                        of("no_challenge_requested_transactional_risk_analysis_already_performed")
+
+                    /** No challenge requested, data share only. */
+                    val NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY =
+                        of("no_challenge_requested_data_share_only")
+
+                    /** No challenge requested, strong consumer authentication already performed. */
+                    val NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED =
+                        of(
+                            "no_challenge_requested_strong_consumer_authentication_already_performed"
+                        )
+
+                    /**
+                     * No challenge requested, utilize whitelist exemption if no challenge required.
+                     */
+                    val NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED =
+                        of(
+                            "no_challenge_requested_utilize_whitelist_exemption_if_no_challenge_required"
+                        )
+
+                    /** Challenge requested, whitelist prompt requested if challenge required. */
+                    val CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED =
+                        of("challenge_requested_whitelist_prompt_requested_if_challenge_required")
+
+                    fun of(value: String) = RequestorChallengeIndicator(JsonField.of(value))
+                }
+
+                /** An enum containing [RequestorChallengeIndicator]'s known values. */
+                enum class Known {
+                    /** No preference. */
+                    NO_PREFERENCE,
+                    /** No challenge requested. */
+                    NO_CHALLENGE_REQUESTED,
+                    /** Challenge requested, 3DS Requestor preference. */
+                    CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE,
+                    /** Challenge requested, mandate. */
+                    CHALLENGE_REQUESTED_MANDATE,
+                    /** No challenge requested, transactional risk analysis already performed. */
+                    NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED,
+                    /** No challenge requested, data share only. */
+                    NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY,
+                    /** No challenge requested, strong consumer authentication already performed. */
+                    NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED,
+                    /**
+                     * No challenge requested, utilize whitelist exemption if no challenge required.
+                     */
+                    NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED,
+                    /** Challenge requested, whitelist prompt requested if challenge required. */
+                    CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED,
+                }
+
+                /**
+                 * An enum containing [RequestorChallengeIndicator]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [RequestorChallengeIndicator] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** No preference. */
+                    NO_PREFERENCE,
+                    /** No challenge requested. */
+                    NO_CHALLENGE_REQUESTED,
+                    /** Challenge requested, 3DS Requestor preference. */
+                    CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE,
+                    /** Challenge requested, mandate. */
+                    CHALLENGE_REQUESTED_MANDATE,
+                    /** No challenge requested, transactional risk analysis already performed. */
+                    NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED,
+                    /** No challenge requested, data share only. */
+                    NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY,
+                    /** No challenge requested, strong consumer authentication already performed. */
+                    NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED,
+                    /**
+                     * No challenge requested, utilize whitelist exemption if no challenge required.
+                     */
+                    NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED,
+                    /** Challenge requested, whitelist prompt requested if challenge required. */
+                    CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED,
+                    /**
+                     * An enum member indicating that [RequestorChallengeIndicator] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        NO_PREFERENCE -> Value.NO_PREFERENCE
+                        NO_CHALLENGE_REQUESTED -> Value.NO_CHALLENGE_REQUESTED
+                        CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE ->
+                            Value.CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE
+                        CHALLENGE_REQUESTED_MANDATE -> Value.CHALLENGE_REQUESTED_MANDATE
+                        NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED ->
+                            Value
+                                .NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED
+                        NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY ->
+                            Value.NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY
+                        NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED ->
+                            Value
+                                .NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED
+                        NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED ->
+                            Value
+                                .NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED
+                        CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED ->
+                            Value
+                                .CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        NO_PREFERENCE -> Known.NO_PREFERENCE
+                        NO_CHALLENGE_REQUESTED -> Known.NO_CHALLENGE_REQUESTED
+                        CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE ->
+                            Known.CHALLENGE_REQUESTED_3DS_REQUESTOR_PREFERENCE
+                        CHALLENGE_REQUESTED_MANDATE -> Known.CHALLENGE_REQUESTED_MANDATE
+                        NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED ->
+                            Known
+                                .NO_CHALLENGE_REQUESTED_TRANSACTIONAL_RISK_ANALYSIS_ALREADY_PERFORMED
+                        NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY ->
+                            Known.NO_CHALLENGE_REQUESTED_DATA_SHARE_ONLY
+                        NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED ->
+                            Known
+                                .NO_CHALLENGE_REQUESTED_STRONG_CONSUMER_AUTHENTICATION_ALREADY_PERFORMED
+                        NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED ->
+                            Known
+                                .NO_CHALLENGE_REQUESTED_UTILIZE_WHITELIST_EXEMPTION_IF_NO_CHALLENGE_REQUIRED
+                        CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED ->
+                            Known
+                                .CHALLENGE_REQUESTED_WHITELIST_PROMPT_REQUESTED_IF_CHALLENGE_REQUIRED
+                        else ->
+                            throw IncreaseInvalidDataException(
+                                "Unknown RequestorChallengeIndicator: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): RequestorChallengeIndicator = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is RequestorChallengeIndicator && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
             /** The status of the card authentication. */
             class Status @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
@@ -5491,6 +6130,10 @@ private constructor(
                     purchaseAmount == other.purchaseAmount &&
                     purchaseCurrency == other.purchaseCurrency &&
                     realTimeDecisionId == other.realTimeDecisionId &&
+                    requestorAuthenticationIndicator == other.requestorAuthenticationIndicator &&
+                    requestorChallengeIndicator == other.requestorChallengeIndicator &&
+                    requestorName == other.requestorName &&
+                    requestorUrl == other.requestorUrl &&
                     status == other.status &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -5523,6 +6166,10 @@ private constructor(
                     purchaseAmount,
                     purchaseCurrency,
                     realTimeDecisionId,
+                    requestorAuthenticationIndicator,
+                    requestorChallengeIndicator,
+                    requestorName,
+                    requestorUrl,
                     status,
                     type,
                     additionalProperties,
@@ -5532,7 +6179,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthentication{id=$id, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorCardAuthenticationId=$priorCardAuthenticationId, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthentication{id=$id, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorCardAuthenticationId=$priorCardAuthenticationId, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, status=$status, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
