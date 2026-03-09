@@ -1690,7 +1690,7 @@ private constructor(
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantName: JsonField<String>,
-            private val priorCardAuthenticationId: JsonField<String>,
+            private val priorAuthenticatedCardPaymentId: JsonField<String>,
             private val purchaseAmount: JsonField<Long>,
             private val purchaseAmountCardholderEstimated: JsonField<Long>,
             private val purchaseCurrency: JsonField<String>,
@@ -1783,9 +1783,9 @@ private constructor(
                 @JsonProperty("merchant_name")
                 @ExcludeMissing
                 merchantName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("prior_card_authentication_id")
+                @JsonProperty("prior_authenticated_card_payment_id")
                 @ExcludeMissing
-                priorCardAuthenticationId: JsonField<String> = JsonMissing.of(),
+                priorAuthenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("purchase_amount")
                 @ExcludeMissing
                 purchaseAmount: JsonField<Long> = JsonMissing.of(),
@@ -1867,7 +1867,7 @@ private constructor(
                 merchantCategoryCode,
                 merchantCountry,
                 merchantName,
-                priorCardAuthenticationId,
+                priorAuthenticatedCardPaymentId,
                 purchaseAmount,
                 purchaseAmountCardholderEstimated,
                 purchaseCurrency,
@@ -2110,8 +2110,8 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun priorCardAuthenticationId(): String? =
-                priorCardAuthenticationId.getNullable("prior_card_authentication_id")
+            fun priorAuthenticatedCardPaymentId(): String? =
+                priorAuthenticatedCardPaymentId.getNullable("prior_authenticated_card_payment_id")
 
             /**
              * The purchase amount in minor units.
@@ -2517,14 +2517,15 @@ private constructor(
             fun _merchantName(): JsonField<String> = merchantName
 
             /**
-             * Returns the raw JSON value of [priorCardAuthenticationId].
+             * Returns the raw JSON value of [priorAuthenticatedCardPaymentId].
              *
-             * Unlike [priorCardAuthenticationId], this method doesn't throw if the JSON field has
-             * an unexpected type.
+             * Unlike [priorAuthenticatedCardPaymentId], this method doesn't throw if the JSON field
+             * has an unexpected type.
              */
-            @JsonProperty("prior_card_authentication_id")
+            @JsonProperty("prior_authenticated_card_payment_id")
             @ExcludeMissing
-            fun _priorCardAuthenticationId(): JsonField<String> = priorCardAuthenticationId
+            fun _priorAuthenticatedCardPaymentId(): JsonField<String> =
+                priorAuthenticatedCardPaymentId
 
             /**
              * Returns the raw JSON value of [purchaseAmount].
@@ -2756,7 +2757,7 @@ private constructor(
                  * .merchantCategoryCode()
                  * .merchantCountry()
                  * .merchantName()
-                 * .priorCardAuthenticationId()
+                 * .priorAuthenticatedCardPaymentId()
                  * .purchaseAmount()
                  * .purchaseAmountCardholderEstimated()
                  * .purchaseCurrency()
@@ -2807,7 +2808,7 @@ private constructor(
                 private var merchantCategoryCode: JsonField<String>? = null
                 private var merchantCountry: JsonField<String>? = null
                 private var merchantName: JsonField<String>? = null
-                private var priorCardAuthenticationId: JsonField<String>? = null
+                private var priorAuthenticatedCardPaymentId: JsonField<String>? = null
                 private var purchaseAmount: JsonField<Long>? = null
                 private var purchaseAmountCardholderEstimated: JsonField<Long>? = null
                 private var purchaseCurrency: JsonField<String>? = null
@@ -2857,7 +2858,8 @@ private constructor(
                     merchantCategoryCode = cardAuthentication.merchantCategoryCode
                     merchantCountry = cardAuthentication.merchantCountry
                     merchantName = cardAuthentication.merchantName
-                    priorCardAuthenticationId = cardAuthentication.priorCardAuthenticationId
+                    priorAuthenticatedCardPaymentId =
+                        cardAuthentication.priorAuthenticatedCardPaymentId
                     purchaseAmount = cardAuthentication.purchaseAmount
                     purchaseAmountCardholderEstimated =
                         cardAuthentication.purchaseAmountCardholderEstimated
@@ -3260,20 +3262,21 @@ private constructor(
                  * The ID of a prior Card Authentication that the requestor used to authenticate
                  * this cardholder for a previous transaction.
                  */
-                fun priorCardAuthenticationId(priorCardAuthenticationId: String?) =
-                    priorCardAuthenticationId(JsonField.ofNullable(priorCardAuthenticationId))
+                fun priorAuthenticatedCardPaymentId(priorAuthenticatedCardPaymentId: String?) =
+                    priorAuthenticatedCardPaymentId(
+                        JsonField.ofNullable(priorAuthenticatedCardPaymentId)
+                    )
 
                 /**
-                 * Sets [Builder.priorCardAuthenticationId] to an arbitrary JSON value.
+                 * Sets [Builder.priorAuthenticatedCardPaymentId] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.priorCardAuthenticationId] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
+                 * You should usually call [Builder.priorAuthenticatedCardPaymentId] with a
+                 * well-typed [String] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
                  */
-                fun priorCardAuthenticationId(priorCardAuthenticationId: JsonField<String>) =
-                    apply {
-                        this.priorCardAuthenticationId = priorCardAuthenticationId
-                    }
+                fun priorAuthenticatedCardPaymentId(
+                    priorAuthenticatedCardPaymentId: JsonField<String>
+                ) = apply { this.priorAuthenticatedCardPaymentId = priorAuthenticatedCardPaymentId }
 
                 /** The purchase amount in minor units. */
                 fun purchaseAmount(purchaseAmount: Long?) =
@@ -3650,7 +3653,7 @@ private constructor(
                  * .merchantCategoryCode()
                  * .merchantCountry()
                  * .merchantName()
-                 * .priorCardAuthenticationId()
+                 * .priorAuthenticatedCardPaymentId()
                  * .purchaseAmount()
                  * .purchaseAmountCardholderEstimated()
                  * .purchaseCurrency()
@@ -3702,7 +3705,10 @@ private constructor(
                         checkRequired("merchantCategoryCode", merchantCategoryCode),
                         checkRequired("merchantCountry", merchantCountry),
                         checkRequired("merchantName", merchantName),
-                        checkRequired("priorCardAuthenticationId", priorCardAuthenticationId),
+                        checkRequired(
+                            "priorAuthenticatedCardPaymentId",
+                            priorAuthenticatedCardPaymentId,
+                        ),
                         checkRequired("purchaseAmount", purchaseAmount),
                         checkRequired(
                             "purchaseAmountCardholderEstimated",
@@ -3765,7 +3771,7 @@ private constructor(
                 merchantCategoryCode()
                 merchantCountry()
                 merchantName()
-                priorCardAuthenticationId()
+                priorAuthenticatedCardPaymentId()
                 purchaseAmount()
                 purchaseAmountCardholderEstimated()
                 purchaseCurrency()
@@ -3826,7 +3832,7 @@ private constructor(
                     (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
                     (if (merchantCountry.asKnown() == null) 0 else 1) +
                     (if (merchantName.asKnown() == null) 0 else 1) +
-                    (if (priorCardAuthenticationId.asKnown() == null) 0 else 1) +
+                    (if (priorAuthenticatedCardPaymentId.asKnown() == null) 0 else 1) +
                     (if (purchaseAmount.asKnown() == null) 0 else 1) +
                     (if (purchaseAmountCardholderEstimated.asKnown() == null) 0 else 1) +
                     (if (purchaseCurrency.asKnown() == null) 0 else 1) +
@@ -7419,7 +7425,7 @@ private constructor(
                     merchantCategoryCode == other.merchantCategoryCode &&
                     merchantCountry == other.merchantCountry &&
                     merchantName == other.merchantName &&
-                    priorCardAuthenticationId == other.priorCardAuthenticationId &&
+                    priorAuthenticatedCardPaymentId == other.priorAuthenticatedCardPaymentId &&
                     purchaseAmount == other.purchaseAmount &&
                     purchaseAmountCardholderEstimated == other.purchaseAmountCardholderEstimated &&
                     purchaseCurrency == other.purchaseCurrency &&
@@ -7467,7 +7473,7 @@ private constructor(
                     merchantCategoryCode,
                     merchantCountry,
                     merchantName,
-                    priorCardAuthenticationId,
+                    priorAuthenticatedCardPaymentId,
                     purchaseAmount,
                     purchaseAmountCardholderEstimated,
                     purchaseCurrency,
@@ -7494,7 +7500,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthentication{id=$id, accessControlServerTransactionId=$accessControlServerTransactionId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorCardAuthenticationId=$priorCardAuthenticationId, purchaseAmount=$purchaseAmount, purchaseAmountCardholderEstimated=$purchaseAmountCardholderEstimated, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, status=$status, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, transactionType=$transactionType, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthentication{id=$id, accessControlServerTransactionId=$accessControlServerTransactionId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorAuthenticatedCardPaymentId=$priorAuthenticatedCardPaymentId, purchaseAmount=$purchaseAmount, purchaseAmountCardholderEstimated=$purchaseAmountCardholderEstimated, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, status=$status, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, transactionType=$transactionType, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
