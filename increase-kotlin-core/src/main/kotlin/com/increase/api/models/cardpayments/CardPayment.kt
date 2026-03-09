@@ -1680,7 +1680,6 @@ private constructor(
             private val cardPaymentId: JsonField<String>,
             private val cardholderEmail: JsonField<String>,
             private val cardholderName: JsonField<String>,
-            private val category: JsonField<Category>,
             private val challenge: JsonField<Challenge>,
             private val createdAt: JsonField<OffsetDateTime>,
             private val denyReason: JsonField<DenyReason>,
@@ -1690,10 +1689,8 @@ private constructor(
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantName: JsonField<String>,
+            private val messageCategory: JsonField<MessageCategory>,
             private val priorAuthenticatedCardPaymentId: JsonField<String>,
-            private val purchaseAmount: JsonField<Long>,
-            private val purchaseAmountCardholderEstimated: JsonField<Long>,
-            private val purchaseCurrency: JsonField<String>,
             private val realTimeDecisionId: JsonField<String>,
             private val requestorAuthenticationIndicator:
                 JsonField<RequestorAuthenticationIndicator>,
@@ -1709,7 +1706,6 @@ private constructor(
             private val shippingAddressState: JsonField<String>,
             private val status: JsonField<Status>,
             private val threeDSecureServerTransactionId: JsonField<String>,
-            private val transactionType: JsonField<TransactionType>,
             private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1753,9 +1749,6 @@ private constructor(
                 @JsonProperty("cardholder_name")
                 @ExcludeMissing
                 cardholderName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("category")
-                @ExcludeMissing
-                category: JsonField<Category> = JsonMissing.of(),
                 @JsonProperty("challenge")
                 @ExcludeMissing
                 challenge: JsonField<Challenge> = JsonMissing.of(),
@@ -1783,18 +1776,12 @@ private constructor(
                 @JsonProperty("merchant_name")
                 @ExcludeMissing
                 merchantName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("message_category")
+                @ExcludeMissing
+                messageCategory: JsonField<MessageCategory> = JsonMissing.of(),
                 @JsonProperty("prior_authenticated_card_payment_id")
                 @ExcludeMissing
                 priorAuthenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("purchase_amount")
-                @ExcludeMissing
-                purchaseAmount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("purchase_amount_cardholder_estimated")
-                @ExcludeMissing
-                purchaseAmountCardholderEstimated: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("purchase_currency")
-                @ExcludeMissing
-                purchaseCurrency: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("real_time_decision_id")
                 @ExcludeMissing
                 realTimeDecisionId: JsonField<String> = JsonMissing.of(),
@@ -1839,9 +1826,6 @@ private constructor(
                 @JsonProperty("three_d_secure_server_transaction_id")
                 @ExcludeMissing
                 threeDSecureServerTransactionId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("transaction_type")
-                @ExcludeMissing
-                transactionType: JsonField<TransactionType> = JsonMissing.of(),
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(
                 id,
@@ -1857,7 +1841,6 @@ private constructor(
                 cardPaymentId,
                 cardholderEmail,
                 cardholderName,
-                category,
                 challenge,
                 createdAt,
                 denyReason,
@@ -1867,10 +1850,8 @@ private constructor(
                 merchantCategoryCode,
                 merchantCountry,
                 merchantName,
+                messageCategory,
                 priorAuthenticatedCardPaymentId,
-                purchaseAmount,
-                purchaseAmountCardholderEstimated,
-                purchaseCurrency,
                 realTimeDecisionId,
                 requestorAuthenticationIndicator,
                 requestorChallengeIndicator,
@@ -1885,7 +1866,6 @@ private constructor(
                 shippingAddressState,
                 status,
                 threeDSecureServerTransactionId,
-                transactionType,
                 type,
                 mutableMapOf(),
             )
@@ -2014,14 +1994,6 @@ private constructor(
             fun cardholderName(): String? = cardholderName.getNullable("cardholder_name")
 
             /**
-             * The category of the card authentication attempt.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun category(): Category? = category.getNullable("category")
-
-            /**
              * Details about the challenge, if one was requested.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -2104,6 +2076,15 @@ private constructor(
             fun merchantName(): String? = merchantName.getNullable("merchant_name")
 
             /**
+             * The message category of the card authentication attempt.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun messageCategory(): MessageCategory = messageCategory.getRequired("message_category")
+
+            /**
              * The ID of a prior Card Authentication that the requestor used to authenticate this
              * cardholder for a previous transaction.
              *
@@ -2112,35 +2093,6 @@ private constructor(
              */
             fun priorAuthenticatedCardPaymentId(): String? =
                 priorAuthenticatedCardPaymentId.getNullable("prior_authenticated_card_payment_id")
-
-            /**
-             * The purchase amount in minor units.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun purchaseAmount(): Long? = purchaseAmount.getNullable("purchase_amount")
-
-            /**
-             * The purchase amount in the cardholder's currency (i.e., USD) estimated using daily
-             * conversion rates from the card network.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun purchaseAmountCardholderEstimated(): Long? =
-                purchaseAmountCardholderEstimated.getNullable(
-                    "purchase_amount_cardholder_estimated"
-                )
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the authentication
-             * attempt's purchase currency.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun purchaseCurrency(): String? = purchaseCurrency.getNullable("purchase_currency")
 
             /**
              * The identifier of the Real-Time Decision sent to approve or decline this
@@ -2271,15 +2223,6 @@ private constructor(
              */
             fun threeDSecureServerTransactionId(): String =
                 threeDSecureServerTransactionId.getRequired("three_d_secure_server_transaction_id")
-
-            /**
-             * The type of transaction being authenticated.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun transactionType(): TransactionType? =
-                transactionType.getNullable("transaction_type")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -2417,16 +2360,6 @@ private constructor(
             fun _cardholderName(): JsonField<String> = cardholderName
 
             /**
-             * Returns the raw JSON value of [category].
-             *
-             * Unlike [category], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("category")
-            @ExcludeMissing
-            fun _category(): JsonField<Category> = category
-
-            /**
              * Returns the raw JSON value of [challenge].
              *
              * Unlike [challenge], this method doesn't throw if the JSON field has an unexpected
@@ -2517,6 +2450,16 @@ private constructor(
             fun _merchantName(): JsonField<String> = merchantName
 
             /**
+             * Returns the raw JSON value of [messageCategory].
+             *
+             * Unlike [messageCategory], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("message_category")
+            @ExcludeMissing
+            fun _messageCategory(): JsonField<MessageCategory> = messageCategory
+
+            /**
              * Returns the raw JSON value of [priorAuthenticatedCardPaymentId].
              *
              * Unlike [priorAuthenticatedCardPaymentId], this method doesn't throw if the JSON field
@@ -2526,37 +2469,6 @@ private constructor(
             @ExcludeMissing
             fun _priorAuthenticatedCardPaymentId(): JsonField<String> =
                 priorAuthenticatedCardPaymentId
-
-            /**
-             * Returns the raw JSON value of [purchaseAmount].
-             *
-             * Unlike [purchaseAmount], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("purchase_amount")
-            @ExcludeMissing
-            fun _purchaseAmount(): JsonField<Long> = purchaseAmount
-
-            /**
-             * Returns the raw JSON value of [purchaseAmountCardholderEstimated].
-             *
-             * Unlike [purchaseAmountCardholderEstimated], this method doesn't throw if the JSON
-             * field has an unexpected type.
-             */
-            @JsonProperty("purchase_amount_cardholder_estimated")
-            @ExcludeMissing
-            fun _purchaseAmountCardholderEstimated(): JsonField<Long> =
-                purchaseAmountCardholderEstimated
-
-            /**
-             * Returns the raw JSON value of [purchaseCurrency].
-             *
-             * Unlike [purchaseCurrency], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("purchase_currency")
-            @ExcludeMissing
-            fun _purchaseCurrency(): JsonField<String> = purchaseCurrency
 
             /**
              * Returns the raw JSON value of [realTimeDecisionId].
@@ -2699,16 +2611,6 @@ private constructor(
                 threeDSecureServerTransactionId
 
             /**
-             * Returns the raw JSON value of [transactionType].
-             *
-             * Unlike [transactionType], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("transaction_type")
-            @ExcludeMissing
-            fun _transactionType(): JsonField<TransactionType> = transactionType
-
-            /**
              * Returns the raw JSON value of [type].
              *
              * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -2747,7 +2649,6 @@ private constructor(
                  * .cardPaymentId()
                  * .cardholderEmail()
                  * .cardholderName()
-                 * .category()
                  * .challenge()
                  * .createdAt()
                  * .denyReason()
@@ -2757,10 +2658,8 @@ private constructor(
                  * .merchantCategoryCode()
                  * .merchantCountry()
                  * .merchantName()
+                 * .messageCategory()
                  * .priorAuthenticatedCardPaymentId()
-                 * .purchaseAmount()
-                 * .purchaseAmountCardholderEstimated()
-                 * .purchaseCurrency()
                  * .realTimeDecisionId()
                  * .requestorAuthenticationIndicator()
                  * .requestorChallengeIndicator()
@@ -2775,7 +2674,6 @@ private constructor(
                  * .shippingAddressState()
                  * .status()
                  * .threeDSecureServerTransactionId()
-                 * .transactionType()
                  * .type()
                  * ```
                  */
@@ -2798,7 +2696,6 @@ private constructor(
                 private var cardPaymentId: JsonField<String>? = null
                 private var cardholderEmail: JsonField<String>? = null
                 private var cardholderName: JsonField<String>? = null
-                private var category: JsonField<Category>? = null
                 private var challenge: JsonField<Challenge>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
                 private var denyReason: JsonField<DenyReason>? = null
@@ -2808,10 +2705,8 @@ private constructor(
                 private var merchantCategoryCode: JsonField<String>? = null
                 private var merchantCountry: JsonField<String>? = null
                 private var merchantName: JsonField<String>? = null
+                private var messageCategory: JsonField<MessageCategory>? = null
                 private var priorAuthenticatedCardPaymentId: JsonField<String>? = null
-                private var purchaseAmount: JsonField<Long>? = null
-                private var purchaseAmountCardholderEstimated: JsonField<Long>? = null
-                private var purchaseCurrency: JsonField<String>? = null
                 private var realTimeDecisionId: JsonField<String>? = null
                 private var requestorAuthenticationIndicator:
                     JsonField<RequestorAuthenticationIndicator>? =
@@ -2829,7 +2724,6 @@ private constructor(
                 private var shippingAddressState: JsonField<String>? = null
                 private var status: JsonField<Status>? = null
                 private var threeDSecureServerTransactionId: JsonField<String>? = null
-                private var transactionType: JsonField<TransactionType>? = null
                 private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2848,7 +2742,6 @@ private constructor(
                     cardPaymentId = cardAuthentication.cardPaymentId
                     cardholderEmail = cardAuthentication.cardholderEmail
                     cardholderName = cardAuthentication.cardholderName
-                    category = cardAuthentication.category
                     challenge = cardAuthentication.challenge
                     createdAt = cardAuthentication.createdAt
                     denyReason = cardAuthentication.denyReason
@@ -2858,12 +2751,9 @@ private constructor(
                     merchantCategoryCode = cardAuthentication.merchantCategoryCode
                     merchantCountry = cardAuthentication.merchantCountry
                     merchantName = cardAuthentication.merchantName
+                    messageCategory = cardAuthentication.messageCategory
                     priorAuthenticatedCardPaymentId =
                         cardAuthentication.priorAuthenticatedCardPaymentId
-                    purchaseAmount = cardAuthentication.purchaseAmount
-                    purchaseAmountCardholderEstimated =
-                        cardAuthentication.purchaseAmountCardholderEstimated
-                    purchaseCurrency = cardAuthentication.purchaseCurrency
                     realTimeDecisionId = cardAuthentication.realTimeDecisionId
                     requestorAuthenticationIndicator =
                         cardAuthentication.requestorAuthenticationIndicator
@@ -2880,7 +2770,6 @@ private constructor(
                     status = cardAuthentication.status
                     threeDSecureServerTransactionId =
                         cardAuthentication.threeDSecureServerTransactionId
-                    transactionType = cardAuthentication.transactionType
                     type = cardAuthentication.type
                     additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
                 }
@@ -3100,18 +2989,6 @@ private constructor(
                     this.cardholderName = cardholderName
                 }
 
-                /** The category of the card authentication attempt. */
-                fun category(category: Category?) = category(JsonField.ofNullable(category))
-
-                /**
-                 * Sets [Builder.category] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.category] with a well-typed [Category] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun category(category: JsonField<Category>) = apply { this.category = category }
-
                 /** Details about the challenge, if one was requested. */
                 fun challenge(challenge: Challenge?) = challenge(JsonField.ofNullable(challenge))
 
@@ -3258,6 +3135,21 @@ private constructor(
                     this.merchantName = merchantName
                 }
 
+                /** The message category of the card authentication attempt. */
+                fun messageCategory(messageCategory: MessageCategory) =
+                    messageCategory(JsonField.of(messageCategory))
+
+                /**
+                 * Sets [Builder.messageCategory] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.messageCategory] with a well-typed
+                 * [MessageCategory] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun messageCategory(messageCategory: JsonField<MessageCategory>) = apply {
+                    this.messageCategory = messageCategory
+                }
+
                 /**
                  * The ID of a prior Card Authentication that the requestor used to authenticate
                  * this cardholder for a previous transaction.
@@ -3277,76 +3169,6 @@ private constructor(
                 fun priorAuthenticatedCardPaymentId(
                     priorAuthenticatedCardPaymentId: JsonField<String>
                 ) = apply { this.priorAuthenticatedCardPaymentId = priorAuthenticatedCardPaymentId }
-
-                /** The purchase amount in minor units. */
-                fun purchaseAmount(purchaseAmount: Long?) =
-                    purchaseAmount(JsonField.ofNullable(purchaseAmount))
-
-                /**
-                 * Alias for [Builder.purchaseAmount].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun purchaseAmount(purchaseAmount: Long) = purchaseAmount(purchaseAmount as Long?)
-
-                /**
-                 * Sets [Builder.purchaseAmount] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.purchaseAmount] with a well-typed [Long] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun purchaseAmount(purchaseAmount: JsonField<Long>) = apply {
-                    this.purchaseAmount = purchaseAmount
-                }
-
-                /**
-                 * The purchase amount in the cardholder's currency (i.e., USD) estimated using
-                 * daily conversion rates from the card network.
-                 */
-                fun purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated: Long?) =
-                    purchaseAmountCardholderEstimated(
-                        JsonField.ofNullable(purchaseAmountCardholderEstimated)
-                    )
-
-                /**
-                 * Alias for [Builder.purchaseAmountCardholderEstimated].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated: Long) =
-                    purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated as Long?)
-
-                /**
-                 * Sets [Builder.purchaseAmountCardholderEstimated] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.purchaseAmountCardholderEstimated] with a
-                 * well-typed [Long] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
-                 */
-                fun purchaseAmountCardholderEstimated(
-                    purchaseAmountCardholderEstimated: JsonField<Long>
-                ) = apply {
-                    this.purchaseAmountCardholderEstimated = purchaseAmountCardholderEstimated
-                }
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                 * authentication attempt's purchase currency.
-                 */
-                fun purchaseCurrency(purchaseCurrency: String?) =
-                    purchaseCurrency(JsonField.ofNullable(purchaseCurrency))
-
-                /**
-                 * Sets [Builder.purchaseCurrency] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.purchaseCurrency] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun purchaseCurrency(purchaseCurrency: JsonField<String>) = apply {
-                    this.purchaseCurrency = purchaseCurrency
-                }
 
                 /**
                  * The identifier of the Real-Time Decision sent to approve or decline this
@@ -3571,21 +3393,6 @@ private constructor(
                     threeDSecureServerTransactionId: JsonField<String>
                 ) = apply { this.threeDSecureServerTransactionId = threeDSecureServerTransactionId }
 
-                /** The type of transaction being authenticated. */
-                fun transactionType(transactionType: TransactionType?) =
-                    transactionType(JsonField.ofNullable(transactionType))
-
-                /**
-                 * Sets [Builder.transactionType] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.transactionType] with a well-typed
-                 * [TransactionType] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
-                 */
-                fun transactionType(transactionType: JsonField<TransactionType>) = apply {
-                    this.transactionType = transactionType
-                }
-
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_authentication`.
@@ -3643,7 +3450,6 @@ private constructor(
                  * .cardPaymentId()
                  * .cardholderEmail()
                  * .cardholderName()
-                 * .category()
                  * .challenge()
                  * .createdAt()
                  * .denyReason()
@@ -3653,10 +3459,8 @@ private constructor(
                  * .merchantCategoryCode()
                  * .merchantCountry()
                  * .merchantName()
+                 * .messageCategory()
                  * .priorAuthenticatedCardPaymentId()
-                 * .purchaseAmount()
-                 * .purchaseAmountCardholderEstimated()
-                 * .purchaseCurrency()
                  * .realTimeDecisionId()
                  * .requestorAuthenticationIndicator()
                  * .requestorChallengeIndicator()
@@ -3671,7 +3475,6 @@ private constructor(
                  * .shippingAddressState()
                  * .status()
                  * .threeDSecureServerTransactionId()
-                 * .transactionType()
                  * .type()
                  * ```
                  *
@@ -3695,7 +3498,6 @@ private constructor(
                         checkRequired("cardPaymentId", cardPaymentId),
                         checkRequired("cardholderEmail", cardholderEmail),
                         checkRequired("cardholderName", cardholderName),
-                        checkRequired("category", category),
                         checkRequired("challenge", challenge),
                         checkRequired("createdAt", createdAt),
                         checkRequired("denyReason", denyReason),
@@ -3705,16 +3507,11 @@ private constructor(
                         checkRequired("merchantCategoryCode", merchantCategoryCode),
                         checkRequired("merchantCountry", merchantCountry),
                         checkRequired("merchantName", merchantName),
+                        checkRequired("messageCategory", messageCategory),
                         checkRequired(
                             "priorAuthenticatedCardPaymentId",
                             priorAuthenticatedCardPaymentId,
                         ),
-                        checkRequired("purchaseAmount", purchaseAmount),
-                        checkRequired(
-                            "purchaseAmountCardholderEstimated",
-                            purchaseAmountCardholderEstimated,
-                        ),
-                        checkRequired("purchaseCurrency", purchaseCurrency),
                         checkRequired("realTimeDecisionId", realTimeDecisionId),
                         checkRequired(
                             "requestorAuthenticationIndicator",
@@ -3735,7 +3532,6 @@ private constructor(
                             "threeDSecureServerTransactionId",
                             threeDSecureServerTransactionId,
                         ),
-                        checkRequired("transactionType", transactionType),
                         checkRequired("type", type),
                         additionalProperties.toMutableMap(),
                     )
@@ -3761,7 +3557,6 @@ private constructor(
                 cardPaymentId()
                 cardholderEmail()
                 cardholderName()
-                category()?.validate()
                 challenge()?.validate()
                 createdAt()
                 denyReason()?.validate()
@@ -3771,10 +3566,8 @@ private constructor(
                 merchantCategoryCode()
                 merchantCountry()
                 merchantName()
+                messageCategory().validate()
                 priorAuthenticatedCardPaymentId()
-                purchaseAmount()
-                purchaseAmountCardholderEstimated()
-                purchaseCurrency()
                 realTimeDecisionId()
                 requestorAuthenticationIndicator()?.validate()
                 requestorChallengeIndicator()?.validate()
@@ -3789,7 +3582,6 @@ private constructor(
                 shippingAddressState()
                 status().validate()
                 threeDSecureServerTransactionId()
-                transactionType()?.validate()
                 type().validate()
                 validated = true
             }
@@ -3822,7 +3614,6 @@ private constructor(
                     (if (cardPaymentId.asKnown() == null) 0 else 1) +
                     (if (cardholderEmail.asKnown() == null) 0 else 1) +
                     (if (cardholderName.asKnown() == null) 0 else 1) +
-                    (category.asKnown()?.validity() ?: 0) +
                     (challenge.asKnown()?.validity() ?: 0) +
                     (if (createdAt.asKnown() == null) 0 else 1) +
                     (denyReason.asKnown()?.validity() ?: 0) +
@@ -3832,10 +3623,8 @@ private constructor(
                     (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
                     (if (merchantCountry.asKnown() == null) 0 else 1) +
                     (if (merchantName.asKnown() == null) 0 else 1) +
+                    (messageCategory.asKnown()?.validity() ?: 0) +
                     (if (priorAuthenticatedCardPaymentId.asKnown() == null) 0 else 1) +
-                    (if (purchaseAmount.asKnown() == null) 0 else 1) +
-                    (if (purchaseAmountCardholderEstimated.asKnown() == null) 0 else 1) +
-                    (if (purchaseCurrency.asKnown() == null) 0 else 1) +
                     (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
                     (requestorAuthenticationIndicator.asKnown()?.validity() ?: 0) +
                     (requestorChallengeIndicator.asKnown()?.validity() ?: 0) +
@@ -3850,145 +3639,7 @@ private constructor(
                     (if (shippingAddressState.asKnown() == null) 0 else 1) +
                     (status.asKnown()?.validity() ?: 0) +
                     (if (threeDSecureServerTransactionId.asKnown() == null) 0 else 1) +
-                    (transactionType.asKnown()?.validity() ?: 0) +
                     (type.asKnown()?.validity() ?: 0)
-
-            /** The category of the card authentication attempt. */
-            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    /** The authentication attempt is for a payment. */
-                    val PAYMENT_AUTHENTICATION = of("payment_authentication")
-
-                    /** The authentication attempt is not for a payment. */
-                    val NON_PAYMENT_AUTHENTICATION = of("non_payment_authentication")
-
-                    fun of(value: String) = Category(JsonField.of(value))
-                }
-
-                /** An enum containing [Category]'s known values. */
-                enum class Known {
-                    /** The authentication attempt is for a payment. */
-                    PAYMENT_AUTHENTICATION,
-                    /** The authentication attempt is not for a payment. */
-                    NON_PAYMENT_AUTHENTICATION,
-                }
-
-                /**
-                 * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Category] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** The authentication attempt is for a payment. */
-                    PAYMENT_AUTHENTICATION,
-                    /** The authentication attempt is not for a payment. */
-                    NON_PAYMENT_AUTHENTICATION,
-                    /**
-                     * An enum member indicating that [Category] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        PAYMENT_AUTHENTICATION -> Value.PAYMENT_AUTHENTICATION
-                        NON_PAYMENT_AUTHENTICATION -> Value.NON_PAYMENT_AUTHENTICATION
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        PAYMENT_AUTHENTICATION -> Known.PAYMENT_AUTHENTICATION
-                        NON_PAYMENT_AUTHENTICATION -> Known.NON_PAYMENT_AUTHENTICATION
-                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw IncreaseInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                fun validate(): Category = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: IncreaseInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Category && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
 
             /** Details about the challenge, if one was requested. */
             class Challenge
@@ -6468,6 +6119,1049 @@ private constructor(
                     "DeviceChannel{browser=$browser, category=$category, merchantInitiated=$merchantInitiated, additionalProperties=$additionalProperties}"
             }
 
+            /** The message category of the card authentication attempt. */
+            class MessageCategory
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val category: JsonField<Category>,
+                private val nonPayment: JsonField<NonPayment>,
+                private val payment: JsonField<Payment>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("category")
+                    @ExcludeMissing
+                    category: JsonField<Category> = JsonMissing.of(),
+                    @JsonProperty("non_payment")
+                    @ExcludeMissing
+                    nonPayment: JsonField<NonPayment> = JsonMissing.of(),
+                    @JsonProperty("payment")
+                    @ExcludeMissing
+                    payment: JsonField<Payment> = JsonMissing.of(),
+                ) : this(category, nonPayment, payment, mutableMapOf())
+
+                /**
+                 * The category of the card authentication attempt.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun category(): Category = category.getRequired("category")
+
+                /**
+                 * Fields specific to non-payment authentication attempts.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun nonPayment(): NonPayment? = nonPayment.getNullable("non_payment")
+
+                /**
+                 * Fields specific to payment authentication attempts.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun payment(): Payment? = payment.getNullable("payment")
+
+                /**
+                 * Returns the raw JSON value of [category].
+                 *
+                 * Unlike [category], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("category")
+                @ExcludeMissing
+                fun _category(): JsonField<Category> = category
+
+                /**
+                 * Returns the raw JSON value of [nonPayment].
+                 *
+                 * Unlike [nonPayment], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("non_payment")
+                @ExcludeMissing
+                fun _nonPayment(): JsonField<NonPayment> = nonPayment
+
+                /**
+                 * Returns the raw JSON value of [payment].
+                 *
+                 * Unlike [payment], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("payment")
+                @ExcludeMissing
+                fun _payment(): JsonField<Payment> = payment
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [MessageCategory].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .category()
+                     * .nonPayment()
+                     * .payment()
+                     * ```
+                     */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [MessageCategory]. */
+                class Builder internal constructor() {
+
+                    private var category: JsonField<Category>? = null
+                    private var nonPayment: JsonField<NonPayment>? = null
+                    private var payment: JsonField<Payment>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(messageCategory: MessageCategory) = apply {
+                        category = messageCategory.category
+                        nonPayment = messageCategory.nonPayment
+                        payment = messageCategory.payment
+                        additionalProperties = messageCategory.additionalProperties.toMutableMap()
+                    }
+
+                    /** The category of the card authentication attempt. */
+                    fun category(category: Category) = category(JsonField.of(category))
+
+                    /**
+                     * Sets [Builder.category] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.category] with a well-typed [Category] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                    /** Fields specific to non-payment authentication attempts. */
+                    fun nonPayment(nonPayment: NonPayment?) =
+                        nonPayment(JsonField.ofNullable(nonPayment))
+
+                    /**
+                     * Sets [Builder.nonPayment] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.nonPayment] with a well-typed [NonPayment]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun nonPayment(nonPayment: JsonField<NonPayment>) = apply {
+                        this.nonPayment = nonPayment
+                    }
+
+                    /** Fields specific to payment authentication attempts. */
+                    fun payment(payment: Payment?) = payment(JsonField.ofNullable(payment))
+
+                    /**
+                     * Sets [Builder.payment] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.payment] with a well-typed [Payment] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun payment(payment: JsonField<Payment>) = apply { this.payment = payment }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [MessageCategory].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .category()
+                     * .nonPayment()
+                     * .payment()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): MessageCategory =
+                        MessageCategory(
+                            checkRequired("category", category),
+                            checkRequired("nonPayment", nonPayment),
+                            checkRequired("payment", payment),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): MessageCategory = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    category().validate()
+                    nonPayment()?.validate()
+                    payment()?.validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (category.asKnown()?.validity() ?: 0) +
+                        (nonPayment.asKnown()?.validity() ?: 0) +
+                        (payment.asKnown()?.validity() ?: 0)
+
+                /** The category of the card authentication attempt. */
+                class Category
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The authentication attempt is for a payment. */
+                        val PAYMENT_AUTHENTICATION = of("payment_authentication")
+
+                        /** The authentication attempt is not for a payment. */
+                        val NON_PAYMENT_AUTHENTICATION = of("non_payment_authentication")
+
+                        fun of(value: String) = Category(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Category]'s known values. */
+                    enum class Known {
+                        /** The authentication attempt is for a payment. */
+                        PAYMENT_AUTHENTICATION,
+                        /** The authentication attempt is not for a payment. */
+                        NON_PAYMENT_AUTHENTICATION,
+                    }
+
+                    /**
+                     * An enum containing [Category]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [Category] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The authentication attempt is for a payment. */
+                        PAYMENT_AUTHENTICATION,
+                        /** The authentication attempt is not for a payment. */
+                        NON_PAYMENT_AUTHENTICATION,
+                        /**
+                         * An enum member indicating that [Category] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            PAYMENT_AUTHENTICATION -> Value.PAYMENT_AUTHENTICATION
+                            NON_PAYMENT_AUTHENTICATION -> Value.NON_PAYMENT_AUTHENTICATION
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            PAYMENT_AUTHENTICATION -> Known.PAYMENT_AUTHENTICATION
+                            NON_PAYMENT_AUTHENTICATION -> Known.NON_PAYMENT_AUTHENTICATION
+                            else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString()
+                            ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Category = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Category && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** Fields specific to non-payment authentication attempts. */
+                class NonPayment
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val additionalProperties: MutableMap<String, JsonValue>
+                ) {
+
+                    @JsonCreator private constructor() : this(mutableMapOf())
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [NonPayment].
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [NonPayment]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(nonPayment: NonPayment) = apply {
+                            additionalProperties = nonPayment.additionalProperties.toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [NonPayment].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): NonPayment = NonPayment(additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): NonPayment = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = 0
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is NonPayment &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "NonPayment{additionalProperties=$additionalProperties}"
+                }
+
+                /** Fields specific to payment authentication attempts. */
+                class Payment
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val purchaseAmount: JsonField<Long>,
+                    private val purchaseAmountCardholderEstimated: JsonField<Long>,
+                    private val purchaseCurrency: JsonField<String>,
+                    private val transactionType: JsonField<TransactionType>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("purchase_amount")
+                        @ExcludeMissing
+                        purchaseAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("purchase_amount_cardholder_estimated")
+                        @ExcludeMissing
+                        purchaseAmountCardholderEstimated: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("purchase_currency")
+                        @ExcludeMissing
+                        purchaseCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("transaction_type")
+                        @ExcludeMissing
+                        transactionType: JsonField<TransactionType> = JsonMissing.of(),
+                    ) : this(
+                        purchaseAmount,
+                        purchaseAmountCardholderEstimated,
+                        purchaseCurrency,
+                        transactionType,
+                        mutableMapOf(),
+                    )
+
+                    /**
+                     * The purchase amount in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun purchaseAmount(): Long = purchaseAmount.getRequired("purchase_amount")
+
+                    /**
+                     * The purchase amount in the cardholder's currency (i.e., USD) estimated using
+                     * daily conversion rates from the card network.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun purchaseAmountCardholderEstimated(): Long? =
+                        purchaseAmountCardholderEstimated.getNullable(
+                            "purchase_amount_cardholder_estimated"
+                        )
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * authentication attempt's purchase currency.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun purchaseCurrency(): String =
+                        purchaseCurrency.getRequired("purchase_currency")
+
+                    /**
+                     * The type of transaction being authenticated.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun transactionType(): TransactionType? =
+                        transactionType.getNullable("transaction_type")
+
+                    /**
+                     * Returns the raw JSON value of [purchaseAmount].
+                     *
+                     * Unlike [purchaseAmount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("purchase_amount")
+                    @ExcludeMissing
+                    fun _purchaseAmount(): JsonField<Long> = purchaseAmount
+
+                    /**
+                     * Returns the raw JSON value of [purchaseAmountCardholderEstimated].
+                     *
+                     * Unlike [purchaseAmountCardholderEstimated], this method doesn't throw if the
+                     * JSON field has an unexpected type.
+                     */
+                    @JsonProperty("purchase_amount_cardholder_estimated")
+                    @ExcludeMissing
+                    fun _purchaseAmountCardholderEstimated(): JsonField<Long> =
+                        purchaseAmountCardholderEstimated
+
+                    /**
+                     * Returns the raw JSON value of [purchaseCurrency].
+                     *
+                     * Unlike [purchaseCurrency], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("purchase_currency")
+                    @ExcludeMissing
+                    fun _purchaseCurrency(): JsonField<String> = purchaseCurrency
+
+                    /**
+                     * Returns the raw JSON value of [transactionType].
+                     *
+                     * Unlike [transactionType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("transaction_type")
+                    @ExcludeMissing
+                    fun _transactionType(): JsonField<TransactionType> = transactionType
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Payment].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .purchaseAmount()
+                         * .purchaseAmountCardholderEstimated()
+                         * .purchaseCurrency()
+                         * .transactionType()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Payment]. */
+                    class Builder internal constructor() {
+
+                        private var purchaseAmount: JsonField<Long>? = null
+                        private var purchaseAmountCardholderEstimated: JsonField<Long>? = null
+                        private var purchaseCurrency: JsonField<String>? = null
+                        private var transactionType: JsonField<TransactionType>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(payment: Payment) = apply {
+                            purchaseAmount = payment.purchaseAmount
+                            purchaseAmountCardholderEstimated =
+                                payment.purchaseAmountCardholderEstimated
+                            purchaseCurrency = payment.purchaseCurrency
+                            transactionType = payment.transactionType
+                            additionalProperties = payment.additionalProperties.toMutableMap()
+                        }
+
+                        /** The purchase amount in minor units. */
+                        fun purchaseAmount(purchaseAmount: Long) =
+                            purchaseAmount(JsonField.of(purchaseAmount))
+
+                        /**
+                         * Sets [Builder.purchaseAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.purchaseAmount] with a well-typed [Long]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun purchaseAmount(purchaseAmount: JsonField<Long>) = apply {
+                            this.purchaseAmount = purchaseAmount
+                        }
+
+                        /**
+                         * The purchase amount in the cardholder's currency (i.e., USD) estimated
+                         * using daily conversion rates from the card network.
+                         */
+                        fun purchaseAmountCardholderEstimated(
+                            purchaseAmountCardholderEstimated: Long?
+                        ) =
+                            purchaseAmountCardholderEstimated(
+                                JsonField.ofNullable(purchaseAmountCardholderEstimated)
+                            )
+
+                        /**
+                         * Alias for [Builder.purchaseAmountCardholderEstimated].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun purchaseAmountCardholderEstimated(
+                            purchaseAmountCardholderEstimated: Long
+                        ) =
+                            purchaseAmountCardholderEstimated(
+                                purchaseAmountCardholderEstimated as Long?
+                            )
+
+                        /**
+                         * Sets [Builder.purchaseAmountCardholderEstimated] to an arbitrary JSON
+                         * value.
+                         *
+                         * You should usually call [Builder.purchaseAmountCardholderEstimated] with
+                         * a well-typed [Long] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun purchaseAmountCardholderEstimated(
+                            purchaseAmountCardholderEstimated: JsonField<Long>
+                        ) = apply {
+                            this.purchaseAmountCardholderEstimated =
+                                purchaseAmountCardholderEstimated
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * authentication attempt's purchase currency.
+                         */
+                        fun purchaseCurrency(purchaseCurrency: String) =
+                            purchaseCurrency(JsonField.of(purchaseCurrency))
+
+                        /**
+                         * Sets [Builder.purchaseCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.purchaseCurrency] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun purchaseCurrency(purchaseCurrency: JsonField<String>) = apply {
+                            this.purchaseCurrency = purchaseCurrency
+                        }
+
+                        /** The type of transaction being authenticated. */
+                        fun transactionType(transactionType: TransactionType?) =
+                            transactionType(JsonField.ofNullable(transactionType))
+
+                        /**
+                         * Sets [Builder.transactionType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.transactionType] with a well-typed
+                         * [TransactionType] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun transactionType(transactionType: JsonField<TransactionType>) = apply {
+                            this.transactionType = transactionType
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Payment].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .purchaseAmount()
+                         * .purchaseAmountCardholderEstimated()
+                         * .purchaseCurrency()
+                         * .transactionType()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Payment =
+                            Payment(
+                                checkRequired("purchaseAmount", purchaseAmount),
+                                checkRequired(
+                                    "purchaseAmountCardholderEstimated",
+                                    purchaseAmountCardholderEstimated,
+                                ),
+                                checkRequired("purchaseCurrency", purchaseCurrency),
+                                checkRequired("transactionType", transactionType),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Payment = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        purchaseAmount()
+                        purchaseAmountCardholderEstimated()
+                        purchaseCurrency()
+                        transactionType()?.validate()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (purchaseAmount.asKnown() == null) 0 else 1) +
+                            (if (purchaseAmountCardholderEstimated.asKnown() == null) 0 else 1) +
+                            (if (purchaseCurrency.asKnown() == null) 0 else 1) +
+                            (transactionType.asKnown()?.validity() ?: 0)
+
+                    /** The type of transaction being authenticated. */
+                    class TransactionType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Purchase of goods or services. */
+                            val GOODS_SERVICE_PURCHASE = of("goods_service_purchase")
+
+                            /** Check acceptance. */
+                            val CHECK_ACCEPTANCE = of("check_acceptance")
+
+                            /** Account funding. */
+                            val ACCOUNT_FUNDING = of("account_funding")
+
+                            /** Quasi-cash transaction. */
+                            val QUASI_CASH_TRANSACTION = of("quasi_cash_transaction")
+
+                            /** Prepaid activation and load. */
+                            val PREPAID_ACTIVATION_AND_LOAD = of("prepaid_activation_and_load")
+
+                            fun of(value: String) = TransactionType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [TransactionType]'s known values. */
+                        enum class Known {
+                            /** Purchase of goods or services. */
+                            GOODS_SERVICE_PURCHASE,
+                            /** Check acceptance. */
+                            CHECK_ACCEPTANCE,
+                            /** Account funding. */
+                            ACCOUNT_FUNDING,
+                            /** Quasi-cash transaction. */
+                            QUASI_CASH_TRANSACTION,
+                            /** Prepaid activation and load. */
+                            PREPAID_ACTIVATION_AND_LOAD,
+                        }
+
+                        /**
+                         * An enum containing [TransactionType]'s known values, as well as an
+                         * [_UNKNOWN] member.
+                         *
+                         * An instance of [TransactionType] can contain an unknown value in a couple
+                         * of cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Purchase of goods or services. */
+                            GOODS_SERVICE_PURCHASE,
+                            /** Check acceptance. */
+                            CHECK_ACCEPTANCE,
+                            /** Account funding. */
+                            ACCOUNT_FUNDING,
+                            /** Quasi-cash transaction. */
+                            QUASI_CASH_TRANSACTION,
+                            /** Prepaid activation and load. */
+                            PREPAID_ACTIVATION_AND_LOAD,
+                            /**
+                             * An enum member indicating that [TransactionType] was instantiated
+                             * with an unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                GOODS_SERVICE_PURCHASE -> Value.GOODS_SERVICE_PURCHASE
+                                CHECK_ACCEPTANCE -> Value.CHECK_ACCEPTANCE
+                                ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
+                                QUASI_CASH_TRANSACTION -> Value.QUASI_CASH_TRANSACTION
+                                PREPAID_ACTIVATION_AND_LOAD -> Value.PREPAID_ACTIVATION_AND_LOAD
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                GOODS_SERVICE_PURCHASE -> Known.GOODS_SERVICE_PURCHASE
+                                CHECK_ACCEPTANCE -> Known.CHECK_ACCEPTANCE
+                                ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
+                                QUASI_CASH_TRANSACTION -> Known.QUASI_CASH_TRANSACTION
+                                PREPAID_ACTIVATION_AND_LOAD -> Known.PREPAID_ACTIVATION_AND_LOAD
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown TransactionType: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString()
+                                ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): TransactionType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is TransactionType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Payment &&
+                            purchaseAmount == other.purchaseAmount &&
+                            purchaseAmountCardholderEstimated ==
+                                other.purchaseAmountCardholderEstimated &&
+                            purchaseCurrency == other.purchaseCurrency &&
+                            transactionType == other.transactionType &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            purchaseAmount,
+                            purchaseAmountCardholderEstimated,
+                            purchaseCurrency,
+                            transactionType,
+                            additionalProperties,
+                        )
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Payment{purchaseAmount=$purchaseAmount, purchaseAmountCardholderEstimated=$purchaseAmountCardholderEstimated, purchaseCurrency=$purchaseCurrency, transactionType=$transactionType, additionalProperties=$additionalProperties}"
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is MessageCategory &&
+                        category == other.category &&
+                        nonPayment == other.nonPayment &&
+                        payment == other.payment &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(category, nonPayment, payment, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "MessageCategory{category=$category, nonPayment=$nonPayment, payment=$payment, additionalProperties=$additionalProperties}"
+            }
+
             /**
              * The 3DS requestor authentication indicator describes why the authentication attempt
              * is performed, such as for a recurring transaction.
@@ -7101,174 +7795,6 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /** The type of transaction being authenticated. */
-            class TransactionType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    /** Purchase of goods or services. */
-                    val GOODS_SERVICE_PURCHASE = of("goods_service_purchase")
-
-                    /** Check acceptance. */
-                    val CHECK_ACCEPTANCE = of("check_acceptance")
-
-                    /** Account funding. */
-                    val ACCOUNT_FUNDING = of("account_funding")
-
-                    /** Quasi-cash transaction. */
-                    val QUASI_CASH_TRANSACTION = of("quasi_cash_transaction")
-
-                    /** Prepaid activation and load. */
-                    val PREPAID_ACTIVATION_AND_LOAD = of("prepaid_activation_and_load")
-
-                    fun of(value: String) = TransactionType(JsonField.of(value))
-                }
-
-                /** An enum containing [TransactionType]'s known values. */
-                enum class Known {
-                    /** Purchase of goods or services. */
-                    GOODS_SERVICE_PURCHASE,
-                    /** Check acceptance. */
-                    CHECK_ACCEPTANCE,
-                    /** Account funding. */
-                    ACCOUNT_FUNDING,
-                    /** Quasi-cash transaction. */
-                    QUASI_CASH_TRANSACTION,
-                    /** Prepaid activation and load. */
-                    PREPAID_ACTIVATION_AND_LOAD,
-                }
-
-                /**
-                 * An enum containing [TransactionType]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [TransactionType] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** Purchase of goods or services. */
-                    GOODS_SERVICE_PURCHASE,
-                    /** Check acceptance. */
-                    CHECK_ACCEPTANCE,
-                    /** Account funding. */
-                    ACCOUNT_FUNDING,
-                    /** Quasi-cash transaction. */
-                    QUASI_CASH_TRANSACTION,
-                    /** Prepaid activation and load. */
-                    PREPAID_ACTIVATION_AND_LOAD,
-                    /**
-                     * An enum member indicating that [TransactionType] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        GOODS_SERVICE_PURCHASE -> Value.GOODS_SERVICE_PURCHASE
-                        CHECK_ACCEPTANCE -> Value.CHECK_ACCEPTANCE
-                        ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
-                        QUASI_CASH_TRANSACTION -> Value.QUASI_CASH_TRANSACTION
-                        PREPAID_ACTIVATION_AND_LOAD -> Value.PREPAID_ACTIVATION_AND_LOAD
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        GOODS_SERVICE_PURCHASE -> Known.GOODS_SERVICE_PURCHASE
-                        CHECK_ACCEPTANCE -> Known.CHECK_ACCEPTANCE
-                        ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
-                        QUASI_CASH_TRANSACTION -> Known.QUASI_CASH_TRANSACTION
-                        PREPAID_ACTIVATION_AND_LOAD -> Known.PREPAID_ACTIVATION_AND_LOAD
-                        else ->
-                            throw IncreaseInvalidDataException("Unknown TransactionType: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw IncreaseInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                fun validate(): TransactionType = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: IncreaseInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is TransactionType && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_authentication`.
@@ -7415,7 +7941,6 @@ private constructor(
                     cardPaymentId == other.cardPaymentId &&
                     cardholderEmail == other.cardholderEmail &&
                     cardholderName == other.cardholderName &&
-                    category == other.category &&
                     challenge == other.challenge &&
                     createdAt == other.createdAt &&
                     denyReason == other.denyReason &&
@@ -7425,10 +7950,8 @@ private constructor(
                     merchantCategoryCode == other.merchantCategoryCode &&
                     merchantCountry == other.merchantCountry &&
                     merchantName == other.merchantName &&
+                    messageCategory == other.messageCategory &&
                     priorAuthenticatedCardPaymentId == other.priorAuthenticatedCardPaymentId &&
-                    purchaseAmount == other.purchaseAmount &&
-                    purchaseAmountCardholderEstimated == other.purchaseAmountCardholderEstimated &&
-                    purchaseCurrency == other.purchaseCurrency &&
                     realTimeDecisionId == other.realTimeDecisionId &&
                     requestorAuthenticationIndicator == other.requestorAuthenticationIndicator &&
                     requestorChallengeIndicator == other.requestorChallengeIndicator &&
@@ -7443,7 +7966,6 @@ private constructor(
                     shippingAddressState == other.shippingAddressState &&
                     status == other.status &&
                     threeDSecureServerTransactionId == other.threeDSecureServerTransactionId &&
-                    transactionType == other.transactionType &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
             }
@@ -7463,7 +7985,6 @@ private constructor(
                     cardPaymentId,
                     cardholderEmail,
                     cardholderName,
-                    category,
                     challenge,
                     createdAt,
                     denyReason,
@@ -7473,10 +7994,8 @@ private constructor(
                     merchantCategoryCode,
                     merchantCountry,
                     merchantName,
+                    messageCategory,
                     priorAuthenticatedCardPaymentId,
-                    purchaseAmount,
-                    purchaseAmountCardholderEstimated,
-                    purchaseCurrency,
                     realTimeDecisionId,
                     requestorAuthenticationIndicator,
                     requestorChallengeIndicator,
@@ -7491,7 +8010,6 @@ private constructor(
                     shippingAddressState,
                     status,
                     threeDSecureServerTransactionId,
-                    transactionType,
                     type,
                     additionalProperties,
                 )
@@ -7500,7 +8018,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthentication{id=$id, accessControlServerTransactionId=$accessControlServerTransactionId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorAuthenticatedCardPaymentId=$priorAuthenticatedCardPaymentId, purchaseAmount=$purchaseAmount, purchaseAmountCardholderEstimated=$purchaseAmountCardholderEstimated, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, status=$status, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, transactionType=$transactionType, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthentication{id=$id, accessControlServerTransactionId=$accessControlServerTransactionId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, messageCategory=$messageCategory, priorAuthenticatedCardPaymentId=$priorAuthenticatedCardPaymentId, realTimeDecisionId=$realTimeDecisionId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, status=$status, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
