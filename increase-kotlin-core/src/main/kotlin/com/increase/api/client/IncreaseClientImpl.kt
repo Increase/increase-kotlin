@@ -16,6 +16,8 @@ import com.increase.api.services.blocking.AchPrenotificationService
 import com.increase.api.services.blocking.AchPrenotificationServiceImpl
 import com.increase.api.services.blocking.AchTransferService
 import com.increase.api.services.blocking.AchTransferServiceImpl
+import com.increase.api.services.blocking.BeneficialOwnerService
+import com.increase.api.services.blocking.BeneficialOwnerServiceImpl
 import com.increase.api.services.blocking.BookkeepingAccountService
 import com.increase.api.services.blocking.BookkeepingAccountServiceImpl
 import com.increase.api.services.blocking.BookkeepingEntryService
@@ -266,6 +268,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val entities: EntityService by lazy { EntityServiceImpl(clientOptionsWithUserAgent) }
 
+    private val beneficialOwners: BeneficialOwnerService by lazy {
+        BeneficialOwnerServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val supplementalDocuments: SupplementalDocumentService by lazy {
         SupplementalDocumentServiceImpl(clientOptionsWithUserAgent)
     }
@@ -427,6 +433,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun externalAccounts(): ExternalAccountService = externalAccounts
 
     override fun entities(): EntityService = entities
+
+    override fun beneficialOwners(): BeneficialOwnerService = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentService = supplementalDocuments
 
@@ -621,6 +629,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             EntityServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val beneficialOwners: BeneficialOwnerService.WithRawResponse by lazy {
+            BeneficialOwnerServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val supplementalDocuments: SupplementalDocumentService.WithRawResponse by lazy {
             SupplementalDocumentServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -804,6 +816,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         override fun externalAccounts(): ExternalAccountService.WithRawResponse = externalAccounts
 
         override fun entities(): EntityService.WithRawResponse = entities
+
+        override fun beneficialOwners(): BeneficialOwnerService.WithRawResponse = beneficialOwners
 
         override fun supplementalDocuments(): SupplementalDocumentService.WithRawResponse =
             supplementalDocuments
