@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.449.1 (2026-03-10)
+
+Full Changelog: [v0.449.0...v0.449.1](https://github.com/Increase/increase-kotlin/compare/v0.449.0...v0.449.1)
+
+### Bug Fixes
+
+* **client:** incorrect `Retry-After` parsing ([5382513](https://github.com/Increase/increase-kotlin/commit/538251386ef1595a61a935f348175839524645bd))
+
 ## 0.449.0 (2026-03-09)
 
 Full Changelog: [v0.448.0...v0.449.0](https://github.com/Increase/increase-kotlin/compare/v0.448.0...v0.449.0)
