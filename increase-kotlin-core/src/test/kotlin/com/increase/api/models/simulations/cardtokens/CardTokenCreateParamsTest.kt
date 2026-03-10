@@ -24,6 +24,16 @@ internal class CardTokenCreateParamsTest {
             )
             .expiration(LocalDate.parse("2019-12-27"))
             .last4("1234")
+            .outcome(
+                CardTokenCreateParams.Outcome.builder()
+                    .result(CardTokenCreateParams.Outcome.Result.APPROVE)
+                    .decline(
+                        CardTokenCreateParams.Outcome.Decline.builder()
+                            .reason(CardTokenCreateParams.Outcome.Decline.Reason.DO_NOT_HONOR)
+                            .build()
+                    )
+                    .build()
+            )
             .prefix("41234567")
             .primaryAccountNumberLength(16L)
             .build()
@@ -46,6 +56,16 @@ internal class CardTokenCreateParamsTest {
                 )
                 .expiration(LocalDate.parse("2019-12-27"))
                 .last4("1234")
+                .outcome(
+                    CardTokenCreateParams.Outcome.builder()
+                        .result(CardTokenCreateParams.Outcome.Result.APPROVE)
+                        .decline(
+                            CardTokenCreateParams.Outcome.Decline.builder()
+                                .reason(CardTokenCreateParams.Outcome.Decline.Reason.DO_NOT_HONOR)
+                                .build()
+                        )
+                        .build()
+                )
                 .prefix("41234567")
                 .primaryAccountNumberLength(16L)
                 .build()
@@ -66,6 +86,17 @@ internal class CardTokenCreateParamsTest {
             )
         assertThat(body.expiration()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.last4()).isEqualTo("1234")
+        assertThat(body.outcome())
+            .isEqualTo(
+                CardTokenCreateParams.Outcome.builder()
+                    .result(CardTokenCreateParams.Outcome.Result.APPROVE)
+                    .decline(
+                        CardTokenCreateParams.Outcome.Decline.builder()
+                            .reason(CardTokenCreateParams.Outcome.Decline.Reason.DO_NOT_HONOR)
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.prefix()).isEqualTo("41234567")
         assertThat(body.primaryAccountNumberLength()).isEqualTo(16L)
     }
