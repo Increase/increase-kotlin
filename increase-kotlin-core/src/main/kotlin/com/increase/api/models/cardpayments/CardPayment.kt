@@ -3648,6 +3648,7 @@ private constructor(
                 private val attempts: JsonField<List<Attempt>>,
                 private val createdAt: JsonField<OffsetDateTime>,
                 private val oneTimeCode: JsonField<String>,
+                private val realTimeDecisionId: JsonField<String>,
                 private val verificationMethod: JsonField<VerificationMethod>,
                 private val verificationValue: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3664,6 +3665,9 @@ private constructor(
                     @JsonProperty("one_time_code")
                     @ExcludeMissing
                     oneTimeCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("real_time_decision_id")
+                    @ExcludeMissing
+                    realTimeDecisionId: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("verification_method")
                     @ExcludeMissing
                     verificationMethod: JsonField<VerificationMethod> = JsonMissing.of(),
@@ -3674,6 +3678,7 @@ private constructor(
                     attempts,
                     createdAt,
                     oneTimeCode,
+                    realTimeDecisionId,
                     verificationMethod,
                     verificationValue,
                     mutableMapOf(),
@@ -3706,6 +3711,15 @@ private constructor(
                  *   unexpected value).
                  */
                 fun oneTimeCode(): String = oneTimeCode.getRequired("one_time_code")
+
+                /**
+                 * The identifier of the Real-Time Decision used to deliver this challenge.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun realTimeDecisionId(): String? =
+                    realTimeDecisionId.getNullable("real_time_decision_id")
 
                 /**
                  * The method used to verify the Card Authentication Challenge.
@@ -3758,6 +3772,16 @@ private constructor(
                 fun _oneTimeCode(): JsonField<String> = oneTimeCode
 
                 /**
+                 * Returns the raw JSON value of [realTimeDecisionId].
+                 *
+                 * Unlike [realTimeDecisionId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("real_time_decision_id")
+                @ExcludeMissing
+                fun _realTimeDecisionId(): JsonField<String> = realTimeDecisionId
+
+                /**
                  * Returns the raw JSON value of [verificationMethod].
                  *
                  * Unlike [verificationMethod], this method doesn't throw if the JSON field has an
@@ -3799,6 +3823,7 @@ private constructor(
                      * .attempts()
                      * .createdAt()
                      * .oneTimeCode()
+                     * .realTimeDecisionId()
                      * .verificationMethod()
                      * .verificationValue()
                      * ```
@@ -3812,6 +3837,7 @@ private constructor(
                     private var attempts: JsonField<MutableList<Attempt>>? = null
                     private var createdAt: JsonField<OffsetDateTime>? = null
                     private var oneTimeCode: JsonField<String>? = null
+                    private var realTimeDecisionId: JsonField<String>? = null
                     private var verificationMethod: JsonField<VerificationMethod>? = null
                     private var verificationValue: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3820,6 +3846,7 @@ private constructor(
                         attempts = challenge.attempts.map { it.toMutableList() }
                         createdAt = challenge.createdAt
                         oneTimeCode = challenge.oneTimeCode
+                        realTimeDecisionId = challenge.realTimeDecisionId
                         verificationMethod = challenge.verificationMethod
                         verificationValue = challenge.verificationValue
                         additionalProperties = challenge.additionalProperties.toMutableMap()
@@ -3880,6 +3907,21 @@ private constructor(
                      */
                     fun oneTimeCode(oneTimeCode: JsonField<String>) = apply {
                         this.oneTimeCode = oneTimeCode
+                    }
+
+                    /** The identifier of the Real-Time Decision used to deliver this challenge. */
+                    fun realTimeDecisionId(realTimeDecisionId: String?) =
+                        realTimeDecisionId(JsonField.ofNullable(realTimeDecisionId))
+
+                    /**
+                     * Sets [Builder.realTimeDecisionId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.realTimeDecisionId] with a well-typed
+                     * [String] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun realTimeDecisionId(realTimeDecisionId: JsonField<String>) = apply {
+                        this.realTimeDecisionId = realTimeDecisionId
                     }
 
                     /** The method used to verify the Card Authentication Challenge. */
@@ -3948,6 +3990,7 @@ private constructor(
                      * .attempts()
                      * .createdAt()
                      * .oneTimeCode()
+                     * .realTimeDecisionId()
                      * .verificationMethod()
                      * .verificationValue()
                      * ```
@@ -3959,6 +4002,7 @@ private constructor(
                             checkRequired("attempts", attempts).map { it.toImmutable() },
                             checkRequired("createdAt", createdAt),
                             checkRequired("oneTimeCode", oneTimeCode),
+                            checkRequired("realTimeDecisionId", realTimeDecisionId),
                             checkRequired("verificationMethod", verificationMethod),
                             checkRequired("verificationValue", verificationValue),
                             additionalProperties.toMutableMap(),
@@ -3975,6 +4019,7 @@ private constructor(
                     attempts().forEach { it.validate() }
                     createdAt()
                     oneTimeCode()
+                    realTimeDecisionId()
                     verificationMethod().validate()
                     verificationValue()
                     validated = true
@@ -3998,6 +4043,7 @@ private constructor(
                     (attempts.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                         (if (createdAt.asKnown() == null) 0 else 1) +
                         (if (oneTimeCode.asKnown() == null) 0 else 1) +
+                        (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
                         (verificationMethod.asKnown()?.validity() ?: 0) +
                         (if (verificationValue.asKnown() == null) 0 else 1)
 
@@ -4526,6 +4572,7 @@ private constructor(
                         attempts == other.attempts &&
                         createdAt == other.createdAt &&
                         oneTimeCode == other.oneTimeCode &&
+                        realTimeDecisionId == other.realTimeDecisionId &&
                         verificationMethod == other.verificationMethod &&
                         verificationValue == other.verificationValue &&
                         additionalProperties == other.additionalProperties
@@ -4536,6 +4583,7 @@ private constructor(
                         attempts,
                         createdAt,
                         oneTimeCode,
+                        realTimeDecisionId,
                         verificationMethod,
                         verificationValue,
                         additionalProperties,
@@ -4545,7 +4593,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Challenge{attempts=$attempts, createdAt=$createdAt, oneTimeCode=$oneTimeCode, verificationMethod=$verificationMethod, verificationValue=$verificationValue, additionalProperties=$additionalProperties}"
+                    "Challenge{attempts=$attempts, createdAt=$createdAt, oneTimeCode=$oneTimeCode, realTimeDecisionId=$realTimeDecisionId, verificationMethod=$verificationMethod, verificationValue=$verificationValue, additionalProperties=$additionalProperties}"
             }
 
             /** The reason why this authentication attempt was denied, if it was. */
