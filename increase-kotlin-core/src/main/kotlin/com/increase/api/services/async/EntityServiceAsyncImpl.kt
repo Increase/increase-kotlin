@@ -17,7 +17,6 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
@@ -25,7 +24,6 @@ import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateParams
 
 class EntityServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -75,26 +73,12 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // post /entities/{entity_id}/archive
         withRawResponse().archive(params, requestOptions).parse()
 
-    override suspend fun archiveBeneficialOwner(
-        params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions,
-    ): Entity =
-        // post /entities/{entity_id}/archive_beneficial_owner
-        withRawResponse().archiveBeneficialOwner(params, requestOptions).parse()
-
     override suspend fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions,
     ): Entity =
         // post /entities/{entity_id}/create_beneficial_owner
         withRawResponse().createBeneficialOwner(params, requestOptions).parse()
-
-    override suspend fun updateBeneficialOwnerAddress(
-        params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions,
-    ): Entity =
-        // post /entities/{entity_id}/update_beneficial_owner_address
-        withRawResponse().updateBeneficialOwnerAddress(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityServiceAsync.WithRawResponse {
@@ -259,37 +243,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val archiveBeneficialOwnerHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override suspend fun archiveBeneficialOwner(
-            params: EntityArchiveBeneficialOwnerParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "archive_beneficial_owner")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { archiveBeneficialOwnerHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
         private val createBeneficialOwnerHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper)
 
@@ -313,41 +266,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return errorHandler.handle(response).parseable {
                 response
                     .use { createBeneficialOwnerHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val updateBeneficialOwnerAddressHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override suspend fun updateBeneficialOwnerAddress(
-            params: EntityUpdateBeneficialOwnerAddressParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "entities",
-                        params._pathParam(0),
-                        "update_beneficial_owner_address",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateBeneficialOwnerAddressHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
