@@ -16,6 +16,7 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
+import com.increase.api.models.beneficialowners.BeneficialOwnerArchiveParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPageAsync
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPageResponse
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
@@ -57,6 +58,13 @@ internal constructor(private val clientOptions: ClientOptions) : BeneficialOwner
     ): BeneficialOwnerListPageAsync =
         // get /entity_beneficial_owners
         withRawResponse().list(params, requestOptions).parse()
+
+    override suspend fun archive(
+        params: BeneficialOwnerArchiveParams,
+        requestOptions: RequestOptions,
+    ): EntityBeneficialOwner =
+        // post /entity_beneficial_owners/{entity_beneficial_owner_id}/archive
+        withRawResponse().archive(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BeneficialOwnerServiceAsync.WithRawResponse {
@@ -162,6 +170,37 @@ internal constructor(private val clientOptions: ClientOptions) : BeneficialOwner
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val archiveHandler: Handler<EntityBeneficialOwner> =
+            jsonHandler<EntityBeneficialOwner>(clientOptions.jsonMapper)
+
+        override suspend fun archive(
+            params: BeneficialOwnerArchiveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EntityBeneficialOwner> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityBeneficialOwnerId", params.entityBeneficialOwnerId())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("entity_beneficial_owners", params._pathParam(0), "archive")
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { archiveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
