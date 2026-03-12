@@ -8,7 +8,6 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListParams
@@ -95,19 +94,6 @@ interface EntityServiceAsync {
     /** @see archive */
     suspend fun archive(entityId: String, requestOptions: RequestOptions): Entity =
         archive(entityId, EntityArchiveParams.none(), requestOptions)
-
-    /** Create a beneficial owner for a corporate Entity */
-    suspend fun createBeneficialOwner(
-        entityId: String,
-        params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see createBeneficialOwner */
-    suspend fun createBeneficialOwner(
-        params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
 
     /**
      * A view of [EntityServiceAsync] that provides access to raw HTTP responses for each method.
@@ -225,24 +211,5 @@ interface EntityServiceAsync {
             entityId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> = archive(entityId, EntityArchiveParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
-         * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
-         */
-        @MustBeClosed
-        suspend fun createBeneficialOwner(
-            entityId: String,
-            params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see createBeneficialOwner */
-        @MustBeClosed
-        suspend fun createBeneficialOwner(
-            params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
     }
 }
