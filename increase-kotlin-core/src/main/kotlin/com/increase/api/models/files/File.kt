@@ -673,6 +673,9 @@ private constructor(
              */
             val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
+            /** A signature image to be printed on a check. This must be a 1320x120 pixel PNG. */
+            val CHECK_SIGNATURE = of("check_signature")
+
             /** A scanned mail item sent to Increase. */
             val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
@@ -796,6 +799,8 @@ private constructor(
              * trifold area of a check. This must be a 2550x1100 pixel PNG.
              */
             CHECK_VOUCHER_IMAGE,
+            /** A signature image to be printed on a check. This must be a 1320x120 pixel PNG. */
+            CHECK_SIGNATURE,
             /** A scanned mail item sent to Increase. */
             INBOUND_MAIL_ITEM,
             /** IRS Form 1099-INT. */
@@ -900,6 +905,8 @@ private constructor(
              * trifold area of a check. This must be a 2550x1100 pixel PNG.
              */
             CHECK_VOUCHER_IMAGE,
+            /** A signature image to be printed on a check. This must be a 1320x120 pixel PNG. */
+            CHECK_SIGNATURE,
             /** A scanned mail item sent to Increase. */
             INBOUND_MAIL_ITEM,
             /** IRS Form 1099-INT. */
@@ -984,6 +991,7 @@ private constructor(
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 CHECK_ATTACHMENT -> Value.CHECK_ATTACHMENT
                 CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
+                CHECK_SIGNATURE -> Value.CHECK_SIGNATURE
                 INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Value.FORM_1099_INT
                 FORM_1099_MISC -> Value.FORM_1099_MISC
@@ -1032,6 +1040,7 @@ private constructor(
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 CHECK_ATTACHMENT -> Known.CHECK_ATTACHMENT
                 CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
+                CHECK_SIGNATURE -> Known.CHECK_SIGNATURE
                 INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Known.FORM_1099_INT
                 FORM_1099_MISC -> Known.FORM_1099_MISC
