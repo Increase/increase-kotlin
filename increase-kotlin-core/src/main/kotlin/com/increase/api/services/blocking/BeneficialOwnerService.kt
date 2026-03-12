@@ -7,6 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.beneficialowners.BeneficialOwnerArchiveParams
+import com.increase.api.models.beneficialowners.BeneficialOwnerCreateParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPage
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerRetrieveParams
@@ -26,6 +27,12 @@ interface BeneficialOwnerService {
      * The original service is not modified.
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BeneficialOwnerService
+
+    /** Create a beneficial owner */
+    fun create(
+        params: BeneficialOwnerCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EntityBeneficialOwner
 
     /** Retrieve a Beneficial Owner */
     fun retrieve(
@@ -119,6 +126,16 @@ interface BeneficialOwnerService {
         fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): BeneficialOwnerService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /entity_beneficial_owners`, but is otherwise the
+         * same as [BeneficialOwnerService.create].
+         */
+        @MustBeClosed
+        fun create(
+            params: BeneficialOwnerCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EntityBeneficialOwner>
 
         /**
          * Returns a raw HTTP response for `get
