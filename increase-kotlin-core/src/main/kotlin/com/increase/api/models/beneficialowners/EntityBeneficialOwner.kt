@@ -20,6 +20,12 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
+/**
+ * Beneficial owners are the individuals who control or own 25% or more of a `corporation` entity.
+ * Beneficial owners are always people, and never organizations. Generally, you will need to submit
+ * between 1 and 5 beneficial owners for every `corporation` entity. You should update and archive
+ * beneficial owners for a corporation entity as their details change.
+ */
 class EntityBeneficialOwner
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
