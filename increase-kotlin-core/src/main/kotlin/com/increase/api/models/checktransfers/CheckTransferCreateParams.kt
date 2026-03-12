@@ -1478,7 +1478,7 @@ private constructor(
         private val payer: JsonField<List<Payer>>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val shippingMethod: JsonField<ShippingMethod>,
-        private val signatureText: JsonField<String>,
+        private val signature: JsonField<Signature>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1505,9 +1505,9 @@ private constructor(
             @JsonProperty("shipping_method")
             @ExcludeMissing
             shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
-            @JsonProperty("signature_text")
+            @JsonProperty("signature")
             @ExcludeMissing
-            signatureText: JsonField<String> = JsonMissing.of(),
+            signature: JsonField<Signature> = JsonMissing.of(),
         ) : this(
             mailingAddress,
             memo,
@@ -1518,7 +1518,7 @@ private constructor(
             payer,
             returnAddress,
             shippingMethod,
-            signatureText,
+            signature,
             mutableMapOf(),
         )
 
@@ -1604,13 +1604,13 @@ private constructor(
         fun shippingMethod(): ShippingMethod? = shippingMethod.getNullable("shipping_method")
 
         /**
-         * The text that will appear as the signature on the check in cursive font. If not provided,
-         * the check will be printed with 'No signature required'.
+         * The signature that will appear on the check. If not provided, the check will be printed
+         * with 'No Signature Required'. At most one of `text` and `image_file_id` may be provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun signatureText(): String? = signatureText.getNullable("signature_text")
+        fun signature(): Signature? = signature.getNullable("signature")
 
         /**
          * Returns the raw JSON value of [mailingAddress].
@@ -1694,14 +1694,13 @@ private constructor(
         fun _shippingMethod(): JsonField<ShippingMethod> = shippingMethod
 
         /**
-         * Returns the raw JSON value of [signatureText].
+         * Returns the raw JSON value of [signature].
          *
-         * Unlike [signatureText], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [signature], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("signature_text")
+        @JsonProperty("signature")
         @ExcludeMissing
-        fun _signatureText(): JsonField<String> = signatureText
+        fun _signature(): JsonField<Signature> = signature
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1742,7 +1741,7 @@ private constructor(
             private var payer: JsonField<MutableList<Payer>>? = null
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
             private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
-            private var signatureText: JsonField<String> = JsonMissing.of()
+            private var signature: JsonField<Signature> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCheck: PhysicalCheck) = apply {
@@ -1755,7 +1754,7 @@ private constructor(
                 payer = physicalCheck.payer.map { it.toMutableList() }
                 returnAddress = physicalCheck.returnAddress
                 shippingMethod = physicalCheck.shippingMethod
-                signatureText = physicalCheck.signatureText
+                signature = physicalCheck.signature
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
 
@@ -1917,21 +1916,20 @@ private constructor(
             }
 
             /**
-             * The text that will appear as the signature on the check in cursive font. If not
-             * provided, the check will be printed with 'No signature required'.
+             * The signature that will appear on the check. If not provided, the check will be
+             * printed with 'No Signature Required'. At most one of `text` and `image_file_id` may
+             * be provided.
              */
-            fun signatureText(signatureText: String) = signatureText(JsonField.of(signatureText))
+            fun signature(signature: Signature) = signature(JsonField.of(signature))
 
             /**
-             * Sets [Builder.signatureText] to an arbitrary JSON value.
+             * Sets [Builder.signature] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.signatureText] with a well-typed [String] value
+             * You should usually call [Builder.signature] with a well-typed [Signature] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun signatureText(signatureText: JsonField<String>) = apply {
-                this.signatureText = signatureText
-            }
+            fun signature(signature: JsonField<Signature>) = apply { this.signature = signature }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1977,7 +1975,7 @@ private constructor(
                     (payer ?: JsonMissing.of()).map { it.toImmutable() },
                     returnAddress,
                     shippingMethod,
-                    signatureText,
+                    signature,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1998,7 +1996,7 @@ private constructor(
             payer()?.forEach { it.validate() }
             returnAddress()?.validate()
             shippingMethod()?.validate()
-            signatureText()
+            signature()?.validate()
             validated = true
         }
 
@@ -2026,7 +2024,7 @@ private constructor(
                 (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
                 (shippingMethod.asKnown()?.validity() ?: 0) +
-                (if (signatureText.asKnown() == null) 0 else 1)
+                (signature.asKnown()?.validity() ?: 0)
 
         /** Details for where Increase will mail the check. */
         class MailingAddress
@@ -3154,6 +3152,202 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * The signature that will appear on the check. If not provided, the check will be printed
+         * with 'No Signature Required'. At most one of `text` and `image_file_id` may be provided.
+         */
+        class Signature
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val imageFileId: JsonField<String>,
+            private val text: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("image_file_id")
+                @ExcludeMissing
+                imageFileId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
+            ) : this(imageFileId, text, mutableMapOf())
+
+            /**
+             * The ID of a File containing a PNG of the signature. This must have `purpose:
+             * check_signature` and be a 1320x120 pixel PNG.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun imageFileId(): String? = imageFileId.getNullable("image_file_id")
+
+            /**
+             * The text that will appear as the signature on the check in cursive font.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun text(): String? = text.getNullable("text")
+
+            /**
+             * Returns the raw JSON value of [imageFileId].
+             *
+             * Unlike [imageFileId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("image_file_id")
+            @ExcludeMissing
+            fun _imageFileId(): JsonField<String> = imageFileId
+
+            /**
+             * Returns the raw JSON value of [text].
+             *
+             * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Signature]. */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Signature]. */
+            class Builder internal constructor() {
+
+                private var imageFileId: JsonField<String> = JsonMissing.of()
+                private var text: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(signature: Signature) = apply {
+                    imageFileId = signature.imageFileId
+                    text = signature.text
+                    additionalProperties = signature.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The ID of a File containing a PNG of the signature. This must have `purpose:
+                 * check_signature` and be a 1320x120 pixel PNG.
+                 */
+                fun imageFileId(imageFileId: String) = imageFileId(JsonField.of(imageFileId))
+
+                /**
+                 * Sets [Builder.imageFileId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.imageFileId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun imageFileId(imageFileId: JsonField<String>) = apply {
+                    this.imageFileId = imageFileId
+                }
+
+                /** The text that will appear as the signature on the check in cursive font. */
+                fun text(text: String) = text(JsonField.of(text))
+
+                /**
+                 * Sets [Builder.text] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.text] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun text(text: JsonField<String>) = apply { this.text = text }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Signature].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Signature =
+                    Signature(imageFileId, text, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Signature = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                imageFileId()
+                text()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (imageFileId.asKnown() == null) 0 else 1) +
+                    (if (text.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Signature &&
+                    imageFileId == other.imageFileId &&
+                    text == other.text &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(imageFileId, text, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Signature{imageFileId=$imageFileId, text=$text, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -3169,7 +3363,7 @@ private constructor(
                 payer == other.payer &&
                 returnAddress == other.returnAddress &&
                 shippingMethod == other.shippingMethod &&
-                signatureText == other.signatureText &&
+                signature == other.signature &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -3184,7 +3378,7 @@ private constructor(
                 payer,
                 returnAddress,
                 shippingMethod,
-                signatureText,
+                signature,
                 additionalProperties,
             )
         }
@@ -3192,7 +3386,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, payer=$payer, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, payer=$payer, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
     }
 
     /**
