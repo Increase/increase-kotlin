@@ -7,14 +7,12 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateParams
 
 interface EntityServiceAsync {
@@ -98,20 +96,6 @@ interface EntityServiceAsync {
     suspend fun archive(entityId: String, requestOptions: RequestOptions): Entity =
         archive(entityId, EntityArchiveParams.none(), requestOptions)
 
-    /** Archive a beneficial owner for a corporate Entity */
-    suspend fun archiveBeneficialOwner(
-        entityId: String,
-        params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity =
-        archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see archiveBeneficialOwner */
-    suspend fun archiveBeneficialOwner(
-        params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
     /** Create a beneficial owner for a corporate Entity */
     suspend fun createBeneficialOwner(
         entityId: String,
@@ -122,20 +106,6 @@ interface EntityServiceAsync {
     /** @see createBeneficialOwner */
     suspend fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** Update the address for a beneficial owner belonging to a corporate Entity */
-    suspend fun updateBeneficialOwnerAddress(
-        entityId: String,
-        params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity =
-        updateBeneficialOwnerAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateBeneficialOwnerAddress */
-    suspend fun updateBeneficialOwnerAddress(
-        params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -257,25 +227,6 @@ interface EntityServiceAsync {
         ): HttpResponseFor<Entity> = archive(entityId, EntityArchiveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/archive_beneficial_owner`,
-         * but is otherwise the same as [EntityServiceAsync.archiveBeneficialOwner].
-         */
-        @MustBeClosed
-        suspend fun archiveBeneficialOwner(
-            entityId: String,
-            params: EntityArchiveBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see archiveBeneficialOwner */
-        @MustBeClosed
-        suspend fun archiveBeneficialOwner(
-            params: EntityArchiveBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /**
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
          */
@@ -291,29 +242,6 @@ interface EntityServiceAsync {
         @MustBeClosed
         suspend fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /entities/{entity_id}/update_beneficial_owner_address`, but is otherwise the same as
-         * [EntityServiceAsync.updateBeneficialOwnerAddress].
-         */
-        @MustBeClosed
-        suspend fun updateBeneficialOwnerAddress(
-            entityId: String,
-            params: EntityUpdateBeneficialOwnerAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            updateBeneficialOwnerAddress(
-                params.toBuilder().entityId(entityId).build(),
-                requestOptions,
-            )
-
-        /** @see updateBeneficialOwnerAddress */
-        @MustBeClosed
-        suspend fun updateBeneficialOwnerAddress(
-            params: EntityUpdateBeneficialOwnerAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
     }
