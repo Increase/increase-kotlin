@@ -649,7 +649,7 @@ private constructor(
     class CardAuthentication
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val accessControlServerTransactionId: JsonField<String>,
+        private val accessControlServerTransactionIdentifier: JsonField<String>,
         private val accountId: JsonField<String>,
         private val billingAddressCity: JsonField<String>,
         private val billingAddressCountry: JsonField<String>,
@@ -663,7 +663,7 @@ private constructor(
         private val cardholderName: JsonField<String>,
         private val decision: JsonField<Decision>,
         private val deviceChannel: JsonField<DeviceChannel>,
-        private val directoryServerTransactionId: JsonField<String>,
+        private val directoryServerTransactionIdentifier: JsonField<String>,
         private val merchantAcceptorId: JsonField<String>,
         private val merchantCategoryCode: JsonField<String>,
         private val merchantCountry: JsonField<String>,
@@ -681,16 +681,16 @@ private constructor(
         private val shippingAddressLine3: JsonField<String>,
         private val shippingAddressPostalCode: JsonField<String>,
         private val shippingAddressState: JsonField<String>,
-        private val threeDSecureServerTransactionId: JsonField<String>,
+        private val threeDSecureServerTransactionIdentifier: JsonField<String>,
         private val upcomingCardPaymentId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("access_control_server_transaction_id")
+            @JsonProperty("access_control_server_transaction_identifier")
             @ExcludeMissing
-            accessControlServerTransactionId: JsonField<String> = JsonMissing.of(),
+            accessControlServerTransactionIdentifier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("account_id")
             @ExcludeMissing
             accountId: JsonField<String> = JsonMissing.of(),
@@ -728,9 +728,9 @@ private constructor(
             @JsonProperty("device_channel")
             @ExcludeMissing
             deviceChannel: JsonField<DeviceChannel> = JsonMissing.of(),
-            @JsonProperty("directory_server_transaction_id")
+            @JsonProperty("directory_server_transaction_identifier")
             @ExcludeMissing
-            directoryServerTransactionId: JsonField<String> = JsonMissing.of(),
+            directoryServerTransactionIdentifier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -783,14 +783,14 @@ private constructor(
             @JsonProperty("shipping_address_state")
             @ExcludeMissing
             shippingAddressState: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("three_d_secure_server_transaction_id")
+            @JsonProperty("three_d_secure_server_transaction_identifier")
             @ExcludeMissing
-            threeDSecureServerTransactionId: JsonField<String> = JsonMissing.of(),
+            threeDSecureServerTransactionIdentifier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("upcoming_card_payment_id")
             @ExcludeMissing
             upcomingCardPaymentId: JsonField<String> = JsonMissing.of(),
         ) : this(
-            accessControlServerTransactionId,
+            accessControlServerTransactionIdentifier,
             accountId,
             billingAddressCity,
             billingAddressCountry,
@@ -804,7 +804,7 @@ private constructor(
             cardholderName,
             decision,
             deviceChannel,
-            directoryServerTransactionId,
+            directoryServerTransactionIdentifier,
             merchantAcceptorId,
             merchantCategoryCode,
             merchantCountry,
@@ -822,7 +822,7 @@ private constructor(
             shippingAddressLine3,
             shippingAddressPostalCode,
             shippingAddressState,
-            threeDSecureServerTransactionId,
+            threeDSecureServerTransactionIdentifier,
             upcomingCardPaymentId,
             mutableMapOf(),
         )
@@ -833,8 +833,10 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun accessControlServerTransactionId(): String =
-            accessControlServerTransactionId.getRequired("access_control_server_transaction_id")
+        fun accessControlServerTransactionIdentifier(): String =
+            accessControlServerTransactionIdentifier.getRequired(
+                "access_control_server_transaction_identifier"
+            )
 
         /**
          * The identifier of the Account the card belongs to.
@@ -960,8 +962,10 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun directoryServerTransactionId(): String =
-            directoryServerTransactionId.getRequired("directory_server_transaction_id")
+        fun directoryServerTransactionIdentifier(): String =
+            directoryServerTransactionIdentifier.getRequired(
+                "directory_server_transaction_identifier"
+            )
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1121,8 +1125,10 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun threeDSecureServerTransactionId(): String =
-            threeDSecureServerTransactionId.getRequired("three_d_secure_server_transaction_id")
+        fun threeDSecureServerTransactionIdentifier(): String =
+            threeDSecureServerTransactionIdentifier.getRequired(
+                "three_d_secure_server_transaction_identifier"
+            )
 
         /**
          * The identifier of the Card Payment this authentication attempt will belong to. Available
@@ -1135,15 +1141,15 @@ private constructor(
             upcomingCardPaymentId.getRequired("upcoming_card_payment_id")
 
         /**
-         * Returns the raw JSON value of [accessControlServerTransactionId].
+         * Returns the raw JSON value of [accessControlServerTransactionIdentifier].
          *
-         * Unlike [accessControlServerTransactionId], this method doesn't throw if the JSON field
-         * has an unexpected type.
+         * Unlike [accessControlServerTransactionIdentifier], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
-        @JsonProperty("access_control_server_transaction_id")
+        @JsonProperty("access_control_server_transaction_identifier")
         @ExcludeMissing
-        fun _accessControlServerTransactionId(): JsonField<String> =
-            accessControlServerTransactionId
+        fun _accessControlServerTransactionIdentifier(): JsonField<String> =
+            accessControlServerTransactionIdentifier
 
         /**
          * Returns the raw JSON value of [accountId].
@@ -1267,14 +1273,15 @@ private constructor(
         fun _deviceChannel(): JsonField<DeviceChannel> = deviceChannel
 
         /**
-         * Returns the raw JSON value of [directoryServerTransactionId].
+         * Returns the raw JSON value of [directoryServerTransactionIdentifier].
          *
-         * Unlike [directoryServerTransactionId], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [directoryServerTransactionIdentifier], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
-        @JsonProperty("directory_server_transaction_id")
+        @JsonProperty("directory_server_transaction_identifier")
         @ExcludeMissing
-        fun _directoryServerTransactionId(): JsonField<String> = directoryServerTransactionId
+        fun _directoryServerTransactionIdentifier(): JsonField<String> =
+            directoryServerTransactionIdentifier
 
         /**
          * Returns the raw JSON value of [merchantAcceptorId].
@@ -1449,14 +1456,15 @@ private constructor(
         fun _shippingAddressState(): JsonField<String> = shippingAddressState
 
         /**
-         * Returns the raw JSON value of [threeDSecureServerTransactionId].
+         * Returns the raw JSON value of [threeDSecureServerTransactionIdentifier].
          *
-         * Unlike [threeDSecureServerTransactionId], this method doesn't throw if the JSON field has
-         * an unexpected type.
+         * Unlike [threeDSecureServerTransactionIdentifier], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
-        @JsonProperty("three_d_secure_server_transaction_id")
+        @JsonProperty("three_d_secure_server_transaction_identifier")
         @ExcludeMissing
-        fun _threeDSecureServerTransactionId(): JsonField<String> = threeDSecureServerTransactionId
+        fun _threeDSecureServerTransactionIdentifier(): JsonField<String> =
+            threeDSecureServerTransactionIdentifier
 
         /**
          * Returns the raw JSON value of [upcomingCardPaymentId].
@@ -1487,7 +1495,7 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .accessControlServerTransactionId()
+             * .accessControlServerTransactionIdentifier()
              * .accountId()
              * .billingAddressCity()
              * .billingAddressCountry()
@@ -1501,7 +1509,7 @@ private constructor(
              * .cardholderName()
              * .decision()
              * .deviceChannel()
-             * .directoryServerTransactionId()
+             * .directoryServerTransactionIdentifier()
              * .merchantAcceptorId()
              * .merchantCategoryCode()
              * .merchantCountry()
@@ -1519,7 +1527,7 @@ private constructor(
              * .shippingAddressLine3()
              * .shippingAddressPostalCode()
              * .shippingAddressState()
-             * .threeDSecureServerTransactionId()
+             * .threeDSecureServerTransactionIdentifier()
              * .upcomingCardPaymentId()
              * ```
              */
@@ -1529,7 +1537,7 @@ private constructor(
         /** A builder for [CardAuthentication]. */
         class Builder internal constructor() {
 
-            private var accessControlServerTransactionId: JsonField<String>? = null
+            private var accessControlServerTransactionIdentifier: JsonField<String>? = null
             private var accountId: JsonField<String>? = null
             private var billingAddressCity: JsonField<String>? = null
             private var billingAddressCountry: JsonField<String>? = null
@@ -1543,7 +1551,7 @@ private constructor(
             private var cardholderName: JsonField<String>? = null
             private var decision: JsonField<Decision>? = null
             private var deviceChannel: JsonField<DeviceChannel>? = null
-            private var directoryServerTransactionId: JsonField<String>? = null
+            private var directoryServerTransactionIdentifier: JsonField<String>? = null
             private var merchantAcceptorId: JsonField<String>? = null
             private var merchantCategoryCode: JsonField<String>? = null
             private var merchantCountry: JsonField<String>? = null
@@ -1563,13 +1571,13 @@ private constructor(
             private var shippingAddressLine3: JsonField<String>? = null
             private var shippingAddressPostalCode: JsonField<String>? = null
             private var shippingAddressState: JsonField<String>? = null
-            private var threeDSecureServerTransactionId: JsonField<String>? = null
+            private var threeDSecureServerTransactionIdentifier: JsonField<String>? = null
             private var upcomingCardPaymentId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthentication: CardAuthentication) = apply {
-                accessControlServerTransactionId =
-                    cardAuthentication.accessControlServerTransactionId
+                accessControlServerTransactionIdentifier =
+                    cardAuthentication.accessControlServerTransactionIdentifier
                 accountId = cardAuthentication.accountId
                 billingAddressCity = cardAuthentication.billingAddressCity
                 billingAddressCountry = cardAuthentication.billingAddressCountry
@@ -1583,7 +1591,8 @@ private constructor(
                 cardholderName = cardAuthentication.cardholderName
                 decision = cardAuthentication.decision
                 deviceChannel = cardAuthentication.deviceChannel
-                directoryServerTransactionId = cardAuthentication.directoryServerTransactionId
+                directoryServerTransactionIdentifier =
+                    cardAuthentication.directoryServerTransactionIdentifier
                 merchantAcceptorId = cardAuthentication.merchantAcceptorId
                 merchantCategoryCode = cardAuthentication.merchantCategoryCode
                 merchantCountry = cardAuthentication.merchantCountry
@@ -1602,7 +1611,8 @@ private constructor(
                 shippingAddressLine3 = cardAuthentication.shippingAddressLine3
                 shippingAddressPostalCode = cardAuthentication.shippingAddressPostalCode
                 shippingAddressState = cardAuthentication.shippingAddressState
-                threeDSecureServerTransactionId = cardAuthentication.threeDSecureServerTransactionId
+                threeDSecureServerTransactionIdentifier =
+                    cardAuthentication.threeDSecureServerTransactionIdentifier
                 upcomingCardPaymentId = cardAuthentication.upcomingCardPaymentId
                 additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
             }
@@ -1610,19 +1620,26 @@ private constructor(
             /**
              * A unique identifier assigned by the Access Control Server (us) for this transaction.
              */
-            fun accessControlServerTransactionId(accessControlServerTransactionId: String) =
-                accessControlServerTransactionId(JsonField.of(accessControlServerTransactionId))
+            fun accessControlServerTransactionIdentifier(
+                accessControlServerTransactionIdentifier: String
+            ) =
+                accessControlServerTransactionIdentifier(
+                    JsonField.of(accessControlServerTransactionIdentifier)
+                )
 
             /**
-             * Sets [Builder.accessControlServerTransactionId] to an arbitrary JSON value.
+             * Sets [Builder.accessControlServerTransactionIdentifier] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.accessControlServerTransactionId] with a well-typed
-             * [String] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.accessControlServerTransactionIdentifier] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
-            fun accessControlServerTransactionId(
-                accessControlServerTransactionId: JsonField<String>
-            ) = apply { this.accessControlServerTransactionId = accessControlServerTransactionId }
+            fun accessControlServerTransactionIdentifier(
+                accessControlServerTransactionIdentifier: JsonField<String>
+            ) = apply {
+                this.accessControlServerTransactionIdentifier =
+                    accessControlServerTransactionIdentifier
+            }
 
             /** The identifier of the Account the card belongs to. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -1835,20 +1852,23 @@ private constructor(
              * A unique identifier assigned by the Directory Server (the card network) for this
              * transaction.
              */
-            fun directoryServerTransactionId(directoryServerTransactionId: String) =
-                directoryServerTransactionId(JsonField.of(directoryServerTransactionId))
+            fun directoryServerTransactionIdentifier(directoryServerTransactionIdentifier: String) =
+                directoryServerTransactionIdentifier(
+                    JsonField.of(directoryServerTransactionIdentifier)
+                )
 
             /**
-             * Sets [Builder.directoryServerTransactionId] to an arbitrary JSON value.
+             * Sets [Builder.directoryServerTransactionIdentifier] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.directoryServerTransactionId] with a well-typed
-             * [String] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.directoryServerTransactionIdentifier] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
-            fun directoryServerTransactionId(directoryServerTransactionId: JsonField<String>) =
-                apply {
-                    this.directoryServerTransactionId = directoryServerTransactionId
-                }
+            fun directoryServerTransactionIdentifier(
+                directoryServerTransactionIdentifier: JsonField<String>
+            ) = apply {
+                this.directoryServerTransactionIdentifier = directoryServerTransactionIdentifier
+            }
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -2126,19 +2146,26 @@ private constructor(
              * A unique identifier assigned by the 3DS Server initiating the authentication attempt
              * for this transaction.
              */
-            fun threeDSecureServerTransactionId(threeDSecureServerTransactionId: String) =
-                threeDSecureServerTransactionId(JsonField.of(threeDSecureServerTransactionId))
+            fun threeDSecureServerTransactionIdentifier(
+                threeDSecureServerTransactionIdentifier: String
+            ) =
+                threeDSecureServerTransactionIdentifier(
+                    JsonField.of(threeDSecureServerTransactionIdentifier)
+                )
 
             /**
-             * Sets [Builder.threeDSecureServerTransactionId] to an arbitrary JSON value.
+             * Sets [Builder.threeDSecureServerTransactionIdentifier] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.threeDSecureServerTransactionId] with a well-typed
-             * [String] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.threeDSecureServerTransactionIdentifier] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
-            fun threeDSecureServerTransactionId(
-                threeDSecureServerTransactionId: JsonField<String>
-            ) = apply { this.threeDSecureServerTransactionId = threeDSecureServerTransactionId }
+            fun threeDSecureServerTransactionIdentifier(
+                threeDSecureServerTransactionIdentifier: JsonField<String>
+            ) = apply {
+                this.threeDSecureServerTransactionIdentifier =
+                    threeDSecureServerTransactionIdentifier
+            }
 
             /**
              * The identifier of the Card Payment this authentication attempt will belong to.
@@ -2184,7 +2211,7 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .accessControlServerTransactionId()
+             * .accessControlServerTransactionIdentifier()
              * .accountId()
              * .billingAddressCity()
              * .billingAddressCountry()
@@ -2198,7 +2225,7 @@ private constructor(
              * .cardholderName()
              * .decision()
              * .deviceChannel()
-             * .directoryServerTransactionId()
+             * .directoryServerTransactionIdentifier()
              * .merchantAcceptorId()
              * .merchantCategoryCode()
              * .merchantCountry()
@@ -2216,7 +2243,7 @@ private constructor(
              * .shippingAddressLine3()
              * .shippingAddressPostalCode()
              * .shippingAddressState()
-             * .threeDSecureServerTransactionId()
+             * .threeDSecureServerTransactionIdentifier()
              * .upcomingCardPaymentId()
              * ```
              *
@@ -2225,8 +2252,8 @@ private constructor(
             fun build(): CardAuthentication =
                 CardAuthentication(
                     checkRequired(
-                        "accessControlServerTransactionId",
-                        accessControlServerTransactionId,
+                        "accessControlServerTransactionIdentifier",
+                        accessControlServerTransactionIdentifier,
                     ),
                     checkRequired("accountId", accountId),
                     checkRequired("billingAddressCity", billingAddressCity),
@@ -2241,7 +2268,10 @@ private constructor(
                     checkRequired("cardholderName", cardholderName),
                     checkRequired("decision", decision),
                     checkRequired("deviceChannel", deviceChannel),
-                    checkRequired("directoryServerTransactionId", directoryServerTransactionId),
+                    checkRequired(
+                        "directoryServerTransactionIdentifier",
+                        directoryServerTransactionIdentifier,
+                    ),
                     checkRequired("merchantAcceptorId", merchantAcceptorId),
                     checkRequired("merchantCategoryCode", merchantCategoryCode),
                     checkRequired("merchantCountry", merchantCountry),
@@ -2266,8 +2296,8 @@ private constructor(
                     checkRequired("shippingAddressPostalCode", shippingAddressPostalCode),
                     checkRequired("shippingAddressState", shippingAddressState),
                     checkRequired(
-                        "threeDSecureServerTransactionId",
-                        threeDSecureServerTransactionId,
+                        "threeDSecureServerTransactionIdentifier",
+                        threeDSecureServerTransactionIdentifier,
                     ),
                     checkRequired("upcomingCardPaymentId", upcomingCardPaymentId),
                     additionalProperties.toMutableMap(),
@@ -2281,7 +2311,7 @@ private constructor(
                 return@apply
             }
 
-            accessControlServerTransactionId()
+            accessControlServerTransactionIdentifier()
             accountId()
             billingAddressCity()
             billingAddressCountry()
@@ -2295,7 +2325,7 @@ private constructor(
             cardholderName()
             decision()?.validate()
             deviceChannel().validate()
-            directoryServerTransactionId()
+            directoryServerTransactionIdentifier()
             merchantAcceptorId()
             merchantCategoryCode()
             merchantCountry()
@@ -2313,7 +2343,7 @@ private constructor(
             shippingAddressLine3()
             shippingAddressPostalCode()
             shippingAddressState()
-            threeDSecureServerTransactionId()
+            threeDSecureServerTransactionIdentifier()
             upcomingCardPaymentId()
             validated = true
         }
@@ -2333,7 +2363,7 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (accessControlServerTransactionId.asKnown() == null) 0 else 1) +
+            (if (accessControlServerTransactionIdentifier.asKnown() == null) 0 else 1) +
                 (if (accountId.asKnown() == null) 0 else 1) +
                 (if (billingAddressCity.asKnown() == null) 0 else 1) +
                 (if (billingAddressCountry.asKnown() == null) 0 else 1) +
@@ -2347,7 +2377,7 @@ private constructor(
                 (if (cardholderName.asKnown() == null) 0 else 1) +
                 (decision.asKnown()?.validity() ?: 0) +
                 (deviceChannel.asKnown()?.validity() ?: 0) +
-                (if (directoryServerTransactionId.asKnown() == null) 0 else 1) +
+                (if (directoryServerTransactionIdentifier.asKnown() == null) 0 else 1) +
                 (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
                 (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
                 (if (merchantCountry.asKnown() == null) 0 else 1) +
@@ -2365,7 +2395,7 @@ private constructor(
                 (if (shippingAddressLine3.asKnown() == null) 0 else 1) +
                 (if (shippingAddressPostalCode.asKnown() == null) 0 else 1) +
                 (if (shippingAddressState.asKnown() == null) 0 else 1) +
-                (if (threeDSecureServerTransactionId.asKnown() == null) 0 else 1) +
+                (if (threeDSecureServerTransactionIdentifier.asKnown() == null) 0 else 1) +
                 (if (upcomingCardPaymentId.asKnown() == null) 0 else 1)
 
         /** Whether or not the authentication attempt was approved. */
@@ -5337,7 +5367,8 @@ private constructor(
             }
 
             return other is CardAuthentication &&
-                accessControlServerTransactionId == other.accessControlServerTransactionId &&
+                accessControlServerTransactionIdentifier ==
+                    other.accessControlServerTransactionIdentifier &&
                 accountId == other.accountId &&
                 billingAddressCity == other.billingAddressCity &&
                 billingAddressCountry == other.billingAddressCountry &&
@@ -5351,7 +5382,8 @@ private constructor(
                 cardholderName == other.cardholderName &&
                 decision == other.decision &&
                 deviceChannel == other.deviceChannel &&
-                directoryServerTransactionId == other.directoryServerTransactionId &&
+                directoryServerTransactionIdentifier ==
+                    other.directoryServerTransactionIdentifier &&
                 merchantAcceptorId == other.merchantAcceptorId &&
                 merchantCategoryCode == other.merchantCategoryCode &&
                 merchantCountry == other.merchantCountry &&
@@ -5369,14 +5401,15 @@ private constructor(
                 shippingAddressLine3 == other.shippingAddressLine3 &&
                 shippingAddressPostalCode == other.shippingAddressPostalCode &&
                 shippingAddressState == other.shippingAddressState &&
-                threeDSecureServerTransactionId == other.threeDSecureServerTransactionId &&
+                threeDSecureServerTransactionIdentifier ==
+                    other.threeDSecureServerTransactionIdentifier &&
                 upcomingCardPaymentId == other.upcomingCardPaymentId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                accessControlServerTransactionId,
+                accessControlServerTransactionIdentifier,
                 accountId,
                 billingAddressCity,
                 billingAddressCountry,
@@ -5390,7 +5423,7 @@ private constructor(
                 cardholderName,
                 decision,
                 deviceChannel,
-                directoryServerTransactionId,
+                directoryServerTransactionIdentifier,
                 merchantAcceptorId,
                 merchantCategoryCode,
                 merchantCountry,
@@ -5408,7 +5441,7 @@ private constructor(
                 shippingAddressLine3,
                 shippingAddressPostalCode,
                 shippingAddressState,
-                threeDSecureServerTransactionId,
+                threeDSecureServerTransactionIdentifier,
                 upcomingCardPaymentId,
                 additionalProperties,
             )
@@ -5417,7 +5450,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthentication{accessControlServerTransactionId=$accessControlServerTransactionId, accountId=$accountId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, decision=$decision, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, messageCategory=$messageCategory, priorAuthenticatedCardPaymentId=$priorAuthenticatedCardPaymentId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, upcomingCardPaymentId=$upcomingCardPaymentId, additionalProperties=$additionalProperties}"
+            "CardAuthentication{accessControlServerTransactionIdentifier=$accessControlServerTransactionIdentifier, accountId=$accountId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, decision=$decision, deviceChannel=$deviceChannel, directoryServerTransactionIdentifier=$directoryServerTransactionIdentifier, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, messageCategory=$messageCategory, priorAuthenticatedCardPaymentId=$priorAuthenticatedCardPaymentId, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, threeDSecureServerTransactionIdentifier=$threeDSecureServerTransactionIdentifier, upcomingCardPaymentId=$upcomingCardPaymentId, additionalProperties=$additionalProperties}"
     }
 
     /** Fields related to a 3DS authentication attempt. */
