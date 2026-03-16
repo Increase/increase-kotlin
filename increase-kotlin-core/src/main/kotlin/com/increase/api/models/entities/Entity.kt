@@ -268,7 +268,8 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The validation results for the entity.
+     * The validation results for the entity. Learn more about
+     * [validations](/documentation/entity-validation).
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -796,7 +797,10 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /** The validation results for the entity. */
+        /**
+         * The validation results for the entity. Learn more about
+         * [validations](/documentation/entity-validation).
+         */
         fun validation(validation: Validation?) = validation(JsonField.ofNullable(validation))
 
         /**
@@ -11307,7 +11311,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The validation results for the entity. */
+    /**
+     * The validation results for the entity. Learn more about
+     * [validations](/documentation/entity-validation).
+     */
     class Validation
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
