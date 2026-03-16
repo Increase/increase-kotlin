@@ -3877,6 +3877,10 @@ private constructor(
                 /** The transaction is not allowed at this terminal. */
                 val TRANSACTION_NOT_ALLOWED_AT_TERMINAL = of("transaction_not_allowed_at_terminal")
 
+                /** The transaction is not supported or has been blocked by the issuer. */
+                val TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER =
+                    of("transaction_not_supported_or_blocked_by_issuer")
+
                 /** The transaction has been flagged as suspected fraud and cannot be processed. */
                 val SUSPECTED_FRAUD = of("suspected_fraud")
 
@@ -4022,6 +4026,8 @@ private constructor(
                 TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER,
                 /** The transaction is not allowed at this terminal. */
                 TRANSACTION_NOT_ALLOWED_AT_TERMINAL,
+                /** The transaction is not supported or has been blocked by the issuer. */
+                TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER,
                 /** The transaction has been flagged as suspected fraud and cannot be processed. */
                 SUSPECTED_FRAUD,
                 /** The amount of activity on the card has exceeded the limit set by the issuer. */
@@ -4150,6 +4156,8 @@ private constructor(
                 TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER,
                 /** The transaction is not allowed at this terminal. */
                 TRANSACTION_NOT_ALLOWED_AT_TERMINAL,
+                /** The transaction is not supported or has been blocked by the issuer. */
+                TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER,
                 /** The transaction has been flagged as suspected fraud and cannot be processed. */
                 SUSPECTED_FRAUD,
                 /** The amount of activity on the card has exceeded the limit set by the issuer. */
@@ -4246,6 +4254,8 @@ private constructor(
                     TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER ->
                         Value.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
                     TRANSACTION_NOT_ALLOWED_AT_TERMINAL -> Value.TRANSACTION_NOT_ALLOWED_AT_TERMINAL
+                    TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER ->
+                        Value.TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER
                     SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                     ACTIVITY_AMOUNT_LIMIT_EXCEEDED -> Value.ACTIVITY_AMOUNT_LIMIT_EXCEEDED
                     RESTRICTED_CARD -> Value.RESTRICTED_CARD
@@ -4309,6 +4319,8 @@ private constructor(
                     TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER ->
                         Known.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
                     TRANSACTION_NOT_ALLOWED_AT_TERMINAL -> Known.TRANSACTION_NOT_ALLOWED_AT_TERMINAL
+                    TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER ->
+                        Known.TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER
                     SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                     ACTIVITY_AMOUNT_LIMIT_EXCEEDED -> Known.ACTIVITY_AMOUNT_LIMIT_EXCEEDED
                     RESTRICTED_CARD -> Known.RESTRICTED_CARD
