@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.461.0)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.461.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.461.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.462.0)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.462.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.462.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ The Increase Kotlin SDK is similar to the Increase Java SDK but with minor diffe
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.461.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.462.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.461.0")
+implementation("com.increase.api:increase-kotlin:0.462.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.increase.api:increase-kotlin:0.461.0")
 <dependency>
   <groupId>com.increase.api</groupId>
   <artifactId>increase-kotlin</artifactId>
-  <version>0.461.0</version>
+  <version>0.462.0</version>
 </dependency>
 ```
 
@@ -381,11 +381,9 @@ export INCREASE_LOG=debug
 
 We provide helper methods for verifying that a webhook request came from Increase, and not a malicious third party.
 
-You can use `increase.webhooks().verifySignature(body, headers, secret?)` or `increase.webhooks().unwrap(body, headers, secret?)`,
-both of which will raise an error if the signature is invalid. If secret is omitted, the body will be unwrapped without any validation.
+You can use `increase.events().unwrap(UnwrapWebhookParams)` to both verify the signature and parse the event body into a typed `UnwrapWebhookEvent`. An `IncreaseWebhookException` will be thrown if the signature is invalid.
 
-Note that the "body" parameter must be the raw JSON string sent from the server (do not parse it first).
-The `.unwrap()` method can parse this JSON for you.
+Note that the `body` parameter must be the raw JSON string sent from the server (do not parse it first). If `headers` is omitted, the body will be unwrapped without any signature validation.
 
 ## ProGuard and R8
 

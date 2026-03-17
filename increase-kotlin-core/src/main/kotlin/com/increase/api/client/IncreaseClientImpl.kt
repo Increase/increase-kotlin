@@ -116,8 +116,6 @@ import com.increase.api.services.blocking.SwiftTransferService
 import com.increase.api.services.blocking.SwiftTransferServiceImpl
 import com.increase.api.services.blocking.TransactionService
 import com.increase.api.services.blocking.TransactionServiceImpl
-import com.increase.api.services.blocking.WebhookService
-import com.increase.api.services.blocking.WebhookServiceImpl
 import com.increase.api.services.blocking.WireDrawdownRequestService
 import com.increase.api.services.blocking.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.WireTransferService
@@ -354,8 +352,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         SimulationServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
-
     override fun async(): IncreaseClientAsync = async
 
     override fun withRawResponse(): IncreaseClient.WithRawResponse = withRawResponse
@@ -482,8 +478,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun cardValidations(): CardValidationService = cardValidations
 
     override fun simulations(): SimulationService = simulations
-
-    override fun webhooks(): WebhookService = webhooks
 
     override fun close() = clientOptions.close()
 
