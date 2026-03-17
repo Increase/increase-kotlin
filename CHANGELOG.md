@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.462.0 (2026-03-17)
+
+Full Changelog: [v0.461.0...v0.462.0](https://github.com/Increase/increase-kotlin/compare/v0.461.0...v0.462.0)
+
+### Features
+
+* **webhooks:** replace hand-written webhook services with codegen events ([dc88162](https://github.com/Increase/increase-kotlin/commit/dc88162906dfaa76bbc4922f5f575d31feade2dc))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([d7f95af](https://github.com/Increase/increase-kotlin/commit/d7f95af87e0cee7180113b7cb3b6b1c633dbf74c))
+
 ## 0.461.0 (2026-03-16)
 
 Full Changelog: [v0.460.0...v0.461.0](https://github.com/Increase/increase-kotlin/compare/v0.460.0...v0.461.0)
