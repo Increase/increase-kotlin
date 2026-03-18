@@ -2007,6 +2007,9 @@ private constructor(
                     val TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT =
                         of("transaction_does_not_fulfill_anti_money_laundering_requirement")
 
+                    /** The transaction was blocked by the cardholder. */
+                    val BLOCKED_BY_CARDHOLDER = of("blocked_by_cardholder")
+
                     /** The first use of the card has been blocked by the issuer. */
                     val BLOCKED_FIRST_USE = of("blocked_first_use")
 
@@ -2165,6 +2168,8 @@ private constructor(
                      * the issuer.
                      */
                     TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT,
+                    /** The transaction was blocked by the cardholder. */
+                    BLOCKED_BY_CARDHOLDER,
                     /** The first use of the card has been blocked by the issuer. */
                     BLOCKED_FIRST_USE,
                     /** The credit issuer is currently unavailable to process the transaction. */
@@ -2312,6 +2317,8 @@ private constructor(
                      * the issuer.
                      */
                     TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT,
+                    /** The transaction was blocked by the cardholder. */
+                    BLOCKED_BY_CARDHOLDER,
                     /** The first use of the card has been blocked by the issuer. */
                     BLOCKED_FIRST_USE,
                     /** The credit issuer is currently unavailable to process the transaction. */
@@ -2408,6 +2415,7 @@ private constructor(
                         SECURITY_VIOLATION -> Value.SECURITY_VIOLATION
                         TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT ->
                             Value.TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT
+                        BLOCKED_BY_CARDHOLDER -> Value.BLOCKED_BY_CARDHOLDER
                         BLOCKED_FIRST_USE -> Value.BLOCKED_FIRST_USE
                         CREDIT_ISSUER_UNAVAILABLE -> Value.CREDIT_ISSUER_UNAVAILABLE
                         NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS ->
@@ -2474,6 +2482,7 @@ private constructor(
                         SECURITY_VIOLATION -> Known.SECURITY_VIOLATION
                         TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT ->
                             Known.TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT
+                        BLOCKED_BY_CARDHOLDER -> Known.BLOCKED_BY_CARDHOLDER
                         BLOCKED_FIRST_USE -> Known.BLOCKED_FIRST_USE
                         CREDIT_ISSUER_UNAVAILABLE -> Known.CREDIT_ISSUER_UNAVAILABLE
                         NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS ->
