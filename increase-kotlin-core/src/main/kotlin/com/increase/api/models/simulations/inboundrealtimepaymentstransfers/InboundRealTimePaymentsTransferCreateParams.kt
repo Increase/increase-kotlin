@@ -70,20 +70,20 @@ private constructor(
     fun debtorRoutingNumber(): String? = body.debtorRoutingNumber()
 
     /**
-     * Additional information included with the transfer.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun remittanceInformation(): String? = body.remittanceInformation()
-
-    /**
      * The identifier of a pending Request for Payment that this transfer will fulfill.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun requestForPaymentId(): String? = body.requestForPaymentId()
+
+    /**
+     * Additional information included with the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun unstructuredRemittanceInformation(): String? = body.unstructuredRemittanceInformation()
 
     /**
      * Returns the raw JSON value of [accountNumberId].
@@ -123,20 +123,21 @@ private constructor(
     fun _debtorRoutingNumber(): JsonField<String> = body._debtorRoutingNumber()
 
     /**
-     * Returns the raw JSON value of [remittanceInformation].
-     *
-     * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
-
-    /**
      * Returns the raw JSON value of [requestForPaymentId].
      *
      * Unlike [requestForPaymentId], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
     fun _requestForPaymentId(): JsonField<String> = body._requestForPaymentId()
+
+    /**
+     * Returns the raw JSON value of [unstructuredRemittanceInformation].
+     *
+     * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    fun _unstructuredRemittanceInformation(): JsonField<String> =
+        body._unstructuredRemittanceInformation()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -265,22 +266,6 @@ private constructor(
             body.debtorRoutingNumber(debtorRoutingNumber)
         }
 
-        /** Additional information included with the transfer. */
-        fun remittanceInformation(remittanceInformation: String) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
-
-        /**
-         * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
-
         /** The identifier of a pending Request for Payment that this transfer will fulfill. */
         fun requestForPaymentId(requestForPaymentId: String) = apply {
             body.requestForPaymentId(requestForPaymentId)
@@ -296,6 +281,22 @@ private constructor(
         fun requestForPaymentId(requestForPaymentId: JsonField<String>) = apply {
             body.requestForPaymentId(requestForPaymentId)
         }
+
+        /** Additional information included with the transfer. */
+        fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String) = apply {
+            body.unstructuredRemittanceInformation(unstructuredRemittanceInformation)
+        }
+
+        /**
+         * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unstructuredRemittanceInformation] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun unstructuredRemittanceInformation(
+            unstructuredRemittanceInformation: JsonField<String>
+        ) = apply { body.unstructuredRemittanceInformation(unstructuredRemittanceInformation) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -449,8 +450,8 @@ private constructor(
         private val debtorAccountNumber: JsonField<String>,
         private val debtorName: JsonField<String>,
         private val debtorRoutingNumber: JsonField<String>,
-        private val remittanceInformation: JsonField<String>,
         private val requestForPaymentId: JsonField<String>,
+        private val unstructuredRemittanceInformation: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -469,20 +470,20 @@ private constructor(
             @JsonProperty("debtor_routing_number")
             @ExcludeMissing
             debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            remittanceInformation: JsonField<String> = JsonMissing.of(),
             @JsonProperty("request_for_payment_id")
             @ExcludeMissing
             requestForPaymentId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unstructured_remittance_information")
+            @ExcludeMissing
+            unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
         ) : this(
             accountNumberId,
             amount,
             debtorAccountNumber,
             debtorName,
             debtorRoutingNumber,
-            remittanceInformation,
             requestForPaymentId,
+            unstructuredRemittanceInformation,
             mutableMapOf(),
         )
 
@@ -529,15 +530,6 @@ private constructor(
             debtorRoutingNumber.getNullable("debtor_routing_number")
 
         /**
-         * Additional information included with the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun remittanceInformation(): String? =
-            remittanceInformation.getNullable("remittance_information")
-
-        /**
          * The identifier of a pending Request for Payment that this transfer will fulfill.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -545,6 +537,15 @@ private constructor(
          */
         fun requestForPaymentId(): String? =
             requestForPaymentId.getNullable("request_for_payment_id")
+
+        /**
+         * Additional information included with the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun unstructuredRemittanceInformation(): String? =
+            unstructuredRemittanceInformation.getNullable("unstructured_remittance_information")
 
         /**
          * Returns the raw JSON value of [accountNumberId].
@@ -593,16 +594,6 @@ private constructor(
         fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
 
         /**
-         * Returns the raw JSON value of [remittanceInformation].
-         *
-         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-        /**
          * Returns the raw JSON value of [requestForPaymentId].
          *
          * Unlike [requestForPaymentId], this method doesn't throw if the JSON field has an
@@ -611,6 +602,17 @@ private constructor(
         @JsonProperty("request_for_payment_id")
         @ExcludeMissing
         fun _requestForPaymentId(): JsonField<String> = requestForPaymentId
+
+        /**
+         * Returns the raw JSON value of [unstructuredRemittanceInformation].
+         *
+         * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("unstructured_remittance_information")
+        @ExcludeMissing
+        fun _unstructuredRemittanceInformation(): JsonField<String> =
+            unstructuredRemittanceInformation
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -646,8 +648,8 @@ private constructor(
             private var debtorAccountNumber: JsonField<String> = JsonMissing.of()
             private var debtorName: JsonField<String> = JsonMissing.of()
             private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
-            private var remittanceInformation: JsonField<String> = JsonMissing.of()
             private var requestForPaymentId: JsonField<String> = JsonMissing.of()
+            private var unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
@@ -656,8 +658,8 @@ private constructor(
                 debtorAccountNumber = body.debtorAccountNumber
                 debtorName = body.debtorName
                 debtorRoutingNumber = body.debtorRoutingNumber
-                remittanceInformation = body.remittanceInformation
                 requestForPaymentId = body.requestForPaymentId
+                unstructuredRemittanceInformation = body.unstructuredRemittanceInformation
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -732,21 +734,6 @@ private constructor(
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
-            /** Additional information included with the transfer. */
-            fun remittanceInformation(remittanceInformation: String) =
-                remittanceInformation(JsonField.of(remittanceInformation))
-
-            /**
-             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                this.remittanceInformation = remittanceInformation
-            }
-
             /** The identifier of a pending Request for Payment that this transfer will fulfill. */
             fun requestForPaymentId(requestForPaymentId: String) =
                 requestForPaymentId(JsonField.of(requestForPaymentId))
@@ -761,6 +748,21 @@ private constructor(
             fun requestForPaymentId(requestForPaymentId: JsonField<String>) = apply {
                 this.requestForPaymentId = requestForPaymentId
             }
+
+            /** Additional information included with the transfer. */
+            fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String) =
+                unstructuredRemittanceInformation(JsonField.of(unstructuredRemittanceInformation))
+
+            /**
+             * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unstructuredRemittanceInformation] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun unstructuredRemittanceInformation(
+                unstructuredRemittanceInformation: JsonField<String>
+            ) = apply { this.unstructuredRemittanceInformation = unstructuredRemittanceInformation }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -801,8 +803,8 @@ private constructor(
                     debtorAccountNumber,
                     debtorName,
                     debtorRoutingNumber,
-                    remittanceInformation,
                     requestForPaymentId,
+                    unstructuredRemittanceInformation,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -819,8 +821,8 @@ private constructor(
             debtorAccountNumber()
             debtorName()
             debtorRoutingNumber()
-            remittanceInformation()
             requestForPaymentId()
+            unstructuredRemittanceInformation()
             validated = true
         }
 
@@ -844,8 +846,8 @@ private constructor(
                 (if (debtorAccountNumber.asKnown() == null) 0 else 1) +
                 (if (debtorName.asKnown() == null) 0 else 1) +
                 (if (debtorRoutingNumber.asKnown() == null) 0 else 1) +
-                (if (remittanceInformation.asKnown() == null) 0 else 1) +
-                (if (requestForPaymentId.asKnown() == null) 0 else 1)
+                (if (requestForPaymentId.asKnown() == null) 0 else 1) +
+                (if (unstructuredRemittanceInformation.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -858,8 +860,8 @@ private constructor(
                 debtorAccountNumber == other.debtorAccountNumber &&
                 debtorName == other.debtorName &&
                 debtorRoutingNumber == other.debtorRoutingNumber &&
-                remittanceInformation == other.remittanceInformation &&
                 requestForPaymentId == other.requestForPaymentId &&
+                unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -870,8 +872,8 @@ private constructor(
                 debtorAccountNumber,
                 debtorName,
                 debtorRoutingNumber,
-                remittanceInformation,
                 requestForPaymentId,
+                unstructuredRemittanceInformation,
                 additionalProperties,
             )
         }
@@ -879,7 +881,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, requestForPaymentId=$requestForPaymentId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
