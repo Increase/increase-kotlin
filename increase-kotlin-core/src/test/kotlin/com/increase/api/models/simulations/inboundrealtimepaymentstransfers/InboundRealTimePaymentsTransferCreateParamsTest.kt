@@ -15,8 +15,8 @@ internal class InboundRealTimePaymentsTransferCreateParamsTest {
             .debtorAccountNumber("x")
             .debtorName("x")
             .debtorRoutingNumber("xxxxxxxxx")
-            .remittanceInformation("x")
             .requestForPaymentId("real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7")
+            .unstructuredRemittanceInformation("x")
             .build()
     }
 
@@ -29,8 +29,8 @@ internal class InboundRealTimePaymentsTransferCreateParamsTest {
                 .debtorAccountNumber("x")
                 .debtorName("x")
                 .debtorRoutingNumber("xxxxxxxxx")
-                .remittanceInformation("x")
                 .requestForPaymentId("real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7")
+                .unstructuredRemittanceInformation("x")
                 .build()
 
         val body = params._body()
@@ -40,9 +40,9 @@ internal class InboundRealTimePaymentsTransferCreateParamsTest {
         assertThat(body.debtorAccountNumber()).isEqualTo("x")
         assertThat(body.debtorName()).isEqualTo("x")
         assertThat(body.debtorRoutingNumber()).isEqualTo("xxxxxxxxx")
-        assertThat(body.remittanceInformation()).isEqualTo("x")
         assertThat(body.requestForPaymentId())
             .isEqualTo("real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7")
+        assertThat(body.unstructuredRemittanceInformation()).isEqualTo("x")
     }
 
     @Test
