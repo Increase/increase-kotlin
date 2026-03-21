@@ -446,15 +446,17 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val action: JsonField<Action>,
-        private val account: JsonField<String>,
+        private val accountId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("action") @ExcludeMissing action: JsonField<Action> = JsonMissing.of(),
-            @JsonProperty("account") @ExcludeMissing account: JsonField<String> = JsonMissing.of(),
-        ) : this(action, account, mutableMapOf())
+            @JsonProperty("account_id")
+            @ExcludeMissing
+            accountId: JsonField<String> = JsonMissing.of(),
+        ) : this(action, accountId, mutableMapOf())
 
         /**
          * The action to perform on the Inbound Mail Item.
@@ -471,7 +473,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun account(): String? = account.getNullable("account")
+        fun accountId(): String? = accountId.getNullable("account_id")
 
         /**
          * Returns the raw JSON value of [action].
@@ -481,11 +483,11 @@ private constructor(
         @JsonProperty("action") @ExcludeMissing fun _action(): JsonField<Action> = action
 
         /**
-         * Returns the raw JSON value of [account].
+         * Returns the raw JSON value of [accountId].
          *
-         * Unlike [account], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("account") @ExcludeMissing fun _account(): JsonField<String> = account
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -516,12 +518,12 @@ private constructor(
         class Builder internal constructor() {
 
             private var action: JsonField<Action>? = null
-            private var account: JsonField<String> = JsonMissing.of()
+            private var accountId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(check: Check) = apply {
                 action = check.action
-                account = check.account
+                accountId = check.accountId
                 additionalProperties = check.additionalProperties.toMutableMap()
             }
 
@@ -541,16 +543,16 @@ private constructor(
              * The identifier of the Account to deposit the check into. If not provided, the check
              * will be deposited into the Account associated with the Lockbox.
              */
-            fun account(account: String) = account(JsonField.of(account))
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
-             * Sets [Builder.account] to an arbitrary JSON value.
+             * Sets [Builder.accountId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.account] with a well-typed [String] value instead.
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun account(account: JsonField<String>) = apply { this.account = account }
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -584,7 +586,11 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Check =
-                Check(checkRequired("action", action), account, additionalProperties.toMutableMap())
+                Check(
+                    checkRequired("action", action),
+                    accountId,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -595,7 +601,7 @@ private constructor(
             }
 
             action().validate()
-            account()
+            accountId()
             validated = true
         }
 
@@ -614,7 +620,7 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (action.asKnown()?.validity() ?: 0) + (if (account.asKnown() == null) 0 else 1)
+            (action.asKnown()?.validity() ?: 0) + (if (accountId.asKnown() == null) 0 else 1)
 
         /** The action to perform on the Inbound Mail Item. */
         class Action @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -757,16 +763,16 @@ private constructor(
 
             return other is Check &&
                 action == other.action &&
-                account == other.account &&
+                accountId == other.accountId &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(action, account, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(action, accountId, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Check{action=$action, account=$account, additionalProperties=$additionalProperties}"
+            "Check{action=$action, accountId=$accountId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
