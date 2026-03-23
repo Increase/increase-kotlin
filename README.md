@@ -377,14 +377,6 @@ Or to `debug` for more verbose logging:
 export INCREASE_LOG=debug
 ```
 
-## Webhook Verification
-
-We provide helper methods for verifying that a webhook request came from Increase, and not a malicious third party.
-
-You can use `increase.events().unwrap(UnwrapWebhookParams)` to both verify the signature and parse the event body into a typed `UnwrapWebhookEvent`. An `IncreaseWebhookException` will be thrown if the signature is invalid.
-
-Note that the `body` parameter must be the raw JSON string sent from the server (do not parse it first). If `headers` is omitted, the body will be unwrapped without any signature validation.
-
 ## ProGuard and R8
 
 Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `increase-kotlin-core` is published with a [configuration file](increase-kotlin-core/src/main/resources/META-INF/proguard/increase-kotlin-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
