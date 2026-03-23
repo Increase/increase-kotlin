@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.463.0 (2026-03-23)
+
+Full Changelog: [v0.462.0...v0.463.0](https://github.com/Increase/increase-kotlin/compare/v0.462.0...v0.463.0)
+
+### Features
+
+* **api:** api update ([43a4cc2](https://github.com/Increase/increase-kotlin/commit/43a4cc2882827d1f4183d5bee63d5578dac78528))
+* **api:** api update ([7ab6e9b](https://github.com/Increase/increase-kotlin/commit/7ab6e9b5915a0739f783c31c8592fcc454de7651))
+* **api:** api update ([69e19aa](https://github.com/Increase/increase-kotlin/commit/69e19aacb5efdc6a8c1ad6d1d855fb1d394b7eaa))
+* **api:** api update ([a3e9247](https://github.com/Increase/increase-kotlin/commit/a3e9247a4aeca59d938eb1c3d8d1b05924ca2ed4))
+* **api:** api update ([e635154](https://github.com/Increase/increase-kotlin/commit/e635154958828f5e44a1e6099197e0f4571ea7c3))
+* **api:** api update ([462e356](https://github.com/Increase/increase-kotlin/commit/462e3568fe669cf1067922da33860c33092c4b53))
+* **api:** api update ([757b6fd](https://github.com/Increase/increase-kotlin/commit/757b6fdaa5eb616efa96924c97fb4b0f1fa5f8a4))
+
+
+### Bug Fixes
+
+* **client:** allow updating header/query affecting fields in `toBuilder()` ([db1b754](https://github.com/Increase/increase-kotlin/commit/db1b7540fb76be102ea4897d7fb0a57c4c96af3c))
+
+
+### Chores
+
+* **internal:** codegen related update ([1275682](https://github.com/Increase/increase-kotlin/commit/12756822c43863fe4e9b58f62641fe31ad438791))
+* **internal:** update gitignore ([9fba6c1](https://github.com/Increase/increase-kotlin/commit/9fba6c189a3209ac2aeb1b0403691e9e4f3ff112))
+* **internal:** update retry delay tests ([1397e34](https://github.com/Increase/increase-kotlin/commit/1397e34e7c55d550ba949e614d197d840c95bdb7))
+* **tests:** bump steady to v0.19.4 ([b9fc356](https://github.com/Increase/increase-kotlin/commit/b9fc356ee1bc0110fbe8202a494322c6f793df63))
+* **tests:** bump steady to v0.19.5 ([69fe8e2](https://github.com/Increase/increase-kotlin/commit/69fe8e2311c98e341263ea5a681c9307fcf608e4))
+
 ## 0.462.0 (2026-03-17)
 
 Full Changelog: [v0.461.0...v0.462.0](https://github.com/Increase/increase-kotlin/compare/v0.461.0...v0.462.0)
