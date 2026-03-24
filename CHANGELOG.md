@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.465.0 (2026-03-24)
+
+Full Changelog: [v0.464.0...v0.465.0](https://github.com/Increase/increase-kotlin/compare/v0.464.0...v0.465.0)
+
+### Features
+
+* **api:** api update ([7a5008e](https://github.com/Increase/increase-kotlin/commit/7a5008e51030905e6c83f57e5d028b7c12a03e7a))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([8ab0ba7](https://github.com/Increase/increase-kotlin/commit/8ab0ba729b1795a2b86a23102972ddc05be8cfb3))
+* **tests:** bump steady to v0.19.7 ([20f686a](https://github.com/Increase/increase-kotlin/commit/20f686a4006d939d7a7c6f96a35a2ae13c1a05f0))
+
 ## 0.464.0 (2026-03-23)
 
 Full Changelog: [v0.463.0...v0.464.0](https://github.com/Increase/increase-kotlin/compare/v0.463.0...v0.464.0)
