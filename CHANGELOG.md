@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.470.0 (2026-03-27)
+
+Full Changelog: [v0.469.0...v0.470.0](https://github.com/Increase/increase-kotlin/compare/v0.469.0...v0.470.0)
+
+### Features
+
+* **api:** api update ([2a5d7ee](https://github.com/Increase/increase-kotlin/commit/2a5d7eed10ac1a5ee311a1d07674de2906786a8c))
+
+
+### Chores
+
+* **internal:** update multipart form array serialization ([09982cb](https://github.com/Increase/increase-kotlin/commit/09982cbf6645ab3fd29424a25e9c8e2964d95720))
+
 ## 0.469.0 (2026-03-25)
 
 Full Changelog: [v0.468.0...v0.469.0](https://github.com/Increase/increase-kotlin/compare/v0.468.0...v0.469.0)
