@@ -13030,7 +13030,7 @@ private constructor(
                     /**
                      * The entity's tax identifier could not be validated. Update the tax ID with
                      * the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.tax_identifier).
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
                      */
                     val ENTITY_TAX_IDENTIFIER = of("entity_tax_identifier")
 
@@ -13062,7 +13062,7 @@ private constructor(
                     /**
                      * The entity's tax identifier could not be validated. Update the tax ID with
                      * the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.tax_identifier).
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
                      */
                     ENTITY_TAX_IDENTIFIER,
                     /**
@@ -13097,7 +13097,7 @@ private constructor(
                     /**
                      * The entity's tax identifier could not be validated. Update the tax ID with
                      * the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.tax_identifier).
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
                      */
                     ENTITY_TAX_IDENTIFIER,
                     /**
