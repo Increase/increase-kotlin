@@ -882,7 +882,7 @@ private constructor(
         fun merchantCountry(): MerchantCountry? = merchantCountry.getNullable("merchant_country")
 
         /**
-         * Spending limits for this card. The most restrictive limit is applied if multiple limits
+         * Spending limits for this card. The most restrictive limit applies if multiple limits
          * match.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -1054,8 +1054,8 @@ private constructor(
             }
 
             /**
-             * Spending limits for this card. The most restrictive limit is applied if multiple
-             * limits match.
+             * Spending limits for this card. The most restrictive limit applies if multiple limits
+             * match.
              */
             fun spendingLimits(spendingLimits: List<SpendingLimit>) =
                 spendingLimits(JsonField.of(spendingLimits))
