@@ -379,6 +379,12 @@ private constructor(
             /** A PDF of a voided check. */
             val VOIDED_CHECK = of("voided_check")
 
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            val DAILY_ACCOUNT_BALANCE_CSV = of("daily_account_balance_csv")
+
             fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -424,6 +430,11 @@ private constructor(
             FEE_CSV,
             /** A PDF of a voided check. */
             VOIDED_CHECK,
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            DAILY_ACCOUNT_BALANCE_CSV,
         }
 
         /**
@@ -476,6 +487,11 @@ private constructor(
             FEE_CSV,
             /** A PDF of a voided check. */
             VOIDED_CHECK,
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            DAILY_ACCOUNT_BALANCE_CSV,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -503,6 +519,7 @@ private constructor(
                 FORM_1099_MISC -> Value.FORM_1099_MISC
                 FEE_CSV -> Value.FEE_CSV
                 VOIDED_CHECK -> Value.VOIDED_CHECK
+                DAILY_ACCOUNT_BALANCE_CSV -> Value.DAILY_ACCOUNT_BALANCE_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -531,6 +548,7 @@ private constructor(
                 FORM_1099_MISC -> Known.FORM_1099_MISC
                 FEE_CSV -> Known.FEE_CSV
                 VOIDED_CHECK -> Known.VOIDED_CHECK
+                DAILY_ACCOUNT_BALANCE_CSV -> Known.DAILY_ACCOUNT_BALANCE_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
