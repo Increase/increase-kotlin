@@ -1820,7 +1820,7 @@ private constructor(
         fun accountId(): String = accountId.getRequired("account_id")
 
         /**
-         * Filter results by time range on the `created_at` attribute.
+         * Filter transactions by their created date.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1893,7 +1893,7 @@ private constructor(
              */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-            /** Filter results by time range on the `created_at` attribute. */
+            /** Filter transactions by their created date. */
             fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
 
             /**
@@ -1973,45 +1973,27 @@ private constructor(
         internal fun validity(): Int =
             (if (accountId.asKnown() == null) 0 else 1) + (createdAt.asKnown()?.validity() ?: 0)
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /** Filter transactions by their created date. */
         class CreatedAt
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val after: JsonField<OffsetDateTime>,
             private val before: JsonField<OffsetDateTime>,
             private val onOrAfter: JsonField<OffsetDateTime>,
-            private val onOrBefore: JsonField<OffsetDateTime>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("after")
-                @ExcludeMissing
-                after: JsonField<OffsetDateTime> = JsonMissing.of(),
                 @JsonProperty("before")
                 @ExcludeMissing
                 before: JsonField<OffsetDateTime> = JsonMissing.of(),
                 @JsonProperty("on_or_after")
                 @ExcludeMissing
                 onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("on_or_before")
-                @ExcludeMissing
-                onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
-            ) : this(after, before, onOrAfter, onOrBefore, mutableMapOf())
+            ) : this(before, onOrAfter, mutableMapOf())
 
             /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun after(): OffsetDateTime? = after.getNullable("after")
-
-            /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Filter results to transactions created before this time.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -2019,29 +2001,12 @@ private constructor(
             fun before(): OffsetDateTime? = before.getNullable("before")
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Filter results to transactions created on or after this time.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
             fun onOrAfter(): OffsetDateTime? = onOrAfter.getNullable("on_or_after")
-
-            /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun onOrBefore(): OffsetDateTime? = onOrBefore.getNullable("on_or_before")
-
-            /**
-             * Returns the raw JSON value of [after].
-             *
-             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
 
             /**
              * Returns the raw JSON value of [before].
@@ -2061,16 +2026,6 @@ private constructor(
             @JsonProperty("on_or_after")
             @ExcludeMissing
             fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
-
-            /**
-             * Returns the raw JSON value of [onOrBefore].
-             *
-             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("on_or_before")
-            @ExcludeMissing
-            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2093,39 +2048,17 @@ private constructor(
             /** A builder for [CreatedAt]. */
             class Builder internal constructor() {
 
-                private var after: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var before: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(createdAt: CreatedAt) = apply {
-                    after = createdAt.after
                     before = createdAt.before
                     onOrAfter = createdAt.onOrAfter
-                    onOrBefore = createdAt.onOrBefore
                     additionalProperties = createdAt.additionalProperties.toMutableMap()
                 }
 
-                /**
-                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
-                 */
-                fun after(after: OffsetDateTime) = after(JsonField.of(after))
-
-                /**
-                 * Sets [Builder.after] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.after] with a well-typed [OffsetDateTime] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
-
-                /**
-                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
-                 */
+                /** Filter results to transactions created before this time. */
                 fun before(before: OffsetDateTime) = before(JsonField.of(before))
 
                 /**
@@ -2137,10 +2070,7 @@ private constructor(
                  */
                 fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
-                /**
-                 * Return results on or after this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
-                 */
+                /** Filter results to transactions created on or after this time. */
                 fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
 
                 /**
@@ -2152,23 +2082,6 @@ private constructor(
                  */
                 fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
                     this.onOrAfter = onOrAfter
-                }
-
-                /**
-                 * Return results on or before this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
-                 */
-                fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
-
-                /**
-                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
-                    this.onOrBefore = onOrBefore
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2199,13 +2112,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): CreatedAt =
-                    CreatedAt(
-                        after,
-                        before,
-                        onOrAfter,
-                        onOrBefore,
-                        additionalProperties.toMutableMap(),
-                    )
+                    CreatedAt(before, onOrAfter, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -2215,10 +2122,8 @@ private constructor(
                     return@apply
                 }
 
-                after()
                 before()
                 onOrAfter()
-                onOrBefore()
                 validated = true
             }
 
@@ -2237,10 +2142,8 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (after.asKnown() == null) 0 else 1) +
-                    (if (before.asKnown() == null) 0 else 1) +
-                    (if (onOrAfter.asKnown() == null) 0 else 1) +
-                    (if (onOrBefore.asKnown() == null) 0 else 1)
+                (if (before.asKnown() == null) 0 else 1) +
+                    (if (onOrAfter.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2248,21 +2151,19 @@ private constructor(
                 }
 
                 return other is CreatedAt &&
-                    after == other.after &&
                     before == other.before &&
                     onOrAfter == other.onOrAfter &&
-                    onOrBefore == other.onOrBefore &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+                Objects.hash(before, onOrAfter, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+                "CreatedAt{before=$before, onOrAfter=$onOrAfter, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
