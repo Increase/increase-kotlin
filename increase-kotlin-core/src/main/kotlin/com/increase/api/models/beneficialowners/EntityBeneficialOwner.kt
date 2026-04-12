@@ -516,10 +516,10 @@ private constructor(
         /**
          * A means of verifying the person's identity.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun identification(): Identification = identification.getRequired("identification")
+        fun identification(): Identification? = identification.getNullable("identification")
 
         /**
          * The person's legal name.
@@ -634,8 +634,8 @@ private constructor(
             }
 
             /** A means of verifying the person's identity. */
-            fun identification(identification: Identification) =
-                identification(JsonField.of(identification))
+            fun identification(identification: Identification?) =
+                identification(JsonField.ofNullable(identification))
 
             /**
              * Sets [Builder.identification] to an arbitrary JSON value.
@@ -713,7 +713,7 @@ private constructor(
 
             address().validate()
             dateOfBirth()
-            identification().validate()
+            identification()?.validate()
             name()
             validated = true
         }
