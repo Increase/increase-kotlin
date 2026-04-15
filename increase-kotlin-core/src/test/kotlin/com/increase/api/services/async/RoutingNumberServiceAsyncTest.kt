@@ -22,7 +22,7 @@ internal class RoutingNumberServiceAsyncTest {
 
         val page =
             routingNumberServiceAsync.list(
-                RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
+                RoutingNumberListParams.builder().routingNumber("483310694").build()
             )
 
         page.response().validate()
