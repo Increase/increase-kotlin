@@ -15,12 +15,12 @@ internal class RealTimePaymentsTransferCreateParamsTest {
             .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .unstructuredRemittanceInformation("Invoice 29582")
             .accountNumber("987654321")
-            .debtorName("x")
+            .debtorName("debtor_name")
             .externalAccountId("external_account_id")
             .requireApproval(true)
             .routingNumber("101050001")
-            .ultimateCreditorName("x")
-            .ultimateDebtorName("x")
+            .ultimateCreditorName("ultimate_creditor_name")
+            .ultimateDebtorName("ultimate_debtor_name")
             .build()
     }
 
@@ -33,12 +33,12 @@ internal class RealTimePaymentsTransferCreateParamsTest {
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .unstructuredRemittanceInformation("Invoice 29582")
                 .accountNumber("987654321")
-                .debtorName("x")
+                .debtorName("debtor_name")
                 .externalAccountId("external_account_id")
                 .requireApproval(true)
                 .routingNumber("101050001")
-                .ultimateCreditorName("x")
-                .ultimateDebtorName("x")
+                .ultimateCreditorName("ultimate_creditor_name")
+                .ultimateDebtorName("ultimate_debtor_name")
                 .build()
 
         val body = params._body()
@@ -48,12 +48,12 @@ internal class RealTimePaymentsTransferCreateParamsTest {
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.unstructuredRemittanceInformation()).isEqualTo("Invoice 29582")
         assertThat(body.accountNumber()).isEqualTo("987654321")
-        assertThat(body.debtorName()).isEqualTo("x")
+        assertThat(body.debtorName()).isEqualTo("debtor_name")
         assertThat(body.externalAccountId()).isEqualTo("external_account_id")
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.routingNumber()).isEqualTo("101050001")
-        assertThat(body.ultimateCreditorName()).isEqualTo("x")
-        assertThat(body.ultimateDebtorName()).isEqualTo("x")
+        assertThat(body.ultimateCreditorName()).isEqualTo("ultimate_creditor_name")
+        assertThat(body.ultimateDebtorName()).isEqualTo("ultimate_debtor_name")
     }
 
     @Test
