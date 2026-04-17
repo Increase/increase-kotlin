@@ -5098,6 +5098,7 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val category: JsonField<Category>,
+            private val country: JsonField<String>,
             private val createdAt: JsonField<OffsetDateTime>,
             private val postalCode: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -5108,13 +5109,16 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
+                @JsonProperty("country")
+                @ExcludeMissing
+                country: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("created_at")
                 @ExcludeMissing
                 createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
                 @JsonProperty("postal_code")
                 @ExcludeMissing
                 postalCode: JsonField<String> = JsonMissing.of(),
-            ) : this(category, createdAt, postalCode, mutableMapOf())
+            ) : this(category, country, createdAt, postalCode, mutableMapOf())
 
             /**
              * The type of tracking event.
@@ -5124,6 +5128,15 @@ private constructor(
              *   value).
              */
             fun category(): Category = category.getRequired("category")
+
+            /**
+             * The ISO 3166-1 alpha-2 country code for the country where the event took place.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun country(): String = country.getRequired("country")
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -5153,6 +5166,13 @@ private constructor(
             @JsonProperty("category")
             @ExcludeMissing
             fun _category(): JsonField<Category> = category
+
+            /**
+             * Returns the raw JSON value of [country].
+             *
+             * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
             /**
              * Returns the raw JSON value of [createdAt].
@@ -5194,6 +5214,7 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .category()
+                 * .country()
                  * .createdAt()
                  * .postalCode()
                  * ```
@@ -5205,12 +5226,14 @@ private constructor(
             class Builder internal constructor() {
 
                 private var category: JsonField<Category>? = null
+                private var country: JsonField<String>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
                 private var postalCode: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(trackingUpdate: TrackingUpdate) = apply {
                     category = trackingUpdate.category
+                    country = trackingUpdate.country
                     createdAt = trackingUpdate.createdAt
                     postalCode = trackingUpdate.postalCode
                     additionalProperties = trackingUpdate.additionalProperties.toMutableMap()
@@ -5227,6 +5250,20 @@ private constructor(
                  * yet supported value.
                  */
                 fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /**
+                 * The ISO 3166-1 alpha-2 country code for the country where the event took place.
+                 */
+                fun country(country: String) = country(JsonField.of(country))
+
+                /**
+                 * Sets [Builder.country] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.country] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun country(country: JsonField<String>) = apply { this.country = country }
 
                 /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -5289,6 +5326,7 @@ private constructor(
                  * The following fields are required:
                  * ```kotlin
                  * .category()
+                 * .country()
                  * .createdAt()
                  * .postalCode()
                  * ```
@@ -5298,6 +5336,7 @@ private constructor(
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
                         checkRequired("category", category),
+                        checkRequired("country", country),
                         checkRequired("createdAt", createdAt),
                         checkRequired("postalCode", postalCode),
                         additionalProperties.toMutableMap(),
@@ -5312,6 +5351,7 @@ private constructor(
                 }
 
                 category().validate()
+                country()
                 createdAt()
                 postalCode()
                 validated = true
@@ -5333,6 +5373,7 @@ private constructor(
              */
             internal fun validity(): Int =
                 (category.asKnown()?.validity() ?: 0) +
+                    (if (country.asKnown() == null) 0 else 1) +
                     (if (createdAt.asKnown() == null) 0 else 1) +
                     (if (postalCode.asKnown() == null) 0 else 1)
 
@@ -5519,19 +5560,20 @@ private constructor(
 
                 return other is TrackingUpdate &&
                     category == other.category &&
+                    country == other.country &&
                     createdAt == other.createdAt &&
                     postalCode == other.postalCode &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(category, createdAt, postalCode, additionalProperties)
+                Objects.hash(category, country, createdAt, postalCode, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TrackingUpdate{category=$category, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "TrackingUpdate{category=$category, country=$country, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
