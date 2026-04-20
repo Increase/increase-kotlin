@@ -22,7 +22,7 @@ import java.time.LocalDate
 import java.util.Collections
 import java.util.Objects
 
-/** Create a beneficial owner */
+/** Create a Beneficial Owner */
 class BeneficialOwnerCreateParams
 private constructor(
     private val body: Body,
