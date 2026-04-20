@@ -28,7 +28,7 @@ interface BeneficialOwnerService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BeneficialOwnerService
 
-    /** Create a beneficial owner */
+    /** Create a Beneficial Owner */
     fun create(
         params: BeneficialOwnerCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),

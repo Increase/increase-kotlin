@@ -28,7 +28,7 @@ interface BeneficialOwnerServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BeneficialOwnerServiceAsync
 
-    /** Create a beneficial owner */
+    /** Create a Beneficial Owner */
     suspend fun create(
         params: BeneficialOwnerCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
