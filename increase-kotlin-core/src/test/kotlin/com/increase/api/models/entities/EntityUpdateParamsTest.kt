@@ -111,6 +111,13 @@ internal class EntityUpdateParamsTest {
                     .rating(EntityUpdateParams.RiskRating.Rating.LOW)
                     .build()
             )
+            .addTermsAgreement(
+                EntityUpdateParams.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("x")
+                    .termsUrl("x")
+                    .build()
+            )
             .thirdPartyVerification(
                 EntityUpdateParams.ThirdPartyVerification.builder()
                     .reference("x")
@@ -247,6 +254,13 @@ internal class EntityUpdateParamsTest {
                         .rating(EntityUpdateParams.RiskRating.Rating.LOW)
                         .build()
                 )
+                .addTermsAgreement(
+                    EntityUpdateParams.TermsAgreement.builder()
+                        .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .ipAddress("x")
+                        .termsUrl("x")
+                        .build()
+                )
                 .thirdPartyVerification(
                     EntityUpdateParams.ThirdPartyVerification.builder()
                         .reference("x")
@@ -372,6 +386,14 @@ internal class EntityUpdateParamsTest {
                 EntityUpdateParams.RiskRating.builder()
                     .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .rating(EntityUpdateParams.RiskRating.Rating.LOW)
+                    .build()
+            )
+        assertThat(body.termsAgreements())
+            .containsExactly(
+                EntityUpdateParams.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("x")
+                    .termsUrl("x")
                     .build()
             )
         assertThat(body.thirdPartyVerification())
