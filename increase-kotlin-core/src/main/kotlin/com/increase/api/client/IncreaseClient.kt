@@ -10,9 +10,6 @@ import com.increase.api.services.blocking.AccountTransferService
 import com.increase.api.services.blocking.AchPrenotificationService
 import com.increase.api.services.blocking.AchTransferService
 import com.increase.api.services.blocking.BeneficialOwnerService
-import com.increase.api.services.blocking.BookkeepingAccountService
-import com.increase.api.services.blocking.BookkeepingEntryService
-import com.increase.api.services.blocking.BookkeepingEntrySetService
 import com.increase.api.services.blocking.CardDisputeService
 import com.increase.api.services.blocking.CardPaymentService
 import com.increase.api.services.blocking.CardPurchaseSupplementService
@@ -189,12 +186,6 @@ interface IncreaseClient {
 
     fun realTimeDecisions(): RealTimeDecisionService
 
-    fun bookkeepingAccounts(): BookkeepingAccountService
-
-    fun bookkeepingEntrySets(): BookkeepingEntrySetService
-
-    fun bookkeepingEntries(): BookkeepingEntryService
-
     fun groups(): GroupService
 
     fun oauthApplications(): OAuthApplicationService
@@ -330,12 +321,6 @@ interface IncreaseClient {
         fun eventSubscriptions(): EventSubscriptionService.WithRawResponse
 
         fun realTimeDecisions(): RealTimeDecisionService.WithRawResponse
-
-        fun bookkeepingAccounts(): BookkeepingAccountService.WithRawResponse
-
-        fun bookkeepingEntrySets(): BookkeepingEntrySetService.WithRawResponse
-
-        fun bookkeepingEntries(): BookkeepingEntryService.WithRawResponse
 
         fun groups(): GroupService.WithRawResponse
 
