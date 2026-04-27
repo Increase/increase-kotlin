@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxrecipients
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -17,18 +17,20 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** A list of Lockbox objects. */
-class LockboxListPageResponse
+/** A list of Lockbox Recipient objects. */
+class LockboxRecipientListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<Lockbox>>,
+    private val data: JsonField<List<LockboxRecipient>>,
     private val nextCursor: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<List<Lockbox>> = JsonMissing.of(),
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<List<LockboxRecipient>> = JsonMissing.of(),
         @JsonProperty("next_cursor")
         @ExcludeMissing
         nextCursor: JsonField<String> = JsonMissing.of(),
@@ -40,7 +42,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<Lockbox> = data.getRequired("data")
+    fun data(): List<LockboxRecipient> = data.getRequired("data")
 
     /**
      * A pointer to a place in the list. Pass this as the `cursor` parameter to retrieve the next
@@ -56,7 +58,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<Lockbox>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<LockboxRecipient>> = data
 
     /**
      * Returns the raw JSON value of [nextCursor].
@@ -80,7 +82,8 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [LockboxListPageResponse].
+         * Returns a mutable builder for constructing an instance of
+         * [LockboxRecipientListPageResponse].
          *
          * The following fields are required:
          * ```kotlin
@@ -91,39 +94,41 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [LockboxListPageResponse]. */
+    /** A builder for [LockboxRecipientListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<Lockbox>>? = null
+        private var data: JsonField<MutableList<LockboxRecipient>>? = null
         private var nextCursor: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(lockboxListPageResponse: LockboxListPageResponse) = apply {
-            data = lockboxListPageResponse.data.map { it.toMutableList() }
-            nextCursor = lockboxListPageResponse.nextCursor
-            additionalProperties = lockboxListPageResponse.additionalProperties.toMutableMap()
-        }
+        internal fun from(lockboxRecipientListPageResponse: LockboxRecipientListPageResponse) =
+            apply {
+                data = lockboxRecipientListPageResponse.data.map { it.toMutableList() }
+                nextCursor = lockboxRecipientListPageResponse.nextCursor
+                additionalProperties =
+                    lockboxRecipientListPageResponse.additionalProperties.toMutableMap()
+            }
 
         /** The contents of the list. */
-        fun data(data: List<Lockbox>) = data(JsonField.of(data))
+        fun data(data: List<LockboxRecipient>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<Lockbox>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.data] with a well-typed `List<LockboxRecipient>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<List<Lockbox>>) = apply {
+        fun data(data: JsonField<List<LockboxRecipient>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Lockbox] to [Builder.data].
+         * Adds a single [LockboxRecipient] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: Lockbox) = apply {
+        fun addData(data: LockboxRecipient) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -165,7 +170,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxListPageResponse].
+         * Returns an immutable instance of [LockboxRecipientListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -177,8 +182,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): LockboxListPageResponse =
-            LockboxListPageResponse(
+        fun build(): LockboxRecipientListPageResponse =
+            LockboxRecipientListPageResponse(
                 checkRequired("data", data).map { it.toImmutable() },
                 checkRequired("nextCursor", nextCursor),
                 additionalProperties.toMutableMap(),
@@ -187,7 +192,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): LockboxListPageResponse = apply {
+    fun validate(): LockboxRecipientListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -219,7 +224,7 @@ private constructor(
             return true
         }
 
-        return other is LockboxListPageResponse &&
+        return other is LockboxRecipientListPageResponse &&
             data == other.data &&
             nextCursor == other.nextCursor &&
             additionalProperties == other.additionalProperties
@@ -230,5 +235,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LockboxListPageResponse{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        "LockboxRecipientListPageResponse{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 }

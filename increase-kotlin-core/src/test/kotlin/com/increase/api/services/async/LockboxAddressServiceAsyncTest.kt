@@ -4,13 +4,13 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxUpdateParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressCreateParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-internal class LockboxServiceAsyncTest {
+internal class LockboxAddressServiceAsyncTest {
 
     @Test
     suspend fun create() {
@@ -19,18 +19,14 @@ internal class LockboxServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxServiceAsync = client.lockboxes()
+        val lockboxAddressServiceAsync = client.lockboxAddresses()
 
-        val lockbox =
-            lockboxServiceAsync.create(
-                LockboxCreateParams.builder()
-                    .accountId("account_in71c4amph0vgo2qllky")
-                    .description("Rent payments")
-                    .recipientName("x")
-                    .build()
+        val lockboxAddress =
+            lockboxAddressServiceAsync.create(
+                LockboxAddressCreateParams.builder().description("Lockbox Address 1").build()
             )
 
-        lockbox.validate()
+        lockboxAddress.validate()
     }
 
     @Test
@@ -40,11 +36,12 @@ internal class LockboxServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxServiceAsync = client.lockboxes()
+        val lockboxAddressServiceAsync = client.lockboxAddresses()
 
-        val lockbox = lockboxServiceAsync.retrieve("lockbox_3xt21ok13q19advds4t5")
+        val lockboxAddress =
+            lockboxAddressServiceAsync.retrieve("lockbox_address_lw6sbzl9ol5dfd8hdml6")
 
-        lockbox.validate()
+        lockboxAddress.validate()
     }
 
     @Test
@@ -54,19 +51,18 @@ internal class LockboxServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxServiceAsync = client.lockboxes()
+        val lockboxAddressServiceAsync = client.lockboxAddresses()
 
-        val lockbox =
-            lockboxServiceAsync.update(
-                LockboxUpdateParams.builder()
-                    .lockboxId("lockbox_3xt21ok13q19advds4t5")
-                    .checkDepositBehavior(LockboxUpdateParams.CheckDepositBehavior.DISABLED)
+        val lockboxAddress =
+            lockboxAddressServiceAsync.update(
+                LockboxAddressUpdateParams.builder()
+                    .lockboxAddressId("lockbox_address_lw6sbzl9ol5dfd8hdml6")
                     .description("x")
-                    .recipientName("x")
+                    .status(LockboxAddressUpdateParams.Status.DISABLED)
                     .build()
             )
 
-        lockbox.validate()
+        lockboxAddress.validate()
     }
 
     @Test
@@ -76,9 +72,9 @@ internal class LockboxServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxServiceAsync = client.lockboxes()
+        val lockboxAddressServiceAsync = client.lockboxAddresses()
 
-        val page = lockboxServiceAsync.list()
+        val page = lockboxAddressServiceAsync.list()
 
         page.response().validate()
     }

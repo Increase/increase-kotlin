@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxaddresses
 
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
@@ -9,10 +9,9 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
-/** List Lockboxes */
-class LockboxListParams
+/** List Lockbox Addresses */
+class LockboxAddressListParams
 private constructor(
-    private val accountId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val idempotencyKey: String?,
@@ -20,9 +19,6 @@ private constructor(
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
-
-    /** Filter Lockboxes to those associated with the provided Account. */
-    fun accountId(): String? = accountId
 
     fun createdAt(): CreatedAt? = createdAt
 
@@ -49,16 +45,15 @@ private constructor(
 
     companion object {
 
-        fun none(): LockboxListParams = builder().build()
+        fun none(): LockboxAddressListParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [LockboxListParams]. */
+        /** Returns a mutable builder for constructing an instance of [LockboxAddressListParams]. */
         fun builder() = Builder()
     }
 
-    /** A builder for [LockboxListParams]. */
+    /** A builder for [LockboxAddressListParams]. */
     class Builder internal constructor() {
 
-        private var accountId: String? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var idempotencyKey: String? = null
@@ -66,18 +61,14 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(lockboxListParams: LockboxListParams) = apply {
-            accountId = lockboxListParams.accountId
-            createdAt = lockboxListParams.createdAt
-            cursor = lockboxListParams.cursor
-            idempotencyKey = lockboxListParams.idempotencyKey
-            limit = lockboxListParams.limit
-            additionalHeaders = lockboxListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = lockboxListParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxAddressListParams: LockboxAddressListParams) = apply {
+            createdAt = lockboxAddressListParams.createdAt
+            cursor = lockboxAddressListParams.cursor
+            idempotencyKey = lockboxAddressListParams.idempotencyKey
+            limit = lockboxAddressListParams.limit
+            additionalHeaders = lockboxAddressListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxAddressListParams.additionalQueryParams.toBuilder()
         }
-
-        /** Filter Lockboxes to those associated with the provided Account. */
-        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
@@ -203,13 +194,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxListParams].
+         * Returns an immutable instance of [LockboxAddressListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): LockboxListParams =
-            LockboxListParams(
-                accountId,
+        fun build(): LockboxAddressListParams =
+            LockboxAddressListParams(
                 createdAt,
                 cursor,
                 idempotencyKey,
@@ -224,7 +214,6 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                accountId?.let { put("account_id", it) }
                 createdAt?.let {
                     it.after()?.let {
                         put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
@@ -426,8 +415,7 @@ private constructor(
             return true
         }
 
-        return other is LockboxListParams &&
-            accountId == other.accountId &&
+        return other is LockboxAddressListParams &&
             createdAt == other.createdAt &&
             cursor == other.cursor &&
             idempotencyKey == other.idempotencyKey &&
@@ -438,7 +426,6 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
-            accountId,
             createdAt,
             cursor,
             idempotencyKey,
@@ -448,5 +435,5 @@ private constructor(
         )
 
     override fun toString() =
-        "LockboxListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxAddressListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

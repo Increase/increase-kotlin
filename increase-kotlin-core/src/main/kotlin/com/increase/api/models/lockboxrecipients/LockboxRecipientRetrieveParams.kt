@@ -1,22 +1,22 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxrecipients
 
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve a Lockbox */
-class LockboxRetrieveParams
+/** Retrieve a Lockbox Recipient */
+class LockboxRecipientRetrieveParams
 private constructor(
-    private val lockboxId: String?,
+    private val lockboxRecipientId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Lockbox to retrieve. */
-    fun lockboxId(): String? = lockboxId
+    /** The identifier of the Lockbox Recipient to retrieve. */
+    fun lockboxRecipientId(): String? = lockboxRecipientId
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -28,27 +28,32 @@ private constructor(
 
     companion object {
 
-        fun none(): LockboxRetrieveParams = builder().build()
+        fun none(): LockboxRecipientRetrieveParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [LockboxRetrieveParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LockboxRecipientRetrieveParams].
+         */
         fun builder() = Builder()
     }
 
-    /** A builder for [LockboxRetrieveParams]. */
+    /** A builder for [LockboxRecipientRetrieveParams]. */
     class Builder internal constructor() {
 
-        private var lockboxId: String? = null
+        private var lockboxRecipientId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(lockboxRetrieveParams: LockboxRetrieveParams) = apply {
-            lockboxId = lockboxRetrieveParams.lockboxId
-            additionalHeaders = lockboxRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = lockboxRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxRecipientRetrieveParams: LockboxRecipientRetrieveParams) = apply {
+            lockboxRecipientId = lockboxRecipientRetrieveParams.lockboxRecipientId
+            additionalHeaders = lockboxRecipientRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxRecipientRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Lockbox to retrieve. */
-        fun lockboxId(lockboxId: String?) = apply { this.lockboxId = lockboxId }
+        /** The identifier of the Lockbox Recipient to retrieve. */
+        fun lockboxRecipientId(lockboxRecipientId: String?) = apply {
+            this.lockboxRecipientId = lockboxRecipientId
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -149,13 +154,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxRetrieveParams].
+         * Returns an immutable instance of [LockboxRecipientRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): LockboxRetrieveParams =
-            LockboxRetrieveParams(
-                lockboxId,
+        fun build(): LockboxRecipientRetrieveParams =
+            LockboxRecipientRetrieveParams(
+                lockboxRecipientId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -163,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> lockboxId ?: ""
+            0 -> lockboxRecipientId ?: ""
             else -> ""
         }
 
@@ -176,14 +181,15 @@ private constructor(
             return true
         }
 
-        return other is LockboxRetrieveParams &&
-            lockboxId == other.lockboxId &&
+        return other is LockboxRecipientRetrieveParams &&
+            lockboxRecipientId == other.lockboxRecipientId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(lockboxId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(lockboxRecipientId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LockboxRetrieveParams{lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxRecipientRetrieveParams{lockboxRecipientId=$lockboxRecipientId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
