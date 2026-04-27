@@ -6407,6 +6407,9 @@ private constructor(
             /** Mastercard and Maestro */
             val MASTERCARD = of("mastercard")
 
+            /** Pulse */
+            val PULSE = of("pulse")
+
             fun of(value: String) = Route(JsonField.of(value))
         }
 
@@ -6416,6 +6419,8 @@ private constructor(
             VISA,
             /** Mastercard and Maestro */
             MASTERCARD,
+            /** Pulse */
+            PULSE,
         }
 
         /**
@@ -6432,6 +6437,8 @@ private constructor(
             VISA,
             /** Mastercard and Maestro */
             MASTERCARD,
+            /** Pulse */
+            PULSE,
             /** An enum member indicating that [Route] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -6447,6 +6454,7 @@ private constructor(
             when (this) {
                 VISA -> Value.VISA
                 MASTERCARD -> Value.MASTERCARD
+                PULSE -> Value.PULSE
                 else -> Value._UNKNOWN
             }
 
@@ -6463,6 +6471,7 @@ private constructor(
             when (this) {
                 VISA -> Known.VISA
                 MASTERCARD -> Known.MASTERCARD
+                PULSE -> Known.PULSE
                 else -> throw IncreaseInvalidDataException("Unknown Route: $value")
             }
 
