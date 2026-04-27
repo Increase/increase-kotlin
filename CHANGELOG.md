@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.503.0 (2026-04-27)
+
+Full Changelog: [v0.502.0...v0.503.0](https://github.com/Increase/increase-kotlin/compare/v0.502.0...v0.503.0)
+
+### Features
+
+* support setting headers via env ([e738a48](https://github.com/Increase/increase-kotlin/commit/e738a48413d656d93c7cd83364eaa7ff6cb52761))
+
 ## 0.502.0 (2026-04-27)
 
 Full Changelog: [v0.501.0...v0.502.0](https://github.com/Increase/increase-kotlin/compare/v0.501.0...v0.502.0)
