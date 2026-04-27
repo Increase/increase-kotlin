@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.services.async
+package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
@@ -15,84 +15,85 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
-import com.increase.api.core.prepareAsync
-import com.increase.api.models.lockboxes.Lockbox
-import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxListPageAsync
-import com.increase.api.models.lockboxes.LockboxListPageResponse
-import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxRetrieveParams
-import com.increase.api.models.lockboxes.LockboxUpdateParams
+import com.increase.api.core.prepare
+import com.increase.api.models.lockboxrecipients.LockboxRecipient
+import com.increase.api.models.lockboxrecipients.LockboxRecipientCreateParams
+import com.increase.api.models.lockboxrecipients.LockboxRecipientListPage
+import com.increase.api.models.lockboxrecipients.LockboxRecipientListPageResponse
+import com.increase.api.models.lockboxrecipients.LockboxRecipientListParams
+import com.increase.api.models.lockboxrecipients.LockboxRecipientRetrieveParams
+import com.increase.api.models.lockboxrecipients.LockboxRecipientUpdateParams
 
-class LockboxServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    LockboxServiceAsync {
+class LockboxRecipientServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LockboxRecipientService {
 
-    private val withRawResponse: LockboxServiceAsync.WithRawResponse by lazy {
+    private val withRawResponse: LockboxRecipientService.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
 
-    override fun withRawResponse(): LockboxServiceAsync.WithRawResponse = withRawResponse
+    override fun withRawResponse(): LockboxRecipientService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LockboxServiceAsync =
-        LockboxServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LockboxRecipientService =
+        LockboxRecipientServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun create(
-        params: LockboxCreateParams,
+    override fun create(
+        params: LockboxRecipientCreateParams,
         requestOptions: RequestOptions,
-    ): Lockbox =
-        // post /lockboxes
+    ): LockboxRecipient =
+        // post /lockbox_recipients
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun retrieve(
-        params: LockboxRetrieveParams,
+    override fun retrieve(
+        params: LockboxRecipientRetrieveParams,
         requestOptions: RequestOptions,
-    ): Lockbox =
-        // get /lockboxes/{lockbox_id}
+    ): LockboxRecipient =
+        // get /lockbox_recipients/{lockbox_recipient_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun update(
-        params: LockboxUpdateParams,
+    override fun update(
+        params: LockboxRecipientUpdateParams,
         requestOptions: RequestOptions,
-    ): Lockbox =
-        // patch /lockboxes/{lockbox_id}
+    ): LockboxRecipient =
+        // patch /lockbox_recipients/{lockbox_recipient_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: LockboxListParams,
+    override fun list(
+        params: LockboxRecipientListParams,
         requestOptions: RequestOptions,
-    ): LockboxListPageAsync =
-        // get /lockboxes
+    ): LockboxRecipientListPage =
+        // get /lockbox_recipients
         withRawResponse().list(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LockboxServiceAsync.WithRawResponse {
+        LockboxRecipientService.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
-        ): LockboxServiceAsync.WithRawResponse =
-            LockboxServiceAsyncImpl.WithRawResponseImpl(
+        ): LockboxRecipientService.WithRawResponse =
+            LockboxRecipientServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val createHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper)
+        private val createHandler: Handler<LockboxRecipient> =
+            jsonHandler<LockboxRecipient>(clientOptions.jsonMapper)
 
-        override suspend fun create(
-            params: LockboxCreateParams,
+        override fun create(
+            params: LockboxRecipientCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
+        ): HttpResponseFor<LockboxRecipient> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes")
+                    .addPathSegments("lockbox_recipients")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
@@ -104,25 +105,25 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val retrieveHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LockboxRecipient> =
+            jsonHandler<LockboxRecipient>(clientOptions.jsonMapper)
 
-        override suspend fun retrieve(
-            params: LockboxRetrieveParams,
+        override fun retrieve(
+            params: LockboxRecipientRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
+        ): HttpResponseFor<LockboxRecipient> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("lockboxId", params.lockboxId())
+            checkRequired("lockboxRecipientId", params.lockboxRecipientId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes", params._pathParam(0))
+                    .addPathSegments("lockbox_recipients", params._pathParam(0))
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
@@ -134,25 +135,26 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val updateHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LockboxRecipient> =
+            jsonHandler<LockboxRecipient>(clientOptions.jsonMapper)
 
-        override suspend fun update(
-            params: LockboxUpdateParams,
+        override fun update(
+            params: LockboxRecipientUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
+        ): HttpResponseFor<LockboxRecipient> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("lockboxId", params.lockboxId())
+            checkRequired("lockboxRecipientId", params.lockboxRecipientId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes", params._pathParam(0))
+                    .addPathSegments("lockbox_recipients", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
@@ -164,22 +166,22 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<LockboxListPageResponse> =
-            jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LockboxRecipientListPageResponse> =
+            jsonHandler<LockboxRecipientListPageResponse>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: LockboxListParams,
+        override fun list(
+            params: LockboxRecipientListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LockboxListPageAsync> {
+        ): HttpResponseFor<LockboxRecipientListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes")
+                    .addPathSegments("lockbox_recipients")
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
@@ -189,8 +191,8 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        LockboxListPageAsync.builder()
-                            .service(LockboxServiceAsyncImpl(clientOptions))
+                        LockboxRecipientListPage.builder()
+                            .service(LockboxRecipientServiceImpl(clientOptions))
                             .params(params)
                             .response(it)
                             .build()
