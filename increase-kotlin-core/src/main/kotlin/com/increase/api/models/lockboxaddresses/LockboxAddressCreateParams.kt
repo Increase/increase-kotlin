@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxaddresses
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -11,15 +11,14 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Create a Lockbox */
-class LockboxCreateParams
+/** Create a Lockbox Address */
+class LockboxAddressCreateParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -27,15 +26,7 @@ private constructor(
 ) : Params {
 
     /**
-     * The Account checks sent to this Lockbox should be deposited into.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun accountId(): String = body.accountId()
-
-    /**
-     * The description you choose for the Lockbox, for display purposes.
+     * The description you choose for the Lockbox Address.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -43,33 +34,11 @@ private constructor(
     fun description(): String? = body.description()
 
     /**
-     * The name of the recipient that will receive mail at this location.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun recipientName(): String? = body.recipientName()
-
-    /**
-     * Returns the raw JSON value of [accountId].
-     *
-     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _accountId(): JsonField<String> = body._accountId()
-
-    /**
      * Returns the raw JSON value of [description].
      *
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _description(): JsonField<String> = body._description()
-
-    /**
-     * Returns the raw JSON value of [recipientName].
-     *
-     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _recipientName(): JsonField<String> = body._recipientName()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -83,28 +52,25 @@ private constructor(
 
     companion object {
 
+        fun none(): LockboxAddressCreateParams = builder().build()
+
         /**
-         * Returns a mutable builder for constructing an instance of [LockboxCreateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
+         * Returns a mutable builder for constructing an instance of [LockboxAddressCreateParams].
          */
         fun builder() = Builder()
     }
 
-    /** A builder for [LockboxCreateParams]. */
+    /** A builder for [LockboxAddressCreateParams]. */
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(lockboxCreateParams: LockboxCreateParams) = apply {
-            body = lockboxCreateParams.body.toBuilder()
-            additionalHeaders = lockboxCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = lockboxCreateParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxAddressCreateParams: LockboxAddressCreateParams) = apply {
+            body = lockboxAddressCreateParams.body.toBuilder()
+            additionalHeaders = lockboxAddressCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxAddressCreateParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -112,25 +78,11 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [accountId]
          * - [description]
-         * - [recipientName]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The Account checks sent to this Lockbox should be deposited into. */
-        fun accountId(accountId: String) = apply { body.accountId(accountId) }
-
-        /**
-         * Sets [Builder.accountId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
-
-        /** The description you choose for the Lockbox, for display purposes. */
+        /** The description you choose for the Lockbox Address. */
         fun description(description: String) = apply { body.description(description) }
 
         /**
@@ -141,20 +93,6 @@ private constructor(
          * value.
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
-
-        /** The name of the recipient that will receive mail at this location. */
-        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
-
-        /**
-         * Sets [Builder.recipientName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun recipientName(recipientName: JsonField<String>) = apply {
-            body.recipientName(recipientName)
-        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -274,19 +212,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxCreateParams].
+         * Returns an immutable instance of [LockboxAddressCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): LockboxCreateParams =
-            LockboxCreateParams(
+        fun build(): LockboxAddressCreateParams =
+            LockboxAddressCreateParams(
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -302,55 +233,24 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val accountId: JsonField<String>,
         private val description: JsonField<String>,
-        private val recipientName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("account_id")
-            @ExcludeMissing
-            accountId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
-            description: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("recipient_name")
-            @ExcludeMissing
-            recipientName: JsonField<String> = JsonMissing.of(),
-        ) : this(accountId, description, recipientName, mutableMapOf())
+            description: JsonField<String> = JsonMissing.of()
+        ) : this(description, mutableMapOf())
 
         /**
-         * The Account checks sent to this Lockbox should be deposited into.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountId(): String = accountId.getRequired("account_id")
-
-        /**
-         * The description you choose for the Lockbox, for display purposes.
+         * The description you choose for the Lockbox Address.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
         fun description(): String? = description.getNullable("description")
-
-        /**
-         * The name of the recipient that will receive mail at this location.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun recipientName(): String? = recipientName.getNullable("recipient_name")
-
-        /**
-         * Returns the raw JSON value of [accountId].
-         *
-         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
          * Returns the raw JSON value of [description].
@@ -360,16 +260,6 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [recipientName].
-         *
-         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
-        fun _recipientName(): JsonField<String> = recipientName
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -385,45 +275,22 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .accountId()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var accountId: JsonField<String>? = null
             private var description: JsonField<String> = JsonMissing.of()
-            private var recipientName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
-                accountId = body.accountId
                 description = body.description
-                recipientName = body.recipientName
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The Account checks sent to this Lockbox should be deposited into. */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-            /**
-             * Sets [Builder.accountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-            /** The description you choose for the Lockbox, for display purposes. */
+            /** The description you choose for the Lockbox Address. */
             fun description(description: String) = description(JsonField.of(description))
 
             /**
@@ -435,20 +302,6 @@ private constructor(
              */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
-            }
-
-            /** The name of the recipient that will receive mail at this location. */
-            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
-
-            /**
-             * Sets [Builder.recipientName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.recipientName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun recipientName(recipientName: JsonField<String>) = apply {
-                this.recipientName = recipientName
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -474,21 +327,8 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .accountId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Body =
-                Body(
-                    checkRequired("accountId", accountId),
-                    description,
-                    recipientName,
-                    additionalProperties.toMutableMap(),
-                )
+            fun build(): Body = Body(description, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -498,9 +338,7 @@ private constructor(
                 return@apply
             }
 
-            accountId()
             description()
-            recipientName()
             validated = true
         }
 
@@ -518,10 +356,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (if (accountId.asKnown() == null) 0 else 1) +
-                (if (description.asKnown() == null) 0 else 1) +
-                (if (recipientName.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (description.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -529,20 +364,16 @@ private constructor(
             }
 
             return other is Body &&
-                accountId == other.accountId &&
                 description == other.description &&
-                recipientName == other.recipientName &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(accountId, description, recipientName, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(description, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
+            "Body{description=$description, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -550,7 +381,7 @@ private constructor(
             return true
         }
 
-        return other is LockboxCreateParams &&
+        return other is LockboxAddressCreateParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -559,5 +390,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LockboxCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxAddressCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.inboundmailitems
+package com.increase.api.models.lockboxrecipients
 
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
@@ -9,31 +9,39 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
-/** List Inbound Mail Items */
-class InboundMailItemListParams
+/** List Lockbox Recipients */
+class LockboxRecipientListParams
 private constructor(
+    private val accountId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val lockboxAddressId: String?,
-    private val lockboxRecipientId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** Filter Lockbox Recipients to those associated with the provided Account. */
+    fun accountId(): String? = accountId
 
     fun createdAt(): CreatedAt? = createdAt
 
     /** Return the page of entries after this one. */
     fun cursor(): String? = cursor
 
+    /**
+     * Filter records to the one with the specified `idempotency_key` you chose for that object.
+     * This value is unique across Increase and is used to ensure that a request is only processed
+     * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey
+
     /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
 
-    /** Filter Inbound Mail Items to ones sent to the provided Lockbox Address. */
+    /** Filter Lockbox Recipients to those associated with the provided Lockbox Address. */
     fun lockboxAddressId(): String? = lockboxAddressId
-
-    /** Filter Inbound Mail Items to ones sent to the provided Lockbox Recipient. */
-    fun lockboxRecipientId(): String? = lockboxRecipientId
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -45,39 +53,52 @@ private constructor(
 
     companion object {
 
-        fun none(): InboundMailItemListParams = builder().build()
+        fun none(): LockboxRecipientListParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of [InboundMailItemListParams].
+         * Returns a mutable builder for constructing an instance of [LockboxRecipientListParams].
          */
         fun builder() = Builder()
     }
 
-    /** A builder for [InboundMailItemListParams]. */
+    /** A builder for [LockboxRecipientListParams]. */
     class Builder internal constructor() {
 
+        private var accountId: String? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var lockboxAddressId: String? = null
-        private var lockboxRecipientId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(inboundMailItemListParams: InboundMailItemListParams) = apply {
-            createdAt = inboundMailItemListParams.createdAt
-            cursor = inboundMailItemListParams.cursor
-            limit = inboundMailItemListParams.limit
-            lockboxAddressId = inboundMailItemListParams.lockboxAddressId
-            lockboxRecipientId = inboundMailItemListParams.lockboxRecipientId
-            additionalHeaders = inboundMailItemListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = inboundMailItemListParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxRecipientListParams: LockboxRecipientListParams) = apply {
+            accountId = lockboxRecipientListParams.accountId
+            createdAt = lockboxRecipientListParams.createdAt
+            cursor = lockboxRecipientListParams.cursor
+            idempotencyKey = lockboxRecipientListParams.idempotencyKey
+            limit = lockboxRecipientListParams.limit
+            lockboxAddressId = lockboxRecipientListParams.lockboxAddressId
+            additionalHeaders = lockboxRecipientListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxRecipientListParams.additionalQueryParams.toBuilder()
         }
+
+        /** Filter Lockbox Recipients to those associated with the provided Account. */
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -91,14 +112,9 @@ private constructor(
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /** Filter Inbound Mail Items to ones sent to the provided Lockbox Address. */
+        /** Filter Lockbox Recipients to those associated with the provided Lockbox Address. */
         fun lockboxAddressId(lockboxAddressId: String?) = apply {
             this.lockboxAddressId = lockboxAddressId
-        }
-
-        /** Filter Inbound Mail Items to ones sent to the provided Lockbox Recipient. */
-        fun lockboxRecipientId(lockboxRecipientId: String?) = apply {
-            this.lockboxRecipientId = lockboxRecipientId
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -200,17 +216,18 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [InboundMailItemListParams].
+         * Returns an immutable instance of [LockboxRecipientListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): InboundMailItemListParams =
-            InboundMailItemListParams(
+        fun build(): LockboxRecipientListParams =
+            LockboxRecipientListParams(
+                accountId,
                 createdAt,
                 cursor,
+                idempotencyKey,
                 limit,
                 lockboxAddressId,
-                lockboxRecipientId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -221,6 +238,7 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                accountId?.let { put("account_id", it) }
                 createdAt?.let {
                     it.after()?.let {
                         put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
@@ -247,9 +265,9 @@ private constructor(
                     }
                 }
                 cursor?.let { put("cursor", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
                 lockboxAddressId?.let { put("lockbox_address_id", it) }
-                lockboxRecipientId?.let { put("lockbox_recipient_id", it) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -423,27 +441,29 @@ private constructor(
             return true
         }
 
-        return other is InboundMailItemListParams &&
+        return other is LockboxRecipientListParams &&
+            accountId == other.accountId &&
             createdAt == other.createdAt &&
             cursor == other.cursor &&
+            idempotencyKey == other.idempotencyKey &&
             limit == other.limit &&
             lockboxAddressId == other.lockboxAddressId &&
-            lockboxRecipientId == other.lockboxRecipientId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
         Objects.hash(
+            accountId,
             createdAt,
             cursor,
+            idempotencyKey,
             limit,
             lockboxAddressId,
-            lockboxRecipientId,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "InboundMailItemListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, lockboxAddressId=$lockboxAddressId, lockboxRecipientId=$lockboxRecipientId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxRecipientListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, lockboxAddressId=$lockboxAddressId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

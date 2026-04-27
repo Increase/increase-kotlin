@@ -82,8 +82,10 @@ import com.increase.api.services.blocking.IntrafiBalanceService
 import com.increase.api.services.blocking.IntrafiBalanceServiceImpl
 import com.increase.api.services.blocking.IntrafiExclusionService
 import com.increase.api.services.blocking.IntrafiExclusionServiceImpl
-import com.increase.api.services.blocking.LockboxService
-import com.increase.api.services.blocking.LockboxServiceImpl
+import com.increase.api.services.blocking.LockboxAddressService
+import com.increase.api.services.blocking.LockboxAddressServiceImpl
+import com.increase.api.services.blocking.LockboxRecipientService
+import com.increase.api.services.blocking.LockboxRecipientServiceImpl
 import com.increase.api.services.blocking.OAuthApplicationService
 import com.increase.api.services.blocking.OAuthApplicationServiceImpl
 import com.increase.api.services.blocking.OAuthConnectionService
@@ -246,7 +248,13 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         CheckDepositServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val lockboxes: LockboxService by lazy { LockboxServiceImpl(clientOptionsWithUserAgent) }
+    private val lockboxAddresses: LockboxAddressService by lazy {
+        LockboxAddressServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val lockboxRecipients: LockboxRecipientService by lazy {
+        LockboxRecipientServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val inboundMailItems: InboundMailItemService by lazy {
         InboundMailItemServiceImpl(clientOptionsWithUserAgent)
@@ -408,7 +416,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 
-    override fun lockboxes(): LockboxService = lockboxes
+    override fun lockboxAddresses(): LockboxAddressService = lockboxAddresses
+
+    override fun lockboxRecipients(): LockboxRecipientService = lockboxRecipients
 
     override fun inboundMailItems(): InboundMailItemService = inboundMailItems
 
@@ -588,8 +598,12 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             CheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val lockboxes: LockboxService.WithRawResponse by lazy {
-            LockboxServiceImpl.WithRawResponseImpl(clientOptions)
+        private val lockboxAddresses: LockboxAddressService.WithRawResponse by lazy {
+            LockboxAddressServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val lockboxRecipients: LockboxRecipientService.WithRawResponse by lazy {
+            LockboxRecipientServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val inboundMailItems: InboundMailItemService.WithRawResponse by lazy {
@@ -779,7 +793,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun checkDeposits(): CheckDepositService.WithRawResponse = checkDeposits
 
-        override fun lockboxes(): LockboxService.WithRawResponse = lockboxes
+        override fun lockboxAddresses(): LockboxAddressService.WithRawResponse = lockboxAddresses
+
+        override fun lockboxRecipients(): LockboxRecipientService.WithRawResponse =
+            lockboxRecipients
 
         override fun inboundMailItems(): InboundMailItemService.WithRawResponse = inboundMailItems
 
