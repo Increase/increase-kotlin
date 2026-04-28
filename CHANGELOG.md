@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.505.0 (2026-04-28)
+
+Full Changelog: [v0.504.0...v0.505.0](https://github.com/Increase/increase-kotlin/compare/v0.504.0...v0.505.0)
+
+### Features
+
+* **api:** api update ([27e94f0](https://github.com/Increase/increase-kotlin/commit/27e94f06077c1e8669be1d94f1cbd595e55a5bdf))
+
 ## 0.504.0 (2026-04-28)
 
 Full Changelog: [v0.503.0...v0.504.0](https://github.com/Increase/increase-kotlin/compare/v0.503.0...v0.504.0)
