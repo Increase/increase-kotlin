@@ -108,10 +108,10 @@ private constructor(
     /**
      * The identifier for the Lockbox Address that received this mail item.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun lockboxAddressId(): String? = lockboxAddressId.getNullable("lockbox_address_id")
+    fun lockboxAddressId(): String = lockboxAddressId.getRequired("lockbox_address_id")
 
     /**
      * The identifier for the Lockbox Recipient that received this mail item. For mail items that
@@ -364,8 +364,8 @@ private constructor(
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The identifier for the Lockbox Address that received this mail item. */
-        fun lockboxAddressId(lockboxAddressId: String?) =
-            lockboxAddressId(JsonField.ofNullable(lockboxAddressId))
+        fun lockboxAddressId(lockboxAddressId: String) =
+            lockboxAddressId(JsonField.of(lockboxAddressId))
 
         /**
          * Sets [Builder.lockboxAddressId] to an arbitrary JSON value.
