@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.services.blocking.simulations.AccountRevenuePaymentService
 import com.increase.api.services.blocking.simulations.AccountStatementService
 import com.increase.api.services.blocking.simulations.AchTransferService
 import com.increase.api.services.blocking.simulations.CardAuthenticationService
@@ -52,6 +53,8 @@ interface SimulationService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SimulationService
 
     fun interestPayments(): InterestPaymentService
+
+    fun accountRevenuePayments(): AccountRevenuePaymentService
 
     fun cardAuthorizations(): CardAuthorizationService
 
@@ -130,6 +133,8 @@ interface SimulationService {
         ): SimulationService.WithRawResponse
 
         fun interestPayments(): InterestPaymentService.WithRawResponse
+
+        fun accountRevenuePayments(): AccountRevenuePaymentService.WithRawResponse
 
         fun cardAuthorizations(): CardAuthorizationService.WithRawResponse
 
