@@ -3545,7 +3545,8 @@ private constructor(
 
                     /**
                      * The Employer Identification Number (EIN) for the company. The EIN is a
-                     * 9-digit number assigned by the IRS.
+                     * 9-digit number assigned by the IRS; submit it as nine digits with no dashes
+                     * or other separators.
                      */
                     val US_EMPLOYER_IDENTIFICATION_NUMBER = of("us_employer_identification_number")
 
@@ -3562,7 +3563,8 @@ private constructor(
                 enum class Known {
                     /**
                      * The Employer Identification Number (EIN) for the company. The EIN is a
-                     * 9-digit number assigned by the IRS.
+                     * 9-digit number assigned by the IRS; submit it as nine digits with no dashes
+                     * or other separators.
                      */
                     US_EMPLOYER_IDENTIFICATION_NUMBER,
                     /**
@@ -3584,7 +3586,8 @@ private constructor(
                 enum class Value {
                     /**
                      * The Employer Identification Number (EIN) for the company. The EIN is a
-                     * 9-digit number assigned by the IRS.
+                     * 9-digit number assigned by the IRS; submit it as nine digits with no dashes
+                     * or other separators.
                      */
                     US_EMPLOYER_IDENTIFICATION_NUMBER,
                     /**

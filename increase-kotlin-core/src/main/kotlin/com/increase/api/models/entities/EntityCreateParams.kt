@@ -3320,7 +3320,9 @@ private constructor(
 
                     /**
                      * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * identity, such as a social security number. For Social Security Numbers and
+                     * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
+                     * or other separators.
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -3466,7 +3468,9 @@ private constructor(
 
                         /**
                          * An identification number that can be used to verify the individual's
-                         * identity, such as a social security number.
+                         * identity, such as a social security number. For Social Security Numbers
+                         * and Individual Taxpayer Identification Numbers, submit nine digits with
+                         * no dashes or other separators.
                          */
                         fun number(number: String) = number(JsonField.of(number))
 
@@ -4994,7 +4998,8 @@ private constructor(
             ) : this(value, category, mutableMapOf())
 
             /**
-             * The legal identifier.
+             * The legal identifier. For US Employer Identification Numbers, submit nine digits with
+             * no dashes or other separators.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -5066,7 +5071,10 @@ private constructor(
                     additionalProperties = legalIdentifier.additionalProperties.toMutableMap()
                 }
 
-                /** The legal identifier. */
+                /**
+                 * The legal identifier. For US Employer Identification Numbers, submit nine digits
+                 * with no dashes or other separators.
+                 */
                 fun value(value: String) = value(JsonField.of(value))
 
                 /**
@@ -5185,7 +5193,8 @@ private constructor(
 
                     /**
                      * The Employer Identification Number (EIN) for the company. The EIN is a
-                     * 9-digit number assigned by the IRS.
+                     * 9-digit number assigned by the IRS; submit it as nine digits with no dashes
+                     * or other separators.
                      */
                     val US_EMPLOYER_IDENTIFICATION_NUMBER = of("us_employer_identification_number")
 
@@ -5202,7 +5211,8 @@ private constructor(
                 enum class Known {
                     /**
                      * The Employer Identification Number (EIN) for the company. The EIN is a
-                     * 9-digit number assigned by the IRS.
+                     * 9-digit number assigned by the IRS; submit it as nine digits with no dashes
+                     * or other separators.
                      */
                     US_EMPLOYER_IDENTIFICATION_NUMBER,
                     /**
@@ -5224,7 +5234,8 @@ private constructor(
                 enum class Value {
                     /**
                      * The Employer Identification Number (EIN) for the company. The EIN is a
-                     * 9-digit number assigned by the IRS.
+                     * 9-digit number assigned by the IRS; submit it as nine digits with no dashes
+                     * or other separators.
                      */
                     US_EMPLOYER_IDENTIFICATION_NUMBER,
                     /**
@@ -5625,7 +5636,8 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /**
-         * The Employer Identification Number (EIN) for the government authority.
+         * The Employer Identification Number (EIN) for the government authority. Submit nine digits
+         * with no dashes or other separators.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -5804,7 +5816,10 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            /** The Employer Identification Number (EIN) for the government authority. */
+            /**
+             * The Employer Identification Number (EIN) for the government authority. Submit nine
+             * digits with no dashes or other separators.
+             */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
 
             /**
@@ -7484,7 +7499,9 @@ private constructor(
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * such as a social security number. For Social Security Numbers and Individual
+                 * Taxpayer Identification Numbers, submit nine digits with no dashes or other
+                 * separators.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -7623,7 +7640,9 @@ private constructor(
 
                     /**
                      * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * identity, such as a social security number. For Social Security Numbers and
+                     * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
+                     * or other separators.
                      */
                     fun number(number: String) = number(JsonField.of(number))
 
@@ -9687,7 +9706,8 @@ private constructor(
 
             /**
              * An identification number that can be used to verify the individual's identity, such
-             * as a social security number.
+             * as a social security number. For Social Security Numbers and Individual Taxpayer
+             * Identification Numbers, submit nine digits with no dashes or other separators.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -9822,7 +9842,9 @@ private constructor(
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * such as a social security number. For Social Security Numbers and Individual
+                 * Taxpayer Identification Numbers, submit nine digits with no dashes or other
+                 * separators.
                  */
                 fun number(number: String) = number(JsonField.of(number))
 
@@ -12331,8 +12353,8 @@ private constructor(
         fun grantor(): Grantor? = grantor.getNullable("grantor")
 
         /**
-         * The Employer Identification Number (EIN) for the trust. Required if `category` is equal
-         * to `irrevocable`.
+         * The Employer Identification Number (EIN) for the trust. Submit nine digits with no dashes
+         * or other separators. Required if `category` is equal to `irrevocable`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -12574,8 +12596,8 @@ private constructor(
             fun grantor(grantor: JsonField<Grantor>) = apply { this.grantor = grantor }
 
             /**
-             * The Employer Identification Number (EIN) for the trust. Required if `category` is
-             * equal to `irrevocable`.
+             * The Employer Identification Number (EIN) for the trust. Submit nine digits with no
+             * dashes or other separators. Required if `category` is equal to `irrevocable`.
              */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
 
@@ -14235,7 +14257,9 @@ private constructor(
 
                     /**
                      * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * identity, such as a social security number. For Social Security Numbers and
+                     * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
+                     * or other separators.
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -14381,7 +14405,9 @@ private constructor(
 
                         /**
                          * An identification number that can be used to verify the individual's
-                         * identity, such as a social security number.
+                         * identity, such as a social security number. For Social Security Numbers
+                         * and Individual Taxpayer Identification Numbers, submit nine digits with
+                         * no dashes or other separators.
                          */
                         fun number(number: String) = number(JsonField.of(number))
 
@@ -16492,7 +16518,9 @@ private constructor(
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * such as a social security number. For Social Security Numbers and Individual
+                 * Taxpayer Identification Numbers, submit nine digits with no dashes or other
+                 * separators.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -16631,7 +16659,9 @@ private constructor(
 
                     /**
                      * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * identity, such as a social security number. For Social Security Numbers and
+                     * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
+                     * or other separators.
                      */
                     fun number(number: String) = number(JsonField.of(number))
 
