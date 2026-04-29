@@ -764,9 +764,6 @@ private constructor(
                 /** Occurs whenever a Digital Wallet Token is updated. */
                 val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
-                /** Occurs whenever a Document is created. */
-                val DOCUMENT_CREATED = of("document.created")
-
                 /** Occurs whenever an Entity is created. */
                 val ENTITY_CREATED = of("entity.created")
 
@@ -1089,8 +1086,6 @@ private constructor(
                 DIGITAL_WALLET_TOKEN_CREATED,
                 /** Occurs whenever a Digital Wallet Token is updated. */
                 DIGITAL_WALLET_TOKEN_UPDATED,
-                /** Occurs whenever a Document is created. */
-                DOCUMENT_CREATED,
                 /** Occurs whenever an Entity is created. */
                 ENTITY_CREATED,
                 /** Occurs whenever an Entity is updated. */
@@ -1338,8 +1333,6 @@ private constructor(
                 DIGITAL_WALLET_TOKEN_CREATED,
                 /** Occurs whenever a Digital Wallet Token is updated. */
                 DIGITAL_WALLET_TOKEN_UPDATED,
-                /** Occurs whenever a Document is created. */
-                DOCUMENT_CREATED,
                 /** Occurs whenever an Entity is created. */
                 ENTITY_CREATED,
                 /** Occurs whenever an Entity is updated. */
@@ -1553,7 +1546,6 @@ private constructor(
                     DIGITAL_CARD_PROFILE_UPDATED -> Value.DIGITAL_CARD_PROFILE_UPDATED
                     DIGITAL_WALLET_TOKEN_CREATED -> Value.DIGITAL_WALLET_TOKEN_CREATED
                     DIGITAL_WALLET_TOKEN_UPDATED -> Value.DIGITAL_WALLET_TOKEN_UPDATED
-                    DOCUMENT_CREATED -> Value.DOCUMENT_CREATED
                     ENTITY_CREATED -> Value.ENTITY_CREATED
                     ENTITY_UPDATED -> Value.ENTITY_UPDATED
                     EVENT_SUBSCRIPTION_CREATED -> Value.EVENT_SUBSCRIPTION_CREATED
@@ -1688,7 +1680,6 @@ private constructor(
                     DIGITAL_CARD_PROFILE_UPDATED -> Known.DIGITAL_CARD_PROFILE_UPDATED
                     DIGITAL_WALLET_TOKEN_CREATED -> Known.DIGITAL_WALLET_TOKEN_CREATED
                     DIGITAL_WALLET_TOKEN_UPDATED -> Known.DIGITAL_WALLET_TOKEN_UPDATED
-                    DOCUMENT_CREATED -> Known.DOCUMENT_CREATED
                     ENTITY_CREATED -> Known.ENTITY_CREATED
                     ENTITY_UPDATED -> Known.ENTITY_UPDATED
                     EVENT_SUBSCRIPTION_CREATED -> Known.EVENT_SUBSCRIPTION_CREATED
