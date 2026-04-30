@@ -127,9 +127,9 @@ interface IncreaseClientAsync {
 
     fun achTransfers(): AchTransferServiceAsync
 
-    fun achPrenotifications(): AchPrenotificationServiceAsync
-
     fun inboundAchTransfers(): InboundAchTransferServiceAsync
+
+    fun achPrenotifications(): AchPrenotificationServiceAsync
 
     fun wireTransfers(): WireTransferServiceAsync
 
@@ -268,9 +268,9 @@ interface IncreaseClientAsync {
 
         fun achTransfers(): AchTransferServiceAsync.WithRawResponse
 
-        fun achPrenotifications(): AchPrenotificationServiceAsync.WithRawResponse
-
         fun inboundAchTransfers(): InboundAchTransferServiceAsync.WithRawResponse
+
+        fun achPrenotifications(): AchPrenotificationServiceAsync.WithRawResponse
 
         fun wireTransfers(): WireTransferServiceAsync.WithRawResponse
 
