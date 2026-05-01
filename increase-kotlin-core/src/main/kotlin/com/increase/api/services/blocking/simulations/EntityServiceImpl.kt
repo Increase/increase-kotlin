@@ -17,7 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 
 class EntityServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EntityService {
@@ -31,12 +31,12 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityService =
         EntityServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun validation(
-        params: EntityValidationParams,
+    override fun updateValidation(
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions,
     ): Entity =
-        // post /simulations/entities/{entity_id}/validation
-        withRawResponse().validation(params, requestOptions).parse()
+        // post /simulations/entities/{entity_id}/update_validation
+        withRawResponse().updateValidation(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityService.WithRawResponse {
@@ -49,11 +49,11 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
         ): EntityService.WithRawResponse =
             EntityServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
-        private val validationHandler: Handler<Entity> =
+        private val updateValidationHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper)
 
-        override fun validation(
-            params: EntityValidationParams,
+        override fun updateValidation(
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
             // We check here instead of in the params builder because this can be specified
@@ -63,7 +63,12 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("simulations", "entities", params._pathParam(0), "validation")
+                    .addPathSegments(
+                        "simulations",
+                        "entities",
+                        params._pathParam(0),
+                        "update_validation",
+                    )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -71,7 +76,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { validationHandler.handle(it) }
+                    .use { updateValidationHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

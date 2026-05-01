@@ -17,7 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 
 class EntityServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     EntityServiceAsync {
@@ -31,12 +31,12 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityServiceAsync =
         EntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun validation(
-        params: EntityValidationParams,
+    override suspend fun updateValidation(
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions,
     ): Entity =
-        // post /simulations/entities/{entity_id}/validation
-        withRawResponse().validation(params, requestOptions).parse()
+        // post /simulations/entities/{entity_id}/update_validation
+        withRawResponse().updateValidation(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityServiceAsync.WithRawResponse {
@@ -51,11 +51,11 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val validationHandler: Handler<Entity> =
+        private val updateValidationHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper)
 
-        override suspend fun validation(
-            params: EntityValidationParams,
+        override suspend fun updateValidation(
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
             // We check here instead of in the params builder because this can be specified
@@ -65,7 +65,12 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("simulations", "entities", params._pathParam(0), "validation")
+                    .addPathSegments(
+                        "simulations",
+                        "entities",
+                        params._pathParam(0),
+                        "update_validation",
+                    )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -73,7 +78,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { validationHandler.handle(it) }
+                    .use { updateValidationHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
