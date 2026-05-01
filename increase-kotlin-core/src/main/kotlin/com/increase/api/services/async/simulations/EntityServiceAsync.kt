@@ -7,7 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 
 interface EntityServiceAsync {
 
@@ -24,21 +24,21 @@ interface EntityServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityServiceAsync
 
     /**
-     * Set the status for an
+     * Simulate updates to an
      * [Entity's validation](/documentation/api/entities#entity-object.validation). In production,
      * Know Your Customer validations
-     * [run automatically](/documentation/entity-validation#entity-validation). While developing, it
-     * can be helpful to override the behavior in Sandbox.
+     * [run automatically](/documentation/entity-validation#entity-validation) for eligible
+     * programs. While developing, use this API to simulate issues with information submissions.
      */
-    suspend fun validation(
+    suspend fun updateValidation(
         entityId: String,
-        params: EntityValidationParams,
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = validation(params.toBuilder().entityId(entityId).build(), requestOptions)
+    ): Entity = updateValidation(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see validation */
-    suspend fun validation(
-        params: EntityValidationParams,
+    /** @see updateValidation */
+    suspend fun updateValidation(
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -57,21 +57,22 @@ interface EntityServiceAsync {
         ): EntityServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /simulations/entities/{entity_id}/validation`, but
-         * is otherwise the same as [EntityServiceAsync.validation].
+         * Returns a raw HTTP response for `post
+         * /simulations/entities/{entity_id}/update_validation`, but is otherwise the same as
+         * [EntityServiceAsync.updateValidation].
          */
         @MustBeClosed
-        suspend fun validation(
+        suspend fun updateValidation(
             entityId: String,
-            params: EntityValidationParams,
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity> =
-            validation(params.toBuilder().entityId(entityId).build(), requestOptions)
+            updateValidation(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see validation */
+        /** @see updateValidation */
         @MustBeClosed
-        suspend fun validation(
-            params: EntityValidationParams,
+        suspend fun updateValidation(
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
     }
