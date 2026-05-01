@@ -7,7 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 
 interface EntityService {
 
@@ -24,21 +24,21 @@ interface EntityService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityService
 
     /**
-     * Set the status for an
+     * Simulate updates to an
      * [Entity's validation](/documentation/api/entities#entity-object.validation). In production,
      * Know Your Customer validations
-     * [run automatically](/documentation/entity-validation#entity-validation). While developing, it
-     * can be helpful to override the behavior in Sandbox.
+     * [run automatically](/documentation/entity-validation#entity-validation) for eligible
+     * programs. While developing, use this API to simulate issues with information submissions.
      */
-    fun validation(
+    fun updateValidation(
         entityId: String,
-        params: EntityValidationParams,
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = validation(params.toBuilder().entityId(entityId).build(), requestOptions)
+    ): Entity = updateValidation(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see validation */
-    fun validation(
-        params: EntityValidationParams,
+    /** @see updateValidation */
+    fun updateValidation(
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -53,21 +53,22 @@ interface EntityService {
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /simulations/entities/{entity_id}/validation`, but
-         * is otherwise the same as [EntityService.validation].
+         * Returns a raw HTTP response for `post
+         * /simulations/entities/{entity_id}/update_validation`, but is otherwise the same as
+         * [EntityService.updateValidation].
          */
         @MustBeClosed
-        fun validation(
+        fun updateValidation(
             entityId: String,
-            params: EntityValidationParams,
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity> =
-            validation(params.toBuilder().entityId(entityId).build(), requestOptions)
+            updateValidation(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see validation */
+        /** @see updateValidation */
         @MustBeClosed
-        fun validation(
-            params: EntityValidationParams,
+        fun updateValidation(
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
     }
