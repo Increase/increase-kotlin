@@ -1038,6 +1038,7 @@ private constructor(
         private val industryCode: JsonField<String>,
         private val legalIdentifier: JsonField<LegalIdentifier>,
         private val name: JsonField<String>,
+        private val website: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1055,6 +1056,7 @@ private constructor(
             @ExcludeMissing
             legalIdentifier: JsonField<LegalIdentifier> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of(),
         ) : this(
             address,
             email,
@@ -1062,6 +1064,7 @@ private constructor(
             industryCode,
             legalIdentifier,
             name,
+            website,
             mutableMapOf(),
         )
 
@@ -1121,6 +1124,14 @@ private constructor(
         fun name(): String? = name.getNullable("name")
 
         /**
+         * A website for the business. Not every program requires a website for submitted Entities.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun website(): String? = website.getNullable("website")
+
+        /**
          * Returns the raw JSON value of [address].
          *
          * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
@@ -1171,6 +1182,13 @@ private constructor(
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+        /**
+         * Returns the raw JSON value of [website].
+         *
+         * Unlike [website], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -1198,6 +1216,7 @@ private constructor(
             private var industryCode: JsonField<String> = JsonMissing.of()
             private var legalIdentifier: JsonField<LegalIdentifier> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
+            private var website: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(corporation: Corporation) = apply {
@@ -1207,6 +1226,7 @@ private constructor(
                 industryCode = corporation.industryCode
                 legalIdentifier = corporation.legalIdentifier
                 name = corporation.name
+                website = corporation.website
                 additionalProperties = corporation.additionalProperties.toMutableMap()
             }
 
@@ -1307,6 +1327,21 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /**
+             * A website for the business. Not every program requires a website for submitted
+             * Entities.
+             */
+            fun website(website: String) = website(JsonField.of(website))
+
+            /**
+             * Sets [Builder.website] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.website] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun website(website: JsonField<String>) = apply { this.website = website }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1339,6 +1374,7 @@ private constructor(
                     industryCode,
                     legalIdentifier,
                     name,
+                    website,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1356,6 +1392,7 @@ private constructor(
             industryCode()
             legalIdentifier()?.validate()
             name()
+            website()
             validated = true
         }
 
@@ -1379,7 +1416,8 @@ private constructor(
                 (if (incorporationState.asKnown() == null) 0 else 1) +
                 (if (industryCode.asKnown() == null) 0 else 1) +
                 (legalIdentifier.asKnown()?.validity() ?: 0) +
-                (if (name.asKnown() == null) 0 else 1)
+                (if (name.asKnown() == null) 0 else 1) +
+                (if (website.asKnown() == null) 0 else 1)
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -2119,6 +2157,7 @@ private constructor(
                 industryCode == other.industryCode &&
                 legalIdentifier == other.legalIdentifier &&
                 name == other.name &&
+                website == other.website &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -2130,6 +2169,7 @@ private constructor(
                 industryCode,
                 legalIdentifier,
                 name,
+                website,
                 additionalProperties,
             )
         }
@@ -2137,7 +2177,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, legalIdentifier=$legalIdentifier, name=$name, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, legalIdentifier=$legalIdentifier, name=$name, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /**
