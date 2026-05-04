@@ -5,10 +5,14 @@ package com.increase.api.errors
 import com.increase.api.core.JsonValue
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
+import com.increase.api.core.jsonMapper
 
 class RateLimitException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    IncreaseServiceException("429: $body", cause) {
+    IncreaseServiceException(
+        "429: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 429
 
