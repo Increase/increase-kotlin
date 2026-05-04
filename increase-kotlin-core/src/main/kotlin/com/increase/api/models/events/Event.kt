@@ -339,6 +339,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): Event = apply {
         if (validated) {
             return@apply
@@ -1509,6 +1517,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Category = apply {
             if (validated) {
                 return@apply
@@ -1629,6 +1646,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Type = apply {
             if (validated) {
                 return@apply
