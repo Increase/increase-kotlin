@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.513.0 (2026-05-04)
+
+Full Changelog: [v0.512.0...v0.513.0](https://github.com/Increase/increase-kotlin/compare/v0.512.0...v0.513.0)
+
+### Features
+
+* **api:** api update ([9c34cb2](https://github.com/Increase/increase-kotlin/commit/9c34cb2e579832ca01c6ee3caa64f09d964c496b))
+
+
+### Chores
+
+* remove duplicated dokka setup ([2391a2d](https://github.com/Increase/increase-kotlin/commit/2391a2d570d587f22c160ec75bedb961a06d6513))
+
 ## 0.512.0 (2026-05-04)
 
 Full Changelog: [v0.511.0...v0.512.0](https://github.com/Increase/increase-kotlin/compare/v0.511.0...v0.512.0)
