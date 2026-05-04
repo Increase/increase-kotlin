@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.512.0 (2026-05-04)
+
+Full Changelog: [v0.511.0...v0.512.0](https://github.com/Increase/increase-kotlin/compare/v0.511.0...v0.512.0)
+
+### Features
+
+* **api:** api update ([72a7a10](https://github.com/Increase/increase-kotlin/commit/72a7a1099e0c74ecb9ab0934354a043a2921de62))
+* **client:** more robust error parsing ([a82782c](https://github.com/Increase/increase-kotlin/commit/a82782c34cea3c1a48f95af43799a23f07fde83f))
+
+
+### Documentation
+
+* clarify forwards compat behavior ([a12d802](https://github.com/Increase/increase-kotlin/commit/a12d802d542566ed0ac599d55a6a65fc8d0910c9))
+
 ## 0.511.0 (2026-05-02)
 
 Full Changelog: [v0.510.0...v0.511.0](https://github.com/Increase/increase-kotlin/compare/v0.510.0...v0.511.0)
