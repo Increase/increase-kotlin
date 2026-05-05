@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.514.0 (2026-05-05)
+
+Full Changelog: [v0.513.0...v0.514.0](https://github.com/Increase/increase-kotlin/compare/v0.513.0...v0.514.0)
+
+### Features
+
+* **client:** support proxy authentication ([5c64432](https://github.com/Increase/increase-kotlin/commit/5c64432b4317990a634fab0f5aa21fdad88f11e1))
+
+
+### Performance Improvements
+
+* **client:** create one json mapper ([f2da1d9](https://github.com/Increase/increase-kotlin/commit/f2da1d9ecc544dfac1fef349ed1b8a6eb6236ed8))
+
 ## 0.513.0 (2026-05-04)
 
 Full Changelog: [v0.512.0...v0.513.0](https://github.com/Increase/increase-kotlin/compare/v0.512.0...v0.513.0)
