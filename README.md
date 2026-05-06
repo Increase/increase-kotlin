@@ -363,8 +363,6 @@ while (true) {
 
 ## Logging
 
-The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
 Enable logging by setting the `INCREASE_LOG` environment variable to `info`:
 
 ```sh
@@ -375,6 +373,19 @@ Or to `debug` for more verbose logging:
 
 ```sh
 export INCREASE_LOG=debug
+```
+
+Or configure the client manually using the `logLevel` method:
+
+```kotlin
+import com.increase.api.client.IncreaseClient
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.core.LogLevel
+
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
+    .fromEnv()
+    .logLevel(LogLevel.INFO)
+    .build()
 ```
 
 ## ProGuard and R8
