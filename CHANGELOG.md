@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.516.0 (2026-05-06)
+
+Full Changelog: [v0.515.0...v0.516.0](https://github.com/Increase/increase-kotlin/compare/v0.515.0...v0.516.0)
+
+### Features
+
+* **client:** improve logging ([c705c8b](https://github.com/Increase/increase-kotlin/commit/c705c8b7cbe0bb016b619e5ef49868231fd488f2))
+
 ## 0.515.0 (2026-05-06)
 
 Full Changelog: [v0.514.0...v0.515.0](https://github.com/Increase/increase-kotlin/compare/v0.514.0...v0.515.0)
