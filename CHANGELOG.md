@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.517.0 (2026-05-12)
+
+Full Changelog: [v0.516.0...v0.517.0](https://github.com/Increase/increase-kotlin/compare/v0.516.0...v0.517.0)
+
+### Features
+
+* **api:** api update ([0e596be](https://github.com/Increase/increase-kotlin/commit/0e596be05ca7c51189e24b36cd3cc45c7f2f4b20))
+* **api:** api update ([988f32b](https://github.com/Increase/increase-kotlin/commit/988f32bc0028db6dd8c825805424af2133eaaeae))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([f6b2e84](https://github.com/Increase/increase-kotlin/commit/f6b2e84ed30b51a360173f78c9292433634572d2))
+
 ## 0.516.0 (2026-05-06)
 
 Full Changelog: [v0.515.0...v0.516.0](https://github.com/Increase/increase-kotlin/compare/v0.515.0...v0.516.0)
