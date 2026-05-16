@@ -11,10 +11,12 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
     fun create() {
         AchTransferCreateNotificationOfChangeParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-            .changeCode(
-                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
+            .correctedAccountFunding(
+                AchTransferCreateNotificationOfChangeParams.CorrectedAccountFunding.CHECKING
             )
-            .correctedData("123456789")
+            .correctedAccountNumber("x")
+            .correctedIndividualId("x")
+            .correctedRoutingNumber("123456789")
             .build()
     }
 
@@ -23,10 +25,6 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
         val params =
             AchTransferCreateNotificationOfChangeParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                .changeCode(
-                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
-                )
-                .correctedData("123456789")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
@@ -39,18 +37,30 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
         val params =
             AchTransferCreateNotificationOfChangeParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                .changeCode(
-                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
+                .correctedAccountFunding(
+                    AchTransferCreateNotificationOfChangeParams.CorrectedAccountFunding.CHECKING
                 )
-                .correctedData("123456789")
+                .correctedAccountNumber("x")
+                .correctedIndividualId("x")
+                .correctedRoutingNumber("123456789")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.changeCode())
-            .isEqualTo(
-                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
-            )
-        assertThat(body.correctedData()).isEqualTo("123456789")
+        assertThat(body.correctedAccountFunding())
+            .isEqualTo(AchTransferCreateNotificationOfChangeParams.CorrectedAccountFunding.CHECKING)
+        assertThat(body.correctedAccountNumber()).isEqualTo("x")
+        assertThat(body.correctedIndividualId()).isEqualTo("x")
+        assertThat(body.correctedRoutingNumber()).isEqualTo("123456789")
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            AchTransferCreateNotificationOfChangeParams.builder()
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .build()
+
+        val body = params._body()
     }
 }
