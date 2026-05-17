@@ -12,9 +12,11 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Collections
@@ -68,6 +70,16 @@ private constructor(
     fun name(): String? = body.name()
 
     /**
+     * Why this person is considered a beneficial owner of the entity. At least one option is
+     * required, if a person is both a control person and owner, submit an array containing both.
+     * Providing this replaces the beneficial owner's current prongs.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun prongs(): List<Prong>? = body.prongs()
+
+    /**
      * Returns the raw JSON value of [address].
      *
      * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
@@ -95,6 +107,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [prongs].
+     *
+     * Unlike [prongs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _prongs(): JsonField<List<Prong>> = body._prongs()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -145,6 +164,8 @@ private constructor(
          * - [confirmedNoUsTaxId]
          * - [identification]
          * - [name]
+         * - [prongs]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -208,6 +229,29 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /**
+         * Why this person is considered a beneficial owner of the entity. At least one option is
+         * required, if a person is both a control person and owner, submit an array containing
+         * both. Providing this replaces the beneficial owner's current prongs.
+         */
+        fun prongs(prongs: List<Prong>) = apply { body.prongs(prongs) }
+
+        /**
+         * Sets [Builder.prongs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.prongs] with a well-typed `List<Prong>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun prongs(prongs: JsonField<List<Prong>>) = apply { body.prongs(prongs) }
+
+        /**
+         * Adds a single [Prong] to [prongs].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addProng(prong: Prong) = apply { body.addProng(prong) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -359,6 +403,7 @@ private constructor(
         private val confirmedNoUsTaxId: JsonField<Boolean>,
         private val identification: JsonField<Identification>,
         private val name: JsonField<String>,
+        private val prongs: JsonField<List<Prong>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -372,7 +417,10 @@ private constructor(
             @ExcludeMissing
             identification: JsonField<Identification> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(address, confirmedNoUsTaxId, identification, name, mutableMapOf())
+            @JsonProperty("prongs")
+            @ExcludeMissing
+            prongs: JsonField<List<Prong>> = JsonMissing.of(),
+        ) : this(address, confirmedNoUsTaxId, identification, name, prongs, mutableMapOf())
 
         /**
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -411,6 +459,16 @@ private constructor(
         fun name(): String? = name.getNullable("name")
 
         /**
+         * Why this person is considered a beneficial owner of the entity. At least one option is
+         * required, if a person is both a control person and owner, submit an array containing
+         * both. Providing this replaces the beneficial owner's current prongs.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun prongs(): List<Prong>? = prongs.getNullable("prongs")
+
+        /**
          * Returns the raw JSON value of [address].
          *
          * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
@@ -444,6 +502,13 @@ private constructor(
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+        /**
+         * Returns the raw JSON value of [prongs].
+         *
+         * Unlike [prongs], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("prongs") @ExcludeMissing fun _prongs(): JsonField<List<Prong>> = prongs
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -469,6 +534,7 @@ private constructor(
             private var confirmedNoUsTaxId: JsonField<Boolean> = JsonMissing.of()
             private var identification: JsonField<Identification> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
+            private var prongs: JsonField<MutableList<Prong>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
@@ -476,6 +542,7 @@ private constructor(
                 confirmedNoUsTaxId = body.confirmedNoUsTaxId
                 identification = body.identification
                 name = body.name
+                prongs = body.prongs.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -540,6 +607,36 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /**
+             * Why this person is considered a beneficial owner of the entity. At least one option
+             * is required, if a person is both a control person and owner, submit an array
+             * containing both. Providing this replaces the beneficial owner's current prongs.
+             */
+            fun prongs(prongs: List<Prong>) = prongs(JsonField.of(prongs))
+
+            /**
+             * Sets [Builder.prongs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.prongs] with a well-typed `List<Prong>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun prongs(prongs: JsonField<List<Prong>>) = apply {
+                this.prongs = prongs.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Prong] to [prongs].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addProng(prong: Prong) = apply {
+                prongs =
+                    (prongs ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("prongs", it).add(prong)
+                    }
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -570,6 +667,7 @@ private constructor(
                     confirmedNoUsTaxId,
                     identification,
                     name,
+                    (prongs ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -594,6 +692,7 @@ private constructor(
             confirmedNoUsTaxId()
             identification()?.validate()
             name()
+            prongs()?.forEach { it.validate() }
             validated = true
         }
 
@@ -615,7 +714,8 @@ private constructor(
             (address.asKnown()?.validity() ?: 0) +
                 (if (confirmedNoUsTaxId.asKnown() == null) 0 else 1) +
                 (identification.asKnown()?.validity() ?: 0) +
-                (if (name.asKnown() == null) 0 else 1)
+                (if (name.asKnown() == null) 0 else 1) +
+                (prongs.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -627,17 +727,25 @@ private constructor(
                 confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
                 identification == other.identification &&
                 name == other.name &&
+                prongs == other.prongs &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(address, confirmedNoUsTaxId, identification, name, additionalProperties)
+            Objects.hash(
+                address,
+                confirmedNoUsTaxId,
+                identification,
+                name,
+                prongs,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+            "Body{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, identification=$identification, name=$name, prongs=$prongs, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2454,6 +2562,146 @@ private constructor(
 
         override fun toString() =
             "Identification{method=$method, number=$number, driversLicense=$driversLicense, other=$other, passport=$passport, additionalProperties=$additionalProperties}"
+    }
+
+    class Prong @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** A person with 25% or greater direct or indirect ownership of the entity. */
+            val OWNERSHIP = of("ownership")
+
+            /** A person who manages, directs, or has significant control of the entity. */
+            val CONTROL = of("control")
+
+            fun of(value: String) = Prong(JsonField.of(value))
+        }
+
+        /** An enum containing [Prong]'s known values. */
+        enum class Known {
+            /** A person with 25% or greater direct or indirect ownership of the entity. */
+            OWNERSHIP,
+            /** A person who manages, directs, or has significant control of the entity. */
+            CONTROL,
+        }
+
+        /**
+         * An enum containing [Prong]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Prong] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** A person with 25% or greater direct or indirect ownership of the entity. */
+            OWNERSHIP,
+            /** A person who manages, directs, or has significant control of the entity. */
+            CONTROL,
+            /** An enum member indicating that [Prong] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                OWNERSHIP -> Value.OWNERSHIP
+                CONTROL -> Value.CONTROL
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                OWNERSHIP -> Known.OWNERSHIP
+                CONTROL -> Known.CONTROL
+                else -> throw IncreaseInvalidDataException("Unknown Prong: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Prong = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Prong && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
