@@ -56,6 +56,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .build()
             )
             .name("x")
+            .addProng(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
             .build()
     }
 
@@ -120,6 +121,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                         .build()
                 )
                 .name("x")
+                .addProng(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
                 .build()
 
         val body = params._body()
@@ -170,6 +172,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .build()
             )
         assertThat(body.name()).isEqualTo("x")
+        assertThat(body.prongs()).containsExactly(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
     }
 
     @Test
