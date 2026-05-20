@@ -1,26 +1,14 @@
 name: CI
 on:
   push:
-    branches:
-      - '**'
-      - '!integrated/**'
-      - '!stl-preview-head/**'
-      - '!stl-preview-base/**'
-      - '!generated'
-      - '!codegen/**'
-      - 'codegen/stl/**'
+    branches: [main]
   pull_request:
-    branches-ignore:
-      - 'stl-preview-head/**'
-      - 'stl-preview-base/**'
 
 jobs:
   lint:
-    timeout-minutes: 15
+    timeout-minutes: 10
     name: lint
-    runs-on: ${{ github.repository == 'stainless-sdks/increase-kotlin' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -40,11 +28,9 @@ jobs:
         run: ./scripts/lint
 
   build:
-    timeout-minutes: 15
+    timeout-minutes: 10
     name: build
-    runs-on: ${{ github.repository == 'stainless-sdks/increase-kotlin' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -64,10 +50,9 @@ jobs:
         run: ./scripts/build
 
   test:
-    timeout-minutes: 15
+    timeout-minutes: 10
     name: test
-    runs-on: ${{ github.repository == 'stainless-sdks/increase-kotlin' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
