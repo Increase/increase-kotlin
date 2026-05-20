@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.523.1](https://github.com/Increase/increase-kotlin/compare/v0.523.0...v0.523.1) (2026-05-20)
+
+
+### Chores
+
+* add release workflow and migrate config to Increase/release-please fork ([#1292](https://github.com/Increase/increase-kotlin/issues/1292)) ([df36a6a](https://github.com/Increase/increase-kotlin/commit/df36a6a77b17ce5fe62e5747a525a97cae5d5c03))
+* collapse CI into a single job ([#1295](https://github.com/Increase/increase-kotlin/issues/1295)) ([8757d2b](https://github.com/Increase/increase-kotlin/commit/8757d2b72f079ffffbdb16e7cab0eee3a3610ef0))
+* cut over to Increase/release-please and prune Stainless CI cruft ([#1293](https://github.com/Increase/increase-kotlin/issues/1293)) ([1faf9c1](https://github.com/Increase/increase-kotlin/commit/1faf9c15ef9e59fbea6c3476919f6a6e70d4da76))
+
 ## 0.523.0 (2026-05-20)
 
 Full Changelog: [v0.522.0...v0.523.0](https://github.com/Increase/increase-kotlin/compare/v0.522.0...v0.523.0)
