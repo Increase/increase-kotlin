@@ -297,6 +297,15 @@ private constructor(
             /** Your webhook declined the token provisioning attempt. */
             val WEBHOOK_DECLINED = of("webhook_declined")
 
+            /**
+             * The tokenization attempt failed because the Card Verification Code (CVC) was
+             * incorrect.
+             */
+            val INCORRECT_CARD_VERIFICATION_CODE = of("incorrect_card_verification_code")
+
+            /** The tokenization attempt was declined by the token requestor. */
+            val DECLINED_BY_TOKEN_REQUESTOR = of("declined_by_token_requestor")
+
             fun of(value: String) = DeclineReason(JsonField.of(value))
         }
 
@@ -310,6 +319,13 @@ private constructor(
             WEBHOOK_TIMED_OUT,
             /** Your webhook declined the token provisioning attempt. */
             WEBHOOK_DECLINED,
+            /**
+             * The tokenization attempt failed because the Card Verification Code (CVC) was
+             * incorrect.
+             */
+            INCORRECT_CARD_VERIFICATION_CODE,
+            /** The tokenization attempt was declined by the token requestor. */
+            DECLINED_BY_TOKEN_REQUESTOR,
         }
 
         /**
@@ -331,6 +347,13 @@ private constructor(
             /** Your webhook declined the token provisioning attempt. */
             WEBHOOK_DECLINED,
             /**
+             * The tokenization attempt failed because the Card Verification Code (CVC) was
+             * incorrect.
+             */
+            INCORRECT_CARD_VERIFICATION_CODE,
+            /** The tokenization attempt was declined by the token requestor. */
+            DECLINED_BY_TOKEN_REQUESTOR,
+            /**
              * An enum member indicating that [DeclineReason] was instantiated with an unknown
              * value.
              */
@@ -350,6 +373,8 @@ private constructor(
                 NO_VERIFICATION_METHOD -> Value.NO_VERIFICATION_METHOD
                 WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
                 WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
+                INCORRECT_CARD_VERIFICATION_CODE -> Value.INCORRECT_CARD_VERIFICATION_CODE
+                DECLINED_BY_TOKEN_REQUESTOR -> Value.DECLINED_BY_TOKEN_REQUESTOR
                 else -> Value._UNKNOWN
             }
 
@@ -368,6 +393,8 @@ private constructor(
                 NO_VERIFICATION_METHOD -> Known.NO_VERIFICATION_METHOD
                 WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
                 WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
+                INCORRECT_CARD_VERIFICATION_CODE -> Known.INCORRECT_CARD_VERIFICATION_CODE
+                DECLINED_BY_TOKEN_REQUESTOR -> Known.DECLINED_BY_TOKEN_REQUESTOR
                 else -> throw IncreaseInvalidDataException("Unknown DeclineReason: $value")
             }
 
