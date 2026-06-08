@@ -3409,10 +3409,10 @@ private constructor(
         /**
          * The shipping method for the check.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun shippingMethod(): ShippingMethod? = shippingMethod.getNullable("shipping_method")
+        fun shippingMethod(): ShippingMethod = shippingMethod.getRequired("shipping_method")
 
         /**
          * The signature that will appear on the check.
@@ -3725,8 +3725,8 @@ private constructor(
             }
 
             /** The shipping method for the check. */
-            fun shippingMethod(shippingMethod: ShippingMethod?) =
-                shippingMethod(JsonField.ofNullable(shippingMethod))
+            fun shippingMethod(shippingMethod: ShippingMethod) =
+                shippingMethod(JsonField.of(shippingMethod))
 
             /**
              * Sets [Builder.shippingMethod] to an arbitrary JSON value.
@@ -3860,7 +3860,7 @@ private constructor(
             payer().forEach { it.validate() }
             recipientName()
             returnAddress()?.validate()
-            shippingMethod()?.validate()
+            shippingMethod().validate()
             signature().validate()
             trackingUpdates().forEach { it.validate() }
             validated = true
@@ -5581,7 +5581,11 @@ private constructor(
                     /** The check has been processed for delivery. */
                     val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
 
-                    /** The check has been delivered. */
+                    /**
+                     * The check has been delivered. Note that some couriers track delivery status
+                     * based on driver location data rather than an explicit scan. While uncommon, a
+                     * single check may have more than one delivered event.
+                     */
                     val DELIVERED = of("delivered")
 
                     /**
@@ -5603,7 +5607,11 @@ private constructor(
                     IN_TRANSIT,
                     /** The check has been processed for delivery. */
                     PROCESSED_FOR_DELIVERY,
-                    /** The check has been delivered. */
+                    /**
+                     * The check has been delivered. Note that some couriers track delivery status
+                     * based on driver location data rather than an explicit scan. While uncommon, a
+                     * single check may have more than one delivered event.
+                     */
                     DELIVERED,
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again
@@ -5629,7 +5637,11 @@ private constructor(
                     IN_TRANSIT,
                     /** The check has been processed for delivery. */
                     PROCESSED_FOR_DELIVERY,
-                    /** The check has been delivered. */
+                    /**
+                     * The check has been delivered. Note that some couriers track delivery status
+                     * based on driver location data rather than an explicit scan. While uncommon, a
+                     * single check may have more than one delivered event.
+                     */
                     DELIVERED,
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again

@@ -1543,7 +1543,7 @@ private constructor(
             /** The attempted card transaction is not allowed per Increase's terms. */
             val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
-            /** The transaction was blocked by a Limit. */
+            /** The transaction was blocked by a limit or an authorization control. */
             val BREACHES_LIMIT = of("breaches_limit")
 
             /** Your application declined the transaction via webhook. */
@@ -1614,7 +1614,7 @@ private constructor(
             CARD_EXPIRATION_MISMATCH,
             /** The attempted card transaction is not allowed per Increase's terms. */
             TRANSACTION_NOT_ALLOWED,
-            /** The transaction was blocked by a Limit. */
+            /** The transaction was blocked by a limit or an authorization control. */
             BREACHES_LIMIT,
             /** Your application declined the transaction via webhook. */
             WEBHOOK_DECLINED,
@@ -1682,7 +1682,7 @@ private constructor(
             CARD_EXPIRATION_MISMATCH,
             /** The attempted card transaction is not allowed per Increase's terms. */
             TRANSACTION_NOT_ALLOWED,
-            /** The transaction was blocked by a Limit. */
+            /** The transaction was blocked by a limit or an authorization control. */
             BREACHES_LIMIT,
             /** Your application declined the transaction via webhook. */
             WEBHOOK_DECLINED,
