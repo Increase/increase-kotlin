@@ -573,6 +573,12 @@ private constructor(
                 /** The Card Dispute has been won and no further action can be taken. */
                 val WON = of("won")
 
+                /**
+                 * The Card Dispute has been reviewed and rejected, please review the explanation
+                 * for more details.
+                 */
+                val REJECTED = of("rejected")
+
                 fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -595,6 +601,11 @@ private constructor(
                 LOST,
                 /** The Card Dispute has been won and no further action can be taken. */
                 WON,
+                /**
+                 * The Card Dispute has been reviewed and rejected, please review the explanation
+                 * for more details.
+                 */
+                REJECTED,
             }
 
             /**
@@ -624,6 +635,11 @@ private constructor(
                 LOST,
                 /** The Card Dispute has been won and no further action can be taken. */
                 WON,
+                /**
+                 * The Card Dispute has been reviewed and rejected, please review the explanation
+                 * for more details.
+                 */
+                REJECTED,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -644,6 +660,7 @@ private constructor(
                     PENDING_RESPONSE -> Value.PENDING_RESPONSE
                     LOST -> Value.LOST
                     WON -> Value.WON
+                    REJECTED -> Value.REJECTED
                     else -> Value._UNKNOWN
                 }
 
@@ -665,6 +682,7 @@ private constructor(
                     PENDING_RESPONSE -> Known.PENDING_RESPONSE
                     LOST -> Known.LOST
                     WON -> Known.WON
+                    REJECTED -> Known.REJECTED
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
