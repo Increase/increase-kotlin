@@ -400,8 +400,8 @@ private constructor(
     fun network(): Network = network.getRequired("network")
 
     /**
-     * If the receiving bank accepts the transfer but notifies that future transfers should use
-     * different details, this will contain those details.
+     * If the receiving bank notifies that future transfers should use different details, this will
+     * contain those details.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1307,8 +1307,8 @@ private constructor(
         fun network(network: JsonField<Network>) = apply { this.network = network }
 
         /**
-         * If the receiving bank accepts the transfer but notifies that future transfers should use
-         * different details, this will contain those details.
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
          */
         fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) =
             notificationsOfChange(JsonField.of(notificationsOfChange))
@@ -6913,6 +6913,9 @@ private constructor(
                 /** A savings account. */
                 val SAVINGS = of("savings")
 
+                /** A loan account used in a lender-borrower relationship. Uncommon. */
+                val LOAN = of("loan")
+
                 /** A bank's general ledger. Uncommon. */
                 val GENERAL_LEDGER = of("general_ledger")
 
@@ -6925,6 +6928,8 @@ private constructor(
                 CHECKING,
                 /** A savings account. */
                 SAVINGS,
+                /** A loan account used in a lender-borrower relationship. Uncommon. */
+                LOAN,
                 /** A bank's general ledger. Uncommon. */
                 GENERAL_LEDGER,
             }
@@ -6945,6 +6950,8 @@ private constructor(
                 CHECKING,
                 /** A savings account. */
                 SAVINGS,
+                /** A loan account used in a lender-borrower relationship. Uncommon. */
+                LOAN,
                 /** A bank's general ledger. Uncommon. */
                 GENERAL_LEDGER,
                 /**
@@ -6965,6 +6972,7 @@ private constructor(
                 when (this) {
                     CHECKING -> Value.CHECKING
                     SAVINGS -> Value.SAVINGS
+                    LOAN -> Value.LOAN
                     GENERAL_LEDGER -> Value.GENERAL_LEDGER
                     else -> Value._UNKNOWN
                 }
@@ -6982,6 +6990,7 @@ private constructor(
                 when (this) {
                     CHECKING -> Known.CHECKING
                     SAVINGS -> Known.SAVINGS
+                    LOAN -> Known.LOAN
                     GENERAL_LEDGER -> Known.GENERAL_LEDGER
                     else ->
                         throw IncreaseInvalidDataException(

@@ -1379,10 +1379,10 @@ private constructor(
 
         companion object {
 
-            /** The Prenotification is for an anticipated credit. */
+            /** Credit */
             val CREDIT = of("credit")
 
-            /** The Prenotification is for an anticipated debit. */
+            /** Debit */
             val DEBIT = of("debit")
 
             fun of(value: String) = CreditDebitIndicator(JsonField.of(value))
@@ -1390,9 +1390,9 @@ private constructor(
 
         /** An enum containing [CreditDebitIndicator]'s known values. */
         enum class Known {
-            /** The Prenotification is for an anticipated credit. */
+            /** Credit */
             CREDIT,
-            /** The Prenotification is for an anticipated debit. */
+            /** Debit */
             DEBIT,
         }
 
@@ -1407,9 +1407,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** The Prenotification is for an anticipated credit. */
+            /** Credit */
             CREDIT,
-            /** The Prenotification is for an anticipated debit. */
+            /** Debit */
             DEBIT,
             /**
              * An enum member indicating that [CreditDebitIndicator] was instantiated with an

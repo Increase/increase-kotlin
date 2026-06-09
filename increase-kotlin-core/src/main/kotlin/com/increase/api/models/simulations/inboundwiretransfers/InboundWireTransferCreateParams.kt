@@ -140,6 +140,14 @@ private constructor(
     fun instructionIdentification(): String? = body.instructionIdentification()
 
     /**
+     * The sending bank will set purpose in production. You can simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun purpose(): String? = body.purpose()
+
+    /**
      * The sending bank will set unique_end_to_end_transaction_reference in production. You can
      * simulate any value here.
      *
@@ -264,6 +272,13 @@ private constructor(
      * unexpected type.
      */
     fun _instructionIdentification(): JsonField<String> = body._instructionIdentification()
+
+    /**
+     * Returns the raw JSON value of [purpose].
+     *
+     * Unlike [purpose], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _purpose(): JsonField<String> = body._purpose()
 
     /**
      * Returns the raw JSON value of [uniqueEndToEndTransactionReference].
@@ -572,6 +587,17 @@ private constructor(
             body.instructionIdentification(instructionIdentification)
         }
 
+        /** The sending bank will set purpose in production. You can simulate any value here. */
+        fun purpose(purpose: String) = apply { body.purpose(purpose) }
+
+        /**
+         * Sets [Builder.purpose] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.purpose] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun purpose(purpose: JsonField<String>) = apply { body.purpose(purpose) }
+
         /**
          * The sending bank will set unique_end_to_end_transaction_reference in production. You can
          * simulate any value here.
@@ -786,6 +812,7 @@ private constructor(
         private val endToEndIdentification: JsonField<String>,
         private val instructingAgentRoutingNumber: JsonField<String>,
         private val instructionIdentification: JsonField<String>,
+        private val purpose: JsonField<String>,
         private val uniqueEndToEndTransactionReference: JsonField<String>,
         private val unstructuredRemittanceInformation: JsonField<String>,
         private val wireDrawdownRequestId: JsonField<String>,
@@ -831,6 +858,7 @@ private constructor(
             @JsonProperty("instruction_identification")
             @ExcludeMissing
             instructionIdentification: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("purpose") @ExcludeMissing purpose: JsonField<String> = JsonMissing.of(),
             @JsonProperty("unique_end_to_end_transaction_reference")
             @ExcludeMissing
             uniqueEndToEndTransactionReference: JsonField<String> = JsonMissing.of(),
@@ -854,6 +882,7 @@ private constructor(
             endToEndIdentification,
             instructingAgentRoutingNumber,
             instructionIdentification,
+            purpose,
             uniqueEndToEndTransactionReference,
             unstructuredRemittanceInformation,
             wireDrawdownRequestId,
@@ -978,6 +1007,14 @@ private constructor(
          */
         fun instructionIdentification(): String? =
             instructionIdentification.getNullable("instruction_identification")
+
+        /**
+         * The sending bank will set purpose in production. You can simulate any value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun purpose(): String? = purpose.getNullable("purpose")
 
         /**
          * The sending bank will set unique_end_to_end_transaction_reference in production. You can
@@ -1137,6 +1174,13 @@ private constructor(
         fun _instructionIdentification(): JsonField<String> = instructionIdentification
 
         /**
+         * Returns the raw JSON value of [purpose].
+         *
+         * Unlike [purpose], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("purpose") @ExcludeMissing fun _purpose(): JsonField<String> = purpose
+
+        /**
          * Returns the raw JSON value of [uniqueEndToEndTransactionReference].
          *
          * Unlike [uniqueEndToEndTransactionReference], this method doesn't throw if the JSON field
@@ -1210,6 +1254,7 @@ private constructor(
             private var endToEndIdentification: JsonField<String> = JsonMissing.of()
             private var instructingAgentRoutingNumber: JsonField<String> = JsonMissing.of()
             private var instructionIdentification: JsonField<String> = JsonMissing.of()
+            private var purpose: JsonField<String> = JsonMissing.of()
             private var uniqueEndToEndTransactionReference: JsonField<String> = JsonMissing.of()
             private var unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of()
             private var wireDrawdownRequestId: JsonField<String> = JsonMissing.of()
@@ -1229,6 +1274,7 @@ private constructor(
                 endToEndIdentification = body.endToEndIdentification
                 instructingAgentRoutingNumber = body.instructingAgentRoutingNumber
                 instructionIdentification = body.instructionIdentification
+                purpose = body.purpose
                 uniqueEndToEndTransactionReference = body.uniqueEndToEndTransactionReference
                 unstructuredRemittanceInformation = body.unstructuredRemittanceInformation
                 wireDrawdownRequestId = body.wireDrawdownRequestId
@@ -1456,6 +1502,18 @@ private constructor(
                 this.instructionIdentification = instructionIdentification
             }
 
+            /** The sending bank will set purpose in production. You can simulate any value here. */
+            fun purpose(purpose: String) = purpose(JsonField.of(purpose))
+
+            /**
+             * Sets [Builder.purpose] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.purpose] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun purpose(purpose: JsonField<String>) = apply { this.purpose = purpose }
+
             /**
              * The sending bank will set unique_end_to_end_transaction_reference in production. You
              * can simulate any value here.
@@ -1558,6 +1616,7 @@ private constructor(
                     endToEndIdentification,
                     instructingAgentRoutingNumber,
                     instructionIdentification,
+                    purpose,
                     uniqueEndToEndTransactionReference,
                     unstructuredRemittanceInformation,
                     wireDrawdownRequestId,
@@ -1594,6 +1653,7 @@ private constructor(
             endToEndIdentification()
             instructingAgentRoutingNumber()
             instructionIdentification()
+            purpose()
             uniqueEndToEndTransactionReference()
             unstructuredRemittanceInformation()
             wireDrawdownRequestId()
@@ -1628,6 +1688,7 @@ private constructor(
                 (if (endToEndIdentification.asKnown() == null) 0 else 1) +
                 (if (instructingAgentRoutingNumber.asKnown() == null) 0 else 1) +
                 (if (instructionIdentification.asKnown() == null) 0 else 1) +
+                (if (purpose.asKnown() == null) 0 else 1) +
                 (if (uniqueEndToEndTransactionReference.asKnown() == null) 0 else 1) +
                 (if (unstructuredRemittanceInformation.asKnown() == null) 0 else 1) +
                 (if (wireDrawdownRequestId.asKnown() == null) 0 else 1)
@@ -1651,6 +1712,7 @@ private constructor(
                 endToEndIdentification == other.endToEndIdentification &&
                 instructingAgentRoutingNumber == other.instructingAgentRoutingNumber &&
                 instructionIdentification == other.instructionIdentification &&
+                purpose == other.purpose &&
                 uniqueEndToEndTransactionReference == other.uniqueEndToEndTransactionReference &&
                 unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
                 wireDrawdownRequestId == other.wireDrawdownRequestId &&
@@ -1672,6 +1734,7 @@ private constructor(
                 endToEndIdentification,
                 instructingAgentRoutingNumber,
                 instructionIdentification,
+                purpose,
                 uniqueEndToEndTransactionReference,
                 unstructuredRemittanceInformation,
                 wireDrawdownRequestId,
@@ -1682,7 +1745,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, endToEndIdentification=$endToEndIdentification, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, endToEndIdentification=$endToEndIdentification, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, purpose=$purpose, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

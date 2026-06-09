@@ -3746,6 +3746,8 @@ private constructor(
         private constructor(
             private val after: JsonField<OffsetDateTime>,
             private val before: JsonField<OffsetDateTime>,
+            private val onOrAfter: JsonField<OffsetDateTime>,
+            private val onOrBefore: JsonField<OffsetDateTime>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -3757,7 +3759,13 @@ private constructor(
                 @JsonProperty("before")
                 @ExcludeMissing
                 before: JsonField<OffsetDateTime> = JsonMissing.of(),
-            ) : this(after, before, mutableMapOf())
+                @JsonProperty("on_or_after")
+                @ExcludeMissing
+                onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("on_or_before")
+                @ExcludeMissing
+                onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(after, before, onOrAfter, onOrBefore, mutableMapOf())
 
             /**
              * Filter fees created after this time.
@@ -3776,6 +3784,22 @@ private constructor(
             fun before(): OffsetDateTime? = before.getNullable("before")
 
             /**
+             * Filter fees created on or after this time.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun onOrAfter(): OffsetDateTime? = onOrAfter.getNullable("on_or_after")
+
+            /**
+             * Filter fees created on or before this time.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun onOrBefore(): OffsetDateTime? = onOrBefore.getNullable("on_or_before")
+
+            /**
              * Returns the raw JSON value of [after].
              *
              * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
@@ -3790,6 +3814,26 @@ private constructor(
             @JsonProperty("before")
             @ExcludeMissing
             fun _before(): JsonField<OffsetDateTime> = before
+
+            /**
+             * Returns the raw JSON value of [onOrAfter].
+             *
+             * Unlike [onOrAfter], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
+
+            /**
+             * Returns the raw JSON value of [onOrBefore].
+             *
+             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3812,6 +3856,8 @@ private constructor(
                  * ```kotlin
                  * .after()
                  * .before()
+                 * .onOrAfter()
+                 * .onOrBefore()
                  * ```
                  */
                 fun builder() = Builder()
@@ -3822,11 +3868,15 @@ private constructor(
 
                 private var after: JsonField<OffsetDateTime>? = null
                 private var before: JsonField<OffsetDateTime>? = null
+                private var onOrAfter: JsonField<OffsetDateTime>? = null
+                private var onOrBefore: JsonField<OffsetDateTime>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(createdAt: CreatedAt) = apply {
                     after = createdAt.after
                     before = createdAt.before
+                    onOrAfter = createdAt.onOrAfter
+                    onOrBefore = createdAt.onOrBefore
                     additionalProperties = createdAt.additionalProperties.toMutableMap()
                 }
 
@@ -3853,6 +3903,36 @@ private constructor(
                  * yet supported value.
                  */
                 fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
+
+                /** Filter fees created on or after this time. */
+                fun onOrAfter(onOrAfter: OffsetDateTime?) =
+                    onOrAfter(JsonField.ofNullable(onOrAfter))
+
+                /**
+                 * Sets [Builder.onOrAfter] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrAfter] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
+                    this.onOrAfter = onOrAfter
+                }
+
+                /** Filter fees created on or before this time. */
+                fun onOrBefore(onOrBefore: OffsetDateTime?) =
+                    onOrBefore(JsonField.ofNullable(onOrBefore))
+
+                /**
+                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
+                    this.onOrBefore = onOrBefore
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3885,6 +3965,8 @@ private constructor(
                  * ```kotlin
                  * .after()
                  * .before()
+                 * .onOrAfter()
+                 * .onOrBefore()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -3893,6 +3975,8 @@ private constructor(
                     CreatedAt(
                         checkRequired("after", after),
                         checkRequired("before", before),
+                        checkRequired("onOrAfter", onOrAfter),
+                        checkRequired("onOrBefore", onOrBefore),
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -3916,6 +4000,8 @@ private constructor(
 
                 after()
                 before()
+                onOrAfter()
+                onOrBefore()
                 validated = true
             }
 
@@ -3934,7 +4020,10 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (after.asKnown() == null) 0 else 1) + (if (before.asKnown() == null) 0 else 1)
+                (if (after.asKnown() == null) 0 else 1) +
+                    (if (before.asKnown() == null) 0 else 1) +
+                    (if (onOrAfter.asKnown() == null) 0 else 1) +
+                    (if (onOrBefore.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -3944,15 +4033,19 @@ private constructor(
                 return other is CreatedAt &&
                     after == other.after &&
                     before == other.before &&
+                    onOrAfter == other.onOrAfter &&
+                    onOrBefore == other.onOrBefore &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(after, before, additionalProperties) }
+            private val hashCode: Int by lazy {
+                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CreatedAt{after=$after, before=$before, additionalProperties=$additionalProperties}"
+                "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

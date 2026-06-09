@@ -2809,7 +2809,12 @@ private constructor(
                         /** The physical card has been processed for delivery. */
                         val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
 
-                        /** The physical card has been delivered. */
+                        /**
+                         * The physical card has been delivered. Note that some couriers track
+                         * delivery status based on driver location data rather than an explicit
+                         * scan. While uncommon, a single physical card may have more than one
+                         * delivered event.
+                         */
                         val DELIVERED = of("delivered")
 
                         /**
@@ -2831,7 +2836,12 @@ private constructor(
                         IN_TRANSIT,
                         /** The physical card has been processed for delivery. */
                         PROCESSED_FOR_DELIVERY,
-                        /** The physical card has been delivered. */
+                        /**
+                         * The physical card has been delivered. Note that some couriers track
+                         * delivery status based on driver location data rather than an explicit
+                         * scan. While uncommon, a single physical card may have more than one
+                         * delivered event.
+                         */
                         DELIVERED,
                         /**
                          * There is an issue preventing delivery. The delivery will be attempted
@@ -2858,7 +2868,12 @@ private constructor(
                         IN_TRANSIT,
                         /** The physical card has been processed for delivery. */
                         PROCESSED_FOR_DELIVERY,
-                        /** The physical card has been delivered. */
+                        /**
+                         * The physical card has been delivered. Note that some couriers track
+                         * delivery status based on driver location data rather than an explicit
+                         * scan. While uncommon, a single physical card may have more than one
+                         * delivered event.
+                         */
                         DELIVERED,
                         /**
                          * There is an issue preventing delivery. The delivery will be attempted
