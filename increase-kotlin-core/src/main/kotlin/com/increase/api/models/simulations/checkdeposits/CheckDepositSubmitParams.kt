@@ -34,7 +34,8 @@ private constructor(
     fun checkDepositId(): String? = checkDepositId
 
     /**
-     * If set, the simulation will use these values for the check's scanned MICR data.
+     * If set, the simulation will use these values for the check's scanned MICR data. If not set,
+     * the simulation will use random values.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -93,7 +94,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** If set, the simulation will use these values for the check's scanned MICR data. */
+        /**
+         * If set, the simulation will use these values for the check's scanned MICR data. If not
+         * set, the simulation will use random values.
+         */
         fun scan(scan: Scan) = apply { body.scan(scan) }
 
         /**
@@ -260,7 +264,8 @@ private constructor(
         ) : this(scan, mutableMapOf())
 
         /**
-         * If set, the simulation will use these values for the check's scanned MICR data.
+         * If set, the simulation will use these values for the check's scanned MICR data. If not
+         * set, the simulation will use random values.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -303,7 +308,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** If set, the simulation will use these values for the check's scanned MICR data. */
+            /**
+             * If set, the simulation will use these values for the check's scanned MICR data. If
+             * not set, the simulation will use random values.
+             */
             fun scan(scan: Scan) = scan(JsonField.of(scan))
 
             /**
@@ -395,13 +403,17 @@ private constructor(
         override fun toString() = "Body{scan=$scan, additionalProperties=$additionalProperties}"
     }
 
-    /** If set, the simulation will use these values for the check's scanned MICR data. */
+    /**
+     * If set, the simulation will use these values for the check's scanned MICR data. If not set,
+     * the simulation will use random values.
+     */
     class Scan
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumber: JsonField<String>,
         private val routingNumber: JsonField<String>,
         private val auxiliaryOnUs: JsonField<String>,
+        private val serialNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -416,7 +428,10 @@ private constructor(
             @JsonProperty("auxiliary_on_us")
             @ExcludeMissing
             auxiliaryOnUs: JsonField<String> = JsonMissing.of(),
-        ) : this(accountNumber, routingNumber, auxiliaryOnUs, mutableMapOf())
+            @JsonProperty("serial_number")
+            @ExcludeMissing
+            serialNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(accountNumber, routingNumber, auxiliaryOnUs, serialNumber, mutableMapOf())
 
         /**
          * The account number to be returned in the check deposit's scan data.
@@ -435,12 +450,22 @@ private constructor(
         fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
         /**
-         * The auxiliary on-us data to be returned in the check deposit's scan data.
+         * The auxiliary on-us data to be returned in the check deposit's scan data. Auxiliary on-us
+         * is typically the check number for business checks.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
         fun auxiliaryOnUs(): String? = auxiliaryOnUs.getNullable("auxiliary_on_us")
+
+        /**
+         * The serial number to be returned in the check deposit's scan data. Serial number is
+         * typically the check number for consumer checks.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun serialNumber(): String? = serialNumber.getNullable("serial_number")
 
         /**
          * Returns the raw JSON value of [accountNumber].
@@ -471,6 +496,16 @@ private constructor(
         @JsonProperty("auxiliary_on_us")
         @ExcludeMissing
         fun _auxiliaryOnUs(): JsonField<String> = auxiliaryOnUs
+
+        /**
+         * Returns the raw JSON value of [serialNumber].
+         *
+         * Unlike [serialNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("serial_number")
+        @ExcludeMissing
+        fun _serialNumber(): JsonField<String> = serialNumber
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -504,12 +539,14 @@ private constructor(
             private var accountNumber: JsonField<String>? = null
             private var routingNumber: JsonField<String>? = null
             private var auxiliaryOnUs: JsonField<String> = JsonMissing.of()
+            private var serialNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(scan: Scan) = apply {
                 accountNumber = scan.accountNumber
                 routingNumber = scan.routingNumber
                 auxiliaryOnUs = scan.auxiliaryOnUs
+                serialNumber = scan.serialNumber
                 additionalProperties = scan.additionalProperties.toMutableMap()
             }
 
@@ -541,7 +578,10 @@ private constructor(
                 this.routingNumber = routingNumber
             }
 
-            /** The auxiliary on-us data to be returned in the check deposit's scan data. */
+            /**
+             * The auxiliary on-us data to be returned in the check deposit's scan data. Auxiliary
+             * on-us is typically the check number for business checks.
+             */
             fun auxiliaryOnUs(auxiliaryOnUs: String) = auxiliaryOnUs(JsonField.of(auxiliaryOnUs))
 
             /**
@@ -553,6 +593,23 @@ private constructor(
              */
             fun auxiliaryOnUs(auxiliaryOnUs: JsonField<String>) = apply {
                 this.auxiliaryOnUs = auxiliaryOnUs
+            }
+
+            /**
+             * The serial number to be returned in the check deposit's scan data. Serial number is
+             * typically the check number for consumer checks.
+             */
+            fun serialNumber(serialNumber: String) = serialNumber(JsonField.of(serialNumber))
+
+            /**
+             * Sets [Builder.serialNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.serialNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun serialNumber(serialNumber: JsonField<String>) = apply {
+                this.serialNumber = serialNumber
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -592,6 +649,7 @@ private constructor(
                     checkRequired("accountNumber", accountNumber),
                     checkRequired("routingNumber", routingNumber),
                     auxiliaryOnUs,
+                    serialNumber,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -615,6 +673,7 @@ private constructor(
             accountNumber()
             routingNumber()
             auxiliaryOnUs()
+            serialNumber()
             validated = true
         }
 
@@ -635,7 +694,8 @@ private constructor(
         internal fun validity(): Int =
             (if (accountNumber.asKnown() == null) 0 else 1) +
                 (if (routingNumber.asKnown() == null) 0 else 1) +
-                (if (auxiliaryOnUs.asKnown() == null) 0 else 1)
+                (if (auxiliaryOnUs.asKnown() == null) 0 else 1) +
+                (if (serialNumber.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -646,17 +706,24 @@ private constructor(
                 accountNumber == other.accountNumber &&
                 routingNumber == other.routingNumber &&
                 auxiliaryOnUs == other.auxiliaryOnUs &&
+                serialNumber == other.serialNumber &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(accountNumber, routingNumber, auxiliaryOnUs, additionalProperties)
+            Objects.hash(
+                accountNumber,
+                routingNumber,
+                auxiliaryOnUs,
+                serialNumber,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Scan{accountNumber=$accountNumber, routingNumber=$routingNumber, auxiliaryOnUs=$auxiliaryOnUs, additionalProperties=$additionalProperties}"
+            "Scan{accountNumber=$accountNumber, routingNumber=$routingNumber, auxiliaryOnUs=$auxiliaryOnUs, serialNumber=$serialNumber, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

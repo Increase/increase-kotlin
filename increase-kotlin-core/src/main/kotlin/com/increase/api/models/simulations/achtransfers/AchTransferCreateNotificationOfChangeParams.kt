@@ -691,6 +691,9 @@ private constructor(
             /** A savings account. */
             val SAVINGS = of("savings")
 
+            /** A loan account used in a lender-borrower relationship. Uncommon. */
+            val LOAN = of("loan")
+
             /** A bank's general ledger. Uncommon. */
             val GENERAL_LEDGER = of("general_ledger")
 
@@ -703,6 +706,8 @@ private constructor(
             CHECKING,
             /** A savings account. */
             SAVINGS,
+            /** A loan account used in a lender-borrower relationship. Uncommon. */
+            LOAN,
             /** A bank's general ledger. Uncommon. */
             GENERAL_LEDGER,
         }
@@ -723,6 +728,8 @@ private constructor(
             CHECKING,
             /** A savings account. */
             SAVINGS,
+            /** A loan account used in a lender-borrower relationship. Uncommon. */
+            LOAN,
             /** A bank's general ledger. Uncommon. */
             GENERAL_LEDGER,
             /**
@@ -743,6 +750,7 @@ private constructor(
             when (this) {
                 CHECKING -> Value.CHECKING
                 SAVINGS -> Value.SAVINGS
+                LOAN -> Value.LOAN
                 GENERAL_LEDGER -> Value.GENERAL_LEDGER
                 else -> Value._UNKNOWN
             }
@@ -760,6 +768,7 @@ private constructor(
             when (this) {
                 CHECKING -> Known.CHECKING
                 SAVINGS -> Known.SAVINGS
+                LOAN -> Known.LOAN
                 GENERAL_LEDGER -> Known.GENERAL_LEDGER
                 else ->
                     throw IncreaseInvalidDataException("Unknown CorrectedAccountFunding: $value")
