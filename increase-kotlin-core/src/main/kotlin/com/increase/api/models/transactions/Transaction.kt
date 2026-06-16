@@ -99,7 +99,7 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Transaction
      * occurred.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -333,8 +333,8 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-         * occurred.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transaction occurred.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
