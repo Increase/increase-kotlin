@@ -27,8 +27,8 @@ subprojects {
     apply(plugin = "org.jetbrains.dokka")
 }
 
-// Avoid race conditions between `dokkaHtmlCollector` and `dokkaJavadocJar` tasks
-tasks.named("dokkaHtmlCollector").configure {
+// Avoid race conditions between `dokkaJavadocCollector` and `dokkaJavadocJar` tasks
+tasks.named("dokkaJavadocCollector").configure {
     subprojects.flatMap { it.tasks }
         .filter { it.project.name != "increase-kotlin" && it.name == "dokkaJavadocJar" }
         .forEach { mustRunAfter(it) }

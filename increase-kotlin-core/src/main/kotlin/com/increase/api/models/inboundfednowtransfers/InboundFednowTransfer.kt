@@ -38,6 +38,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
+    private val uniqueEndToEndTransactionReference: JsonField<String>,
     private val unstructuredRemittanceInformation: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -75,6 +76,9 @@ private constructor(
         @ExcludeMissing
         transactionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("unique_end_to_end_transaction_reference")
+        @ExcludeMissing
+        uniqueEndToEndTransactionReference: JsonField<String> = JsonMissing.of(),
         @JsonProperty("unstructured_remittance_information")
         @ExcludeMissing
         unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
@@ -94,6 +98,7 @@ private constructor(
         status,
         transactionId,
         type,
+        uniqueEndToEndTransactionReference,
         unstructuredRemittanceInformation,
         mutableMapOf(),
     )
@@ -220,6 +225,17 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
+
+    /**
+     * The Unique End-to-end Transaction Reference
+     * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr)) of
+     * the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun uniqueEndToEndTransactionReference(): String? =
+        uniqueEndToEndTransactionReference.getNullable("unique_end_to_end_transaction_reference")
 
     /**
      * Additional information included with the transfer.
@@ -352,6 +368,17 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
+     * Returns the raw JSON value of [uniqueEndToEndTransactionReference].
+     *
+     * Unlike [uniqueEndToEndTransactionReference], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("unique_end_to_end_transaction_reference")
+    @ExcludeMissing
+    fun _uniqueEndToEndTransactionReference(): JsonField<String> =
+        uniqueEndToEndTransactionReference
+
+    /**
      * Returns the raw JSON value of [unstructuredRemittanceInformation].
      *
      * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field has
@@ -395,6 +422,7 @@ private constructor(
          * .status()
          * .transactionId()
          * .type()
+         * .uniqueEndToEndTransactionReference()
          * .unstructuredRemittanceInformation()
          * ```
          */
@@ -419,6 +447,7 @@ private constructor(
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
         private var type: JsonField<Type>? = null
+        private var uniqueEndToEndTransactionReference: JsonField<String>? = null
         private var unstructuredRemittanceInformation: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -438,6 +467,8 @@ private constructor(
             status = inboundFednowTransfer.status
             transactionId = inboundFednowTransfer.transactionId
             type = inboundFednowTransfer.type
+            uniqueEndToEndTransactionReference =
+                inboundFednowTransfer.uniqueEndToEndTransactionReference
             unstructuredRemittanceInformation =
                 inboundFednowTransfer.unstructuredRemittanceInformation
             additionalProperties = inboundFednowTransfer.additionalProperties.toMutableMap()
@@ -644,6 +675,27 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * The Unique End-to-end Transaction Reference
+         * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr))
+         * of the transfer.
+         */
+        fun uniqueEndToEndTransactionReference(uniqueEndToEndTransactionReference: String?) =
+            uniqueEndToEndTransactionReference(
+                JsonField.ofNullable(uniqueEndToEndTransactionReference)
+            )
+
+        /**
+         * Sets [Builder.uniqueEndToEndTransactionReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.uniqueEndToEndTransactionReference] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun uniqueEndToEndTransactionReference(
+            uniqueEndToEndTransactionReference: JsonField<String>
+        ) = apply { this.uniqueEndToEndTransactionReference = uniqueEndToEndTransactionReference }
+
         /** Additional information included with the transfer. */
         fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String?) =
             unstructuredRemittanceInformation(
@@ -702,6 +754,7 @@ private constructor(
          * .status()
          * .transactionId()
          * .type()
+         * .uniqueEndToEndTransactionReference()
          * .unstructuredRemittanceInformation()
          * ```
          *
@@ -724,6 +777,10 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
                 checkRequired("type", type),
+                checkRequired(
+                    "uniqueEndToEndTransactionReference",
+                    uniqueEndToEndTransactionReference,
+                ),
                 checkRequired(
                     "unstructuredRemittanceInformation",
                     unstructuredRemittanceInformation,
@@ -762,6 +819,7 @@ private constructor(
         status().validate()
         transactionId()
         type().validate()
+        uniqueEndToEndTransactionReference()
         unstructuredRemittanceInformation()
         validated = true
     }
@@ -795,6 +853,7 @@ private constructor(
             (status.asKnown()?.validity() ?: 0) +
             (if (transactionId.asKnown() == null) 0 else 1) +
             (type.asKnown()?.validity() ?: 0) +
+            (if (uniqueEndToEndTransactionReference.asKnown() == null) 0 else 1) +
             (if (unstructuredRemittanceInformation.asKnown() == null) 0 else 1)
 
     /** If your transfer is confirmed, this will contain details of the confirmation. */
@@ -1814,6 +1873,7 @@ private constructor(
             status == other.status &&
             transactionId == other.transactionId &&
             type == other.type &&
+            uniqueEndToEndTransactionReference == other.uniqueEndToEndTransactionReference &&
             unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
             additionalProperties == other.additionalProperties
     }
@@ -1835,6 +1895,7 @@ private constructor(
             status,
             transactionId,
             type,
+            uniqueEndToEndTransactionReference,
             unstructuredRemittanceInformation,
             additionalProperties,
         )
@@ -1843,5 +1904,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundFednowTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, status=$status, transactionId=$transactionId, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "InboundFednowTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, status=$status, transactionId=$transactionId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

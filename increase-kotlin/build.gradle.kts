@@ -7,19 +7,19 @@ dependencies {
     api(project(":increase-kotlin-client-okhttp"))
 }
 
-// Redefine `dokkaHtml` to:
+// Redefine `dokkaJavadoc` to:
 // - Depend on the root project's task for merging the docs of all the projects
 // - Forward that task's output to this task's output
-tasks.named("dokkaHtml").configure {
+tasks.named("dokkaJavadoc").configure {
     actions.clear()
 
-    val dokkaHtmlCollector = rootProject.tasks["dokkaHtmlCollector"]
-    dependsOn(dokkaHtmlCollector)
+    val dokkaJavadocCollector = rootProject.tasks["dokkaJavadocCollector"]
+    dependsOn(dokkaJavadocCollector)
 
-    val outputDirectory = project.layout.buildDirectory.dir("dokka/html")
+    val outputDirectory = project.layout.buildDirectory.dir("dokka/javadoc")
     doLast {
         copy {
-            from(dokkaHtmlCollector.outputs.files)
+            from(dokkaJavadocCollector.outputs.files)
             into(outputDirectory)
             duplicatesStrategy = DuplicatesStrategy.INCLUDE
         }
