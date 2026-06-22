@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.527.0](https://github.com/Increase/increase-kotlin/compare/v0.526.0...v0.527.0) (2026-06-22)
+
+
+### Features
+
+* **api:** add Visa network fields to card authorization simulations ([a8ba035](https://github.com/Increase/increase-kotlin/commit/a8ba035978d9b92e2e7190aece2f3ecd6cfc5b81))
+
 ## [0.526.0](https://github.com/Increase/increase-kotlin/compare/v0.525.0...v0.526.0) (2026-06-18)
 
 
