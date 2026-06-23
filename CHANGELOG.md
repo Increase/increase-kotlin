@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.528.0](https://github.com/Increase/increase-kotlin/compare/v0.527.0...v0.528.0) (2026-06-23)
+
+
+### Features
+
+* **api:** add UETR field to inbound FedNow transfers ([f46d36d](https://github.com/Increase/increase-kotlin/commit/f46d36de087e0d4e282568d41c5add5b750a74a4))
+
 ## [0.527.0](https://github.com/Increase/increase-kotlin/compare/v0.526.0...v0.527.0) (2026-06-22)
 
 
