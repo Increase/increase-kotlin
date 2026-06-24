@@ -1115,7 +1115,8 @@ private constructor(
          * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is created
          * when an ACH Transfer is returned by the receiving bank. It offsets the ACH Transfer
          * Intention. ACH Transfer Returns usually occur within the first two business days after
-         * the transfer is initiated, but can occur much later.
+         * the transfer is initiated, but can occur much later. The return appears as a new posted
+         * Transaction; no Pending Transaction is created.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2132,7 +2133,8 @@ private constructor(
              * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is
              * created when an ACH Transfer is returned by the receiving bank. It offsets the ACH
              * Transfer Intention. ACH Transfer Returns usually occur within the first two business
-             * days after the transfer is initiated, but can occur much later.
+             * days after the transfer is initiated, but can occur much later. The return appears as
+             * a new posted Transaction; no Pending Transaction is created.
              */
             fun achTransferReturn(achTransferReturn: AchTransferReturn?) =
                 achTransferReturn(JsonField.ofNullable(achTransferReturn))
@@ -5199,7 +5201,8 @@ private constructor(
          * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is created
          * when an ACH Transfer is returned by the receiving bank. It offsets the ACH Transfer
          * Intention. ACH Transfer Returns usually occur within the first two business days after
-         * the transfer is initiated, but can occur much later.
+         * the transfer is initiated, but can occur much later. The return appears as a new posted
+         * Transaction; no Pending Transaction is created.
          */
         class AchTransferReturn
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -5296,7 +5299,8 @@ private constructor(
             fun transactionId(): String = transactionId.getRequired("transaction_id")
 
             /**
-             * The identifier of the ACH Transfer associated with this return.
+             * The identifier of the ACH Transfer associated with this return. This matches the
+             * original Transaction's `source.ach_transfer_intention.transfer_id`.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -5499,7 +5503,10 @@ private constructor(
                     this.transactionId = transactionId
                 }
 
-                /** The identifier of the ACH Transfer associated with this return. */
+                /**
+                 * The identifier of the ACH Transfer associated with this return. This matches the
+                 * original Transaction's `source.ach_transfer_intention.transfer_id`.
+                 */
                 fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
                 /**
