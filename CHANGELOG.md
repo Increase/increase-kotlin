@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.528.1](https://github.com/Increase/increase-kotlin/compare/v0.528.0...v0.528.1) (2026-06-24)
+
+
+### Bug Fixes
+
+* **docs:** clarify transfer status and ACH default descriptions ([c06d744](https://github.com/Increase/increase-kotlin/commit/c06d7441f8f326955b2f9d8fe77ebde3dc6f9fd4))
+
 ## [0.528.0](https://github.com/Increase/increase-kotlin/compare/v0.527.0...v0.528.0) (2026-06-23)
 
 
