@@ -19,7 +19,12 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-/** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox Address. */
+/**
+ * Inbound Mail Items represent pieces of physical mail delivered to a Lockbox Address. Increase
+ * automatically deposits checks mailed to a Lockbox Recipient into the recipient's Account. Checks
+ * that are not matched to a Lockbox Recipient must be deposited or ignored using the Action an
+ * Inbound Mail Item endpoint.
+ */
 class InboundMailItem
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
