@@ -20,7 +20,9 @@ import java.util.Objects
 
 /**
  * Simulates an Inbound Mail Item to one of your Lockbox Addresses or Lockbox Recipients, as if
- * someone had mailed a physical check.
+ * someone had mailed a physical check. Increase automatically deposits a check mailed to a Lockbox
+ * Recipient into the recipient's Account. A check mailed to a Lockbox Address must be deposited or
+ * ignored with the [Action an Inbound Mail Item](#inbound-mail-items) endpoint.
  */
 class InboundMailItemCreateParams
 private constructor(
@@ -47,7 +49,8 @@ private constructor(
     fun contentsFileId(): String? = body.contentsFileId()
 
     /**
-     * The identifier of the Lockbox Address to simulate inbound mail to.
+     * The identifier of the Lockbox Address to simulate inbound mail to. Exactly one lockbox
+     * identifier parameter must be provided.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -55,7 +58,8 @@ private constructor(
     fun lockboxAddressId(): String? = body.lockboxAddressId()
 
     /**
-     * The identifier of the Lockbox Recipient to simulate inbound mail to.
+     * The identifier of the Lockbox Recipient to simulate inbound mail to. Exactly one lockbox
+     * identifier parameter must be provided.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -168,7 +172,10 @@ private constructor(
             body.contentsFileId(contentsFileId)
         }
 
-        /** The identifier of the Lockbox Address to simulate inbound mail to. */
+        /**
+         * The identifier of the Lockbox Address to simulate inbound mail to. Exactly one lockbox
+         * identifier parameter must be provided.
+         */
         fun lockboxAddressId(lockboxAddressId: String) = apply {
             body.lockboxAddressId(lockboxAddressId)
         }
@@ -184,7 +191,10 @@ private constructor(
             body.lockboxAddressId(lockboxAddressId)
         }
 
-        /** The identifier of the Lockbox Recipient to simulate inbound mail to. */
+        /**
+         * The identifier of the Lockbox Recipient to simulate inbound mail to. Exactly one lockbox
+         * identifier parameter must be provided.
+         */
         fun lockboxRecipientId(lockboxRecipientId: String) = apply {
             body.lockboxRecipientId(lockboxRecipientId)
         }
@@ -385,7 +395,8 @@ private constructor(
         fun contentsFileId(): String? = contentsFileId.getNullable("contents_file_id")
 
         /**
-         * The identifier of the Lockbox Address to simulate inbound mail to.
+         * The identifier of the Lockbox Address to simulate inbound mail to. Exactly one lockbox
+         * identifier parameter must be provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -393,7 +404,8 @@ private constructor(
         fun lockboxAddressId(): String? = lockboxAddressId.getNullable("lockbox_address_id")
 
         /**
-         * The identifier of the Lockbox Recipient to simulate inbound mail to.
+         * The identifier of the Lockbox Recipient to simulate inbound mail to. Exactly one lockbox
+         * identifier parameter must be provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -509,7 +521,10 @@ private constructor(
                 this.contentsFileId = contentsFileId
             }
 
-            /** The identifier of the Lockbox Address to simulate inbound mail to. */
+            /**
+             * The identifier of the Lockbox Address to simulate inbound mail to. Exactly one
+             * lockbox identifier parameter must be provided.
+             */
             fun lockboxAddressId(lockboxAddressId: String) =
                 lockboxAddressId(JsonField.of(lockboxAddressId))
 
@@ -524,7 +539,10 @@ private constructor(
                 this.lockboxAddressId = lockboxAddressId
             }
 
-            /** The identifier of the Lockbox Recipient to simulate inbound mail to. */
+            /**
+             * The identifier of the Lockbox Recipient to simulate inbound mail to. Exactly one
+             * lockbox identifier parameter must be provided.
+             */
             fun lockboxRecipientId(lockboxRecipientId: String) =
                 lockboxRecipientId(JsonField.of(lockboxRecipientId))
 

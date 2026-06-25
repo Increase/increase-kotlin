@@ -1511,7 +1511,7 @@ private constructor(
 
         /**
          * The legal identifier of the corporation. This is usually the Employer Identification
-         * Number (EIN).
+         * Number (EIN). This replaces the deprecated `tax_identifier` field.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1760,7 +1760,7 @@ private constructor(
 
             /**
              * The legal identifier of the corporation. This is usually the Employer Identification
-             * Number (EIN).
+             * Number (EIN). This replaces the deprecated `tax_identifier` field.
              */
             fun legalIdentifier(legalIdentifier: LegalIdentifier) =
                 legalIdentifier(JsonField.of(legalIdentifier))
@@ -3396,7 +3396,8 @@ private constructor(
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number. For Social Security Numbers and
                      * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
-                     * or other separators.
+                     * or other separators. When testing in sandbox, use one of our
+                     * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -3544,7 +3545,8 @@ private constructor(
                          * An identification number that can be used to verify the individual's
                          * identity, such as a social security number. For Social Security Numbers
                          * and Individual Taxpayer Identification Numbers, submit nine digits with
-                         * no dashes or other separators.
+                         * no dashes or other separators. When testing in sandbox, use one of our
+                         * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                          */
                         fun number(number: String) = number(JsonField.of(number))
 
@@ -5113,7 +5115,7 @@ private constructor(
 
         /**
          * The legal identifier of the corporation. This is usually the Employer Identification
-         * Number (EIN).
+         * Number (EIN). This replaces the deprecated `tax_identifier` field.
          */
         class LegalIdentifier
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -5133,7 +5135,8 @@ private constructor(
 
             /**
              * The legal identifier. For US Employer Identification Numbers, submit nine digits with
-             * no dashes or other separators.
+             * no dashes or other separators. When testing in sandbox, use one of our
+             * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -5207,7 +5210,8 @@ private constructor(
 
                 /**
                  * The legal identifier. For US Employer Identification Numbers, submit nine digits
-                 * with no dashes or other separators.
+                 * with no dashes or other separators. When testing in sandbox, use one of our
+                 * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                  */
                 fun value(value: String) = value(JsonField.of(value))
 
@@ -7737,7 +7741,8 @@ private constructor(
                  * An identification number that can be used to verify the individual's identity,
                  * such as a social security number. For Social Security Numbers and Individual
                  * Taxpayer Identification Numbers, submit nine digits with no dashes or other
-                 * separators.
+                 * separators. When testing in sandbox, use one of our
+                 * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -7878,7 +7883,8 @@ private constructor(
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number. For Social Security Numbers and
                      * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
-                     * or other separators.
+                     * or other separators. When testing in sandbox, use one of our
+                     * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                      */
                     fun number(number: String) = number(JsonField.of(number))
 
@@ -10012,7 +10018,9 @@ private constructor(
             /**
              * An identification number that can be used to verify the individual's identity, such
              * as a social security number. For Social Security Numbers and Individual Taxpayer
-             * Identification Numbers, submit nine digits with no dashes or other separators.
+             * Identification Numbers, submit nine digits with no dashes or other separators. When
+             * testing in sandbox, use one of our
+             * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -10149,7 +10157,8 @@ private constructor(
                  * An identification number that can be used to verify the individual's identity,
                  * such as a social security number. For Social Security Numbers and Individual
                  * Taxpayer Identification Numbers, submit nine digits with no dashes or other
-                 * separators.
+                 * separators. When testing in sandbox, use one of our
+                 * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                  */
                 fun number(number: String) = number(JsonField.of(number))
 
@@ -14739,7 +14748,8 @@ private constructor(
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number. For Social Security Numbers and
                      * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
-                     * or other separators.
+                     * or other separators. When testing in sandbox, use one of our
+                     * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -14887,7 +14897,8 @@ private constructor(
                          * An identification number that can be used to verify the individual's
                          * identity, such as a social security number. For Social Security Numbers
                          * and Individual Taxpayer Identification Numbers, submit nine digits with
-                         * no dashes or other separators.
+                         * no dashes or other separators. When testing in sandbox, use one of our
+                         * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                          */
                         fun number(number: String) = number(JsonField.of(number))
 
@@ -17070,7 +17081,8 @@ private constructor(
                  * An identification number that can be used to verify the individual's identity,
                  * such as a social security number. For Social Security Numbers and Individual
                  * Taxpayer Identification Numbers, submit nine digits with no dashes or other
-                 * separators.
+                 * separators. When testing in sandbox, use one of our
+                 * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -17211,7 +17223,8 @@ private constructor(
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number. For Social Security Numbers and
                      * Individual Taxpayer Identification Numbers, submit nine digits with no dashes
-                     * or other separators.
+                     * or other separators. When testing in sandbox, use one of our
+                     * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                      */
                     fun number(number: String) = number(JsonField.of(number))
 

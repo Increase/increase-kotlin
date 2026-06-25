@@ -35,7 +35,8 @@ private constructor(
     fun accountId(): String = body.accountId()
 
     /**
-     * The Lockbox Address where this Lockbox Recipient may receive mail.
+     * The Lockbox Address where this Lockbox Recipient may receive mail. The Lockbox Address must
+     * have a `status` of `active`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -148,7 +149,10 @@ private constructor(
          */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
-        /** The Lockbox Address where this Lockbox Recipient may receive mail. */
+        /**
+         * The Lockbox Address where this Lockbox Recipient may receive mail. The Lockbox Address
+         * must have a `status` of `active`.
+         */
         fun lockboxAddressId(lockboxAddressId: String) = apply {
             body.lockboxAddressId(lockboxAddressId)
         }
@@ -369,7 +373,8 @@ private constructor(
         fun accountId(): String = accountId.getRequired("account_id")
 
         /**
-         * The Lockbox Address where this Lockbox Recipient may receive mail.
+         * The Lockbox Address where this Lockbox Recipient may receive mail. The Lockbox Address
+         * must have a `status` of `active`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -483,7 +488,10 @@ private constructor(
              */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-            /** The Lockbox Address where this Lockbox Recipient may receive mail. */
+            /**
+             * The Lockbox Address where this Lockbox Recipient may receive mail. The Lockbox
+             * Address must have a `status` of `active`.
+             */
             fun lockboxAddressId(lockboxAddressId: String) =
                 lockboxAddressId(JsonField.of(lockboxAddressId))
 

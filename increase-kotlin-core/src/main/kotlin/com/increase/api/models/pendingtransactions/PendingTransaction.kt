@@ -101,7 +101,9 @@ private constructor(
 
     /**
      * The Pending Transaction amount in the minor unit of its currency. For dollars, for example,
-     * this is cents.
+     * this is cents. This amount does not change after the Pending Transaction is created. If a
+     * card authorization settles for a different amount, the settled amount is available on the
+     * resulting Transaction and on the Card Payment's `state.settled_amount`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -389,7 +391,9 @@ private constructor(
 
         /**
          * The Pending Transaction amount in the minor unit of its currency. For dollars, for
-         * example, this is cents.
+         * example, this is cents. This amount does not change after the Pending Transaction is
+         * created. If a card authorization settles for a different amount, the settled amount is
+         * available on the resulting Transaction and on the Card Payment's `state.settled_amount`.
          */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
@@ -19035,7 +19039,8 @@ private constructor(
             /**
              * The Pending Transaction is confirmed. An associated Transaction exists for this
              * object. The Pending Transaction will no longer count against your balance and can
-             * generally be hidden from UIs, etc.
+             * generally be hidden from UIs, etc. The Pending Transaction's `amount` is not updated
+             * if the associated Transaction settles for a different amount.
              */
             val COMPLETE = of("complete")
 
@@ -19049,7 +19054,8 @@ private constructor(
             /**
              * The Pending Transaction is confirmed. An associated Transaction exists for this
              * object. The Pending Transaction will no longer count against your balance and can
-             * generally be hidden from UIs, etc.
+             * generally be hidden from UIs, etc. The Pending Transaction's `amount` is not updated
+             * if the associated Transaction settles for a different amount.
              */
             COMPLETE,
         }
@@ -19069,7 +19075,8 @@ private constructor(
             /**
              * The Pending Transaction is confirmed. An associated Transaction exists for this
              * object. The Pending Transaction will no longer count against your balance and can
-             * generally be hidden from UIs, etc.
+             * generally be hidden from UIs, etc. The Pending Transaction's `amount` is not updated
+             * if the associated Transaction settles for a different amount.
              */
             COMPLETE,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */

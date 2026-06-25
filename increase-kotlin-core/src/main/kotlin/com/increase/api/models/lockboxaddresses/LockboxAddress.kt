@@ -17,7 +17,13 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-/** Lockbox Addresses are physical locations that can receive mail containing paper checks. */
+/**
+ * Lockbox Addresses are physical locations that can receive mail containing paper checks. A Lockbox
+ * Address is not itself linked to an Account; Lockbox Recipients determine where checks received at
+ * the address are deposited. Lockbox Addresses are created with a `pending` status and a null
+ * `address`. Increase generates the mailing address shortly after creation, at which point the
+ * status becomes `active`.
+ */
 class LockboxAddress
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
