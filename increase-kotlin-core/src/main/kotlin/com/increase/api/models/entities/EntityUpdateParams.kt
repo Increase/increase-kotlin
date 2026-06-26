@@ -1824,8 +1824,8 @@ private constructor(
             ) : this(value, category, mutableMapOf())
 
             /**
-             * The identifier of the legal identifier. For US Employer Identification Numbers,
-             * submit nine digits with no dashes or other separators.
+             * The legal identifier itself. For US Employer Identification Numbers, submit nine
+             * digits with no dashes or other separators.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -1897,8 +1897,8 @@ private constructor(
                 }
 
                 /**
-                 * The identifier of the legal identifier. For US Employer Identification Numbers,
-                 * submit nine digits with no dashes or other separators.
+                 * The legal identifier itself. For US Employer Identification Numbers, submit nine
+                 * digits with no dashes or other separators.
                  */
                 fun value(value: String) = value(JsonField.of(value))
 
