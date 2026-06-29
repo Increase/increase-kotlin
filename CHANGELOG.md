@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.529.0](https://github.com/Increase/increase-kotlin/compare/v0.528.1...v0.529.0) (2026-06-29)
+
+
+### Features
+
+* **api:** add pending_reviewing check transfer status ([7e534c7](https://github.com/Increase/increase-kotlin/commit/7e534c7aa393b54c694ac9713828c080c87a7ffe))
+* **api:** api update ([#1324](https://github.com/Increase/increase-kotlin/issues/1324)) ([1aa6c58](https://github.com/Increase/increase-kotlin/commit/1aa6c58ead21fa682a014fbe9a0df7e993795829))
+
 ## [0.528.1](https://github.com/Increase/increase-kotlin/compare/v0.528.0...v0.528.1) (2026-06-24)
 
 
