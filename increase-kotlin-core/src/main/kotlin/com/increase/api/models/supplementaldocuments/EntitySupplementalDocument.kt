@@ -17,7 +17,10 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-/** Supplemental Documents are uploaded files connected to an Entity during onboarding. */
+/**
+ * Supplemental Documents are uploaded files connected to an Entity during onboarding. Not all
+ * programs require supplemental documents.
+ */
 class EntitySupplementalDocument
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(

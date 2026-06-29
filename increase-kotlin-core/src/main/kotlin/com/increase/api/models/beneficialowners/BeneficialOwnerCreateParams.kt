@@ -31,7 +31,8 @@ private constructor(
 ) : Params {
 
     /**
-     * The identifier of the Entity to associate with the new Beneficial Owner.
+     * The identifier of the Entity to associate with the new Beneficial Owner. Only `corporation`
+     * entities have beneficial owners.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -141,7 +142,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The identifier of the Entity to associate with the new Beneficial Owner. */
+        /**
+         * The identifier of the Entity to associate with the new Beneficial Owner. Only
+         * `corporation` entities have beneficial owners.
+         */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
         /**
@@ -373,7 +377,8 @@ private constructor(
         ) : this(entityId, individual, prongs, companyTitle, mutableMapOf())
 
         /**
-         * The identifier of the Entity to associate with the new Beneficial Owner.
+         * The identifier of the Entity to associate with the new Beneficial Owner. Only
+         * `corporation` entities have beneficial owners.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -483,7 +488,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier of the Entity to associate with the new Beneficial Owner. */
+            /**
+             * The identifier of the Entity to associate with the new Beneficial Owner. Only
+             * `corporation` entities have beneficial owners.
+             */
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
             /**
