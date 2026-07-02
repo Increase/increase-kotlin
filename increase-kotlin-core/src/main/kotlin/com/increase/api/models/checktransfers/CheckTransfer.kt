@@ -3290,6 +3290,7 @@ private constructor(
         private val payer: JsonField<List<Payer>>,
         private val recipientName: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
+        private val returnAddressName: JsonField<String>,
         private val shippingMethod: JsonField<ShippingMethod>,
         private val signature: JsonField<Signature>,
         private val trackingUpdates: JsonField<List<TrackingUpdate>>,
@@ -3316,6 +3317,9 @@ private constructor(
             @JsonProperty("return_address")
             @ExcludeMissing
             returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+            @JsonProperty("return_address_name")
+            @ExcludeMissing
+            returnAddressName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("shipping_method")
             @ExcludeMissing
             shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
@@ -3334,6 +3338,7 @@ private constructor(
             payer,
             recipientName,
             returnAddress,
+            returnAddressName,
             shippingMethod,
             signature,
             trackingUpdates,
@@ -3405,6 +3410,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
+
+        /**
+         * A custom name printed above the Increase-managed return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun returnAddressName(): String? = returnAddressName.getNullable("return_address_name")
 
         /**
          * The shipping method for the check.
@@ -3503,6 +3516,16 @@ private constructor(
         fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
 
         /**
+         * Returns the raw JSON value of [returnAddressName].
+         *
+         * Unlike [returnAddressName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("return_address_name")
+        @ExcludeMissing
+        fun _returnAddressName(): JsonField<String> = returnAddressName
+
+        /**
          * Returns the raw JSON value of [shippingMethod].
          *
          * Unlike [shippingMethod], this method doesn't throw if the JSON field has an unexpected
@@ -3558,6 +3581,7 @@ private constructor(
              * .payer()
              * .recipientName()
              * .returnAddress()
+             * .returnAddressName()
              * .shippingMethod()
              * .signature()
              * .trackingUpdates()
@@ -3577,6 +3601,7 @@ private constructor(
             private var payer: JsonField<MutableList<Payer>>? = null
             private var recipientName: JsonField<String>? = null
             private var returnAddress: JsonField<ReturnAddress>? = null
+            private var returnAddressName: JsonField<String>? = null
             private var shippingMethod: JsonField<ShippingMethod>? = null
             private var signature: JsonField<Signature>? = null
             private var trackingUpdates: JsonField<MutableList<TrackingUpdate>>? = null
@@ -3591,6 +3616,7 @@ private constructor(
                 payer = physicalCheck.payer.map { it.toMutableList() }
                 recipientName = physicalCheck.recipientName
                 returnAddress = physicalCheck.returnAddress
+                returnAddressName = physicalCheck.returnAddressName
                 shippingMethod = physicalCheck.shippingMethod
                 signature = physicalCheck.signature
                 trackingUpdates = physicalCheck.trackingUpdates.map { it.toMutableList() }
@@ -3724,6 +3750,21 @@ private constructor(
                 this.returnAddress = returnAddress
             }
 
+            /** A custom name printed above the Increase-managed return address. */
+            fun returnAddressName(returnAddressName: String?) =
+                returnAddressName(JsonField.ofNullable(returnAddressName))
+
+            /**
+             * Sets [Builder.returnAddressName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnAddressName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun returnAddressName(returnAddressName: JsonField<String>) = apply {
+                this.returnAddressName = returnAddressName
+            }
+
             /** The shipping method for the check. */
             fun shippingMethod(shippingMethod: ShippingMethod) =
                 shippingMethod(JsonField.of(shippingMethod))
@@ -3812,6 +3853,7 @@ private constructor(
              * .payer()
              * .recipientName()
              * .returnAddress()
+             * .returnAddressName()
              * .shippingMethod()
              * .signature()
              * .trackingUpdates()
@@ -3829,6 +3871,7 @@ private constructor(
                     checkRequired("payer", payer).map { it.toImmutable() },
                     checkRequired("recipientName", recipientName),
                     checkRequired("returnAddress", returnAddress),
+                    checkRequired("returnAddressName", returnAddressName),
                     checkRequired("shippingMethod", shippingMethod),
                     checkRequired("signature", signature),
                     checkRequired("trackingUpdates", trackingUpdates).map { it.toImmutable() },
@@ -3860,6 +3903,7 @@ private constructor(
             payer().forEach { it.validate() }
             recipientName()
             returnAddress()?.validate()
+            returnAddressName()
             shippingMethod().validate()
             signature().validate()
             trackingUpdates().forEach { it.validate() }
@@ -3889,6 +3933,7 @@ private constructor(
                 (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (recipientName.asKnown() == null) 0 else 1) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
+                (if (returnAddressName.asKnown() == null) 0 else 1) +
                 (shippingMethod.asKnown()?.validity() ?: 0) +
                 (signature.asKnown()?.validity() ?: 0) +
                 (trackingUpdates.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
@@ -5803,6 +5848,7 @@ private constructor(
                 payer == other.payer &&
                 recipientName == other.recipientName &&
                 returnAddress == other.returnAddress &&
+                returnAddressName == other.returnAddressName &&
                 shippingMethod == other.shippingMethod &&
                 signature == other.signature &&
                 trackingUpdates == other.trackingUpdates &&
@@ -5819,6 +5865,7 @@ private constructor(
                 payer,
                 recipientName,
                 returnAddress,
+                returnAddressName,
                 shippingMethod,
                 signature,
                 trackingUpdates,
@@ -5829,7 +5876,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signature=$signature, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */
