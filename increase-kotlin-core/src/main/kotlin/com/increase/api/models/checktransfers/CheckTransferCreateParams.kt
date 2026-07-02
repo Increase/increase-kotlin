@@ -1498,12 +1498,13 @@ private constructor(
     private constructor(
         private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
+        private val payer: JsonField<List<Payer>>,
         private val recipientName: JsonField<String>,
         private val attachmentFileId: JsonField<String>,
         private val checkVoucherImageFileId: JsonField<String>,
         private val note: JsonField<String>,
-        private val payer: JsonField<List<Payer>>,
         private val returnAddress: JsonField<ReturnAddress>,
+        private val returnAddressName: JsonField<String>,
         private val shippingMethod: JsonField<ShippingMethod>,
         private val signature: JsonField<Signature>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1515,6 +1516,7 @@ private constructor(
             @ExcludeMissing
             mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
             @JsonProperty("memo") @ExcludeMissing memo: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
             @JsonProperty("recipient_name")
             @ExcludeMissing
             recipientName: JsonField<String> = JsonMissing.of(),
@@ -1525,10 +1527,12 @@ private constructor(
             @ExcludeMissing
             checkVoucherImageFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
             @JsonProperty("return_address")
             @ExcludeMissing
             returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+            @JsonProperty("return_address_name")
+            @ExcludeMissing
+            returnAddressName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("shipping_method")
             @ExcludeMissing
             shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
@@ -1538,12 +1542,13 @@ private constructor(
         ) : this(
             mailingAddress,
             memo,
+            payer,
             recipientName,
             attachmentFileId,
             checkVoucherImageFileId,
             note,
-            payer,
             returnAddress,
+            returnAddressName,
             shippingMethod,
             signature,
             mutableMapOf(),
@@ -1564,6 +1569,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun memo(): String = memo.getRequired("memo")
+
+        /**
+         * The payer of the check. This will be printed on the top-left portion of the check. This
+         * should be an array of up to 4 elements, each of which represents a line of the payer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun payer(): List<Payer> = payer.getRequired("payer")
 
         /**
          * The name that will be printed on the check in the 'To:' field.
@@ -1603,16 +1617,6 @@ private constructor(
         fun note(): String? = note.getNullable("note")
 
         /**
-         * The payer of the check. This will be printed on the top-left portion of the check and
-         * defaults to the return address if unspecified. This should be an array of up to 4
-         * elements, each of which represents a line of the payer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun payer(): List<Payer>? = payer.getNullable("payer")
-
-        /**
          * The return address to be printed on the check. If omitted this will default to an
          * Increase-owned address that will mark checks as delivery failed and shred them.
          *
@@ -1620,6 +1624,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
+
+        /**
+         * A custom name to print above the default return address. Cannot be provided together with
+         * `return_address`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun returnAddressName(): String? = returnAddressName.getNullable("return_address_name")
 
         /**
          * How to ship the check. For details on pricing, timing, and restrictions, see
@@ -1655,6 +1668,13 @@ private constructor(
          * Unlike [memo], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("memo") @ExcludeMissing fun _memo(): JsonField<String> = memo
+
+        /**
+         * Returns the raw JSON value of [payer].
+         *
+         * Unlike [payer], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("payer") @ExcludeMissing fun _payer(): JsonField<List<Payer>> = payer
 
         /**
          * Returns the raw JSON value of [recipientName].
@@ -1694,13 +1714,6 @@ private constructor(
         @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
 
         /**
-         * Returns the raw JSON value of [payer].
-         *
-         * Unlike [payer], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("payer") @ExcludeMissing fun _payer(): JsonField<List<Payer>> = payer
-
-        /**
          * Returns the raw JSON value of [returnAddress].
          *
          * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected
@@ -1709,6 +1722,16 @@ private constructor(
         @JsonProperty("return_address")
         @ExcludeMissing
         fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
+
+        /**
+         * Returns the raw JSON value of [returnAddressName].
+         *
+         * Unlike [returnAddressName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("return_address_name")
+        @ExcludeMissing
+        fun _returnAddressName(): JsonField<String> = returnAddressName
 
         /**
          * Returns the raw JSON value of [shippingMethod].
@@ -1750,6 +1773,7 @@ private constructor(
              * ```kotlin
              * .mailingAddress()
              * .memo()
+             * .payer()
              * .recipientName()
              * ```
              */
@@ -1761,12 +1785,13 @@ private constructor(
 
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var memo: JsonField<String>? = null
+            private var payer: JsonField<MutableList<Payer>>? = null
             private var recipientName: JsonField<String>? = null
             private var attachmentFileId: JsonField<String> = JsonMissing.of()
             private var checkVoucherImageFileId: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
-            private var payer: JsonField<MutableList<Payer>>? = null
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
+            private var returnAddressName: JsonField<String> = JsonMissing.of()
             private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
             private var signature: JsonField<Signature> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1774,12 +1799,13 @@ private constructor(
             internal fun from(physicalCheck: PhysicalCheck) = apply {
                 mailingAddress = physicalCheck.mailingAddress
                 memo = physicalCheck.memo
+                payer = physicalCheck.payer.map { it.toMutableList() }
                 recipientName = physicalCheck.recipientName
                 attachmentFileId = physicalCheck.attachmentFileId
                 checkVoucherImageFileId = physicalCheck.checkVoucherImageFileId
                 note = physicalCheck.note
-                payer = physicalCheck.payer.map { it.toMutableList() }
                 returnAddress = physicalCheck.returnAddress
+                returnAddressName = physicalCheck.returnAddressName
                 shippingMethod = physicalCheck.shippingMethod
                 signature = physicalCheck.signature
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
@@ -1811,6 +1837,36 @@ private constructor(
              * value.
              */
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
+
+            /**
+             * The payer of the check. This will be printed on the top-left portion of the check.
+             * This should be an array of up to 4 elements, each of which represents a line of the
+             * payer.
+             */
+            fun payer(payer: List<Payer>) = payer(JsonField.of(payer))
+
+            /**
+             * Sets [Builder.payer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.payer] with a well-typed `List<Payer>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun payer(payer: JsonField<List<Payer>>) = apply {
+                this.payer = payer.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Payer] to [Builder.payer].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addPayer(payer: Payer) = apply {
+                this.payer =
+                    (this.payer ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("payer", it).add(payer)
+                    }
+            }
 
             /** The name that will be printed on the check in the 'To:' field. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
@@ -1877,36 +1933,6 @@ private constructor(
             fun note(note: JsonField<String>) = apply { this.note = note }
 
             /**
-             * The payer of the check. This will be printed on the top-left portion of the check and
-             * defaults to the return address if unspecified. This should be an array of up to 4
-             * elements, each of which represents a line of the payer.
-             */
-            fun payer(payer: List<Payer>) = payer(JsonField.of(payer))
-
-            /**
-             * Sets [Builder.payer] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.payer] with a well-typed `List<Payer>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun payer(payer: JsonField<List<Payer>>) = apply {
-                this.payer = payer.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [Payer] to [Builder.payer].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addPayer(payer: Payer) = apply {
-                this.payer =
-                    (this.payer ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("payer", it).add(payer)
-                    }
-            }
-
-            /**
              * The return address to be printed on the check. If omitted this will default to an
              * Increase-owned address that will mark checks as delivery failed and shred them.
              */
@@ -1922,6 +1948,24 @@ private constructor(
              */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
+            }
+
+            /**
+             * A custom name to print above the default return address. Cannot be provided together
+             * with `return_address`.
+             */
+            fun returnAddressName(returnAddressName: String) =
+                returnAddressName(JsonField.of(returnAddressName))
+
+            /**
+             * Sets [Builder.returnAddressName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnAddressName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun returnAddressName(returnAddressName: JsonField<String>) = apply {
+                this.returnAddressName = returnAddressName
             }
 
             /**
@@ -1986,6 +2030,7 @@ private constructor(
              * ```kotlin
              * .mailingAddress()
              * .memo()
+             * .payer()
              * .recipientName()
              * ```
              *
@@ -1995,12 +2040,13 @@ private constructor(
                 PhysicalCheck(
                     checkRequired("mailingAddress", mailingAddress),
                     checkRequired("memo", memo),
+                    checkRequired("payer", payer).map { it.toImmutable() },
                     checkRequired("recipientName", recipientName),
                     attachmentFileId,
                     checkVoucherImageFileId,
                     note,
-                    (payer ?: JsonMissing.of()).map { it.toImmutable() },
                     returnAddress,
+                    returnAddressName,
                     shippingMethod,
                     signature,
                     additionalProperties.toMutableMap(),
@@ -2025,12 +2071,13 @@ private constructor(
 
             mailingAddress().validate()
             memo()
+            payer().forEach { it.validate() }
             recipientName()
             attachmentFileId()
             checkVoucherImageFileId()
             note()
-            payer()?.forEach { it.validate() }
             returnAddress()?.validate()
+            returnAddressName()
             shippingMethod()?.validate()
             signature()?.validate()
             validated = true
@@ -2053,12 +2100,13 @@ private constructor(
         internal fun validity(): Int =
             (mailingAddress.asKnown()?.validity() ?: 0) +
                 (if (memo.asKnown() == null) 0 else 1) +
+                (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (recipientName.asKnown() == null) 0 else 1) +
                 (if (attachmentFileId.asKnown() == null) 0 else 1) +
                 (if (checkVoucherImageFileId.asKnown() == null) 0 else 1) +
                 (if (note.asKnown() == null) 0 else 1) +
-                (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
+                (if (returnAddressName.asKnown() == null) 0 else 1) +
                 (shippingMethod.asKnown()?.validity() ?: 0) +
                 (signature.asKnown()?.validity() ?: 0)
 
@@ -3442,12 +3490,13 @@ private constructor(
             return other is PhysicalCheck &&
                 mailingAddress == other.mailingAddress &&
                 memo == other.memo &&
+                payer == other.payer &&
                 recipientName == other.recipientName &&
                 attachmentFileId == other.attachmentFileId &&
                 checkVoucherImageFileId == other.checkVoucherImageFileId &&
                 note == other.note &&
-                payer == other.payer &&
                 returnAddress == other.returnAddress &&
+                returnAddressName == other.returnAddressName &&
                 shippingMethod == other.shippingMethod &&
                 signature == other.signature &&
                 additionalProperties == other.additionalProperties
@@ -3457,12 +3506,13 @@ private constructor(
             Objects.hash(
                 mailingAddress,
                 memo,
+                payer,
                 recipientName,
                 attachmentFileId,
                 checkVoucherImageFileId,
                 note,
-                payer,
                 returnAddress,
+                returnAddressName,
                 shippingMethod,
                 signature,
                 additionalProperties,
@@ -3472,7 +3522,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, payer=$payer, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, payer=$payer, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
     }
 
     /**
