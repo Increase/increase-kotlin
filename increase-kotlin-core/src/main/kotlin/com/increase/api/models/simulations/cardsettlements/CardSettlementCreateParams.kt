@@ -40,21 +40,22 @@ private constructor(
     fun cardId(): String = body.cardId()
 
     /**
-     * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun pendingTransactionId(): String = body.pendingTransactionId()
-
-    /**
      * The amount to be settled. This defaults to the amount of the Pending Transaction being
-     * settled.
+     * settled, or a random amount if `pending_transaction_id` is not provided.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun amount(): Long? = body.amount()
+
+    /**
+     * The identifier of the Pending Transaction for the Card Authorization you wish to settle. If
+     * not provided, the settlement will be force posted without a Card Authorization.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun pendingTransactionId(): String? = body.pendingTransactionId()
 
     /**
      * Returns the raw JSON value of [cardId].
@@ -64,19 +65,19 @@ private constructor(
     fun _cardId(): JsonField<String> = body._cardId()
 
     /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /**
      * Returns the raw JSON value of [pendingTransactionId].
      *
      * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
     fun _pendingTransactionId(): JsonField<String> = body._pendingTransactionId()
-
-    /**
-     * Returns the raw JSON value of [amount].
-     *
-     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _amount(): JsonField<Long> = body._amount()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -96,7 +97,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .cardId()
-         * .pendingTransactionId()
          * ```
          */
         fun builder() = Builder()
@@ -121,8 +121,8 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [cardId]
-         * - [pendingTransactionId]
          * - [amount]
+         * - [pendingTransactionId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -138,7 +138,22 @@ private constructor(
         fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
         /**
+         * The amount to be settled. This defaults to the amount of the Pending Transaction being
+         * settled, or a random amount if `pending_transaction_id` is not provided.
+         */
+        fun amount(amount: Long) = apply { body.amount(amount) }
+
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        /**
          * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+         * If not provided, the settlement will be force posted without a Card Authorization.
          */
         fun pendingTransactionId(pendingTransactionId: String) = apply {
             body.pendingTransactionId(pendingTransactionId)
@@ -154,20 +169,6 @@ private constructor(
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             body.pendingTransactionId(pendingTransactionId)
         }
-
-        /**
-         * The amount to be settled. This defaults to the amount of the Pending Transaction being
-         * settled.
-         */
-        fun amount(amount: Long) = apply { body.amount(amount) }
-
-        /**
-         * Sets [Builder.amount] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -294,7 +295,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .cardId()
-         * .pendingTransactionId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -317,19 +317,19 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardId: JsonField<String>,
-        private val pendingTransactionId: JsonField<String>,
         private val amount: JsonField<Long>,
+        private val pendingTransactionId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("pending_transaction_id")
             @ExcludeMissing
             pendingTransactionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-        ) : this(cardId, pendingTransactionId, amount, mutableMapOf())
+        ) : this(cardId, amount, pendingTransactionId, mutableMapOf())
 
         /**
          * The identifier of the Card to create a settlement on.
@@ -340,17 +340,8 @@ private constructor(
         fun cardId(): String = cardId.getRequired("card_id")
 
         /**
-         * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun pendingTransactionId(): String =
-            pendingTransactionId.getRequired("pending_transaction_id")
-
-        /**
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
-         * settled.
+         * settled, or a random amount if `pending_transaction_id` is not provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -358,11 +349,28 @@ private constructor(
         fun amount(): Long? = amount.getNullable("amount")
 
         /**
+         * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+         * If not provided, the settlement will be force posted without a Card Authorization.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun pendingTransactionId(): String? =
+            pendingTransactionId.getNullable("pending_transaction_id")
+
+        /**
          * Returns the raw JSON value of [cardId].
          *
          * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * Returns the raw JSON value of [pendingTransactionId].
@@ -373,13 +381,6 @@ private constructor(
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -401,7 +402,6 @@ private constructor(
              * The following fields are required:
              * ```kotlin
              * .cardId()
-             * .pendingTransactionId()
              * ```
              */
             fun builder() = Builder()
@@ -411,14 +411,14 @@ private constructor(
         class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
-            private var pendingTransactionId: JsonField<String>? = null
             private var amount: JsonField<Long> = JsonMissing.of()
+            private var pendingTransactionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
                 cardId = body.cardId
-                pendingTransactionId = body.pendingTransactionId
                 amount = body.amount
+                pendingTransactionId = body.pendingTransactionId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -435,8 +435,24 @@ private constructor(
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /**
+             * The amount to be settled. This defaults to the amount of the Pending Transaction
+             * being settled, or a random amount if `pending_transaction_id` is not provided.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /**
              * The identifier of the Pending Transaction for the Card Authorization you wish to
-             * settle.
+             * settle. If not provided, the settlement will be force posted without a Card
+             * Authorization.
              */
             fun pendingTransactionId(pendingTransactionId: String) =
                 pendingTransactionId(JsonField.of(pendingTransactionId))
@@ -451,21 +467,6 @@ private constructor(
             fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
                 this.pendingTransactionId = pendingTransactionId
             }
-
-            /**
-             * The amount to be settled. This defaults to the amount of the Pending Transaction
-             * being settled.
-             */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -494,7 +495,6 @@ private constructor(
              * The following fields are required:
              * ```kotlin
              * .cardId()
-             * .pendingTransactionId()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -502,8 +502,8 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("cardId", cardId),
-                    checkRequired("pendingTransactionId", pendingTransactionId),
                     amount,
+                    pendingTransactionId,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -525,8 +525,8 @@ private constructor(
             }
 
             cardId()
-            pendingTransactionId()
             amount()
+            pendingTransactionId()
             validated = true
         }
 
@@ -546,8 +546,8 @@ private constructor(
          */
         internal fun validity(): Int =
             (if (cardId.asKnown() == null) 0 else 1) +
-                (if (pendingTransactionId.asKnown() == null) 0 else 1) +
-                (if (amount.asKnown() == null) 0 else 1)
+                (if (amount.asKnown() == null) 0 else 1) +
+                (if (pendingTransactionId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -556,19 +556,19 @@ private constructor(
 
             return other is Body &&
                 cardId == other.cardId &&
-                pendingTransactionId == other.pendingTransactionId &&
                 amount == other.amount &&
+                pendingTransactionId == other.pendingTransactionId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(cardId, pendingTransactionId, amount, additionalProperties)
+            Objects.hash(cardId, amount, pendingTransactionId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalProperties=$additionalProperties}"
+            "Body{cardId=$cardId, amount=$amount, pendingTransactionId=$pendingTransactionId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
