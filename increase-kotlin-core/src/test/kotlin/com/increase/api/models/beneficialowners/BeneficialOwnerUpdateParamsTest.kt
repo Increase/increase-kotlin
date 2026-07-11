@@ -15,8 +15,8 @@ internal class BeneficialOwnerUpdateParamsTest {
             .address(
                 BeneficialOwnerUpdateParams.Address.builder()
                     .city("New York")
-                    .country("US")
                     .line1("33 Liberty Street")
+                    .country("US")
                     .line2("Unit 2")
                     .state("NY")
                     .zip("10045")
@@ -80,8 +80,8 @@ internal class BeneficialOwnerUpdateParamsTest {
                 .address(
                     BeneficialOwnerUpdateParams.Address.builder()
                         .city("New York")
-                        .country("US")
                         .line1("33 Liberty Street")
+                        .country("US")
                         .line2("Unit 2")
                         .state("NY")
                         .zip("10045")
@@ -130,8 +130,8 @@ internal class BeneficialOwnerUpdateParamsTest {
             .isEqualTo(
                 BeneficialOwnerUpdateParams.Address.builder()
                     .city("New York")
-                    .country("US")
                     .line1("33 Liberty Street")
+                    .country("US")
                     .line2("Unit 2")
                     .state("NY")
                     .zip("10045")

@@ -18,8 +18,8 @@ internal class EntityUpdateParamsTest {
                     .address(
                         EntityUpdateParams.Corporation.Address.builder()
                             .city("New York")
-                            .country("US")
                             .line1("33 Liberty Street")
+                            .country("US")
                             .line2("Unit 2")
                             .state("NY")
                             .zip("10045")
@@ -61,8 +61,8 @@ internal class EntityUpdateParamsTest {
                     .address(
                         EntityUpdateParams.NaturalPerson.Address.builder()
                             .city("x")
-                            .country("x")
                             .line1("x")
+                            .country("x")
                             .line2("x")
                             .state("x")
                             .zip("x")
@@ -161,8 +161,8 @@ internal class EntityUpdateParamsTest {
                         .address(
                             EntityUpdateParams.Corporation.Address.builder()
                                 .city("New York")
-                                .country("US")
                                 .line1("33 Liberty Street")
+                                .country("US")
                                 .line2("Unit 2")
                                 .state("NY")
                                 .zip("10045")
@@ -204,8 +204,8 @@ internal class EntityUpdateParamsTest {
                         .address(
                             EntityUpdateParams.NaturalPerson.Address.builder()
                                 .city("x")
-                                .country("x")
                                 .line1("x")
+                                .country("x")
                                 .line2("x")
                                 .state("x")
                                 .zip("x")
@@ -293,8 +293,8 @@ internal class EntityUpdateParamsTest {
                     .address(
                         EntityUpdateParams.Corporation.Address.builder()
                             .city("New York")
-                            .country("US")
                             .line1("33 Liberty Street")
+                            .country("US")
                             .line2("Unit 2")
                             .state("NY")
                             .zip("10045")
@@ -339,8 +339,8 @@ internal class EntityUpdateParamsTest {
                     .address(
                         EntityUpdateParams.NaturalPerson.Address.builder()
                             .city("x")
-                            .country("x")
                             .line1("x")
+                            .country("x")
                             .line2("x")
                             .state("x")
                             .zip("x")

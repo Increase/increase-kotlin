@@ -7513,6 +7513,7 @@ private constructor(
     class Return
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val addendaInformation: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val rawReturnReasonCode: JsonField<String>,
         private val returnReasonCode: JsonField<ReturnReasonCode>,
@@ -7524,6 +7525,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("addenda_information")
+            @ExcludeMissing
+            addendaInformation: JsonField<String> = JsonMissing.of(),
             @JsonProperty("created_at")
             @ExcludeMissing
             createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -7543,6 +7547,7 @@ private constructor(
             @ExcludeMissing
             transferId: JsonField<String> = JsonMissing.of(),
         ) : this(
+            addendaInformation,
             createdAt,
             rawReturnReasonCode,
             returnReasonCode,
@@ -7551,6 +7556,18 @@ private constructor(
             transferId,
             mutableMapOf(),
         )
+
+        /**
+         * Additional free-form information included by the receiving bank in the return's addenda
+         * record. This is raw, uninterpreted text whose presence and format are not guaranteed. For
+         * a `file_record_edit_criteria` (R17) return the receiving bank may set this to
+         * `QUESTIONABLE` (optionally followed by more text) to indicate it believes the transfer
+         * was initiated under questionable circumstances.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun addendaInformation(): String? = addendaInformation.getNullable("addenda_information")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -7607,6 +7624,16 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun transferId(): String = transferId.getRequired("transfer_id")
+
+        /**
+         * Returns the raw JSON value of [addendaInformation].
+         *
+         * Unlike [addendaInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("addenda_information")
+        @ExcludeMissing
+        fun _addendaInformation(): JsonField<String> = addendaInformation
 
         /**
          * Returns the raw JSON value of [createdAt].
@@ -7684,6 +7711,7 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
+             * .addendaInformation()
              * .createdAt()
              * .rawReturnReasonCode()
              * .returnReasonCode()
@@ -7698,6 +7726,7 @@ private constructor(
         /** A builder for [Return]. */
         class Builder internal constructor() {
 
+            private var addendaInformation: JsonField<String>? = null
             private var createdAt: JsonField<OffsetDateTime>? = null
             private var rawReturnReasonCode: JsonField<String>? = null
             private var returnReasonCode: JsonField<ReturnReasonCode>? = null
@@ -7707,6 +7736,7 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(return_: Return) = apply {
+                addendaInformation = return_.addendaInformation
                 createdAt = return_.createdAt
                 rawReturnReasonCode = return_.rawReturnReasonCode
                 returnReasonCode = return_.returnReasonCode
@@ -7714,6 +7744,27 @@ private constructor(
                 transactionId = return_.transactionId
                 transferId = return_.transferId
                 additionalProperties = return_.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Additional free-form information included by the receiving bank in the return's
+             * addenda record. This is raw, uninterpreted text whose presence and format are not
+             * guaranteed. For a `file_record_edit_criteria` (R17) return the receiving bank may set
+             * this to `QUESTIONABLE` (optionally followed by more text) to indicate it believes the
+             * transfer was initiated under questionable circumstances.
+             */
+            fun addendaInformation(addendaInformation: String?) =
+                addendaInformation(JsonField.ofNullable(addendaInformation))
+
+            /**
+             * Sets [Builder.addendaInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addendaInformation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun addendaInformation(addendaInformation: JsonField<String>) = apply {
+                this.addendaInformation = addendaInformation
             }
 
             /**
@@ -7840,6 +7891,7 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
+             * .addendaInformation()
              * .createdAt()
              * .rawReturnReasonCode()
              * .returnReasonCode()
@@ -7852,6 +7904,7 @@ private constructor(
              */
             fun build(): Return =
                 Return(
+                    checkRequired("addendaInformation", addendaInformation),
                     checkRequired("createdAt", createdAt),
                     checkRequired("rawReturnReasonCode", rawReturnReasonCode),
                     checkRequired("returnReasonCode", returnReasonCode),
@@ -7878,6 +7931,7 @@ private constructor(
                 return@apply
             }
 
+            addendaInformation()
             createdAt()
             rawReturnReasonCode()
             returnReasonCode().validate()
@@ -7902,7 +7956,8 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (addendaInformation.asKnown() == null) 0 else 1) +
+                (if (createdAt.asKnown() == null) 0 else 1) +
                 (if (rawReturnReasonCode.asKnown() == null) 0 else 1) +
                 (returnReasonCode.asKnown()?.validity() ?: 0) +
                 (if (traceNumber.asKnown() == null) 0 else 1) +
@@ -8004,7 +8059,12 @@ private constructor(
                 /** Code R13. The routing number is invalid. */
                 val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
-                /** Code R17. The receiving bank is unable to process a field in the transfer. */
+                /**
+                 * Code R17. This return code has multiple meanings. The receiving bank was either
+                 * unable to process a field in the transfer, or believes the transfer was initiated
+                 * under questionable circumstances (such as fraud), or identified an
+                 * improperly-initiated reversing entry.
+                 */
                 val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
                 /** Code R45. A rare return reason. The individual name field was invalid. */
@@ -8359,7 +8419,12 @@ private constructor(
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
-                /** Code R17. The receiving bank is unable to process a field in the transfer. */
+                /**
+                 * Code R17. This return code has multiple meanings. The receiving bank was either
+                 * unable to process a field in the transfer, or believes the transfer was initiated
+                 * under questionable circumstances (such as fraud), or identified an
+                 * improperly-initiated reversing entry.
+                 */
                 FILE_RECORD_EDIT_CRITERIA,
                 /** Code R45. A rare return reason. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
@@ -8651,7 +8716,12 @@ private constructor(
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
-                /** Code R17. The receiving bank is unable to process a field in the transfer. */
+                /**
+                 * Code R17. This return code has multiple meanings. The receiving bank was either
+                 * unable to process a field in the transfer, or believes the transfer was initiated
+                 * under questionable circumstances (such as fraud), or identified an
+                 * improperly-initiated reversing entry.
+                 */
                 FILE_RECORD_EDIT_CRITERIA,
                 /** Code R45. A rare return reason. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
@@ -9158,6 +9228,7 @@ private constructor(
             }
 
             return other is Return &&
+                addendaInformation == other.addendaInformation &&
                 createdAt == other.createdAt &&
                 rawReturnReasonCode == other.rawReturnReasonCode &&
                 returnReasonCode == other.returnReasonCode &&
@@ -9169,6 +9240,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                addendaInformation,
                 createdAt,
                 rawReturnReasonCode,
                 returnReasonCode,
@@ -9182,7 +9254,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Return{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
+            "Return{addendaInformation=$addendaInformation, createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
     }
 
     /**
