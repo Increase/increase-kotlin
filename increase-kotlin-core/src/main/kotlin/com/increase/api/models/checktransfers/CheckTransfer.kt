@@ -3436,7 +3436,8 @@ private constructor(
         fun signature(): Signature = signature.getRequired("signature")
 
         /**
-         * Tracking updates relating to the physical check's delivery.
+         * Tracking updates relating to the physical check's delivery. Sorted by `created_at` in
+         * ascending order.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -3792,7 +3793,10 @@ private constructor(
              */
             fun signature(signature: JsonField<Signature>) = apply { this.signature = signature }
 
-            /** Tracking updates relating to the physical check's delivery. */
+            /**
+             * Tracking updates relating to the physical check's delivery. Sorted by `created_at` in
+             * ascending order.
+             */
             fun trackingUpdates(trackingUpdates: List<TrackingUpdate>) =
                 trackingUpdates(JsonField.of(trackingUpdates))
 
