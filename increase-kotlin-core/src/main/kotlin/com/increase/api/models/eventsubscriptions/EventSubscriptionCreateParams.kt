@@ -1129,6 +1129,14 @@ private constructor(
                 /** Occurs whenever an Inbound Mail Item is updated. */
                 val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
+                /** Occurs whenever an Inbound Real-Time Payments Request for Payment is created. */
+                val INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
+                    of("inbound_real_time_payments_request_for_payment.created")
+
+                /** Occurs whenever an Inbound Real-Time Payments Request for Payment is updated. */
+                val INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
+                    of("inbound_real_time_payments_request_for_payment.updated")
+
                 /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
                     of("inbound_real_time_payments_transfer.created")
@@ -1446,6 +1454,10 @@ private constructor(
                 INBOUND_MAIL_ITEM_CREATED,
                 /** Occurs whenever an Inbound Mail Item is updated. */
                 INBOUND_MAIL_ITEM_UPDATED,
+                /** Occurs whenever an Inbound Real-Time Payments Request for Payment is created. */
+                INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED,
+                /** Occurs whenever an Inbound Real-Time Payments Request for Payment is updated. */
+                INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED,
                 /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
                 /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
@@ -1705,6 +1717,10 @@ private constructor(
                 INBOUND_MAIL_ITEM_CREATED,
                 /** Occurs whenever an Inbound Mail Item is updated. */
                 INBOUND_MAIL_ITEM_UPDATED,
+                /** Occurs whenever an Inbound Real-Time Payments Request for Payment is created. */
+                INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED,
+                /** Occurs whenever an Inbound Real-Time Payments Request for Payment is updated. */
+                INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED,
                 /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
                 /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
@@ -1904,6 +1920,10 @@ private constructor(
                     INBOUND_FEDNOW_TRANSFER_UPDATED -> Value.INBOUND_FEDNOW_TRANSFER_UPDATED
                     INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
                     INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
+                    INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
+                    INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
@@ -2044,6 +2064,10 @@ private constructor(
                     INBOUND_FEDNOW_TRANSFER_UPDATED -> Known.INBOUND_FEDNOW_TRANSFER_UPDATED
                     INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
                     INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
+                    INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
+                    INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
