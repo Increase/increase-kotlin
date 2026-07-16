@@ -252,6 +252,46 @@ val params: FileCreateParams = FileCreateParams.builder()
 val file: File = client.files().create(params)
 ```
 
+## Binary responses
+
+The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
+
+These methods return [`HttpResponse`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/http/HttpResponse.kt):
+
+```kotlin
+import com.increase.api.core.http.HttpResponse
+import com.increase.api.models.files.FileContentsParams
+
+val response: HttpResponse = client.files().contents("file_makxrc67oh9l6sg7w9yc")
+```
+
+To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
+
+client.files().contents(params).use {
+    Files.copy(
+        it.body(),
+        Paths.get(path),
+        StandardCopyOption.REPLACE_EXISTING
+    )
+}
+```
+
+Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Paths
+
+client.files().contents(params).use {
+    it.body().transferTo(Files.newOutputStream(Paths.get(path)))
+}
+```
+
 ## Raw responses
 
 The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
