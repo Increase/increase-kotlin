@@ -16349,8 +16349,8 @@ private constructor(
             ) : this(address, dateOfBirth, identification, name, confirmedNoUsTaxId, mutableMapOf())
 
             /**
-             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
-             * are disallowed.
+             * The grantor's physical address. Mail receiving locations like PO Boxes and PMB's are
+             * disallowed.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -16359,7 +16359,7 @@ private constructor(
             fun address(): Address = address.getRequired("address")
 
             /**
-             * The person's date of birth in YYYY-MM-DD format.
+             * The grantor's date of birth in YYYY-MM-DD format.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -16377,7 +16377,7 @@ private constructor(
             fun identification(): Identification = identification.getRequired("identification")
 
             /**
-             * The person's legal name.
+             * The grantor's legal name.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -16488,8 +16488,8 @@ private constructor(
                 }
 
                 /**
-                 * The individual's physical address. Mail receiving locations like PO Boxes and
-                 * PMB's are disallowed.
+                 * The grantor's physical address. Mail receiving locations like PO Boxes and PMB's
+                 * are disallowed.
                  */
                 fun address(address: Address) = address(JsonField.of(address))
 
@@ -16502,7 +16502,7 @@ private constructor(
                  */
                 fun address(address: JsonField<Address>) = apply { this.address = address }
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /** The grantor's date of birth in YYYY-MM-DD format. */
                 fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
 
                 /**
@@ -16531,7 +16531,7 @@ private constructor(
                     this.identification = identification
                 }
 
-                /** The person's legal name. */
+                /** The grantor's legal name. */
                 fun name(name: String) = name(JsonField.of(name))
 
                 /**
@@ -16658,8 +16658,8 @@ private constructor(
                     (if (confirmedNoUsTaxId.asKnown() == null) 0 else 1)
 
             /**
-             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
-             * are disallowed.
+             * The grantor's physical address. Mail receiving locations like PO Boxes and PMB's are
+             * disallowed.
              */
             class Address
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)

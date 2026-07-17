@@ -9967,25 +9967,23 @@ private constructor(
             ) : this(address, dateOfBirth, identification, name, mutableMapOf())
 
             /**
-             * The person's address.
+             * The grantor's address.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun address(): Address = address.getRequired("address")
+            fun address(): Address? = address.getNullable("address")
 
             /**
-             * The person's date of birth in YYYY-MM-DD format.
+             * The grantor's date of birth in YYYY-MM-DD format.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
+            fun dateOfBirth(): LocalDate? = dateOfBirth.getNullable("date_of_birth")
 
             /**
-             * A means of verifying the person's identity.
+             * A means of verifying the grantor's identity.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -9993,7 +9991,7 @@ private constructor(
             fun identification(): Identification? = identification.getNullable("identification")
 
             /**
-             * The person's legal name.
+             * The grantor's legal name.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -10080,8 +10078,8 @@ private constructor(
                     additionalProperties = grantor.additionalProperties.toMutableMap()
                 }
 
-                /** The person's address. */
-                fun address(address: Address) = address(JsonField.of(address))
+                /** The grantor's address. */
+                fun address(address: Address?) = address(JsonField.ofNullable(address))
 
                 /**
                  * Sets [Builder.address] to an arbitrary JSON value.
@@ -10092,8 +10090,9 @@ private constructor(
                  */
                 fun address(address: JsonField<Address>) = apply { this.address = address }
 
-                /** The person's date of birth in YYYY-MM-DD format. */
-                fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
+                /** The grantor's date of birth in YYYY-MM-DD format. */
+                fun dateOfBirth(dateOfBirth: LocalDate?) =
+                    dateOfBirth(JsonField.ofNullable(dateOfBirth))
 
                 /**
                  * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
@@ -10106,7 +10105,7 @@ private constructor(
                     this.dateOfBirth = dateOfBirth
                 }
 
-                /** A means of verifying the person's identity. */
+                /** A means of verifying the grantor's identity. */
                 fun identification(identification: Identification?) =
                     identification(JsonField.ofNullable(identification))
 
@@ -10121,7 +10120,7 @@ private constructor(
                     this.identification = identification
                 }
 
-                /** The person's legal name. */
+                /** The grantor's legal name. */
                 fun name(name: String) = name(JsonField.of(name))
 
                 /**
@@ -10197,7 +10196,7 @@ private constructor(
                     return@apply
                 }
 
-                address().validate()
+                address()?.validate()
                 dateOfBirth()
                 identification()?.validate()
                 name()
@@ -10224,7 +10223,7 @@ private constructor(
                     (identification.asKnown()?.validity() ?: 0) +
                     (if (name.asKnown() == null) 0 else 1)
 
-            /** The person's address. */
+            /** The grantor's address. */
             class Address
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
@@ -10605,7 +10604,7 @@ private constructor(
                     "Address{city=$city, country=$country, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
             }
 
-            /** A means of verifying the person's identity. */
+            /** A means of verifying the grantor's identity. */
             class Identification
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
@@ -10625,7 +10624,7 @@ private constructor(
                 ) : this(method, numberLast4, mutableMapOf())
 
                 /**
-                 * A method that can be used to verify the individual's identity.
+                 * A method that can be used to verify the grantor's identity.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -10635,7 +10634,7 @@ private constructor(
 
                 /**
                  * The last 4 digits of the identification number that can be used to verify the
-                 * individual's identity.
+                 * grantor's identity.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -10700,7 +10699,7 @@ private constructor(
                         additionalProperties = identification.additionalProperties.toMutableMap()
                     }
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /** A method that can be used to verify the grantor's identity. */
                     fun method(method: Method) = method(JsonField.of(method))
 
                     /**
@@ -10714,7 +10713,7 @@ private constructor(
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
-                     * individual's identity.
+                     * grantor's identity.
                      */
                     fun numberLast4(numberLast4: String) = numberLast4(JsonField.of(numberLast4))
 
@@ -10812,7 +10811,7 @@ private constructor(
                     (method.asKnown()?.validity() ?: 0) +
                         (if (numberLast4.asKnown() == null) 0 else 1)
 
-                /** A method that can be used to verify the individual's identity. */
+                /** A method that can be used to verify the grantor's identity. */
                 class Method
                 @JsonCreator
                 private constructor(private val value: JsonField<String>) : Enum {
