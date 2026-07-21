@@ -23,6 +23,7 @@ private constructor(
     private val achTransfers: JsonField<AchTransfers>,
     private val fednowTransfers: JsonField<FednowTransfers>,
     private val name: JsonField<String>,
+    private val realTimePaymentsRequestForPayment: JsonField<RealTimePaymentsRequestForPayment>,
     private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
     private val routingNumber: JsonField<String>,
     private val type: JsonField<Type>,
@@ -39,6 +40,10 @@ private constructor(
         @ExcludeMissing
         fednowTransfers: JsonField<FednowTransfers> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("real_time_payments_request_for_payment")
+        @ExcludeMissing
+        realTimePaymentsRequestForPayment: JsonField<RealTimePaymentsRequestForPayment> =
+            JsonMissing.of(),
         @JsonProperty("real_time_payments_transfers")
         @ExcludeMissing
         realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> = JsonMissing.of(),
@@ -53,6 +58,7 @@ private constructor(
         achTransfers,
         fednowTransfers,
         name,
+        realTimePaymentsRequestForPayment,
         realTimePaymentsTransfers,
         routingNumber,
         type,
@@ -83,6 +89,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
+
+    /**
+     * This routing number's support for Real-Time Payments Requests for Payment.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun realTimePaymentsRequestForPayment(): RealTimePaymentsRequestForPayment =
+        realTimePaymentsRequestForPayment.getRequired("real_time_payments_request_for_payment")
 
     /**
      * This routing number's support for Real-Time Payments Transfers.
@@ -144,6 +159,17 @@ private constructor(
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
+     * Returns the raw JSON value of [realTimePaymentsRequestForPayment].
+     *
+     * Unlike [realTimePaymentsRequestForPayment], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("real_time_payments_request_for_payment")
+    @ExcludeMissing
+    fun _realTimePaymentsRequestForPayment(): JsonField<RealTimePaymentsRequestForPayment> =
+        realTimePaymentsRequestForPayment
+
+    /**
      * Returns the raw JSON value of [realTimePaymentsTransfers].
      *
      * Unlike [realTimePaymentsTransfers], this method doesn't throw if the JSON field has an
@@ -201,6 +227,7 @@ private constructor(
          * .achTransfers()
          * .fednowTransfers()
          * .name()
+         * .realTimePaymentsRequestForPayment()
          * .realTimePaymentsTransfers()
          * .routingNumber()
          * .type()
@@ -216,6 +243,9 @@ private constructor(
         private var achTransfers: JsonField<AchTransfers>? = null
         private var fednowTransfers: JsonField<FednowTransfers>? = null
         private var name: JsonField<String>? = null
+        private var realTimePaymentsRequestForPayment:
+            JsonField<RealTimePaymentsRequestForPayment>? =
+            null
         private var realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>? = null
         private var routingNumber: JsonField<String>? = null
         private var type: JsonField<Type>? = null
@@ -226,6 +256,8 @@ private constructor(
             achTransfers = routingNumberListResponse.achTransfers
             fednowTransfers = routingNumberListResponse.fednowTransfers
             name = routingNumberListResponse.name
+            realTimePaymentsRequestForPayment =
+                routingNumberListResponse.realTimePaymentsRequestForPayment
             realTimePaymentsTransfers = routingNumberListResponse.realTimePaymentsTransfers
             routingNumber = routingNumberListResponse.routingNumber
             type = routingNumberListResponse.type
@@ -272,6 +304,22 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
+
+        /** This routing number's support for Real-Time Payments Requests for Payment. */
+        fun realTimePaymentsRequestForPayment(
+            realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment
+        ) = realTimePaymentsRequestForPayment(JsonField.of(realTimePaymentsRequestForPayment))
+
+        /**
+         * Sets [Builder.realTimePaymentsRequestForPayment] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.realTimePaymentsRequestForPayment] with a well-typed
+         * [RealTimePaymentsRequestForPayment] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
+        fun realTimePaymentsRequestForPayment(
+            realTimePaymentsRequestForPayment: JsonField<RealTimePaymentsRequestForPayment>
+        ) = apply { this.realTimePaymentsRequestForPayment = realTimePaymentsRequestForPayment }
 
         /** This routing number's support for Real-Time Payments Transfers. */
         fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) =
@@ -359,6 +407,7 @@ private constructor(
          * .achTransfers()
          * .fednowTransfers()
          * .name()
+         * .realTimePaymentsRequestForPayment()
          * .realTimePaymentsTransfers()
          * .routingNumber()
          * .type()
@@ -372,6 +421,10 @@ private constructor(
                 checkRequired("achTransfers", achTransfers),
                 checkRequired("fednowTransfers", fednowTransfers),
                 checkRequired("name", name),
+                checkRequired(
+                    "realTimePaymentsRequestForPayment",
+                    realTimePaymentsRequestForPayment,
+                ),
                 checkRequired("realTimePaymentsTransfers", realTimePaymentsTransfers),
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("type", type),
@@ -398,6 +451,7 @@ private constructor(
         achTransfers().validate()
         fednowTransfers().validate()
         name()
+        realTimePaymentsRequestForPayment().validate()
         realTimePaymentsTransfers().validate()
         routingNumber()
         type().validate()
@@ -422,6 +476,7 @@ private constructor(
         (achTransfers.asKnown()?.validity() ?: 0) +
             (fednowTransfers.asKnown()?.validity() ?: 0) +
             (if (name.asKnown() == null) 0 else 1) +
+            (realTimePaymentsRequestForPayment.asKnown()?.validity() ?: 0) +
             (realTimePaymentsTransfers.asKnown()?.validity() ?: 0) +
             (if (routingNumber.asKnown() == null) 0 else 1) +
             (type.asKnown()?.validity() ?: 0) +
@@ -709,6 +764,157 @@ private constructor(
             }
 
             return other is FednowTransfers && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** This routing number's support for Real-Time Payments Requests for Payment. */
+    class RealTimePaymentsRequestForPayment
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** The routing number can receive this transfer type. */
+            val SUPPORTED = of("supported")
+
+            /** The routing number cannot receive this transfer type. */
+            val NOT_SUPPORTED = of("not_supported")
+
+            fun of(value: String) = RealTimePaymentsRequestForPayment(JsonField.of(value))
+        }
+
+        /** An enum containing [RealTimePaymentsRequestForPayment]'s known values. */
+        enum class Known {
+            /** The routing number can receive this transfer type. */
+            SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
+            NOT_SUPPORTED,
+        }
+
+        /**
+         * An enum containing [RealTimePaymentsRequestForPayment]'s known values, as well as an
+         * [_UNKNOWN] member.
+         *
+         * An instance of [RealTimePaymentsRequestForPayment] can contain an unknown value in a
+         * couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** The routing number can receive this transfer type. */
+            SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
+            NOT_SUPPORTED,
+            /**
+             * An enum member indicating that [RealTimePaymentsRequestForPayment] was instantiated
+             * with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SUPPORTED -> Value.SUPPORTED
+                NOT_SUPPORTED -> Value.NOT_SUPPORTED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SUPPORTED -> Known.SUPPORTED
+                NOT_SUPPORTED -> Known.NOT_SUPPORTED
+                else ->
+                    throw IncreaseInvalidDataException(
+                        "Unknown RealTimePaymentsRequestForPayment: $value"
+                    )
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RealTimePaymentsRequestForPayment = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RealTimePaymentsRequestForPayment && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1151,6 +1357,7 @@ private constructor(
             achTransfers == other.achTransfers &&
             fednowTransfers == other.fednowTransfers &&
             name == other.name &&
+            realTimePaymentsRequestForPayment == other.realTimePaymentsRequestForPayment &&
             realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
             routingNumber == other.routingNumber &&
             type == other.type &&
@@ -1163,6 +1370,7 @@ private constructor(
             achTransfers,
             fednowTransfers,
             name,
+            realTimePaymentsRequestForPayment,
             realTimePaymentsTransfers,
             routingNumber,
             type,
@@ -1174,5 +1382,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RoutingNumberListResponse{achTransfers=$achTransfers, fednowTransfers=$fednowTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
+        "RoutingNumberListResponse{achTransfers=$achTransfers, fednowTransfers=$fednowTransfers, name=$name, realTimePaymentsRequestForPayment=$realTimePaymentsRequestForPayment, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
 }
