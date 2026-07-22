@@ -61,7 +61,7 @@ private constructor(
     fun accountHolder(): AccountHolder? = body.accountHolder()
 
     /**
-     * The type of the destination account. Defaults to `checking`.
+     * The type of the destination account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -214,7 +214,7 @@ private constructor(
             body.accountHolder(accountHolder)
         }
 
-        /** The type of the destination account. Defaults to `checking`. */
+        /** The type of the destination account. */
         fun funding(funding: Funding) = apply { body.funding(funding) }
 
         /**
@@ -432,7 +432,7 @@ private constructor(
         fun accountHolder(): AccountHolder? = accountHolder.getNullable("account_holder")
 
         /**
-         * The type of the destination account. Defaults to `checking`.
+         * The type of the destination account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -591,7 +591,7 @@ private constructor(
                 this.accountHolder = accountHolder
             }
 
-            /** The type of the destination account. Defaults to `checking`. */
+            /** The type of the destination account. */
             fun funding(funding: Funding) = funding(JsonField.of(funding))
 
             /**
@@ -877,7 +877,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The type of the destination account. Defaults to `checking`. */
+    /** The type of the destination account. */
     class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
