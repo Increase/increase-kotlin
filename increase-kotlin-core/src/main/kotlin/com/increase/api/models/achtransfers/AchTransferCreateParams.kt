@@ -142,6 +142,8 @@ private constructor(
     /**
      * The type of the receiver's bank account.
      *
+     * Defaults to `checking`.
+     *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -601,7 +603,11 @@ private constructor(
             body.externalAccountId(externalAccountId)
         }
 
-        /** The type of the receiver's bank account. */
+        /**
+         * The type of the receiver's bank account.
+         *
+         * Defaults to `checking`.
+         */
         fun funding(funding: Funding) = apply { body.funding(funding) }
 
         /**
@@ -1099,6 +1105,8 @@ private constructor(
 
         /**
          * The type of the receiver's bank account.
+         *
+         * Defaults to `checking`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1619,7 +1627,11 @@ private constructor(
                 this.externalAccountId = externalAccountId
             }
 
-            /** The type of the receiver's bank account. */
+            /**
+             * The type of the receiver's bank account.
+             *
+             * Defaults to `checking`.
+             */
             fun funding(funding: Funding) = funding(JsonField.of(funding))
 
             /**
