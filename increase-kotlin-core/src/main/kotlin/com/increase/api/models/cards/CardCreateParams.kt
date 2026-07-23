@@ -54,6 +54,15 @@ private constructor(
     fun billingAddress(): BillingAddress? = body.billingAddress()
 
     /**
+     * The name of the cardholder. Used to respond to Account Name Inquiry requests from acquirers
+     * in Card Validations.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun cardholderName(): CardholderName? = body.cardholderName()
+
+    /**
      * The description you choose to give the card.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -102,6 +111,13 @@ private constructor(
      * Unlike [billingAddress], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _billingAddress(): JsonField<BillingAddress> = body._billingAddress()
+
+    /**
+     * Returns the raw JSON value of [cardholderName].
+     *
+     * Unlike [cardholderName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _cardholderName(): JsonField<CardholderName> = body._cardholderName()
 
     /**
      * Returns the raw JSON value of [description].
@@ -168,8 +184,8 @@ private constructor(
          * - [accountId]
          * - [authorizationControls]
          * - [billingAddress]
+         * - [cardholderName]
          * - [description]
-         * - [digitalWallet]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -216,6 +232,25 @@ private constructor(
          */
         fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
             body.billingAddress(billingAddress)
+        }
+
+        /**
+         * The name of the cardholder. Used to respond to Account Name Inquiry requests from
+         * acquirers in Card Validations.
+         */
+        fun cardholderName(cardholderName: CardholderName) = apply {
+            body.cardholderName(cardholderName)
+        }
+
+        /**
+         * Sets [Builder.cardholderName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardholderName] with a well-typed [CardholderName] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun cardholderName(cardholderName: JsonField<CardholderName>) = apply {
+            body.cardholderName(cardholderName)
         }
 
         /** The description you choose to give the card. */
@@ -410,6 +445,7 @@ private constructor(
         private val accountId: JsonField<String>,
         private val authorizationControls: JsonField<AuthorizationControls>,
         private val billingAddress: JsonField<BillingAddress>,
+        private val cardholderName: JsonField<CardholderName>,
         private val description: JsonField<String>,
         private val digitalWallet: JsonField<DigitalWallet>,
         private val entityId: JsonField<String>,
@@ -427,6 +463,9 @@ private constructor(
             @JsonProperty("billing_address")
             @ExcludeMissing
             billingAddress: JsonField<BillingAddress> = JsonMissing.of(),
+            @JsonProperty("cardholder_name")
+            @ExcludeMissing
+            cardholderName: JsonField<CardholderName> = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
@@ -440,6 +479,7 @@ private constructor(
             accountId,
             authorizationControls,
             billingAddress,
+            cardholderName,
             description,
             digitalWallet,
             entityId,
@@ -470,6 +510,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun billingAddress(): BillingAddress? = billingAddress.getNullable("billing_address")
+
+        /**
+         * The name of the cardholder. Used to respond to Account Name Inquiry requests from
+         * acquirers in Card Validations.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardholderName(): CardholderName? = cardholderName.getNullable("cardholder_name")
 
         /**
          * The description you choose to give the card.
@@ -525,6 +574,16 @@ private constructor(
         @JsonProperty("billing_address")
         @ExcludeMissing
         fun _billingAddress(): JsonField<BillingAddress> = billingAddress
+
+        /**
+         * Returns the raw JSON value of [cardholderName].
+         *
+         * Unlike [cardholderName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("cardholder_name")
+        @ExcludeMissing
+        fun _cardholderName(): JsonField<CardholderName> = cardholderName
 
         /**
          * Returns the raw JSON value of [description].
@@ -583,6 +642,7 @@ private constructor(
             private var accountId: JsonField<String>? = null
             private var authorizationControls: JsonField<AuthorizationControls> = JsonMissing.of()
             private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
+            private var cardholderName: JsonField<CardholderName> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
             private var entityId: JsonField<String> = JsonMissing.of()
@@ -592,6 +652,7 @@ private constructor(
                 accountId = body.accountId
                 authorizationControls = body.authorizationControls
                 billingAddress = body.billingAddress
+                cardholderName = body.cardholderName
                 description = body.description
                 digitalWallet = body.digitalWallet
                 entityId = body.entityId
@@ -639,6 +700,24 @@ private constructor(
              */
             fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
                 this.billingAddress = billingAddress
+            }
+
+            /**
+             * The name of the cardholder. Used to respond to Account Name Inquiry requests from
+             * acquirers in Card Validations.
+             */
+            fun cardholderName(cardholderName: CardholderName) =
+                cardholderName(JsonField.of(cardholderName))
+
+            /**
+             * Sets [Builder.cardholderName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardholderName] with a well-typed [CardholderName]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun cardholderName(cardholderName: JsonField<CardholderName>) = apply {
+                this.cardholderName = cardholderName
             }
 
             /** The description you choose to give the card. */
@@ -727,6 +806,7 @@ private constructor(
                     checkRequired("accountId", accountId),
                     authorizationControls,
                     billingAddress,
+                    cardholderName,
                     description,
                     digitalWallet,
                     entityId,
@@ -753,6 +833,7 @@ private constructor(
             accountId()
             authorizationControls()?.validate()
             billingAddress()?.validate()
+            cardholderName()?.validate()
             description()
             digitalWallet()?.validate()
             entityId()
@@ -777,6 +858,7 @@ private constructor(
             (if (accountId.asKnown() == null) 0 else 1) +
                 (authorizationControls.asKnown()?.validity() ?: 0) +
                 (billingAddress.asKnown()?.validity() ?: 0) +
+                (cardholderName.asKnown()?.validity() ?: 0) +
                 (if (description.asKnown() == null) 0 else 1) +
                 (digitalWallet.asKnown()?.validity() ?: 0) +
                 (if (entityId.asKnown() == null) 0 else 1)
@@ -790,6 +872,7 @@ private constructor(
                 accountId == other.accountId &&
                 authorizationControls == other.authorizationControls &&
                 billingAddress == other.billingAddress &&
+                cardholderName == other.cardholderName &&
                 description == other.description &&
                 digitalWallet == other.digitalWallet &&
                 entityId == other.entityId &&
@@ -801,6 +884,7 @@ private constructor(
                 accountId,
                 authorizationControls,
                 billingAddress,
+                cardholderName,
                 description,
                 digitalWallet,
                 entityId,
@@ -811,7 +895,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, cardholderName=$cardholderName, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
     /** Controls that restrict how this card can be used. */
@@ -5102,6 +5186,252 @@ private constructor(
 
         override fun toString() =
             "BillingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The name of the cardholder. Used to respond to Account Name Inquiry requests from acquirers
+     * in Card Validations.
+     */
+    class CardholderName
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val first: JsonField<String>,
+        private val last: JsonField<String>,
+        private val middle: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("first") @ExcludeMissing first: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("last") @ExcludeMissing last: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("middle") @ExcludeMissing middle: JsonField<String> = JsonMissing.of(),
+        ) : this(first, last, middle, mutableMapOf())
+
+        /**
+         * The cardholder's first name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun first(): String = first.getRequired("first")
+
+        /**
+         * The cardholder's last name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun last(): String = last.getRequired("last")
+
+        /**
+         * The cardholder's middle name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun middle(): String? = middle.getNullable("middle")
+
+        /**
+         * Returns the raw JSON value of [first].
+         *
+         * Unlike [first], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("first") @ExcludeMissing fun _first(): JsonField<String> = first
+
+        /**
+         * Returns the raw JSON value of [last].
+         *
+         * Unlike [last], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("last") @ExcludeMissing fun _last(): JsonField<String> = last
+
+        /**
+         * Returns the raw JSON value of [middle].
+         *
+         * Unlike [middle], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("middle") @ExcludeMissing fun _middle(): JsonField<String> = middle
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [CardholderName].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .first()
+             * .last()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [CardholderName]. */
+        class Builder internal constructor() {
+
+            private var first: JsonField<String>? = null
+            private var last: JsonField<String>? = null
+            private var middle: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(cardholderName: CardholderName) = apply {
+                first = cardholderName.first
+                last = cardholderName.last
+                middle = cardholderName.middle
+                additionalProperties = cardholderName.additionalProperties.toMutableMap()
+            }
+
+            /** The cardholder's first name. */
+            fun first(first: String) = first(JsonField.of(first))
+
+            /**
+             * Sets [Builder.first] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.first] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun first(first: JsonField<String>) = apply { this.first = first }
+
+            /** The cardholder's last name. */
+            fun last(last: String) = last(JsonField.of(last))
+
+            /**
+             * Sets [Builder.last] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.last] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun last(last: JsonField<String>) = apply { this.last = last }
+
+            /** The cardholder's middle name. */
+            fun middle(middle: String) = middle(JsonField.of(middle))
+
+            /**
+             * Sets [Builder.middle] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.middle] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun middle(middle: JsonField<String>) = apply { this.middle = middle }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CardholderName].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .first()
+             * .last()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): CardholderName =
+                CardholderName(
+                    checkRequired("first", first),
+                    checkRequired("last", last),
+                    middle,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): CardholderName = apply {
+            if (validated) {
+                return@apply
+            }
+
+            first()
+            last()
+            middle()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (first.asKnown() == null) 0 else 1) +
+                (if (last.asKnown() == null) 0 else 1) +
+                (if (middle.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CardholderName &&
+                first == other.first &&
+                last == other.last &&
+                middle == other.middle &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(first, last, middle, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CardholderName{first=$first, last=$last, middle=$middle, additionalProperties=$additionalProperties}"
     }
 
     /**
