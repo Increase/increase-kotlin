@@ -8366,10 +8366,10 @@ private constructor(
         /**
          * The IP address the Entity accessed reviewed the terms from.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun ipAddress(): String = ipAddress.getRequired("ip_address")
+        fun ipAddress(): String? = ipAddress.getNullable("ip_address")
 
         /**
          * The URL of the terms agreement. This link will be provided by your bank partner.
@@ -8457,7 +8457,7 @@ private constructor(
             fun agreedAt(agreedAt: JsonField<OffsetDateTime>) = apply { this.agreedAt = agreedAt }
 
             /** The IP address the Entity accessed reviewed the terms from. */
-            fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+            fun ipAddress(ipAddress: String?) = ipAddress(JsonField.ofNullable(ipAddress))
 
             /**
              * Sets [Builder.ipAddress] to an arbitrary JSON value.
