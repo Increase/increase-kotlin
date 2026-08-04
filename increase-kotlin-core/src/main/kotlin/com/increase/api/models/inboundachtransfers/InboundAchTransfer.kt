@@ -3251,7 +3251,7 @@ private constructor(
 
         /**
          * An identifier for the originating bank. One of an International Bank Account Number
-         * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic identifier
+         * (IBAN) bank identifier, Swift Bank Identification Code (BIC), or a domestic identifier
          * like a US Routing Number.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -3444,7 +3444,7 @@ private constructor(
 
         /**
          * An identifier for the receiving bank. One of an International Bank Account Number (IBAN)
-         * bank identifier, SWIFT Bank Identification Code (BIC), or a domestic identifier like a US
+         * bank identifier, Swift Bank Identification Code (BIC), or a domestic identifier like a US
          * Routing Number.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -4159,7 +4159,7 @@ private constructor(
 
             /**
              * An identifier for the originating bank. One of an International Bank Account Number
-             * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic
+             * (IBAN) bank identifier, Swift Bank Identification Code (BIC), or a domestic
              * identifier like a US Routing Number.
              */
             fun originatingDepositoryFinancialInstitutionId(
@@ -4518,7 +4518,7 @@ private constructor(
 
             /**
              * An identifier for the receiving bank. One of an International Bank Account Number
-             * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic
+             * (IBAN) bank identifier, Swift Bank Identification Code (BIC), or a domestic
              * identifier like a US Routing Number.
              */
             fun receivingDepositoryFinancialInstitutionId(
@@ -5532,7 +5532,7 @@ private constructor(
                  */
                 val NATIONAL_CLEARING_SYSTEM_NUMBER = of("national_clearing_system_number")
 
-                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
+                /** The Swift Bank Identifier Code (BIC) of the bank. */
                 val BIC_CODE = of("bic_code")
 
                 /** An International Bank Account Number. */
@@ -5552,7 +5552,7 @@ private constructor(
                  * Banking Association (ABA) routing number.
                  */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
-                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
+                /** The Swift Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
                 /** An International Bank Account Number. */
                 IBAN,
@@ -5575,7 +5575,7 @@ private constructor(
                  * Banking Association (ABA) routing number.
                  */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
-                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
+                /** The Swift Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
                 /** An International Bank Account Number. */
                 IBAN,
@@ -5711,7 +5711,7 @@ private constructor(
                  */
                 val NATIONAL_CLEARING_SYSTEM_NUMBER = of("national_clearing_system_number")
 
-                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
+                /** The Swift Bank Identifier Code (BIC) of the bank. */
                 val BIC_CODE = of("bic_code")
 
                 /** An International Bank Account Number. */
@@ -5731,7 +5731,7 @@ private constructor(
                  * Banking Association (ABA) routing number.
                  */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
-                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
+                /** The Swift Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
                 /** An International Bank Account Number. */
                 IBAN,
@@ -5754,7 +5754,7 @@ private constructor(
                  * Banking Association (ABA) routing number.
                  */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
-                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
+                /** The Swift Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
                 /** An International Bank Account Number. */
                 IBAN,
