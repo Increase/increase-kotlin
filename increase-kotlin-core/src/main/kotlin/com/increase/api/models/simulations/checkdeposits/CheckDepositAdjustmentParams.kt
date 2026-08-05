@@ -44,8 +44,9 @@ private constructor(
     fun amount(): Long? = body.amount()
 
     /**
-     * The reason for the adjustment. Defaults to `non_conforming_item`, which is often used for a
-     * low quality image that the recipient wasn't able to handle.
+     * The reason for the adjustment.
+     *
+     * Defaults to `non_conforming_item`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -130,8 +131,9 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
-         * The reason for the adjustment. Defaults to `non_conforming_item`, which is often used for
-         * a low quality image that the recipient wasn't able to handle.
+         * The reason for the adjustment.
+         *
+         * Defaults to `non_conforming_item`.
          */
         fun reason(reason: Reason) = apply { body.reason(reason) }
 
@@ -311,8 +313,9 @@ private constructor(
         fun amount(): Long? = amount.getNullable("amount")
 
         /**
-         * The reason for the adjustment. Defaults to `non_conforming_item`, which is often used for
-         * a low quality image that the recipient wasn't able to handle.
+         * The reason for the adjustment.
+         *
+         * Defaults to `non_conforming_item`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -382,8 +385,9 @@ private constructor(
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
-             * The reason for the adjustment. Defaults to `non_conforming_item`, which is often used
-             * for a low quality image that the recipient wasn't able to handle.
+             * The reason for the adjustment.
+             *
+             * Defaults to `non_conforming_item`.
              */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
@@ -480,10 +484,7 @@ private constructor(
             "Body{amount=$amount, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * The reason for the adjustment. Defaults to `non_conforming_item`, which is often used for a
-     * low quality image that the recipient wasn't able to handle.
-     */
+    /** The reason for the adjustment. */
     class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
