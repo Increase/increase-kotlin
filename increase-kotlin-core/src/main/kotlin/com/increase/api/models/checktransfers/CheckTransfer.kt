@@ -3288,6 +3288,7 @@ private constructor(
         private val memo: JsonField<String>,
         private val note: JsonField<String>,
         private val payer: JsonField<List<Payer>>,
+        private val physicalCheckBatchId: JsonField<String>,
         private val recipientName: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val returnAddressName: JsonField<String>,
@@ -3311,6 +3312,9 @@ private constructor(
             @JsonProperty("memo") @ExcludeMissing memo: JsonField<String> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
             @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
+            @JsonProperty("physical_check_batch_id")
+            @ExcludeMissing
+            physicalCheckBatchId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("recipient_name")
             @ExcludeMissing
             recipientName: JsonField<String> = JsonMissing.of(),
@@ -3336,6 +3340,7 @@ private constructor(
             memo,
             note,
             payer,
+            physicalCheckBatchId,
             recipientName,
             returnAddress,
             returnAddressName,
@@ -3394,6 +3399,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun payer(): List<Payer> = payer.getRequired("payer")
+
+        /**
+         * The identifier of the Physical Check Batch that this check is a part of.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun physicalCheckBatchId(): String? =
+            physicalCheckBatchId.getNullable("physical_check_batch_id")
 
         /**
          * The name that will be printed on the check.
@@ -3497,6 +3511,16 @@ private constructor(
         @JsonProperty("payer") @ExcludeMissing fun _payer(): JsonField<List<Payer>> = payer
 
         /**
+         * Returns the raw JSON value of [physicalCheckBatchId].
+         *
+         * Unlike [physicalCheckBatchId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("physical_check_batch_id")
+        @ExcludeMissing
+        fun _physicalCheckBatchId(): JsonField<String> = physicalCheckBatchId
+
+        /**
          * Returns the raw JSON value of [recipientName].
          *
          * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
@@ -3580,6 +3604,7 @@ private constructor(
              * .memo()
              * .note()
              * .payer()
+             * .physicalCheckBatchId()
              * .recipientName()
              * .returnAddress()
              * .returnAddressName()
@@ -3600,6 +3625,7 @@ private constructor(
             private var memo: JsonField<String>? = null
             private var note: JsonField<String>? = null
             private var payer: JsonField<MutableList<Payer>>? = null
+            private var physicalCheckBatchId: JsonField<String>? = null
             private var recipientName: JsonField<String>? = null
             private var returnAddress: JsonField<ReturnAddress>? = null
             private var returnAddressName: JsonField<String>? = null
@@ -3615,6 +3641,7 @@ private constructor(
                 memo = physicalCheck.memo
                 note = physicalCheck.note
                 payer = physicalCheck.payer.map { it.toMutableList() }
+                physicalCheckBatchId = physicalCheck.physicalCheckBatchId
                 recipientName = physicalCheck.recipientName
                 returnAddress = physicalCheck.returnAddress
                 returnAddressName = physicalCheck.returnAddressName
@@ -3720,6 +3747,21 @@ private constructor(
                     (this.payer ?: JsonField.of(mutableListOf())).also {
                         checkKnown("payer", it).add(payer)
                     }
+            }
+
+            /** The identifier of the Physical Check Batch that this check is a part of. */
+            fun physicalCheckBatchId(physicalCheckBatchId: String?) =
+                physicalCheckBatchId(JsonField.ofNullable(physicalCheckBatchId))
+
+            /**
+             * Sets [Builder.physicalCheckBatchId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.physicalCheckBatchId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun physicalCheckBatchId(physicalCheckBatchId: JsonField<String>) = apply {
+                this.physicalCheckBatchId = physicalCheckBatchId
             }
 
             /** The name that will be printed on the check. */
@@ -3855,6 +3897,7 @@ private constructor(
              * .memo()
              * .note()
              * .payer()
+             * .physicalCheckBatchId()
              * .recipientName()
              * .returnAddress()
              * .returnAddressName()
@@ -3873,6 +3916,7 @@ private constructor(
                     checkRequired("memo", memo),
                     checkRequired("note", note),
                     checkRequired("payer", payer).map { it.toImmutable() },
+                    checkRequired("physicalCheckBatchId", physicalCheckBatchId),
                     checkRequired("recipientName", recipientName),
                     checkRequired("returnAddress", returnAddress),
                     checkRequired("returnAddressName", returnAddressName),
@@ -3905,6 +3949,7 @@ private constructor(
             memo()
             note()
             payer().forEach { it.validate() }
+            physicalCheckBatchId()
             recipientName()
             returnAddress()?.validate()
             returnAddressName()
@@ -3935,6 +3980,7 @@ private constructor(
                 (if (memo.asKnown() == null) 0 else 1) +
                 (if (note.asKnown() == null) 0 else 1) +
                 (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (physicalCheckBatchId.asKnown() == null) 0 else 1) +
                 (if (recipientName.asKnown() == null) 0 else 1) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
                 (if (returnAddressName.asKnown() == null) 0 else 1) +
@@ -4965,16 +5011,10 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
-                 * (checks and attachments combined).
-                 */
+                /** USPS First Class */
                 val USPS_FIRST_CLASS = of("usps_first_class")
 
-                /**
-                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
-                 * and attachments combined).
-                 */
+                /** FedEx Overnight */
                 val FEDEX_OVERNIGHT = of("fedex_overnight")
 
                 fun of(value: String) = ShippingMethod(JsonField.of(value))
@@ -4982,15 +5022,9 @@ private constructor(
 
             /** An enum containing [ShippingMethod]'s known values. */
             enum class Known {
-                /**
-                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
-                 * (checks and attachments combined).
-                 */
+                /** USPS First Class */
                 USPS_FIRST_CLASS,
-                /**
-                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
-                 * and attachments combined).
-                 */
+                /** FedEx Overnight */
                 FEDEX_OVERNIGHT,
             }
 
@@ -5004,15 +5038,9 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /**
-                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
-                 * (checks and attachments combined).
-                 */
+                /** USPS First Class */
                 USPS_FIRST_CLASS,
-                /**
-                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
-                 * and attachments combined).
-                 */
+                /** FedEx Overnight */
                 FEDEX_OVERNIGHT,
                 /**
                  * An enum member indicating that [ShippingMethod] was instantiated with an unknown
@@ -5933,6 +5961,7 @@ private constructor(
                 memo == other.memo &&
                 note == other.note &&
                 payer == other.payer &&
+                physicalCheckBatchId == other.physicalCheckBatchId &&
                 recipientName == other.recipientName &&
                 returnAddress == other.returnAddress &&
                 returnAddressName == other.returnAddressName &&
@@ -5950,6 +5979,7 @@ private constructor(
                 memo,
                 note,
                 payer,
+                physicalCheckBatchId,
                 recipientName,
                 returnAddress,
                 returnAddressName,
@@ -5963,7 +5993,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, physicalCheckBatchId=$physicalCheckBatchId, recipientName=$recipientName, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */
@@ -5986,6 +6016,9 @@ private constructor(
 
             /** The transfer has been canceled. */
             val CANCELED = of("canceled")
+
+            /** The transfer is waiting for its Physical Check Batch to be completed. */
+            val PENDING_BATCH_COMPLETING = of("pending_batch_completing")
 
             /** The transfer is pending submission. */
             val PENDING_SUBMISSION = of("pending_submission")
@@ -6023,6 +6056,8 @@ private constructor(
             PENDING_APPROVAL,
             /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is waiting for its Physical Check Batch to be completed. */
+            PENDING_BATCH_COMPLETING,
             /** The transfer is pending submission. */
             PENDING_SUBMISSION,
             /** The transfer is pending review by Increase. */
@@ -6057,6 +6092,8 @@ private constructor(
             PENDING_APPROVAL,
             /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is waiting for its Physical Check Batch to be completed. */
+            PENDING_BATCH_COMPLETING,
             /** The transfer is pending submission. */
             PENDING_SUBMISSION,
             /** The transfer is pending review by Increase. */
@@ -6090,6 +6127,7 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 CANCELED -> Value.CANCELED
+                PENDING_BATCH_COMPLETING -> Value.PENDING_BATCH_COMPLETING
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
@@ -6115,6 +6153,7 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 CANCELED -> Known.CANCELED
+                PENDING_BATCH_COMPLETING -> Known.PENDING_BATCH_COMPLETING
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
