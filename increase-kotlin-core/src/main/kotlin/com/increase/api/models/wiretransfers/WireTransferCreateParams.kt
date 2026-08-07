@@ -1388,11 +1388,10 @@ private constructor(
             /**
              * Unstructured address lines.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun unstructured(): Unstructured = unstructured.getRequired("unstructured")
+            fun unstructured(): Unstructured? = unstructured.getNullable("unstructured")
 
             /**
              * Returns the raw JSON value of [unstructured].
@@ -1418,21 +1417,14 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Returns a mutable builder for constructing an instance of [Address].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 */
+                /** Returns a mutable builder for constructing an instance of [Address]. */
                 fun builder() = Builder()
             }
 
             /** A builder for [Address]. */
             class Builder internal constructor() {
 
-                private var unstructured: JsonField<Unstructured>? = null
+                private var unstructured: JsonField<Unstructured> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
@@ -1481,19 +1473,8 @@ private constructor(
                  * Returns an immutable instance of [Address].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Address =
-                    Address(
-                        checkRequired("unstructured", unstructured),
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): Address = Address(unstructured, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -1513,7 +1494,7 @@ private constructor(
                     return@apply
                 }
 
-                unstructured().validate()
+                unstructured()?.validate()
                 validated = true
             }
 
@@ -2887,11 +2868,10 @@ private constructor(
             /**
              * Unstructured address lines.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun unstructured(): Unstructured = unstructured.getRequired("unstructured")
+            fun unstructured(): Unstructured? = unstructured.getNullable("unstructured")
 
             /**
              * Returns the raw JSON value of [unstructured].
@@ -2917,21 +2897,14 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Returns a mutable builder for constructing an instance of [Address].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 */
+                /** Returns a mutable builder for constructing an instance of [Address]. */
                 fun builder() = Builder()
             }
 
             /** A builder for [Address]. */
             class Builder internal constructor() {
 
-                private var unstructured: JsonField<Unstructured>? = null
+                private var unstructured: JsonField<Unstructured> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
@@ -2980,19 +2953,8 @@ private constructor(
                  * Returns an immutable instance of [Address].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Address =
-                    Address(
-                        checkRequired("unstructured", unstructured),
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): Address = Address(unstructured, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -3012,7 +2974,7 @@ private constructor(
                     return@apply
                 }
 
-                unstructured().validate()
+                unstructured()?.validate()
                 validated = true
             }
 
