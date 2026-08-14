@@ -38,6 +38,7 @@ private constructor(
     private val debtorName: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val inboundRealTimePaymentsRequestForPaymentId: JsonField<String>,
     private val pendingTransactionId: JsonField<String>,
     private val rejection: JsonField<Rejection>,
     private val routingNumber: JsonField<String>,
@@ -86,6 +87,9 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("inbound_real_time_payments_request_for_payment_id")
+        @ExcludeMissing
+        inboundRealTimePaymentsRequestForPaymentId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -130,6 +134,7 @@ private constructor(
         debtorName,
         externalAccountId,
         idempotencyKey,
+        inboundRealTimePaymentsRequestForPaymentId,
         pendingTransactionId,
         rejection,
         routingNumber,
@@ -263,6 +268,18 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
+
+    /**
+     * The identifier of the Inbound Real-Time Payments Request for Payment this transfer was sent
+     * in response to, if any.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun inboundRealTimePaymentsRequestForPaymentId(): String? =
+        inboundRealTimePaymentsRequestForPaymentId.getNullable(
+            "inbound_real_time_payments_request_for_payment_id"
+        )
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -476,6 +493,17 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
+     * Returns the raw JSON value of [inboundRealTimePaymentsRequestForPaymentId].
+     *
+     * Unlike [inboundRealTimePaymentsRequestForPaymentId], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
+    @JsonProperty("inbound_real_time_payments_request_for_payment_id")
+    @ExcludeMissing
+    fun _inboundRealTimePaymentsRequestForPaymentId(): JsonField<String> =
+        inboundRealTimePaymentsRequestForPaymentId
+
+    /**
      * Returns the raw JSON value of [pendingTransactionId].
      *
      * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
@@ -606,6 +634,7 @@ private constructor(
          * .debtorName()
          * .externalAccountId()
          * .idempotencyKey()
+         * .inboundRealTimePaymentsRequestForPaymentId()
          * .pendingTransactionId()
          * .rejection()
          * .routingNumber()
@@ -639,6 +668,7 @@ private constructor(
         private var debtorName: JsonField<String>? = null
         private var externalAccountId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
+        private var inboundRealTimePaymentsRequestForPaymentId: JsonField<String>? = null
         private var pendingTransactionId: JsonField<String>? = null
         private var rejection: JsonField<Rejection>? = null
         private var routingNumber: JsonField<String>? = null
@@ -667,6 +697,8 @@ private constructor(
             debtorName = realTimePaymentsTransfer.debtorName
             externalAccountId = realTimePaymentsTransfer.externalAccountId
             idempotencyKey = realTimePaymentsTransfer.idempotencyKey
+            inboundRealTimePaymentsRequestForPaymentId =
+                realTimePaymentsTransfer.inboundRealTimePaymentsRequestForPaymentId
             pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
             rejection = realTimePaymentsTransfer.rejection
             routingNumber = realTimePaymentsTransfer.routingNumber
@@ -890,6 +922,31 @@ private constructor(
         }
 
         /**
+         * The identifier of the Inbound Real-Time Payments Request for Payment this transfer was
+         * sent in response to, if any.
+         */
+        fun inboundRealTimePaymentsRequestForPaymentId(
+            inboundRealTimePaymentsRequestForPaymentId: String?
+        ) =
+            inboundRealTimePaymentsRequestForPaymentId(
+                JsonField.ofNullable(inboundRealTimePaymentsRequestForPaymentId)
+            )
+
+        /**
+         * Sets [Builder.inboundRealTimePaymentsRequestForPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundRealTimePaymentsRequestForPaymentId] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun inboundRealTimePaymentsRequestForPaymentId(
+            inboundRealTimePaymentsRequestForPaymentId: JsonField<String>
+        ) = apply {
+            this.inboundRealTimePaymentsRequestForPaymentId =
+                inboundRealTimePaymentsRequestForPaymentId
+        }
+
+        /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
          * created when the transfer
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
@@ -1099,6 +1156,7 @@ private constructor(
          * .debtorName()
          * .externalAccountId()
          * .idempotencyKey()
+         * .inboundRealTimePaymentsRequestForPaymentId()
          * .pendingTransactionId()
          * .rejection()
          * .routingNumber()
@@ -1130,6 +1188,10 @@ private constructor(
                 checkRequired("debtorName", debtorName),
                 checkRequired("externalAccountId", externalAccountId),
                 checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired(
+                    "inboundRealTimePaymentsRequestForPaymentId",
+                    inboundRealTimePaymentsRequestForPaymentId,
+                ),
                 checkRequired("pendingTransactionId", pendingTransactionId),
                 checkRequired("rejection", rejection),
                 checkRequired("routingNumber", routingNumber),
@@ -1177,6 +1239,7 @@ private constructor(
         debtorName()
         externalAccountId()
         idempotencyKey()
+        inboundRealTimePaymentsRequestForPaymentId()
         pendingTransactionId()
         rejection()?.validate()
         routingNumber()
@@ -1219,6 +1282,7 @@ private constructor(
             (if (debtorName.asKnown() == null) 0 else 1) +
             (if (externalAccountId.asKnown() == null) 0 else 1) +
             (if (idempotencyKey.asKnown() == null) 0 else 1) +
+            (if (inboundRealTimePaymentsRequestForPaymentId.asKnown() == null) 0 else 1) +
             (if (pendingTransactionId.asKnown() == null) 0 else 1) +
             (rejection.asKnown()?.validity() ?: 0) +
             (if (routingNumber.asKnown() == null) 0 else 1) +
@@ -3265,38 +3329,38 @@ private constructor(
 
                 /**
                  * The destination account is closed. Corresponds to the Real-Time Payments reason
-                 * code `AC04`.
+                 * code "AC04".
                  */
                 val ACCOUNT_CLOSED = of("account_closed")
 
                 /**
                  * The destination account is currently blocked from receiving transactions.
-                 * Corresponds to the Real-Time Payments reason code `AC06`.
+                 * Corresponds to the Real-Time Payments reason code "AC06".
                  */
                 val ACCOUNT_BLOCKED = of("account_blocked")
 
                 /**
                  * The destination account is ineligible to receive Real-Time Payments transfers.
-                 * Corresponds to the Real-Time Payments reason code `AC14`.
+                 * Corresponds to the Real-Time Payments reason code "AC14".
                  */
                 val INVALID_CREDITOR_ACCOUNT_TYPE = of("invalid_creditor_account_type")
 
                 /**
                  * The destination account does not exist. Corresponds to the Real-Time Payments
-                 * reason code `AC03`.
+                 * reason code "AC03".
                  */
                 val INVALID_CREDITOR_ACCOUNT_NUMBER = of("invalid_creditor_account_number")
 
                 /**
                  * The destination routing number is invalid. Corresponds to the Real-Time Payments
-                 * reason code `RC04`.
+                 * reason code "RC04".
                  */
                 val INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER =
                     of("invalid_creditor_financial_institution_identifier")
 
                 /**
                  * The destination account holder is deceased. Corresponds to the Real-Time Payments
-                 * reason code `MD07`.
+                 * reason code "MD07".
                  */
                 val END_CUSTOMER_DECEASED = of("end_customer_deceased")
 
@@ -3308,73 +3372,73 @@ private constructor(
 
                 /**
                  * Real-Time Payments transfers are not allowed to the destination account.
-                 * Corresponds to the Real-Time Payments reason code `AG01`.
+                 * Corresponds to the Real-Time Payments reason code "AG01".
                  */
                 val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
 
                 /**
                  * Real-Time Payments transfers are not enabled for the destination account.
-                 * Corresponds to the Real-Time Payments reason code `AG03`.
+                 * Corresponds to the Real-Time Payments reason code "AG03".
                  */
                 val TRANSACTION_TYPE_NOT_SUPPORTED = of("transaction_type_not_supported")
 
                 /**
                  * The amount of the transfer is different than expected by the recipient.
-                 * Corresponds to the Real-Time Payments reason code `AM09`.
+                 * Corresponds to the Real-Time Payments reason code "AM09".
                  */
                 val UNEXPECTED_AMOUNT = of("unexpected_amount")
 
                 /**
                  * The amount is higher than the recipient is authorized to send or receive.
-                 * Corresponds to the Real-Time Payments reason code `AM14`.
+                 * Corresponds to the Real-Time Payments reason code "AM14".
                  */
                 val AMOUNT_EXCEEDS_BANK_LIMITS = of("amount_exceeds_bank_limits")
 
                 /**
                  * The creditor's address is required, but missing or invalid. Corresponds to the
-                 * Real-Time Payments reason code `BE04`.
+                 * Real-Time Payments reason code "BE04".
                  */
                 val INVALID_CREDITOR_ADDRESS = of("invalid_creditor_address")
 
                 /**
                  * The specified creditor is unknown. Corresponds to the Real-Time Payments reason
-                 * code `BE06`.
+                 * code "BE06".
                  */
                 val UNKNOWN_END_CUSTOMER = of("unknown_end_customer")
 
                 /**
                  * The debtor's address is required, but missing or invalid. Corresponds to the
-                 * Real-Time Payments reason code `BE07`.
+                 * Real-Time Payments reason code "BE07".
                  */
                 val INVALID_DEBTOR_ADDRESS = of("invalid_debtor_address")
 
                 /**
                  * There was a timeout processing the transfer. Corresponds to the Real-Time
-                 * Payments reason code `DS24`.
+                 * Payments reason code "DS24".
                  */
                 val TIMEOUT = of("timeout")
 
                 /**
                  * Real-Time Payments transfers are not enabled for the destination account.
-                 * Corresponds to the Real-Time Payments reason code `NOAT`.
+                 * Corresponds to the Real-Time Payments reason code "NOAT".
                  */
                 val UNSUPPORTED_MESSAGE_FOR_RECIPIENT = of("unsupported_message_for_recipient")
 
                 /**
                  * The destination financial institution is currently not connected to Real-Time
-                 * Payments. Corresponds to the Real-Time Payments reason code `9912`.
+                 * Payments. Corresponds to the Real-Time Payments reason code "9912".
                  */
                 val RECIPIENT_CONNECTION_NOT_AVAILABLE = of("recipient_connection_not_available")
 
                 /**
                  * Real-Time Payments is currently unavailable. Corresponds to the Real-Time
-                 * Payments reason code `9948`.
+                 * Payments reason code "9948".
                  */
                 val REAL_TIME_PAYMENTS_SUSPENDED = of("real_time_payments_suspended")
 
                 /**
                  * The destination financial institution is currently signed off of Real-Time
-                 * Payments. Corresponds to the Real-Time Payments reason code `9910`.
+                 * Payments. Corresponds to the Real-Time Payments reason code "9910".
                  */
                 val INSTRUCTED_AGENT_SIGNED_OFF = of("instructed_agent_signed_off")
 
@@ -3394,32 +3458,32 @@ private constructor(
             enum class Known {
                 /**
                  * The destination account is closed. Corresponds to the Real-Time Payments reason
-                 * code `AC04`.
+                 * code "AC04".
                  */
                 ACCOUNT_CLOSED,
                 /**
                  * The destination account is currently blocked from receiving transactions.
-                 * Corresponds to the Real-Time Payments reason code `AC06`.
+                 * Corresponds to the Real-Time Payments reason code "AC06".
                  */
                 ACCOUNT_BLOCKED,
                 /**
                  * The destination account is ineligible to receive Real-Time Payments transfers.
-                 * Corresponds to the Real-Time Payments reason code `AC14`.
+                 * Corresponds to the Real-Time Payments reason code "AC14".
                  */
                 INVALID_CREDITOR_ACCOUNT_TYPE,
                 /**
                  * The destination account does not exist. Corresponds to the Real-Time Payments
-                 * reason code `AC03`.
+                 * reason code "AC03".
                  */
                 INVALID_CREDITOR_ACCOUNT_NUMBER,
                 /**
                  * The destination routing number is invalid. Corresponds to the Real-Time Payments
-                 * reason code `RC04`.
+                 * reason code "RC04".
                  */
                 INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER,
                 /**
                  * The destination account holder is deceased. Corresponds to the Real-Time Payments
-                 * reason code `MD07`.
+                 * reason code "MD07".
                  */
                 END_CUSTOMER_DECEASED,
                 /**
@@ -3429,62 +3493,62 @@ private constructor(
                 NARRATIVE,
                 /**
                  * Real-Time Payments transfers are not allowed to the destination account.
-                 * Corresponds to the Real-Time Payments reason code `AG01`.
+                 * Corresponds to the Real-Time Payments reason code "AG01".
                  */
                 TRANSACTION_FORBIDDEN,
                 /**
                  * Real-Time Payments transfers are not enabled for the destination account.
-                 * Corresponds to the Real-Time Payments reason code `AG03`.
+                 * Corresponds to the Real-Time Payments reason code "AG03".
                  */
                 TRANSACTION_TYPE_NOT_SUPPORTED,
                 /**
                  * The amount of the transfer is different than expected by the recipient.
-                 * Corresponds to the Real-Time Payments reason code `AM09`.
+                 * Corresponds to the Real-Time Payments reason code "AM09".
                  */
                 UNEXPECTED_AMOUNT,
                 /**
                  * The amount is higher than the recipient is authorized to send or receive.
-                 * Corresponds to the Real-Time Payments reason code `AM14`.
+                 * Corresponds to the Real-Time Payments reason code "AM14".
                  */
                 AMOUNT_EXCEEDS_BANK_LIMITS,
                 /**
                  * The creditor's address is required, but missing or invalid. Corresponds to the
-                 * Real-Time Payments reason code `BE04`.
+                 * Real-Time Payments reason code "BE04".
                  */
                 INVALID_CREDITOR_ADDRESS,
                 /**
                  * The specified creditor is unknown. Corresponds to the Real-Time Payments reason
-                 * code `BE06`.
+                 * code "BE06".
                  */
                 UNKNOWN_END_CUSTOMER,
                 /**
                  * The debtor's address is required, but missing or invalid. Corresponds to the
-                 * Real-Time Payments reason code `BE07`.
+                 * Real-Time Payments reason code "BE07".
                  */
                 INVALID_DEBTOR_ADDRESS,
                 /**
                  * There was a timeout processing the transfer. Corresponds to the Real-Time
-                 * Payments reason code `DS24`.
+                 * Payments reason code "DS24".
                  */
                 TIMEOUT,
                 /**
                  * Real-Time Payments transfers are not enabled for the destination account.
-                 * Corresponds to the Real-Time Payments reason code `NOAT`.
+                 * Corresponds to the Real-Time Payments reason code "NOAT".
                  */
                 UNSUPPORTED_MESSAGE_FOR_RECIPIENT,
                 /**
                  * The destination financial institution is currently not connected to Real-Time
-                 * Payments. Corresponds to the Real-Time Payments reason code `9912`.
+                 * Payments. Corresponds to the Real-Time Payments reason code "9912".
                  */
                 RECIPIENT_CONNECTION_NOT_AVAILABLE,
                 /**
                  * Real-Time Payments is currently unavailable. Corresponds to the Real-Time
-                 * Payments reason code `9948`.
+                 * Payments reason code "9948".
                  */
                 REAL_TIME_PAYMENTS_SUSPENDED,
                 /**
                  * The destination financial institution is currently signed off of Real-Time
-                 * Payments. Corresponds to the Real-Time Payments reason code `9910`.
+                 * Payments. Corresponds to the Real-Time Payments reason code "9910".
                  */
                 INSTRUCTED_AGENT_SIGNED_OFF,
                 /**
@@ -3509,32 +3573,32 @@ private constructor(
             enum class Value {
                 /**
                  * The destination account is closed. Corresponds to the Real-Time Payments reason
-                 * code `AC04`.
+                 * code "AC04".
                  */
                 ACCOUNT_CLOSED,
                 /**
                  * The destination account is currently blocked from receiving transactions.
-                 * Corresponds to the Real-Time Payments reason code `AC06`.
+                 * Corresponds to the Real-Time Payments reason code "AC06".
                  */
                 ACCOUNT_BLOCKED,
                 /**
                  * The destination account is ineligible to receive Real-Time Payments transfers.
-                 * Corresponds to the Real-Time Payments reason code `AC14`.
+                 * Corresponds to the Real-Time Payments reason code "AC14".
                  */
                 INVALID_CREDITOR_ACCOUNT_TYPE,
                 /**
                  * The destination account does not exist. Corresponds to the Real-Time Payments
-                 * reason code `AC03`.
+                 * reason code "AC03".
                  */
                 INVALID_CREDITOR_ACCOUNT_NUMBER,
                 /**
                  * The destination routing number is invalid. Corresponds to the Real-Time Payments
-                 * reason code `RC04`.
+                 * reason code "RC04".
                  */
                 INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER,
                 /**
                  * The destination account holder is deceased. Corresponds to the Real-Time Payments
-                 * reason code `MD07`.
+                 * reason code "MD07".
                  */
                 END_CUSTOMER_DECEASED,
                 /**
@@ -3544,62 +3608,62 @@ private constructor(
                 NARRATIVE,
                 /**
                  * Real-Time Payments transfers are not allowed to the destination account.
-                 * Corresponds to the Real-Time Payments reason code `AG01`.
+                 * Corresponds to the Real-Time Payments reason code "AG01".
                  */
                 TRANSACTION_FORBIDDEN,
                 /**
                  * Real-Time Payments transfers are not enabled for the destination account.
-                 * Corresponds to the Real-Time Payments reason code `AG03`.
+                 * Corresponds to the Real-Time Payments reason code "AG03".
                  */
                 TRANSACTION_TYPE_NOT_SUPPORTED,
                 /**
                  * The amount of the transfer is different than expected by the recipient.
-                 * Corresponds to the Real-Time Payments reason code `AM09`.
+                 * Corresponds to the Real-Time Payments reason code "AM09".
                  */
                 UNEXPECTED_AMOUNT,
                 /**
                  * The amount is higher than the recipient is authorized to send or receive.
-                 * Corresponds to the Real-Time Payments reason code `AM14`.
+                 * Corresponds to the Real-Time Payments reason code "AM14".
                  */
                 AMOUNT_EXCEEDS_BANK_LIMITS,
                 /**
                  * The creditor's address is required, but missing or invalid. Corresponds to the
-                 * Real-Time Payments reason code `BE04`.
+                 * Real-Time Payments reason code "BE04".
                  */
                 INVALID_CREDITOR_ADDRESS,
                 /**
                  * The specified creditor is unknown. Corresponds to the Real-Time Payments reason
-                 * code `BE06`.
+                 * code "BE06".
                  */
                 UNKNOWN_END_CUSTOMER,
                 /**
                  * The debtor's address is required, but missing or invalid. Corresponds to the
-                 * Real-Time Payments reason code `BE07`.
+                 * Real-Time Payments reason code "BE07".
                  */
                 INVALID_DEBTOR_ADDRESS,
                 /**
                  * There was a timeout processing the transfer. Corresponds to the Real-Time
-                 * Payments reason code `DS24`.
+                 * Payments reason code "DS24".
                  */
                 TIMEOUT,
                 /**
                  * Real-Time Payments transfers are not enabled for the destination account.
-                 * Corresponds to the Real-Time Payments reason code `NOAT`.
+                 * Corresponds to the Real-Time Payments reason code "NOAT".
                  */
                 UNSUPPORTED_MESSAGE_FOR_RECIPIENT,
                 /**
                  * The destination financial institution is currently not connected to Real-Time
-                 * Payments. Corresponds to the Real-Time Payments reason code `9912`.
+                 * Payments. Corresponds to the Real-Time Payments reason code "9912".
                  */
                 RECIPIENT_CONNECTION_NOT_AVAILABLE,
                 /**
                  * Real-Time Payments is currently unavailable. Corresponds to the Real-Time
-                 * Payments reason code `9948`.
+                 * Payments reason code "9948".
                  */
                 REAL_TIME_PAYMENTS_SUSPENDED,
                 /**
                  * The destination financial institution is currently signed off of Real-Time
-                 * Payments. Corresponds to the Real-Time Payments reason code `9910`.
+                 * Payments. Corresponds to the Real-Time Payments reason code "9910".
                  */
                 INSTRUCTED_AGENT_SIGNED_OFF,
                 /**
@@ -4359,6 +4423,8 @@ private constructor(
             debtorName == other.debtorName &&
             externalAccountId == other.externalAccountId &&
             idempotencyKey == other.idempotencyKey &&
+            inboundRealTimePaymentsRequestForPaymentId ==
+                other.inboundRealTimePaymentsRequestForPaymentId &&
             pendingTransactionId == other.pendingTransactionId &&
             rejection == other.rejection &&
             routingNumber == other.routingNumber &&
@@ -4389,6 +4455,7 @@ private constructor(
             debtorName,
             externalAccountId,
             idempotencyKey,
+            inboundRealTimePaymentsRequestForPaymentId,
             pendingTransactionId,
             rejection,
             routingNumber,
@@ -4407,5 +4474,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, pendingTransactionId=$pendingTransactionId, rejection=$rejection, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
