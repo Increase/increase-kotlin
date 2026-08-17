@@ -1374,35 +1374,34 @@ private constructor(
         class Address
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val unstructured: JsonField<Unstructured>,
+            private val structured: JsonField<Structured>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("unstructured")
+                @JsonProperty("structured")
                 @ExcludeMissing
-                unstructured: JsonField<Unstructured> = JsonMissing.of()
-            ) : this(unstructured, mutableMapOf())
+                structured: JsonField<Structured> = JsonMissing.of()
+            ) : this(structured, mutableMapOf())
 
             /**
-             * Unstructured address lines.
+             * Structured address components. City and country are required.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun unstructured(): Unstructured = unstructured.getRequired("unstructured")
+            fun structured(): Structured? = structured.getNullable("structured")
 
             /**
-             * Returns the raw JSON value of [unstructured].
+             * Returns the raw JSON value of [structured].
              *
-             * Unlike [unstructured], this method doesn't throw if the JSON field has an unexpected
+             * Unlike [structured], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("unstructured")
+            @JsonProperty("structured")
             @ExcludeMissing
-            fun _unstructured(): JsonField<Unstructured> = unstructured
+            fun _structured(): JsonField<Structured> = structured
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1418,41 +1417,33 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Returns a mutable builder for constructing an instance of [Address].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 */
+                /** Returns a mutable builder for constructing an instance of [Address]. */
                 fun builder() = Builder()
             }
 
             /** A builder for [Address]. */
             class Builder internal constructor() {
 
-                private var unstructured: JsonField<Unstructured>? = null
+                private var structured: JsonField<Structured> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
-                    unstructured = address.unstructured
+                    structured = address.structured
                     additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
-                /** Unstructured address lines. */
-                fun unstructured(unstructured: Unstructured) =
-                    unstructured(JsonField.of(unstructured))
+                /** Structured address components. City and country are required. */
+                fun structured(structured: Structured) = structured(JsonField.of(structured))
 
                 /**
-                 * Sets [Builder.unstructured] to an arbitrary JSON value.
+                 * Sets [Builder.structured] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.unstructured] with a well-typed [Unstructured]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.structured] with a well-typed [Structured] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun unstructured(unstructured: JsonField<Unstructured>) = apply {
-                    this.unstructured = unstructured
+                fun structured(structured: JsonField<Structured>) = apply {
+                    this.structured = structured
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1481,19 +1472,8 @@ private constructor(
                  * Returns an immutable instance of [Address].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Address =
-                    Address(
-                        checkRequired("unstructured", unstructured),
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): Address = Address(structured, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -1513,7 +1493,7 @@ private constructor(
                     return@apply
                 }
 
-                unstructured().validate()
+                structured()?.validate()
                 validated = true
             }
 
@@ -1531,42 +1511,73 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int = (unstructured.asKnown()?.validity() ?: 0)
+            internal fun validity(): Int = (structured.asKnown()?.validity() ?: 0)
 
-            /** Unstructured address lines. */
-            class Unstructured
+            /** Structured address components. City and country are required. */
+            class Structured
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val city: JsonField<String>,
+                private val country: JsonField<String>,
                 private val line1: JsonField<String>,
                 private val line2: JsonField<String>,
-                private val line3: JsonField<String>,
+                private val postalCode: JsonField<String>,
+                private val state: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    city: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("country")
+                    @ExcludeMissing
+                    country: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("line1")
                     @ExcludeMissing
                     line1: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("line2")
                     @ExcludeMissing
                     line2: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line3")
+                    @JsonProperty("postal_code")
                     @ExcludeMissing
-                    line3: JsonField<String> = JsonMissing.of(),
-                ) : this(line1, line2, line3, mutableMapOf())
+                    postalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("state")
+                    @ExcludeMissing
+                    state: JsonField<String> = JsonMissing.of(),
+                ) : this(city, country, line1, line2, postalCode, state, mutableMapOf())
 
                 /**
-                 * The address line 1.
+                 * The city, district, town, or village of the address.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
                  */
-                fun line1(): String = line1.getRequired("line1")
+                fun city(): String = city.getRequired("city")
 
                 /**
-                 * The address line 2.
+                 * The two-letter
+                 * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code for
+                 * the country of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun country(): String = country.getRequired("country")
+
+                /**
+                 * The first line of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line1(): String? = line1.getNullable("line1")
+
+                /**
+                 * The second line of the address.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
@@ -1574,12 +1585,36 @@ private constructor(
                 fun line2(): String? = line2.getNullable("line2")
 
                 /**
-                 * The address line 3.
+                 * The postal code of the address.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line3(): String? = line3.getNullable("line3")
+                fun postalCode(): String? = postalCode.getNullable("postal_code")
+
+                /**
+                 * The address state.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun state(): String? = state.getNullable("state")
+
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+                /**
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
                 /**
                  * Returns the raw JSON value of [line1].
@@ -1598,12 +1633,22 @@ private constructor(
                 @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                 /**
-                 * Returns the raw JSON value of [line3].
+                 * Returns the raw JSON value of [postalCode].
                  *
-                 * Unlike [line3], this method doesn't throw if the JSON field has an unexpected
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<String> = postalCode
+
+                /**
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
                  * type.
                  */
-                @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
+                @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1620,32 +1665,67 @@ private constructor(
                 companion object {
 
                     /**
-                     * Returns a mutable builder for constructing an instance of [Unstructured].
+                     * Returns a mutable builder for constructing an instance of [Structured].
                      *
                      * The following fields are required:
                      * ```kotlin
-                     * .line1()
+                     * .city()
+                     * .country()
                      * ```
                      */
                     fun builder() = Builder()
                 }
 
-                /** A builder for [Unstructured]. */
+                /** A builder for [Structured]. */
                 class Builder internal constructor() {
 
-                    private var line1: JsonField<String>? = null
+                    private var city: JsonField<String>? = null
+                    private var country: JsonField<String>? = null
+                    private var line1: JsonField<String> = JsonMissing.of()
                     private var line2: JsonField<String> = JsonMissing.of()
-                    private var line3: JsonField<String> = JsonMissing.of()
+                    private var postalCode: JsonField<String> = JsonMissing.of()
+                    private var state: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                    internal fun from(unstructured: Unstructured) = apply {
-                        line1 = unstructured.line1
-                        line2 = unstructured.line2
-                        line3 = unstructured.line3
-                        additionalProperties = unstructured.additionalProperties.toMutableMap()
+                    internal fun from(structured: Structured) = apply {
+                        city = structured.city
+                        country = structured.country
+                        line1 = structured.line1
+                        line2 = structured.line2
+                        postalCode = structured.postalCode
+                        state = structured.state
+                        additionalProperties = structured.additionalProperties.toMutableMap()
                     }
 
-                    /** The address line 1. */
+                    /** The city, district, town, or village of the address. */
+                    fun city(city: String) = city(JsonField.of(city))
+
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun city(city: JsonField<String>) = apply { this.city = city }
+
+                    /**
+                     * The two-letter
+                     * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code
+                     * for the country of the address.
+                     */
+                    fun country(country: String) = country(JsonField.of(country))
+
+                    /**
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun country(country: JsonField<String>) = apply { this.country = country }
+
+                    /** The first line of the address. */
                     fun line1(line1: String) = line1(JsonField.of(line1))
 
                     /**
@@ -1657,7 +1737,7 @@ private constructor(
                      */
                     fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-                    /** The address line 2. */
+                    /** The second line of the address. */
                     fun line2(line2: String) = line2(JsonField.of(line2))
 
                     /**
@@ -1669,17 +1749,31 @@ private constructor(
                      */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-                    /** The address line 3. */
-                    fun line3(line3: String) = line3(JsonField.of(line3))
+                    /** The postal code of the address. */
+                    fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                     /**
-                     * Sets [Builder.line3] to an arbitrary JSON value.
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.line3] with a well-typed [String] value
+                     * You should usually call [Builder.postalCode] with a well-typed [String] value
                      * instead. This method is primarily for setting the field to an undocumented or
                      * not yet supported value.
                      */
-                    fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
+                    fun postalCode(postalCode: JsonField<String>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    /** The address state. */
+                    fun state(state: String) = state(JsonField.of(state))
+
+                    /**
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun state(state: JsonField<String>) = apply { this.state = state }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1704,22 +1798,26 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [Unstructured].
+                     * Returns an immutable instance of [Structured].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
                      * The following fields are required:
                      * ```kotlin
-                     * .line1()
+                     * .city()
+                     * .country()
                      * ```
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): Unstructured =
-                        Unstructured(
-                            checkRequired("line1", line1),
+                    fun build(): Structured =
+                        Structured(
+                            checkRequired("city", city),
+                            checkRequired("country", country),
+                            line1,
                             line2,
-                            line3,
+                            postalCode,
+                            state,
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -1736,14 +1834,17 @@ private constructor(
                  * @throws IncreaseInvalidDataException if any value type in this object doesn't
                  *   match its expected type.
                  */
-                fun validate(): Unstructured = apply {
+                fun validate(): Structured = apply {
                     if (validated) {
                         return@apply
                     }
 
+                    city()
+                    country()
                     line1()
                     line2()
-                    line3()
+                    postalCode()
+                    state()
                     validated = true
                 }
 
@@ -1762,30 +1863,44 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int =
-                    (if (line1.asKnown() == null) 0 else 1) +
+                    (if (city.asKnown() == null) 0 else 1) +
+                        (if (country.asKnown() == null) 0 else 1) +
+                        (if (line1.asKnown() == null) 0 else 1) +
                         (if (line2.asKnown() == null) 0 else 1) +
-                        (if (line3.asKnown() == null) 0 else 1)
+                        (if (postalCode.asKnown() == null) 0 else 1) +
+                        (if (state.asKnown() == null) 0 else 1)
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
                     }
 
-                    return other is Unstructured &&
+                    return other is Structured &&
+                        city == other.city &&
+                        country == other.country &&
                         line1 == other.line1 &&
                         line2 == other.line2 &&
-                        line3 == other.line3 &&
+                        postalCode == other.postalCode &&
+                        state == other.state &&
                         additionalProperties == other.additionalProperties
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(line1, line2, line3, additionalProperties)
+                    Objects.hash(
+                        city,
+                        country,
+                        line1,
+                        line2,
+                        postalCode,
+                        state,
+                        additionalProperties,
+                    )
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Unstructured{line1=$line1, line2=$line2, line3=$line3, additionalProperties=$additionalProperties}"
+                    "Structured{city=$city, country=$country, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1794,16 +1909,16 @@ private constructor(
                 }
 
                 return other is Address &&
-                    unstructured == other.unstructured &&
+                    structured == other.structured &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(unstructured, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(structured, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{unstructured=$unstructured, additionalProperties=$additionalProperties}"
+                "Address{structured=$structured, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -2873,35 +2988,34 @@ private constructor(
         class Address
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val unstructured: JsonField<Unstructured>,
+            private val structured: JsonField<Structured>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("unstructured")
+                @JsonProperty("structured")
                 @ExcludeMissing
-                unstructured: JsonField<Unstructured> = JsonMissing.of()
-            ) : this(unstructured, mutableMapOf())
+                structured: JsonField<Structured> = JsonMissing.of()
+            ) : this(structured, mutableMapOf())
 
             /**
-             * Unstructured address lines.
+             * Structured address components. City and country are required.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun unstructured(): Unstructured = unstructured.getRequired("unstructured")
+            fun structured(): Structured? = structured.getNullable("structured")
 
             /**
-             * Returns the raw JSON value of [unstructured].
+             * Returns the raw JSON value of [structured].
              *
-             * Unlike [unstructured], this method doesn't throw if the JSON field has an unexpected
+             * Unlike [structured], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("unstructured")
+            @JsonProperty("structured")
             @ExcludeMissing
-            fun _unstructured(): JsonField<Unstructured> = unstructured
+            fun _structured(): JsonField<Structured> = structured
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2917,41 +3031,33 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Returns a mutable builder for constructing an instance of [Address].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 */
+                /** Returns a mutable builder for constructing an instance of [Address]. */
                 fun builder() = Builder()
             }
 
             /** A builder for [Address]. */
             class Builder internal constructor() {
 
-                private var unstructured: JsonField<Unstructured>? = null
+                private var structured: JsonField<Structured> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
-                    unstructured = address.unstructured
+                    structured = address.structured
                     additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
-                /** Unstructured address lines. */
-                fun unstructured(unstructured: Unstructured) =
-                    unstructured(JsonField.of(unstructured))
+                /** Structured address components. City and country are required. */
+                fun structured(structured: Structured) = structured(JsonField.of(structured))
 
                 /**
-                 * Sets [Builder.unstructured] to an arbitrary JSON value.
+                 * Sets [Builder.structured] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.unstructured] with a well-typed [Unstructured]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.structured] with a well-typed [Structured] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun unstructured(unstructured: JsonField<Unstructured>) = apply {
-                    this.unstructured = unstructured
+                fun structured(structured: JsonField<Structured>) = apply {
+                    this.structured = structured
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2980,19 +3086,8 @@ private constructor(
                  * Returns an immutable instance of [Address].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .unstructured()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Address =
-                    Address(
-                        checkRequired("unstructured", unstructured),
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): Address = Address(structured, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -3012,7 +3107,7 @@ private constructor(
                     return@apply
                 }
 
-                unstructured().validate()
+                structured()?.validate()
                 validated = true
             }
 
@@ -3030,42 +3125,73 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int = (unstructured.asKnown()?.validity() ?: 0)
+            internal fun validity(): Int = (structured.asKnown()?.validity() ?: 0)
 
-            /** Unstructured address lines. */
-            class Unstructured
+            /** Structured address components. City and country are required. */
+            class Structured
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val city: JsonField<String>,
+                private val country: JsonField<String>,
                 private val line1: JsonField<String>,
                 private val line2: JsonField<String>,
-                private val line3: JsonField<String>,
+                private val postalCode: JsonField<String>,
+                private val state: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    city: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("country")
+                    @ExcludeMissing
+                    country: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("line1")
                     @ExcludeMissing
                     line1: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("line2")
                     @ExcludeMissing
                     line2: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line3")
+                    @JsonProperty("postal_code")
                     @ExcludeMissing
-                    line3: JsonField<String> = JsonMissing.of(),
-                ) : this(line1, line2, line3, mutableMapOf())
+                    postalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("state")
+                    @ExcludeMissing
+                    state: JsonField<String> = JsonMissing.of(),
+                ) : this(city, country, line1, line2, postalCode, state, mutableMapOf())
 
                 /**
-                 * The address line 1.
+                 * The city, district, town, or village of the address.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
                  */
-                fun line1(): String = line1.getRequired("line1")
+                fun city(): String = city.getRequired("city")
 
                 /**
-                 * The address line 2.
+                 * The two-letter
+                 * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code for
+                 * the country of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun country(): String = country.getRequired("country")
+
+                /**
+                 * The first line of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line1(): String? = line1.getNullable("line1")
+
+                /**
+                 * The second line of the address.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
@@ -3073,12 +3199,36 @@ private constructor(
                 fun line2(): String? = line2.getNullable("line2")
 
                 /**
-                 * The address line 3.
+                 * The postal code of the address.
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line3(): String? = line3.getNullable("line3")
+                fun postalCode(): String? = postalCode.getNullable("postal_code")
+
+                /**
+                 * The address state.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun state(): String? = state.getNullable("state")
+
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+                /**
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
                 /**
                  * Returns the raw JSON value of [line1].
@@ -3097,12 +3247,22 @@ private constructor(
                 @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                 /**
-                 * Returns the raw JSON value of [line3].
+                 * Returns the raw JSON value of [postalCode].
                  *
-                 * Unlike [line3], this method doesn't throw if the JSON field has an unexpected
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<String> = postalCode
+
+                /**
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
                  * type.
                  */
-                @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
+                @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3119,32 +3279,67 @@ private constructor(
                 companion object {
 
                     /**
-                     * Returns a mutable builder for constructing an instance of [Unstructured].
+                     * Returns a mutable builder for constructing an instance of [Structured].
                      *
                      * The following fields are required:
                      * ```kotlin
-                     * .line1()
+                     * .city()
+                     * .country()
                      * ```
                      */
                     fun builder() = Builder()
                 }
 
-                /** A builder for [Unstructured]. */
+                /** A builder for [Structured]. */
                 class Builder internal constructor() {
 
-                    private var line1: JsonField<String>? = null
+                    private var city: JsonField<String>? = null
+                    private var country: JsonField<String>? = null
+                    private var line1: JsonField<String> = JsonMissing.of()
                     private var line2: JsonField<String> = JsonMissing.of()
-                    private var line3: JsonField<String> = JsonMissing.of()
+                    private var postalCode: JsonField<String> = JsonMissing.of()
+                    private var state: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                    internal fun from(unstructured: Unstructured) = apply {
-                        line1 = unstructured.line1
-                        line2 = unstructured.line2
-                        line3 = unstructured.line3
-                        additionalProperties = unstructured.additionalProperties.toMutableMap()
+                    internal fun from(structured: Structured) = apply {
+                        city = structured.city
+                        country = structured.country
+                        line1 = structured.line1
+                        line2 = structured.line2
+                        postalCode = structured.postalCode
+                        state = structured.state
+                        additionalProperties = structured.additionalProperties.toMutableMap()
                     }
 
-                    /** The address line 1. */
+                    /** The city, district, town, or village of the address. */
+                    fun city(city: String) = city(JsonField.of(city))
+
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun city(city: JsonField<String>) = apply { this.city = city }
+
+                    /**
+                     * The two-letter
+                     * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code
+                     * for the country of the address.
+                     */
+                    fun country(country: String) = country(JsonField.of(country))
+
+                    /**
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun country(country: JsonField<String>) = apply { this.country = country }
+
+                    /** The first line of the address. */
                     fun line1(line1: String) = line1(JsonField.of(line1))
 
                     /**
@@ -3156,7 +3351,7 @@ private constructor(
                      */
                     fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-                    /** The address line 2. */
+                    /** The second line of the address. */
                     fun line2(line2: String) = line2(JsonField.of(line2))
 
                     /**
@@ -3168,17 +3363,31 @@ private constructor(
                      */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-                    /** The address line 3. */
-                    fun line3(line3: String) = line3(JsonField.of(line3))
+                    /** The postal code of the address. */
+                    fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                     /**
-                     * Sets [Builder.line3] to an arbitrary JSON value.
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.line3] with a well-typed [String] value
+                     * You should usually call [Builder.postalCode] with a well-typed [String] value
                      * instead. This method is primarily for setting the field to an undocumented or
                      * not yet supported value.
                      */
-                    fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
+                    fun postalCode(postalCode: JsonField<String>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    /** The address state. */
+                    fun state(state: String) = state(JsonField.of(state))
+
+                    /**
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun state(state: JsonField<String>) = apply { this.state = state }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -3203,22 +3412,26 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [Unstructured].
+                     * Returns an immutable instance of [Structured].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
                      * The following fields are required:
                      * ```kotlin
-                     * .line1()
+                     * .city()
+                     * .country()
                      * ```
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): Unstructured =
-                        Unstructured(
-                            checkRequired("line1", line1),
+                    fun build(): Structured =
+                        Structured(
+                            checkRequired("city", city),
+                            checkRequired("country", country),
+                            line1,
                             line2,
-                            line3,
+                            postalCode,
+                            state,
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -3235,14 +3448,17 @@ private constructor(
                  * @throws IncreaseInvalidDataException if any value type in this object doesn't
                  *   match its expected type.
                  */
-                fun validate(): Unstructured = apply {
+                fun validate(): Structured = apply {
                     if (validated) {
                         return@apply
                     }
 
+                    city()
+                    country()
                     line1()
                     line2()
-                    line3()
+                    postalCode()
+                    state()
                     validated = true
                 }
 
@@ -3261,30 +3477,44 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int =
-                    (if (line1.asKnown() == null) 0 else 1) +
+                    (if (city.asKnown() == null) 0 else 1) +
+                        (if (country.asKnown() == null) 0 else 1) +
+                        (if (line1.asKnown() == null) 0 else 1) +
                         (if (line2.asKnown() == null) 0 else 1) +
-                        (if (line3.asKnown() == null) 0 else 1)
+                        (if (postalCode.asKnown() == null) 0 else 1) +
+                        (if (state.asKnown() == null) 0 else 1)
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
                     }
 
-                    return other is Unstructured &&
+                    return other is Structured &&
+                        city == other.city &&
+                        country == other.country &&
                         line1 == other.line1 &&
                         line2 == other.line2 &&
-                        line3 == other.line3 &&
+                        postalCode == other.postalCode &&
+                        state == other.state &&
                         additionalProperties == other.additionalProperties
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(line1, line2, line3, additionalProperties)
+                    Objects.hash(
+                        city,
+                        country,
+                        line1,
+                        line2,
+                        postalCode,
+                        state,
+                        additionalProperties,
+                    )
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Unstructured{line1=$line1, line2=$line2, line3=$line3, additionalProperties=$additionalProperties}"
+                    "Structured{city=$city, country=$country, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3293,16 +3523,16 @@ private constructor(
                 }
 
                 return other is Address &&
-                    unstructured == other.unstructured &&
+                    structured == other.structured &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(unstructured, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(structured, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{unstructured=$unstructured, additionalProperties=$additionalProperties}"
+                "Address{structured=$structured, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
