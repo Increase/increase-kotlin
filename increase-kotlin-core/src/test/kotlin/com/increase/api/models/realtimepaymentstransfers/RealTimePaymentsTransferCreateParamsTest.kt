@@ -17,6 +17,9 @@ internal class RealTimePaymentsTransferCreateParamsTest {
             .accountNumber("987654321")
             .debtorName("debtor_name")
             .externalAccountId("external_account_id")
+            .inboundRealTimePaymentsRequestForPaymentId(
+                "inbound_real_time_payments_request_for_payment_id"
+            )
             .requireApproval(true)
             .routingNumber("101050001")
             .ultimateCreditorName("ultimate_creditor_name")
@@ -35,6 +38,9 @@ internal class RealTimePaymentsTransferCreateParamsTest {
                 .accountNumber("987654321")
                 .debtorName("debtor_name")
                 .externalAccountId("external_account_id")
+                .inboundRealTimePaymentsRequestForPaymentId(
+                    "inbound_real_time_payments_request_for_payment_id"
+                )
                 .requireApproval(true)
                 .routingNumber("101050001")
                 .ultimateCreditorName("ultimate_creditor_name")
@@ -50,6 +56,8 @@ internal class RealTimePaymentsTransferCreateParamsTest {
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.debtorName()).isEqualTo("debtor_name")
         assertThat(body.externalAccountId()).isEqualTo("external_account_id")
+        assertThat(body.inboundRealTimePaymentsRequestForPaymentId())
+            .isEqualTo("inbound_real_time_payments_request_for_payment_id")
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.routingNumber()).isEqualTo("101050001")
         assertThat(body.ultimateCreditorName()).isEqualTo("ultimate_creditor_name")

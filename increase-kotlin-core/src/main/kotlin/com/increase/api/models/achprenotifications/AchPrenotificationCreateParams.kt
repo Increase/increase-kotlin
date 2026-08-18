@@ -96,6 +96,8 @@ private constructor(
     /**
      * Whether the Prenotification is for a future debit or credit.
      *
+     * Defaults to `debit`.
+     *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -119,7 +121,7 @@ private constructor(
     fun individualId(): String? = body.individualId()
 
     /**
-     * The name of therecipient. This value is informational and not verified by the recipient's
+     * The name of the recipient. This value is informational and not verified by the recipient's
      * bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -130,6 +132,8 @@ private constructor(
     /**
      * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to use
      * for the ACH Prenotification.
+     *
+     * Defaults to `corporate_credit_or_debit`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -400,7 +404,11 @@ private constructor(
          */
         fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
 
-        /** Whether the Prenotification is for a future debit or credit. */
+        /**
+         * Whether the Prenotification is for a future debit or credit.
+         *
+         * Defaults to `debit`.
+         */
         fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) = apply {
             body.creditDebitIndicator(creditDebitIndicator)
         }
@@ -448,8 +456,8 @@ private constructor(
         }
 
         /**
-         * The name of therecipient. This value is informational and not verified by the recipient's
-         * bank.
+         * The name of the recipient. This value is informational and not verified by the
+         * recipient's bank.
          */
         fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
@@ -467,6 +475,8 @@ private constructor(
         /**
          * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to
          * use for the ACH Prenotification.
+         *
+         * Defaults to `corporate_credit_or_debit`.
          */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
@@ -777,6 +787,8 @@ private constructor(
         /**
          * Whether the Prenotification is for a future debit or credit.
          *
+         * Defaults to `debit`.
+         *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
@@ -801,8 +813,8 @@ private constructor(
         fun individualId(): String? = individualId.getNullable("individual_id")
 
         /**
-         * The name of therecipient. This value is informational and not verified by the recipient's
-         * bank.
+         * The name of the recipient. This value is informational and not verified by the
+         * recipient's bank.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -812,6 +824,8 @@ private constructor(
         /**
          * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to
          * use for the ACH Prenotification.
+         *
+         * Defaults to `corporate_credit_or_debit`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1118,7 +1132,11 @@ private constructor(
                 this.companyName = companyName
             }
 
-            /** Whether the Prenotification is for a future debit or credit. */
+            /**
+             * Whether the Prenotification is for a future debit or credit.
+             *
+             * Defaults to `debit`.
+             */
             fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) =
                 creditDebitIndicator(JsonField.of(creditDebitIndicator))
 
@@ -1166,7 +1184,7 @@ private constructor(
             }
 
             /**
-             * The name of therecipient. This value is informational and not verified by the
+             * The name of the recipient. This value is informational and not verified by the
              * recipient's bank.
              */
             fun individualName(individualName: String) =
@@ -1186,6 +1204,8 @@ private constructor(
             /**
              * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes)
              * to use for the ACH Prenotification.
+             *
+             * Defaults to `corporate_credit_or_debit`.
              */
             fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
                 standardEntryClassCode(JsonField.of(standardEntryClassCode))
