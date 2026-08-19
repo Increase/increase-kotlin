@@ -85,6 +85,16 @@ private constructor(
     fun externalAccountId(): String? = body.externalAccountId()
 
     /**
+     * The ID of an Inbound Real-Time Payments Request for Payment in response to which this
+     * transfer is being sent.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun inboundRealTimePaymentsRequestForPaymentId(): String? =
+        body.inboundRealTimePaymentsRequestForPaymentId()
+
+    /**
      * Whether the transfer requires explicit approval via the dashboard or API.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -170,6 +180,15 @@ private constructor(
      * type.
      */
     fun _externalAccountId(): JsonField<String> = body._externalAccountId()
+
+    /**
+     * Returns the raw JSON value of [inboundRealTimePaymentsRequestForPaymentId].
+     *
+     * Unlike [inboundRealTimePaymentsRequestForPaymentId], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
+    fun _inboundRealTimePaymentsRequestForPaymentId(): JsonField<String> =
+        body._inboundRealTimePaymentsRequestForPaymentId()
 
     /**
      * Returns the raw JSON value of [requireApproval].
@@ -361,6 +380,33 @@ private constructor(
          */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             body.externalAccountId(externalAccountId)
+        }
+
+        /**
+         * The ID of an Inbound Real-Time Payments Request for Payment in response to which this
+         * transfer is being sent.
+         */
+        fun inboundRealTimePaymentsRequestForPaymentId(
+            inboundRealTimePaymentsRequestForPaymentId: String
+        ) = apply {
+            body.inboundRealTimePaymentsRequestForPaymentId(
+                inboundRealTimePaymentsRequestForPaymentId
+            )
+        }
+
+        /**
+         * Sets [Builder.inboundRealTimePaymentsRequestForPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundRealTimePaymentsRequestForPaymentId] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun inboundRealTimePaymentsRequestForPaymentId(
+            inboundRealTimePaymentsRequestForPaymentId: JsonField<String>
+        ) = apply {
+            body.inboundRealTimePaymentsRequestForPaymentId(
+                inboundRealTimePaymentsRequestForPaymentId
+            )
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
@@ -587,6 +633,7 @@ private constructor(
         private val accountNumber: JsonField<String>,
         private val debtorName: JsonField<String>,
         private val externalAccountId: JsonField<String>,
+        private val inboundRealTimePaymentsRequestForPaymentId: JsonField<String>,
         private val requireApproval: JsonField<Boolean>,
         private val routingNumber: JsonField<String>,
         private val ultimateCreditorName: JsonField<String>,
@@ -615,6 +662,9 @@ private constructor(
             @JsonProperty("external_account_id")
             @ExcludeMissing
             externalAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("inbound_real_time_payments_request_for_payment_id")
+            @ExcludeMissing
+            inboundRealTimePaymentsRequestForPaymentId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("require_approval")
             @ExcludeMissing
             requireApproval: JsonField<Boolean> = JsonMissing.of(),
@@ -635,6 +685,7 @@ private constructor(
             accountNumber,
             debtorName,
             externalAccountId,
+            inboundRealTimePaymentsRequestForPaymentId,
             requireApproval,
             routingNumber,
             ultimateCreditorName,
@@ -701,6 +752,18 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun externalAccountId(): String? = externalAccountId.getNullable("external_account_id")
+
+        /**
+         * The ID of an Inbound Real-Time Payments Request for Payment in response to which this
+         * transfer is being sent.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundRealTimePaymentsRequestForPaymentId(): String? =
+            inboundRealTimePaymentsRequestForPaymentId.getNullable(
+                "inbound_real_time_payments_request_for_payment_id"
+            )
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -805,6 +868,17 @@ private constructor(
         fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /**
+         * Returns the raw JSON value of [inboundRealTimePaymentsRequestForPaymentId].
+         *
+         * Unlike [inboundRealTimePaymentsRequestForPaymentId], this method doesn't throw if the
+         * JSON field has an unexpected type.
+         */
+        @JsonProperty("inbound_real_time_payments_request_for_payment_id")
+        @ExcludeMissing
+        fun _inboundRealTimePaymentsRequestForPaymentId(): JsonField<String> =
+            inboundRealTimePaymentsRequestForPaymentId
+
+        /**
          * Returns the raw JSON value of [requireApproval].
          *
          * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
@@ -882,6 +956,8 @@ private constructor(
             private var accountNumber: JsonField<String> = JsonMissing.of()
             private var debtorName: JsonField<String> = JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
+            private var inboundRealTimePaymentsRequestForPaymentId: JsonField<String> =
+                JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var routingNumber: JsonField<String> = JsonMissing.of()
             private var ultimateCreditorName: JsonField<String> = JsonMissing.of()
@@ -896,6 +972,8 @@ private constructor(
                 accountNumber = body.accountNumber
                 debtorName = body.debtorName
                 externalAccountId = body.externalAccountId
+                inboundRealTimePaymentsRequestForPaymentId =
+                    body.inboundRealTimePaymentsRequestForPaymentId
                 requireApproval = body.requireApproval
                 routingNumber = body.routingNumber
                 ultimateCreditorName = body.ultimateCreditorName
@@ -1006,6 +1084,31 @@ private constructor(
              */
             fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
+            }
+
+            /**
+             * The ID of an Inbound Real-Time Payments Request for Payment in response to which this
+             * transfer is being sent.
+             */
+            fun inboundRealTimePaymentsRequestForPaymentId(
+                inboundRealTimePaymentsRequestForPaymentId: String
+            ) =
+                inboundRealTimePaymentsRequestForPaymentId(
+                    JsonField.of(inboundRealTimePaymentsRequestForPaymentId)
+                )
+
+            /**
+             * Sets [Builder.inboundRealTimePaymentsRequestForPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundRealTimePaymentsRequestForPaymentId] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun inboundRealTimePaymentsRequestForPaymentId(
+                inboundRealTimePaymentsRequestForPaymentId: JsonField<String>
+            ) = apply {
+                this.inboundRealTimePaymentsRequestForPaymentId =
+                    inboundRealTimePaymentsRequestForPaymentId
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
@@ -1119,6 +1222,7 @@ private constructor(
                     accountNumber,
                     debtorName,
                     externalAccountId,
+                    inboundRealTimePaymentsRequestForPaymentId,
                     requireApproval,
                     routingNumber,
                     ultimateCreditorName,
@@ -1150,6 +1254,7 @@ private constructor(
             accountNumber()
             debtorName()
             externalAccountId()
+            inboundRealTimePaymentsRequestForPaymentId()
             requireApproval()
             routingNumber()
             ultimateCreditorName()
@@ -1179,6 +1284,7 @@ private constructor(
                 (if (accountNumber.asKnown() == null) 0 else 1) +
                 (if (debtorName.asKnown() == null) 0 else 1) +
                 (if (externalAccountId.asKnown() == null) 0 else 1) +
+                (if (inboundRealTimePaymentsRequestForPaymentId.asKnown() == null) 0 else 1) +
                 (if (requireApproval.asKnown() == null) 0 else 1) +
                 (if (routingNumber.asKnown() == null) 0 else 1) +
                 (if (ultimateCreditorName.asKnown() == null) 0 else 1) +
@@ -1197,6 +1303,8 @@ private constructor(
                 accountNumber == other.accountNumber &&
                 debtorName == other.debtorName &&
                 externalAccountId == other.externalAccountId &&
+                inboundRealTimePaymentsRequestForPaymentId ==
+                    other.inboundRealTimePaymentsRequestForPaymentId &&
                 requireApproval == other.requireApproval &&
                 routingNumber == other.routingNumber &&
                 ultimateCreditorName == other.ultimateCreditorName &&
@@ -1213,6 +1321,7 @@ private constructor(
                 accountNumber,
                 debtorName,
                 externalAccountId,
+                inboundRealTimePaymentsRequestForPaymentId,
                 requireApproval,
                 routingNumber,
                 ultimateCreditorName,
@@ -1224,7 +1333,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, creditorName=$creditorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, debtorName=$debtorName, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, creditorName=$creditorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, debtorName=$debtorName, externalAccountId=$externalAccountId, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, requireApproval=$requireApproval, routingNumber=$routingNumber, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
