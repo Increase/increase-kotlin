@@ -61,6 +61,7 @@ internal class RealTimePaymentsTransferTest {
                 .debtorName("National Phonograph Company")
                 .externalAccountId(null)
                 .idempotencyKey(null)
+                .inboundRealTimePaymentsRequestForPaymentId(null)
                 .pendingTransactionId(null)
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
@@ -141,6 +142,7 @@ internal class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.debtorName()).isEqualTo("National Phonograph Company")
         assertThat(realTimePaymentsTransfer.externalAccountId()).isNull()
         assertThat(realTimePaymentsTransfer.idempotencyKey()).isNull()
+        assertThat(realTimePaymentsTransfer.inboundRealTimePaymentsRequestForPaymentId()).isNull()
         assertThat(realTimePaymentsTransfer.pendingTransactionId()).isNull()
         assertThat(realTimePaymentsTransfer.rejection())
             .isEqualTo(
@@ -226,6 +228,7 @@ internal class RealTimePaymentsTransferTest {
                 .debtorName("National Phonograph Company")
                 .externalAccountId(null)
                 .idempotencyKey(null)
+                .inboundRealTimePaymentsRequestForPaymentId(null)
                 .pendingTransactionId(null)
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()

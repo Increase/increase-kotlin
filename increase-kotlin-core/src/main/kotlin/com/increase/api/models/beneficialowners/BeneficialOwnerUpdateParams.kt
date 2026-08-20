@@ -54,6 +54,14 @@ private constructor(
     fun confirmedNoUsTaxId(): Boolean? = body.confirmedNoUsTaxId()
 
     /**
+     * The person's date of birth in YYYY-MM-DD format.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dateOfBirth(): LocalDate? = body.dateOfBirth()
+
+    /**
      * A means of verifying the person's identity.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -93,6 +101,13 @@ private constructor(
      * type.
      */
     fun _confirmedNoUsTaxId(): JsonField<Boolean> = body._confirmedNoUsTaxId()
+
+    /**
+     * Returns the raw JSON value of [dateOfBirth].
+     *
+     * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _dateOfBirth(): JsonField<LocalDate> = body._dateOfBirth()
 
     /**
      * Returns the raw JSON value of [identification].
@@ -162,9 +177,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [address]
          * - [confirmedNoUsTaxId]
+         * - [dateOfBirth]
          * - [identification]
          * - [name]
-         * - [prongs]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -202,6 +217,18 @@ private constructor(
         fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
             body.confirmedNoUsTaxId(confirmedNoUsTaxId)
         }
+
+        /** The person's date of birth in YYYY-MM-DD format. */
+        fun dateOfBirth(dateOfBirth: LocalDate) = apply { body.dateOfBirth(dateOfBirth) }
+
+        /**
+         * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply { body.dateOfBirth(dateOfBirth) }
 
         /** A means of verifying the person's identity. */
         fun identification(identification: Identification) = apply {
@@ -401,6 +428,7 @@ private constructor(
     private constructor(
         private val address: JsonField<Address>,
         private val confirmedNoUsTaxId: JsonField<Boolean>,
+        private val dateOfBirth: JsonField<LocalDate>,
         private val identification: JsonField<Identification>,
         private val name: JsonField<String>,
         private val prongs: JsonField<List<Prong>>,
@@ -413,6 +441,9 @@ private constructor(
             @JsonProperty("confirmed_no_us_tax_id")
             @ExcludeMissing
             confirmedNoUsTaxId: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("identification")
             @ExcludeMissing
             identification: JsonField<Identification> = JsonMissing.of(),
@@ -420,7 +451,15 @@ private constructor(
             @JsonProperty("prongs")
             @ExcludeMissing
             prongs: JsonField<List<Prong>> = JsonMissing.of(),
-        ) : this(address, confirmedNoUsTaxId, identification, name, prongs, mutableMapOf())
+        ) : this(
+            address,
+            confirmedNoUsTaxId,
+            dateOfBirth,
+            identification,
+            name,
+            prongs,
+            mutableMapOf(),
+        )
 
         /**
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -441,6 +480,14 @@ private constructor(
          */
         fun confirmedNoUsTaxId(): Boolean? =
             confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id")
+
+        /**
+         * The person's date of birth in YYYY-MM-DD format.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun dateOfBirth(): LocalDate? = dateOfBirth.getNullable("date_of_birth")
 
         /**
          * A means of verifying the person's identity.
@@ -484,6 +531,15 @@ private constructor(
         @JsonProperty("confirmed_no_us_tax_id")
         @ExcludeMissing
         fun _confirmedNoUsTaxId(): JsonField<Boolean> = confirmedNoUsTaxId
+
+        /**
+         * Returns the raw JSON value of [dateOfBirth].
+         *
+         * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("date_of_birth")
+        @ExcludeMissing
+        fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
         /**
          * Returns the raw JSON value of [identification].
@@ -532,6 +588,7 @@ private constructor(
 
             private var address: JsonField<Address> = JsonMissing.of()
             private var confirmedNoUsTaxId: JsonField<Boolean> = JsonMissing.of()
+            private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
             private var identification: JsonField<Identification> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var prongs: JsonField<MutableList<Prong>>? = null
@@ -540,6 +597,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 address = body.address
                 confirmedNoUsTaxId = body.confirmedNoUsTaxId
+                dateOfBirth = body.dateOfBirth
                 identification = body.identification
                 name = body.name
                 prongs = body.prongs.map { it.toMutableList() }
@@ -578,6 +636,20 @@ private constructor(
              */
             fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
                 this.confirmedNoUsTaxId = confirmedNoUsTaxId
+            }
+
+            /** The person's date of birth in YYYY-MM-DD format. */
+            fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
+
+            /**
+             * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
+                this.dateOfBirth = dateOfBirth
             }
 
             /** A means of verifying the person's identity. */
@@ -665,6 +737,7 @@ private constructor(
                 Body(
                     address,
                     confirmedNoUsTaxId,
+                    dateOfBirth,
                     identification,
                     name,
                     (prongs ?: JsonMissing.of()).map { it.toImmutable() },
@@ -690,6 +763,7 @@ private constructor(
 
             address()?.validate()
             confirmedNoUsTaxId()
+            dateOfBirth()
             identification()?.validate()
             name()
             prongs()?.forEach { it.validate() }
@@ -713,6 +787,7 @@ private constructor(
         internal fun validity(): Int =
             (address.asKnown()?.validity() ?: 0) +
                 (if (confirmedNoUsTaxId.asKnown() == null) 0 else 1) +
+                (if (dateOfBirth.asKnown() == null) 0 else 1) +
                 (identification.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
                 (prongs.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
@@ -725,6 +800,7 @@ private constructor(
             return other is Body &&
                 address == other.address &&
                 confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                dateOfBirth == other.dateOfBirth &&
                 identification == other.identification &&
                 name == other.name &&
                 prongs == other.prongs &&
@@ -735,6 +811,7 @@ private constructor(
             Objects.hash(
                 address,
                 confirmedNoUsTaxId,
+                dateOfBirth,
                 identification,
                 name,
                 prongs,
@@ -745,7 +822,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, identification=$identification, name=$name, prongs=$prongs, additionalProperties=$additionalProperties}"
+            "Body{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, prongs=$prongs, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -784,6 +861,8 @@ private constructor(
 
         /**
          * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+         *
+         * Defaults to `US`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -925,7 +1004,11 @@ private constructor(
              */
             fun city(city: JsonField<String>) = apply { this.city = city }
 
-            /** The two-letter ISO 3166-1 alpha-2 code for the country of the address. */
+            /**
+             * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+             *
+             * Defaults to `US`.
+             */
             fun country(country: String) = country(JsonField.of(country))
 
             /**
@@ -1133,6 +1216,8 @@ private constructor(
         /**
          * A method that can be used to verify the individual's identity.
          *
+         * Defaults to `social_security_number`.
+         *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -1260,7 +1345,11 @@ private constructor(
                 additionalProperties = identification.additionalProperties.toMutableMap()
             }
 
-            /** A method that can be used to verify the individual's identity. */
+            /**
+             * A method that can be used to verify the individual's identity.
+             *
+             * Defaults to `social_security_number`.
+             */
             fun method(method: Method) = method(JsonField.of(method))
 
             /**
