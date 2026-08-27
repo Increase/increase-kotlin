@@ -35,8 +35,10 @@ private constructor(
     private val debtorName: JsonField<String>,
     private val debtorRoutingNumber: JsonField<String>,
     private val decline: JsonField<Decline>,
+    private val endToEndIdentification: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
+    private val transactionIdentification: JsonField<String>,
     private val type: JsonField<Type>,
     private val uniqueEndToEndTransactionReference: JsonField<String>,
     private val unstructuredRemittanceInformation: JsonField<String>,
@@ -71,10 +73,16 @@ private constructor(
         @ExcludeMissing
         debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
+        @JsonProperty("end_to_end_identification")
+        @ExcludeMissing
+        endToEndIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_id")
         @ExcludeMissing
         transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("transaction_identification")
+        @ExcludeMissing
+        transactionIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("unique_end_to_end_transaction_reference")
         @ExcludeMissing
@@ -95,8 +103,10 @@ private constructor(
         debtorName,
         debtorRoutingNumber,
         decline,
+        endToEndIdentification,
         status,
         transactionId,
+        transactionIdentification,
         type,
         uniqueEndToEndTransactionReference,
         unstructuredRemittanceInformation,
@@ -202,6 +212,15 @@ private constructor(
     fun decline(): Decline? = decline.getNullable("decline")
 
     /**
+     * A free-form reference string set by the sender, to help identify the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endToEndIdentification(): String? =
+        endToEndIdentification.getNullable("end_to_end_identification")
+
+    /**
      * The lifecycle status of the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -216,6 +235,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun transactionId(): String? = transactionId.getNullable("transaction_id")
+
+    /**
+     * The FedNow network identification of the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun transactionIdentification(): String? =
+        transactionIdentification.getNullable("transaction_identification")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -345,6 +373,16 @@ private constructor(
     @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
 
     /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("end_to_end_identification")
+    @ExcludeMissing
+    fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -359,6 +397,16 @@ private constructor(
     @JsonProperty("transaction_id")
     @ExcludeMissing
     fun _transactionId(): JsonField<String> = transactionId
+
+    /**
+     * Returns the raw JSON value of [transactionIdentification].
+     *
+     * Unlike [transactionIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("transaction_identification")
+    @ExcludeMissing
+    fun _transactionIdentification(): JsonField<String> = transactionIdentification
 
     /**
      * Returns the raw JSON value of [type].
@@ -419,8 +467,10 @@ private constructor(
          * .debtorName()
          * .debtorRoutingNumber()
          * .decline()
+         * .endToEndIdentification()
          * .status()
          * .transactionId()
+         * .transactionIdentification()
          * .type()
          * .uniqueEndToEndTransactionReference()
          * .unstructuredRemittanceInformation()
@@ -444,8 +494,10 @@ private constructor(
         private var debtorName: JsonField<String>? = null
         private var debtorRoutingNumber: JsonField<String>? = null
         private var decline: JsonField<Decline>? = null
+        private var endToEndIdentification: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
+        private var transactionIdentification: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var uniqueEndToEndTransactionReference: JsonField<String>? = null
         private var unstructuredRemittanceInformation: JsonField<String>? = null
@@ -464,8 +516,10 @@ private constructor(
             debtorName = inboundFednowTransfer.debtorName
             debtorRoutingNumber = inboundFednowTransfer.debtorRoutingNumber
             decline = inboundFednowTransfer.decline
+            endToEndIdentification = inboundFednowTransfer.endToEndIdentification
             status = inboundFednowTransfer.status
             transactionId = inboundFednowTransfer.transactionId
+            transactionIdentification = inboundFednowTransfer.transactionIdentification
             type = inboundFednowTransfer.type
             uniqueEndToEndTransactionReference =
                 inboundFednowTransfer.uniqueEndToEndTransactionReference
@@ -635,6 +689,21 @@ private constructor(
          */
         fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
+        /** A free-form reference string set by the sender, to help identify the transfer. */
+        fun endToEndIdentification(endToEndIdentification: String?) =
+            endToEndIdentification(JsonField.ofNullable(endToEndIdentification))
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            this.endToEndIdentification = endToEndIdentification
+        }
+
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -659,6 +728,21 @@ private constructor(
          */
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
+        }
+
+        /** The FedNow network identification of the transfer. */
+        fun transactionIdentification(transactionIdentification: String?) =
+            transactionIdentification(JsonField.ofNullable(transactionIdentification))
+
+        /**
+         * Sets [Builder.transactionIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionIdentification] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun transactionIdentification(transactionIdentification: JsonField<String>) = apply {
+            this.transactionIdentification = transactionIdentification
         }
 
         /**
@@ -751,8 +835,10 @@ private constructor(
          * .debtorName()
          * .debtorRoutingNumber()
          * .decline()
+         * .endToEndIdentification()
          * .status()
          * .transactionId()
+         * .transactionIdentification()
          * .type()
          * .uniqueEndToEndTransactionReference()
          * .unstructuredRemittanceInformation()
@@ -774,8 +860,10 @@ private constructor(
                 checkRequired("debtorName", debtorName),
                 checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                 checkRequired("decline", decline),
+                checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
+                checkRequired("transactionIdentification", transactionIdentification),
                 checkRequired("type", type),
                 checkRequired(
                     "uniqueEndToEndTransactionReference",
@@ -816,8 +904,10 @@ private constructor(
         debtorName()
         debtorRoutingNumber()
         decline()?.validate()
+        endToEndIdentification()
         status().validate()
         transactionId()
+        transactionIdentification()
         type().validate()
         uniqueEndToEndTransactionReference()
         unstructuredRemittanceInformation()
@@ -850,8 +940,10 @@ private constructor(
             (if (debtorName.asKnown() == null) 0 else 1) +
             (if (debtorRoutingNumber.asKnown() == null) 0 else 1) +
             (decline.asKnown()?.validity() ?: 0) +
+            (if (endToEndIdentification.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
             (if (transactionId.asKnown() == null) 0 else 1) +
+            (if (transactionIdentification.asKnown() == null) 0 else 1) +
             (type.asKnown()?.validity() ?: 0) +
             (if (uniqueEndToEndTransactionReference.asKnown() == null) 0 else 1) +
             (if (unstructuredRemittanceInformation.asKnown() == null) 0 else 1)
@@ -1870,8 +1962,10 @@ private constructor(
             debtorName == other.debtorName &&
             debtorRoutingNumber == other.debtorRoutingNumber &&
             decline == other.decline &&
+            endToEndIdentification == other.endToEndIdentification &&
             status == other.status &&
             transactionId == other.transactionId &&
+            transactionIdentification == other.transactionIdentification &&
             type == other.type &&
             uniqueEndToEndTransactionReference == other.uniqueEndToEndTransactionReference &&
             unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
@@ -1892,8 +1986,10 @@ private constructor(
             debtorName,
             debtorRoutingNumber,
             decline,
+            endToEndIdentification,
             status,
             transactionId,
+            transactionIdentification,
             type,
             uniqueEndToEndTransactionReference,
             unstructuredRemittanceInformation,
@@ -1904,5 +2000,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundFednowTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, status=$status, transactionId=$transactionId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "InboundFednowTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, endToEndIdentification=$endToEndIdentification, status=$status, transactionId=$transactionId, transactionIdentification=$transactionIdentification, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
