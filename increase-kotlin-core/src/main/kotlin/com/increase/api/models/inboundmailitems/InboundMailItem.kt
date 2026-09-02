@@ -29,6 +29,7 @@ class InboundMailItem
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
     private val checks: JsonField<List<Check>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val fileId: JsonField<String>,
@@ -44,6 +45,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("checks") @ExcludeMissing checks: JsonField<List<Check>> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
@@ -65,6 +67,7 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
         id,
+        accountId,
         checks,
         createdAt,
         fileId,
@@ -84,6 +87,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The identifier for the Account that checks in this mail item are deposited into. For mail
+     * items that could not be routed to a Lockbox Recipient, this will be null.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountId(): String? = accountId.getNullable("account_id")
 
     /**
      * The checks in the mail item.
@@ -166,6 +178,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * Returns the raw JSON value of [checks].
@@ -262,6 +281,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
+         * .accountId()
          * .checks()
          * .createdAt()
          * .fileId()
@@ -280,6 +300,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
         private var checks: JsonField<MutableList<Check>>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var fileId: JsonField<String>? = null
@@ -293,6 +314,7 @@ private constructor(
 
         internal fun from(inboundMailItem: InboundMailItem) = apply {
             id = inboundMailItem.id
+            accountId = inboundMailItem.accountId
             checks = inboundMailItem.checks.map { it.toMutableList() }
             createdAt = inboundMailItem.createdAt
             fileId = inboundMailItem.fileId
@@ -315,6 +337,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The identifier for the Account that checks in this mail item are deposited into. For mail
+         * items that could not be routed to a Lockbox Recipient, this will be null.
+         */
+        fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
+
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The checks in the mail item. */
         fun checks(checks: List<Check>) = checks(JsonField.of(checks))
@@ -483,6 +520,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
+         * .accountId()
          * .checks()
          * .createdAt()
          * .fileId()
@@ -499,6 +537,7 @@ private constructor(
         fun build(): InboundMailItem =
             InboundMailItem(
                 checkRequired("id", id),
+                checkRequired("accountId", accountId),
                 checkRequired("checks", checks).map { it.toImmutable() },
                 checkRequired("createdAt", createdAt),
                 checkRequired("fileId", fileId),
@@ -528,6 +567,7 @@ private constructor(
         }
 
         id()
+        accountId()
         checks().forEach { it.validate() }
         createdAt()
         fileId()
@@ -555,6 +595,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
+            (if (accountId.asKnown() == null) 0 else 1) +
             (checks.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (fileId.asKnown() == null) 0 else 1) +
@@ -1523,6 +1564,7 @@ private constructor(
 
         return other is InboundMailItem &&
             id == other.id &&
+            accountId == other.accountId &&
             checks == other.checks &&
             createdAt == other.createdAt &&
             fileId == other.fileId &&
@@ -1538,6 +1580,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountId,
             checks,
             createdAt,
             fileId,
@@ -1554,5 +1597,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundMailItem{id=$id, checks=$checks, createdAt=$createdAt, fileId=$fileId, lockboxAddressId=$lockboxAddressId, lockboxRecipientId=$lockboxRecipientId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundMailItem{id=$id, accountId=$accountId, checks=$checks, createdAt=$createdAt, fileId=$fileId, lockboxAddressId=$lockboxAddressId, lockboxRecipientId=$lockboxRecipientId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
