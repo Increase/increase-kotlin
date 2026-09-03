@@ -62,7 +62,7 @@ interface EntityOnboardingSessionServiceAsync {
             requestOptions,
         )
 
-    /** List Entity Onboarding Session */
+    /** List Entity Onboarding Sessions */
     suspend fun list(
         params: EntityOnboardingSessionListParams = EntityOnboardingSessionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
