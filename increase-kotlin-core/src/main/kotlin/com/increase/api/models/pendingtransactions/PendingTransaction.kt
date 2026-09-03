@@ -4470,7 +4470,7 @@ private constructor(
             fun actioner(): Actioner = actioner.getRequired("actioner")
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              *
@@ -4531,8 +4531,8 @@ private constructor(
             fun direction(): Direction = direction.getRequired("direction")
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization will
-             * expire and the pending transaction will be released.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which this
+             * authorization will expire and the pending transaction will be released.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -5207,7 +5207,7 @@ private constructor(
                 fun actioner(actioner: JsonField<Actioner>) = apply { this.actioner = actioner }
 
                 /**
-                 * Additional amounts associated with the card authorization, such as ATM surcharges
+                 * Additional amounts associated with the card authorization, such as ATM surcharge
                  * fees. These are usually a subset of the `amount` field and are used to provide
                  * more detailed information about the transaction.
                  */
@@ -5306,8 +5306,8 @@ private constructor(
                 }
 
                 /**
-                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization
-                 * will expire and the pending transaction will be released.
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which this
+                 * authorization will expire and the pending transaction will be released.
                  */
                 fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
 
@@ -6068,7 +6068,7 @@ private constructor(
             }
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              */
