@@ -12,7 +12,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
-/** List Entity Onboarding Session */
+/** List Entity Onboarding Sessions */
 class EntityOnboardingSessionListParams
 private constructor(
     private val cursor: String?,
@@ -247,8 +247,8 @@ private constructor(
     private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
-         * Filter Entity Onboarding Session for those with the specified status or statuses. For GET
-         * requests, this should be encoded as a comma-delimited string, such as
+         * Filter Entity Onboarding Sessions for those with the specified status or statuses. For
+         * GET requests, this should be encoded as a comma-delimited string, such as
          * `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
@@ -276,8 +276,8 @@ private constructor(
             }
 
             /**
-             * Filter Entity Onboarding Session for those with the specified status or statuses. For
-             * GET requests, this should be encoded as a comma-delimited string, such as
+             * Filter Entity Onboarding Sessions for those with the specified status or statuses.
+             * For GET requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
