@@ -62,7 +62,7 @@ interface EntityOnboardingSessionService {
             requestOptions,
         )
 
-    /** List Entity Onboarding Session */
+    /** List Entity Onboarding Sessions */
     fun list(
         params: EntityOnboardingSessionListParams = EntityOnboardingSessionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
