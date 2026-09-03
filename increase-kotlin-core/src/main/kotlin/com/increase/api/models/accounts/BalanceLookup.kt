@@ -17,7 +17,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-/** Represents a request to lookup the balance of an Account at a given point in time. */
+/** Represents a request to look up the balance of an Account at a given point in time. */
 class BalanceLookup
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
