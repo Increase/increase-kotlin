@@ -28,6 +28,7 @@ class WireDrawdownRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
     private val accountNumberId: JsonField<String>,
     private val amount: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -53,6 +54,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_number_id")
         @ExcludeMissing
         accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -104,6 +106,7 @@ private constructor(
         unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        accountId,
         accountNumberId,
         amount,
         createdAt,
@@ -133,6 +136,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The Account to which the debtor—the recipient of this request—is being requested to send
+     * funds.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The Account Number to which the debtor—the recipient of this request—is being requested to
@@ -307,6 +319,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * Returns the raw JSON value of [accountNumberId].
@@ -497,6 +516,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
+         * .accountId()
          * .accountNumberId()
          * .amount()
          * .createdAt()
@@ -525,6 +545,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
         private var accountNumberId: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -548,6 +569,7 @@ private constructor(
 
         internal fun from(wireDrawdownRequest: WireDrawdownRequest) = apply {
             id = wireDrawdownRequest.id
+            accountId = wireDrawdownRequest.accountId
             accountNumberId = wireDrawdownRequest.accountNumberId
             amount = wireDrawdownRequest.amount
             createdAt = wireDrawdownRequest.createdAt
@@ -582,6 +604,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The Account to which the debtor—the recipient of this request—is being requested to send
+         * funds.
+         */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
          * The Account Number to which the debtor—the recipient of this request—is being requested
@@ -900,6 +937,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
+         * .accountId()
          * .accountNumberId()
          * .amount()
          * .createdAt()
@@ -926,6 +964,7 @@ private constructor(
         fun build(): WireDrawdownRequest =
             WireDrawdownRequest(
                 checkRequired("id", id),
+                checkRequired("accountId", accountId),
                 checkRequired("accountNumberId", accountNumberId),
                 checkRequired("amount", amount),
                 checkRequired("createdAt", createdAt),
@@ -971,6 +1010,7 @@ private constructor(
         }
 
         id()
+        accountId()
         accountNumberId()
         amount()
         createdAt()
@@ -1008,6 +1048,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
+            (if (accountId.asKnown() == null) 0 else 1) +
             (if (accountNumberId.asKnown() == null) 0 else 1) +
             (if (amount.asKnown() == null) 0 else 1) +
             (if (createdAt.asKnown() == null) 0 else 1) +
@@ -2241,6 +2282,7 @@ private constructor(
 
         return other is WireDrawdownRequest &&
             id == other.id &&
+            accountId == other.accountId &&
             accountNumberId == other.accountNumberId &&
             amount == other.amount &&
             createdAt == other.createdAt &&
@@ -2266,6 +2308,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountId,
             accountNumberId,
             amount,
             createdAt,
@@ -2292,5 +2335,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
