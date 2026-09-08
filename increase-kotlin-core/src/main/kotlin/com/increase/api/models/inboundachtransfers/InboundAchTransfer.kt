@@ -310,7 +310,7 @@ private constructor(
         originatorCompanyName.getRequired("originator_company_name")
 
     /**
-     * The American Banking Association (ABA) routing number of the bank originating the transfer.
+     * The American Bankers' Association (ABA) routing number of the bank originating the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -999,7 +999,7 @@ private constructor(
         }
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating the
+         * The American Bankers' Association (ABA) routing number of the bank originating the
          * transfer.
          */
         fun originatorRoutingNumber(originatorRoutingNumber: String) =

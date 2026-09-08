@@ -859,6 +859,7 @@ private constructor(
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
         private val fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement>,
+        private val fednowTransferReturn: JsonField<FednowTransferReturn>,
         private val feePayment: JsonField<FeePayment>,
         private val inboundAchTransfer: JsonField<InboundAchTransfer>,
         private val inboundAchTransferReturnIntention: JsonField<InboundAchTransferReturnIntention>,
@@ -951,6 +952,9 @@ private constructor(
             @ExcludeMissing
             fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement> =
                 JsonMissing.of(),
+            @JsonProperty("fednow_transfer_return")
+            @ExcludeMissing
+            fednowTransferReturn: JsonField<FednowTransferReturn> = JsonMissing.of(),
             @JsonProperty("fee_payment")
             @ExcludeMissing
             feePayment: JsonField<FeePayment> = JsonMissing.of(),
@@ -1032,6 +1036,7 @@ private constructor(
             checkDepositReturn,
             checkTransferDeposit,
             fednowTransferAcknowledgement,
+            fednowTransferReturn,
             feePayment,
             inboundAchTransfer,
             inboundAchTransferReturnIntention,
@@ -1296,6 +1301,17 @@ private constructor(
             fednowTransferAcknowledgement.getNullable("fednow_transfer_acknowledgement")
 
         /**
+         * A FedNow Transfer Return object. This field will be present in the JSON response if and
+         * only if `category` is equal to `fednow_transfer_return`. A FedNow Transfer Return is
+         * created when a FedNow Transfer sent from Increase is returned by the recipient's bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun fednowTransferReturn(): FednowTransferReturn? =
+            fednowTransferReturn.getNullable("fednow_transfer_return")
+
+        /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
          * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
          * Increase.
@@ -1333,7 +1349,7 @@ private constructor(
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
          * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
          * Adjustment is created when Increase receives an adjustment for a check or return
-         * deposited through Check21.
+         * deposited through Check 21.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1716,6 +1732,16 @@ private constructor(
             fednowTransferAcknowledgement
 
         /**
+         * Returns the raw JSON value of [fednowTransferReturn].
+         *
+         * Unlike [fednowTransferReturn], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("fednow_transfer_return")
+        @ExcludeMissing
+        fun _fednowTransferReturn(): JsonField<FednowTransferReturn> = fednowTransferReturn
+
+        /**
          * Returns the raw JSON value of [feePayment].
          *
          * Unlike [feePayment], this method doesn't throw if the JSON field has an unexpected type.
@@ -1954,6 +1980,7 @@ private constructor(
             private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
             private var fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement> =
                 JsonMissing.of()
+            private var fednowTransferReturn: JsonField<FednowTransferReturn> = JsonMissing.of()
             private var feePayment: JsonField<FeePayment> = JsonMissing.of()
             private var inboundAchTransfer: JsonField<InboundAchTransfer> = JsonMissing.of()
             private var inboundAchTransferReturnIntention:
@@ -2007,6 +2034,7 @@ private constructor(
                 checkDepositReturn = source.checkDepositReturn
                 checkTransferDeposit = source.checkTransferDeposit
                 fednowTransferAcknowledgement = source.fednowTransferAcknowledgement
+                fednowTransferReturn = source.fednowTransferReturn
                 feePayment = source.feePayment
                 inboundAchTransfer = source.inboundAchTransfer
                 inboundAchTransferReturnIntention = source.inboundAchTransferReturnIntention
@@ -2464,6 +2492,27 @@ private constructor(
             ) = apply { this.fednowTransferAcknowledgement = fednowTransferAcknowledgement }
 
             /**
+             * A FedNow Transfer Return object. This field will be present in the JSON response if
+             * and only if `category` is equal to `fednow_transfer_return`. A FedNow Transfer Return
+             * is created when a FedNow Transfer sent from Increase is returned by the recipient's
+             * bank.
+             */
+            fun fednowTransferReturn(fednowTransferReturn: FednowTransferReturn?) =
+                fednowTransferReturn(JsonField.ofNullable(fednowTransferReturn))
+
+            /**
+             * Sets [Builder.fednowTransferReturn] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fednowTransferReturn] with a well-typed
+             * [FednowTransferReturn] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun fednowTransferReturn(fednowTransferReturn: JsonField<FednowTransferReturn>) =
+                apply {
+                    this.fednowTransferReturn = fednowTransferReturn
+                }
+
+            /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
              * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
              * Increase.
@@ -2529,7 +2578,7 @@ private constructor(
              * An Inbound Check Adjustment object. This field will be present in the JSON response
              * if and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
              * Adjustment is created when Increase receives an adjustment for a check or return
-             * deposited through Check21.
+             * deposited through Check 21.
              */
             fun inboundCheckAdjustment(inboundCheckAdjustment: InboundCheckAdjustment?) =
                 inboundCheckAdjustment(JsonField.ofNullable(inboundCheckAdjustment))
@@ -2903,6 +2952,7 @@ private constructor(
                     checkDepositReturn,
                     checkTransferDeposit,
                     fednowTransferAcknowledgement,
+                    fednowTransferReturn,
                     feePayment,
                     inboundAchTransfer,
                     inboundAchTransferReturnIntention,
@@ -2962,6 +3012,7 @@ private constructor(
             checkDepositReturn()?.validate()
             checkTransferDeposit()?.validate()
             fednowTransferAcknowledgement()?.validate()
+            fednowTransferReturn()?.validate()
             feePayment()?.validate()
             inboundAchTransfer()?.validate()
             inboundAchTransferReturnIntention()?.validate()
@@ -3019,6 +3070,7 @@ private constructor(
                 (checkDepositReturn.asKnown()?.validity() ?: 0) +
                 (checkTransferDeposit.asKnown()?.validity() ?: 0) +
                 (fednowTransferAcknowledgement.asKnown()?.validity() ?: 0) +
+                (fednowTransferReturn.asKnown()?.validity() ?: 0) +
                 (feePayment.asKnown()?.validity() ?: 0) +
                 (inboundAchTransfer.asKnown()?.validity() ?: 0) +
                 (inboundAchTransferReturnIntention.asKnown()?.validity() ?: 0) +
@@ -3128,6 +3180,12 @@ private constructor(
                  * `fednow_transfer_acknowledgement` object.
                  */
                 val FEDNOW_TRANSFER_ACKNOWLEDGEMENT = of("fednow_transfer_acknowledgement")
+
+                /**
+                 * FedNow Transfer Return: details will be under the `fednow_transfer_return`
+                 * object.
+                 */
+                val FEDNOW_TRANSFER_RETURN = of("fednow_transfer_return")
 
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
@@ -3320,6 +3378,11 @@ private constructor(
                  */
                 FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
+                 * FedNow Transfer Return: details will be under the `fednow_transfer_return`
+                 * object.
+                 */
+                FEDNOW_TRANSFER_RETURN,
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -3487,6 +3550,11 @@ private constructor(
                  */
                 FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
+                 * FedNow Transfer Return: details will be under the `fednow_transfer_return`
+                 * object.
+                 */
+                FEDNOW_TRANSFER_RETURN,
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -3614,6 +3682,7 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_RETURN -> Value.FEDNOW_TRANSFER_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -3673,6 +3742,7 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_RETURN -> Known.FEDNOW_TRANSFER_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
@@ -9033,7 +9103,7 @@ private constructor(
             fun actioner(): Actioner = actioner.getRequired("actioner")
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              *
@@ -9699,7 +9769,7 @@ private constructor(
                 fun actioner(actioner: JsonField<Actioner>) = apply { this.actioner = actioner }
 
                 /**
-                 * Additional amounts associated with the card authorization, such as ATM surcharges
+                 * Additional amounts associated with the card authorization, such as ATM surcharge
                  * fees. These are usually a subset of the `amount` field and are used to provide
                  * more detailed information about the transaction.
                  */
@@ -10492,7 +10562,7 @@ private constructor(
             }
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              */
@@ -44062,7 +44132,7 @@ private constructor(
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-             * depositing this check. In some rare cases, this is not transmitted via Check21 and
+             * depositing this check. In some rare cases, this is not transmitted via Check 21 and
              * the value will be null.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -44280,7 +44350,7 @@ private constructor(
 
                 /**
                  * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * depositing this check. In some rare cases, this is not transmitted via Check 21
                  * and the value will be null.
                  */
                 fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String?) =
@@ -44866,6 +44936,759 @@ private constructor(
 
             override fun toString() =
                 "FednowTransferAcknowledgement{transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A FedNow Transfer Return object. This field will be present in the JSON response if and
+         * only if `category` is equal to `fednow_transfer_return`. A FedNow Transfer Return is
+         * created when a FedNow Transfer sent from Increase is returned by the recipient's bank.
+         */
+        class FednowTransferReturn
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val returnReasonAdditionalInformation: JsonField<String>,
+            private val returnReasonCode: JsonField<ReturnReasonCode>,
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("return_reason_additional_information")
+                @ExcludeMissing
+                returnReasonAdditionalInformation: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("return_reason_code")
+                @ExcludeMissing
+                returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of(),
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of(),
+            ) : this(
+                amount,
+                returnReasonAdditionalInformation,
+                returnReasonCode,
+                transferId,
+                mutableMapOf(),
+            )
+
+            /**
+             * The returned amount in USD cents. This is always a positive number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * Additional information about the return provided by the recipient's bank.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun returnReasonAdditionalInformation(): String? =
+                returnReasonAdditionalInformation.getNullable(
+                    "return_reason_additional_information"
+                )
+
+            /**
+             * The reason the transfer was returned as provided by the recipient's bank.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun returnReasonCode(): ReturnReasonCode =
+                returnReasonCode.getRequired("return_reason_code")
+
+            /**
+             * The identifier of the FedNow Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [returnReasonAdditionalInformation].
+             *
+             * Unlike [returnReasonAdditionalInformation], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("return_reason_additional_information")
+            @ExcludeMissing
+            fun _returnReasonAdditionalInformation(): JsonField<String> =
+                returnReasonAdditionalInformation
+
+            /**
+             * Returns the raw JSON value of [returnReasonCode].
+             *
+             * Unlike [returnReasonCode], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("return_reason_code")
+            @ExcludeMissing
+            fun _returnReasonCode(): JsonField<ReturnReasonCode> = returnReasonCode
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [FednowTransferReturn].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .returnReasonAdditionalInformation()
+                 * .returnReasonCode()
+                 * .transferId()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [FednowTransferReturn]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<Long>? = null
+                private var returnReasonAdditionalInformation: JsonField<String>? = null
+                private var returnReasonCode: JsonField<ReturnReasonCode>? = null
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(fednowTransferReturn: FednowTransferReturn) = apply {
+                    amount = fednowTransferReturn.amount
+                    returnReasonAdditionalInformation =
+                        fednowTransferReturn.returnReasonAdditionalInformation
+                    returnReasonCode = fednowTransferReturn.returnReasonCode
+                    transferId = fednowTransferReturn.transferId
+                    additionalProperties = fednowTransferReturn.additionalProperties.toMutableMap()
+                }
+
+                /** The returned amount in USD cents. This is always a positive number. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /** Additional information about the return provided by the recipient's bank. */
+                fun returnReasonAdditionalInformation(returnReasonAdditionalInformation: String?) =
+                    returnReasonAdditionalInformation(
+                        JsonField.ofNullable(returnReasonAdditionalInformation)
+                    )
+
+                /**
+                 * Sets [Builder.returnReasonAdditionalInformation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.returnReasonAdditionalInformation] with a
+                 * well-typed [String] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun returnReasonAdditionalInformation(
+                    returnReasonAdditionalInformation: JsonField<String>
+                ) = apply {
+                    this.returnReasonAdditionalInformation = returnReasonAdditionalInformation
+                }
+
+                /** The reason the transfer was returned as provided by the recipient's bank. */
+                fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
+                    returnReasonCode(JsonField.of(returnReasonCode))
+
+                /**
+                 * Sets [Builder.returnReasonCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.returnReasonCode] with a well-typed
+                 * [ReturnReasonCode] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
+                    this.returnReasonCode = returnReasonCode
+                }
+
+                /** The identifier of the FedNow Transfer that led to this Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [FednowTransferReturn].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .returnReasonAdditionalInformation()
+                 * .returnReasonCode()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): FednowTransferReturn =
+                    FednowTransferReturn(
+                        checkRequired("amount", amount),
+                        checkRequired(
+                            "returnReasonAdditionalInformation",
+                            returnReasonAdditionalInformation,
+                        ),
+                        checkRequired("returnReasonCode", returnReasonCode),
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): FednowTransferReturn = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                returnReasonAdditionalInformation()
+                returnReasonCode().validate()
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (amount.asKnown() == null) 0 else 1) +
+                    (if (returnReasonAdditionalInformation.asKnown() == null) 0 else 1) +
+                    (returnReasonCode.asKnown()?.validity() ?: 0) +
+                    (if (transferId.asKnown() == null) 0 else 1)
+
+            /** The reason the transfer was returned as provided by the recipient's bank. */
+            class ReturnReasonCode
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The destination account is closed. Corresponds to the FedNow reason codes
+                     * `AC04` and `AC07`.
+                     */
+                    val ACCOUNT_CLOSED = of("account_closed")
+
+                    /**
+                     * The destination account is currently blocked from receiving transactions.
+                     * Corresponds to the FedNow reason code `AC06`.
+                     */
+                    val ACCOUNT_BLOCKED = of("account_blocked")
+
+                    /**
+                     * The recipient's bank was not a valid agent for this transfer. Corresponds to
+                     * the FedNow reason codes `AC14` and `AGNT`.
+                     */
+                    val INVALID_AGENT = of("invalid_agent")
+
+                    /**
+                     * The destination account does not exist. Corresponds to the FedNow reason code
+                     * `AC03`.
+                     */
+                    val INVALID_CREDITOR_ACCOUNT_NUMBER = of("invalid_creditor_account_number")
+
+                    /**
+                     * The destination account number was incorrect. Corresponds to the FedNow
+                     * reason code `AC01`.
+                     */
+                    val INCORRECT_ACCOUNT_NUMBER = of("incorrect_account_number")
+
+                    /**
+                     * The destination account holder is deceased. Corresponds to the FedNow reason
+                     * code `MD07`.
+                     */
+                    val END_CUSTOMER_DECEASED = of("end_customer_deceased")
+
+                    /**
+                     * The transfer was not permitted by the recipient's bank. Corresponds to the
+                     * FedNow reason code `AG01`.
+                     */
+                    val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
+
+                    /**
+                     * The transfer was returned for a regulatory reason at the recipient's bank.
+                     * Corresponds to the FedNow reason code `RR04`.
+                     */
+                    val REGULATORY_REASON = of("regulatory_reason")
+
+                    /**
+                     * The transfer was reported as fraudulent. Corresponds to the FedNow reason
+                     * code `FR01`.
+                     */
+                    val FRAUD = of("fraud")
+
+                    /**
+                     * The transfer duplicated another transfer. Corresponds to the FedNow reason
+                     * codes `AM05` and `DUPL`.
+                     */
+                    val DUPLICATION = of("duplication")
+
+                    /**
+                     * The transfer amount was incorrect. Corresponds to the FedNow reason code
+                     * `AM09`.
+                     */
+                    val WRONG_AMOUNT = of("wrong_amount")
+
+                    /**
+                     * The transfer was returned at the request of the recipient's customer.
+                     * Corresponds to the FedNow reason code `CUST`.
+                     */
+                    val REQUESTED_BY_CUSTOMER = of("requested_by_customer")
+
+                    /**
+                     * The recipient's bank could not apply the funds. Corresponds to the FedNow
+                     * reason code `RUTA`.
+                     */
+                    val UNABLE_TO_APPLY = of("unable_to_apply")
+
+                    /**
+                     * The recipient's bank did not specify a reason. Corresponds to the FedNow
+                     * reason codes `MS02` and `MS03`.
+                     */
+                    val NOT_SPECIFIED = of("not_specified")
+
+                    /**
+                     * The reason is provided as narrative information in the additional information
+                     * field. Corresponds to the FedNow reason code `NARR`.
+                     */
+                    val NARRATIVE = of("narrative")
+
+                    /** The transfer was returned for some other reason. */
+                    val OTHER = of("other")
+
+                    fun of(value: String) = ReturnReasonCode(JsonField.of(value))
+                }
+
+                /** An enum containing [ReturnReasonCode]'s known values. */
+                enum class Known {
+                    /**
+                     * The destination account is closed. Corresponds to the FedNow reason codes
+                     * `AC04` and `AC07`.
+                     */
+                    ACCOUNT_CLOSED,
+                    /**
+                     * The destination account is currently blocked from receiving transactions.
+                     * Corresponds to the FedNow reason code `AC06`.
+                     */
+                    ACCOUNT_BLOCKED,
+                    /**
+                     * The recipient's bank was not a valid agent for this transfer. Corresponds to
+                     * the FedNow reason codes `AC14` and `AGNT`.
+                     */
+                    INVALID_AGENT,
+                    /**
+                     * The destination account does not exist. Corresponds to the FedNow reason code
+                     * `AC03`.
+                     */
+                    INVALID_CREDITOR_ACCOUNT_NUMBER,
+                    /**
+                     * The destination account number was incorrect. Corresponds to the FedNow
+                     * reason code `AC01`.
+                     */
+                    INCORRECT_ACCOUNT_NUMBER,
+                    /**
+                     * The destination account holder is deceased. Corresponds to the FedNow reason
+                     * code `MD07`.
+                     */
+                    END_CUSTOMER_DECEASED,
+                    /**
+                     * The transfer was not permitted by the recipient's bank. Corresponds to the
+                     * FedNow reason code `AG01`.
+                     */
+                    TRANSACTION_FORBIDDEN,
+                    /**
+                     * The transfer was returned for a regulatory reason at the recipient's bank.
+                     * Corresponds to the FedNow reason code `RR04`.
+                     */
+                    REGULATORY_REASON,
+                    /**
+                     * The transfer was reported as fraudulent. Corresponds to the FedNow reason
+                     * code `FR01`.
+                     */
+                    FRAUD,
+                    /**
+                     * The transfer duplicated another transfer. Corresponds to the FedNow reason
+                     * codes `AM05` and `DUPL`.
+                     */
+                    DUPLICATION,
+                    /**
+                     * The transfer amount was incorrect. Corresponds to the FedNow reason code
+                     * `AM09`.
+                     */
+                    WRONG_AMOUNT,
+                    /**
+                     * The transfer was returned at the request of the recipient's customer.
+                     * Corresponds to the FedNow reason code `CUST`.
+                     */
+                    REQUESTED_BY_CUSTOMER,
+                    /**
+                     * The recipient's bank could not apply the funds. Corresponds to the FedNow
+                     * reason code `RUTA`.
+                     */
+                    UNABLE_TO_APPLY,
+                    /**
+                     * The recipient's bank did not specify a reason. Corresponds to the FedNow
+                     * reason codes `MS02` and `MS03`.
+                     */
+                    NOT_SPECIFIED,
+                    /**
+                     * The reason is provided as narrative information in the additional information
+                     * field. Corresponds to the FedNow reason code `NARR`.
+                     */
+                    NARRATIVE,
+                    /** The transfer was returned for some other reason. */
+                    OTHER,
+                }
+
+                /**
+                 * An enum containing [ReturnReasonCode]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [ReturnReasonCode] can contain an unknown value in a couple of
+                 * cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The destination account is closed. Corresponds to the FedNow reason codes
+                     * `AC04` and `AC07`.
+                     */
+                    ACCOUNT_CLOSED,
+                    /**
+                     * The destination account is currently blocked from receiving transactions.
+                     * Corresponds to the FedNow reason code `AC06`.
+                     */
+                    ACCOUNT_BLOCKED,
+                    /**
+                     * The recipient's bank was not a valid agent for this transfer. Corresponds to
+                     * the FedNow reason codes `AC14` and `AGNT`.
+                     */
+                    INVALID_AGENT,
+                    /**
+                     * The destination account does not exist. Corresponds to the FedNow reason code
+                     * `AC03`.
+                     */
+                    INVALID_CREDITOR_ACCOUNT_NUMBER,
+                    /**
+                     * The destination account number was incorrect. Corresponds to the FedNow
+                     * reason code `AC01`.
+                     */
+                    INCORRECT_ACCOUNT_NUMBER,
+                    /**
+                     * The destination account holder is deceased. Corresponds to the FedNow reason
+                     * code `MD07`.
+                     */
+                    END_CUSTOMER_DECEASED,
+                    /**
+                     * The transfer was not permitted by the recipient's bank. Corresponds to the
+                     * FedNow reason code `AG01`.
+                     */
+                    TRANSACTION_FORBIDDEN,
+                    /**
+                     * The transfer was returned for a regulatory reason at the recipient's bank.
+                     * Corresponds to the FedNow reason code `RR04`.
+                     */
+                    REGULATORY_REASON,
+                    /**
+                     * The transfer was reported as fraudulent. Corresponds to the FedNow reason
+                     * code `FR01`.
+                     */
+                    FRAUD,
+                    /**
+                     * The transfer duplicated another transfer. Corresponds to the FedNow reason
+                     * codes `AM05` and `DUPL`.
+                     */
+                    DUPLICATION,
+                    /**
+                     * The transfer amount was incorrect. Corresponds to the FedNow reason code
+                     * `AM09`.
+                     */
+                    WRONG_AMOUNT,
+                    /**
+                     * The transfer was returned at the request of the recipient's customer.
+                     * Corresponds to the FedNow reason code `CUST`.
+                     */
+                    REQUESTED_BY_CUSTOMER,
+                    /**
+                     * The recipient's bank could not apply the funds. Corresponds to the FedNow
+                     * reason code `RUTA`.
+                     */
+                    UNABLE_TO_APPLY,
+                    /**
+                     * The recipient's bank did not specify a reason. Corresponds to the FedNow
+                     * reason codes `MS02` and `MS03`.
+                     */
+                    NOT_SPECIFIED,
+                    /**
+                     * The reason is provided as narrative information in the additional information
+                     * field. Corresponds to the FedNow reason code `NARR`.
+                     */
+                    NARRATIVE,
+                    /** The transfer was returned for some other reason. */
+                    OTHER,
+                    /**
+                     * An enum member indicating that [ReturnReasonCode] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
+                        ACCOUNT_BLOCKED -> Value.ACCOUNT_BLOCKED
+                        INVALID_AGENT -> Value.INVALID_AGENT
+                        INVALID_CREDITOR_ACCOUNT_NUMBER -> Value.INVALID_CREDITOR_ACCOUNT_NUMBER
+                        INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
+                        END_CUSTOMER_DECEASED -> Value.END_CUSTOMER_DECEASED
+                        TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
+                        REGULATORY_REASON -> Value.REGULATORY_REASON
+                        FRAUD -> Value.FRAUD
+                        DUPLICATION -> Value.DUPLICATION
+                        WRONG_AMOUNT -> Value.WRONG_AMOUNT
+                        REQUESTED_BY_CUSTOMER -> Value.REQUESTED_BY_CUSTOMER
+                        UNABLE_TO_APPLY -> Value.UNABLE_TO_APPLY
+                        NOT_SPECIFIED -> Value.NOT_SPECIFIED
+                        NARRATIVE -> Value.NARRATIVE
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
+                        ACCOUNT_BLOCKED -> Known.ACCOUNT_BLOCKED
+                        INVALID_AGENT -> Known.INVALID_AGENT
+                        INVALID_CREDITOR_ACCOUNT_NUMBER -> Known.INVALID_CREDITOR_ACCOUNT_NUMBER
+                        INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
+                        END_CUSTOMER_DECEASED -> Known.END_CUSTOMER_DECEASED
+                        TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
+                        REGULATORY_REASON -> Known.REGULATORY_REASON
+                        FRAUD -> Known.FRAUD
+                        DUPLICATION -> Known.DUPLICATION
+                        WRONG_AMOUNT -> Known.WRONG_AMOUNT
+                        REQUESTED_BY_CUSTOMER -> Known.REQUESTED_BY_CUSTOMER
+                        UNABLE_TO_APPLY -> Known.UNABLE_TO_APPLY
+                        NOT_SPECIFIED -> Known.NOT_SPECIFIED
+                        NARRATIVE -> Known.NARRATIVE
+                        OTHER -> Known.OTHER
+                        else ->
+                            throw IncreaseInvalidDataException("Unknown ReturnReasonCode: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): ReturnReasonCode = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is ReturnReasonCode && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is FednowTransferReturn &&
+                    amount == other.amount &&
+                    returnReasonAdditionalInformation == other.returnReasonAdditionalInformation &&
+                    returnReasonCode == other.returnReasonCode &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    amount,
+                    returnReasonAdditionalInformation,
+                    returnReasonCode,
+                    transferId,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "FednowTransferReturn{amount=$amount, returnReasonAdditionalInformation=$returnReasonAdditionalInformation, returnReasonCode=$returnReasonCode, transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -46988,7 +47811,7 @@ private constructor(
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
          * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
          * Adjustment is created when Increase receives an adjustment for a check or return
-         * deposited through Check21.
+         * deposited through Check 21.
          */
         class InboundCheckAdjustment
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -49700,7 +50523,8 @@ private constructor(
                 inputMessageAccountabilityData.getNullable("input_message_accountability_data")
 
             /**
-             * The American Banking Association (ABA) routing number of the bank that sent the wire.
+             * The American Bankers' Association (ABA) routing number of the bank that sent the
+             * wire.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -50208,7 +51032,7 @@ private constructor(
                 ) = apply { this.inputMessageAccountabilityData = inputMessageAccountabilityData }
 
                 /**
-                 * The American Banking Association (ABA) routing number of the bank that sent the
+                 * The American Bankers' Association (ABA) routing number of the bank that sent the
                  * wire.
                  */
                 fun instructingAgentRoutingNumber(instructingAgentRoutingNumber: String?) =
@@ -53422,6 +54246,7 @@ private constructor(
                 checkDepositReturn == other.checkDepositReturn &&
                 checkTransferDeposit == other.checkTransferDeposit &&
                 fednowTransferAcknowledgement == other.fednowTransferAcknowledgement &&
+                fednowTransferReturn == other.fednowTransferReturn &&
                 feePayment == other.feePayment &&
                 inboundAchTransfer == other.inboundAchTransfer &&
                 inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention &&
@@ -53468,6 +54293,7 @@ private constructor(
                 checkDepositReturn,
                 checkTransferDeposit,
                 fednowTransferAcknowledgement,
+                fednowTransferReturn,
                 feePayment,
                 inboundAchTransfer,
                 inboundAchTransferReturnIntention,
@@ -53493,7 +54319,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{category=$category, accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, fednowTransferReturn=$fednowTransferReturn, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**

@@ -963,7 +963,7 @@ private constructor(
 
         /**
          * Filter Pending Transactions for those with the specified status. By default only Pending
-         * Transactions in with status `pending` will be returned. For GET requests, this should be
+         * Transactions with status `pending` will be returned. For GET requests, this should be
          * encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
@@ -992,8 +992,8 @@ private constructor(
 
             /**
              * Filter Pending Transactions for those with the specified status. By default only
-             * Pending Transactions in with status `pending` will be returned. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Pending Transactions with status `pending` will be returned. For GET requests, this
+             * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 

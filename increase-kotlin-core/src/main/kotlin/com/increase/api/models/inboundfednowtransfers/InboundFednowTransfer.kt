@@ -1478,6 +1478,9 @@ private constructor(
                 /** Your account is not enabled to receive FedNow transfers. */
                 val FEDNOW_NOT_ENABLED = of("fednow_not_enabled")
 
+                /** The transaction is not allowed per Increase's terms. */
+                val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
+
                 fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -1495,6 +1498,8 @@ private constructor(
                 ENTITY_NOT_ACTIVE,
                 /** Your account is not enabled to receive FedNow transfers. */
                 FEDNOW_NOT_ENABLED,
+                /** The transaction is not allowed per Increase's terms. */
+                TRANSACTION_NOT_ALLOWED,
             }
 
             /**
@@ -1519,6 +1524,8 @@ private constructor(
                 ENTITY_NOT_ACTIVE,
                 /** Your account is not enabled to receive FedNow transfers. */
                 FEDNOW_NOT_ENABLED,
+                /** The transaction is not allowed per Increase's terms. */
+                TRANSACTION_NOT_ALLOWED,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -1540,6 +1547,7 @@ private constructor(
                     GROUP_LOCKED -> Value.GROUP_LOCKED
                     ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                     FEDNOW_NOT_ENABLED -> Value.FEDNOW_NOT_ENABLED
+                    TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                     else -> Value._UNKNOWN
                 }
 
@@ -1560,6 +1568,7 @@ private constructor(
                     GROUP_LOCKED -> Known.GROUP_LOCKED
                     ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                     FEDNOW_NOT_ENABLED -> Known.FEDNOW_NOT_ENABLED
+                    TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 

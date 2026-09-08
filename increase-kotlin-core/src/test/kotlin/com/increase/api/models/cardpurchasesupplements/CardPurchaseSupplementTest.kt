@@ -15,6 +15,7 @@ internal class CardPurchaseSupplementTest {
         val cardPurchaseSupplement =
             CardPurchaseSupplement.builder()
                 .id("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .invoice(
                     CardPurchaseSupplement.Invoice.builder()
@@ -87,6 +88,7 @@ internal class CardPurchaseSupplementTest {
 
         assertThat(cardPurchaseSupplement.id())
             .isEqualTo("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
+        assertThat(cardPurchaseSupplement.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(cardPurchaseSupplement.cardPaymentId())
             .isEqualTo("card_payment_nd3k2kacrqjli8482ave")
         assertThat(cardPurchaseSupplement.invoice())
@@ -169,6 +171,7 @@ internal class CardPurchaseSupplementTest {
         val cardPurchaseSupplement =
             CardPurchaseSupplement.builder()
                 .id("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .invoice(
                     CardPurchaseSupplement.Invoice.builder()

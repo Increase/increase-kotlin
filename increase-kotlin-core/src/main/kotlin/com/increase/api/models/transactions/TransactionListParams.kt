@@ -471,6 +471,12 @@ private constructor(
                 val FEDNOW_TRANSFER_ACKNOWLEDGEMENT = of("fednow_transfer_acknowledgement")
 
                 /**
+                 * FedNow Transfer Return: details will be under the `fednow_transfer_return`
+                 * object.
+                 */
+                val FEDNOW_TRANSFER_RETURN = of("fednow_transfer_return")
+
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -661,6 +667,11 @@ private constructor(
                  */
                 FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
+                 * FedNow Transfer Return: details will be under the `fednow_transfer_return`
+                 * object.
+                 */
+                FEDNOW_TRANSFER_RETURN,
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -828,6 +839,11 @@ private constructor(
                  */
                 FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
+                 * FedNow Transfer Return: details will be under the `fednow_transfer_return`
+                 * object.
+                 */
+                FEDNOW_TRANSFER_RETURN,
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -953,6 +969,7 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_RETURN -> Value.FEDNOW_TRANSFER_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -1012,6 +1029,7 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_RETURN -> Known.FEDNOW_TRANSFER_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER

@@ -31,7 +31,7 @@ private constructor(
 ) : Params {
 
     /**
-     * The identifier of the Account the Interest Payment should be paid to is for.
+     * The identifier of the Account the Interest Payment should be paid to.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -157,7 +157,7 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The identifier of the Account the Interest Payment should be paid to is for. */
+        /** The identifier of the Account the Interest Payment should be paid to. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /**
@@ -395,7 +395,7 @@ private constructor(
         ) : this(accountId, amount, accruedOnAccountId, periodEnd, periodStart, mutableMapOf())
 
         /**
-         * The identifier of the Account the Interest Payment should be paid to is for.
+         * The identifier of the Account the Interest Payment should be paid to.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -521,7 +521,7 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier of the Account the Interest Payment should be paid to is for. */
+            /** The identifier of the Account the Interest Payment should be paid to. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
