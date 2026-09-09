@@ -16750,6 +16750,9 @@ private constructor(
                     /** Your account is not enabled to receive Real-Time Payments transfers. */
                     val REAL_TIME_PAYMENTS_NOT_ENABLED = of("real_time_payments_not_enabled")
 
+                    /** The transaction is not allowed per Increase's terms. */
+                    val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -16767,6 +16770,8 @@ private constructor(
                     ENTITY_NOT_ACTIVE,
                     /** Your account is not enabled to receive Real-Time Payments transfers. */
                     REAL_TIME_PAYMENTS_NOT_ENABLED,
+                    /** The transaction is not allowed per Increase's terms. */
+                    TRANSACTION_NOT_ALLOWED,
                 }
 
                 /**
@@ -16791,6 +16796,8 @@ private constructor(
                     ENTITY_NOT_ACTIVE,
                     /** Your account is not enabled to receive Real-Time Payments transfers. */
                     REAL_TIME_PAYMENTS_NOT_ENABLED,
+                    /** The transaction is not allowed per Increase's terms. */
+                    TRANSACTION_NOT_ALLOWED,
                     /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
@@ -16813,6 +16820,7 @@ private constructor(
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                         REAL_TIME_PAYMENTS_NOT_ENABLED -> Value.REAL_TIME_PAYMENTS_NOT_ENABLED
+                        TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                         else -> Value._UNKNOWN
                     }
 
@@ -16833,6 +16841,7 @@ private constructor(
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                         REAL_TIME_PAYMENTS_NOT_ENABLED -> Known.REAL_TIME_PAYMENTS_NOT_ENABLED
+                        TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
