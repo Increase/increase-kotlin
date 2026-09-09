@@ -8,8 +8,8 @@ import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Sensitive details for a Card include the primary account number, expiry, card verification code,
- * and PIN.
+ * Sensitive details for a Card include the primary account number, expiration, card verification
+ * code, and PIN.
  */
 class CardDetailsParams
 private constructor(

@@ -104,8 +104,8 @@ interface CardServiceAsync {
         createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
 
     /**
-     * Sensitive details for a Card include the primary account number, expiry, card verification
-     * code, and PIN.
+     * Sensitive details for a Card include the primary account number, expiration, card
+     * verification code, and PIN.
      */
     suspend fun details(
         cardId: String,
