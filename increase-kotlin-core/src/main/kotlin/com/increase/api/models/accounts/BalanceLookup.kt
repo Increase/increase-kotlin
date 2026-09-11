@@ -13,7 +13,6 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.checkRequired
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
@@ -338,27 +337,17 @@ private constructor(
     class Loan
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val dueAt: JsonField<OffsetDateTime>,
-        private val dueBalance: JsonField<Long>,
         private val dueFees: JsonField<Long>,
         private val dueInterest: JsonField<Long>,
         private val duePrincipal: JsonField<Long>,
         private val notDueFees: JsonField<Long>,
         private val notDueInterest: JsonField<Long>,
         private val notDuePrincipal: JsonField<Long>,
-        private val pastDueBalance: JsonField<Long>,
-        private val receivables: JsonField<Receivables>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("due_at")
-            @ExcludeMissing
-            dueAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("due_balance")
-            @ExcludeMissing
-            dueBalance: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("due_fees") @ExcludeMissing dueFees: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("due_interest")
             @ExcludeMissing
@@ -375,42 +364,15 @@ private constructor(
             @JsonProperty("not_due_principal")
             @ExcludeMissing
             notDuePrincipal: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("past_due_balance")
-            @ExcludeMissing
-            pastDueBalance: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("receivables")
-            @ExcludeMissing
-            receivables: JsonField<Receivables> = JsonMissing.of(),
         ) : this(
-            dueAt,
-            dueBalance,
             dueFees,
             dueInterest,
             duePrincipal,
             notDueFees,
             notDueInterest,
             notDuePrincipal,
-            pastDueBalance,
-            receivables,
             mutableMapOf(),
         )
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the loan payment is
-         * due.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun dueAt(): OffsetDateTime? = dueAt.getNullable("due_at")
-
-        /**
-         * The total amount due on the loan.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun dueBalance(): Long = dueBalance.getRequired("due_balance")
 
         /**
          * The fees on the loan that are due and unpaid.
@@ -459,36 +421,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun notDuePrincipal(): Long? = notDuePrincipal.getNullable("not_due_principal")
-
-        /**
-         * The amount past due on the loan.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun pastDueBalance(): Long = pastDueBalance.getRequired("past_due_balance")
-
-        /**
-         * The receivables balances for the loan.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun receivables(): Receivables? = receivables.getNullable("receivables")
-
-        /**
-         * Returns the raw JSON value of [dueAt].
-         *
-         * Unlike [dueAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("due_at") @ExcludeMissing fun _dueAt(): JsonField<OffsetDateTime> = dueAt
-
-        /**
-         * Returns the raw JSON value of [dueBalance].
-         *
-         * Unlike [dueBalance], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("due_balance") @ExcludeMissing fun _dueBalance(): JsonField<Long> = dueBalance
 
         /**
          * Returns the raw JSON value of [dueFees].
@@ -545,25 +477,6 @@ private constructor(
         @ExcludeMissing
         fun _notDuePrincipal(): JsonField<Long> = notDuePrincipal
 
-        /**
-         * Returns the raw JSON value of [pastDueBalance].
-         *
-         * Unlike [pastDueBalance], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("past_due_balance")
-        @ExcludeMissing
-        fun _pastDueBalance(): JsonField<Long> = pastDueBalance
-
-        /**
-         * Returns the raw JSON value of [receivables].
-         *
-         * Unlike [receivables], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("receivables")
-        @ExcludeMissing
-        fun _receivables(): JsonField<Receivables> = receivables
-
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -583,16 +496,12 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .dueAt()
-             * .dueBalance()
              * .dueFees()
              * .dueInterest()
              * .duePrincipal()
              * .notDueFees()
              * .notDueInterest()
              * .notDuePrincipal()
-             * .pastDueBalance()
-             * .receivables()
              * ```
              */
             fun builder() = Builder()
@@ -601,58 +510,23 @@ private constructor(
         /** A builder for [Loan]. */
         class Builder internal constructor() {
 
-            private var dueAt: JsonField<OffsetDateTime>? = null
-            private var dueBalance: JsonField<Long>? = null
             private var dueFees: JsonField<Long>? = null
             private var dueInterest: JsonField<Long>? = null
             private var duePrincipal: JsonField<Long>? = null
             private var notDueFees: JsonField<Long>? = null
             private var notDueInterest: JsonField<Long>? = null
             private var notDuePrincipal: JsonField<Long>? = null
-            private var pastDueBalance: JsonField<Long>? = null
-            private var receivables: JsonField<Receivables>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(loan: Loan) = apply {
-                dueAt = loan.dueAt
-                dueBalance = loan.dueBalance
                 dueFees = loan.dueFees
                 dueInterest = loan.dueInterest
                 duePrincipal = loan.duePrincipal
                 notDueFees = loan.notDueFees
                 notDueInterest = loan.notDueInterest
                 notDuePrincipal = loan.notDuePrincipal
-                pastDueBalance = loan.pastDueBalance
-                receivables = loan.receivables
                 additionalProperties = loan.additionalProperties.toMutableMap()
             }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the loan payment
-             * is due.
-             */
-            fun dueAt(dueAt: OffsetDateTime?) = dueAt(JsonField.ofNullable(dueAt))
-
-            /**
-             * Sets [Builder.dueAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dueAt] with a well-typed [OffsetDateTime] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun dueAt(dueAt: JsonField<OffsetDateTime>) = apply { this.dueAt = dueAt }
-
-            /** The total amount due on the loan. */
-            fun dueBalance(dueBalance: Long) = dueBalance(JsonField.of(dueBalance))
-
-            /**
-             * Sets [Builder.dueBalance] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dueBalance] with a well-typed [Long] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun dueBalance(dueBalance: JsonField<Long>) = apply { this.dueBalance = dueBalance }
 
             /** The fees on the loan that are due and unpaid. */
             fun dueFees(dueFees: Long?) = dueFees(JsonField.ofNullable(dueFees))
@@ -776,35 +650,6 @@ private constructor(
                 this.notDuePrincipal = notDuePrincipal
             }
 
-            /** The amount past due on the loan. */
-            fun pastDueBalance(pastDueBalance: Long) = pastDueBalance(JsonField.of(pastDueBalance))
-
-            /**
-             * Sets [Builder.pastDueBalance] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.pastDueBalance] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun pastDueBalance(pastDueBalance: JsonField<Long>) = apply {
-                this.pastDueBalance = pastDueBalance
-            }
-
-            /** The receivables balances for the loan. */
-            fun receivables(receivables: Receivables?) =
-                receivables(JsonField.ofNullable(receivables))
-
-            /**
-             * Sets [Builder.receivables] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.receivables] with a well-typed [Receivables] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun receivables(receivables: JsonField<Receivables>) = apply {
-                this.receivables = receivables
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -831,32 +676,24 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .dueAt()
-             * .dueBalance()
              * .dueFees()
              * .dueInterest()
              * .duePrincipal()
              * .notDueFees()
              * .notDueInterest()
              * .notDuePrincipal()
-             * .pastDueBalance()
-             * .receivables()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Loan =
                 Loan(
-                    checkRequired("dueAt", dueAt),
-                    checkRequired("dueBalance", dueBalance),
                     checkRequired("dueFees", dueFees),
                     checkRequired("dueInterest", dueInterest),
                     checkRequired("duePrincipal", duePrincipal),
                     checkRequired("notDueFees", notDueFees),
                     checkRequired("notDueInterest", notDueInterest),
                     checkRequired("notDuePrincipal", notDuePrincipal),
-                    checkRequired("pastDueBalance", pastDueBalance),
-                    checkRequired("receivables", receivables),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -877,16 +714,12 @@ private constructor(
                 return@apply
             }
 
-            dueAt()
-            dueBalance()
             dueFees()
             dueInterest()
             duePrincipal()
             notDueFees()
             notDueInterest()
             notDuePrincipal()
-            pastDueBalance()
-            receivables()?.validate()
             validated = true
         }
 
@@ -905,246 +738,12 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (dueAt.asKnown() == null) 0 else 1) +
-                (if (dueBalance.asKnown() == null) 0 else 1) +
-                (if (dueFees.asKnown() == null) 0 else 1) +
+            (if (dueFees.asKnown() == null) 0 else 1) +
                 (if (dueInterest.asKnown() == null) 0 else 1) +
                 (if (duePrincipal.asKnown() == null) 0 else 1) +
                 (if (notDueFees.asKnown() == null) 0 else 1) +
                 (if (notDueInterest.asKnown() == null) 0 else 1) +
-                (if (notDuePrincipal.asKnown() == null) 0 else 1) +
-                (if (pastDueBalance.asKnown() == null) 0 else 1) +
-                (receivables.asKnown()?.validity() ?: 0)
-
-        /** The receivables balances for the loan. */
-        class Receivables
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val purchasableBalance: JsonField<Long>,
-            private val purchasedBalance: JsonField<Long>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("purchasable_balance")
-                @ExcludeMissing
-                purchasableBalance: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("purchased_balance")
-                @ExcludeMissing
-                purchasedBalance: JsonField<Long> = JsonMissing.of(),
-            ) : this(purchasableBalance, purchasedBalance, mutableMapOf())
-
-            /**
-             * The balance of seasoned receivables available to be purchased.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun purchasableBalance(): Long = purchasableBalance.getRequired("purchasable_balance")
-
-            /**
-             * The balance of receivables that have been purchased.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun purchasedBalance(): Long = purchasedBalance.getRequired("purchased_balance")
-
-            /**
-             * Returns the raw JSON value of [purchasableBalance].
-             *
-             * Unlike [purchasableBalance], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("purchasable_balance")
-            @ExcludeMissing
-            fun _purchasableBalance(): JsonField<Long> = purchasableBalance
-
-            /**
-             * Returns the raw JSON value of [purchasedBalance].
-             *
-             * Unlike [purchasedBalance], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("purchased_balance")
-            @ExcludeMissing
-            fun _purchasedBalance(): JsonField<Long> = purchasedBalance
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [Receivables].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .purchasableBalance()
-                 * .purchasedBalance()
-                 * ```
-                 */
-                fun builder() = Builder()
-            }
-
-            /** A builder for [Receivables]. */
-            class Builder internal constructor() {
-
-                private var purchasableBalance: JsonField<Long>? = null
-                private var purchasedBalance: JsonField<Long>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(receivables: Receivables) = apply {
-                    purchasableBalance = receivables.purchasableBalance
-                    purchasedBalance = receivables.purchasedBalance
-                    additionalProperties = receivables.additionalProperties.toMutableMap()
-                }
-
-                /** The balance of seasoned receivables available to be purchased. */
-                fun purchasableBalance(purchasableBalance: Long) =
-                    purchasableBalance(JsonField.of(purchasableBalance))
-
-                /**
-                 * Sets [Builder.purchasableBalance] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.purchasableBalance] with a well-typed [Long]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun purchasableBalance(purchasableBalance: JsonField<Long>) = apply {
-                    this.purchasableBalance = purchasableBalance
-                }
-
-                /** The balance of receivables that have been purchased. */
-                fun purchasedBalance(purchasedBalance: Long) =
-                    purchasedBalance(JsonField.of(purchasedBalance))
-
-                /**
-                 * Sets [Builder.purchasedBalance] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.purchasedBalance] with a well-typed [Long] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun purchasedBalance(purchasedBalance: JsonField<Long>) = apply {
-                    this.purchasedBalance = purchasedBalance
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Receivables].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .purchasableBalance()
-                 * .purchasedBalance()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): Receivables =
-                    Receivables(
-                        checkRequired("purchasableBalance", purchasableBalance),
-                        checkRequired("purchasedBalance", purchasedBalance),
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
-             *   its expected type.
-             */
-            fun validate(): Receivables = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                purchasableBalance()
-                purchasedBalance()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int =
-                (if (purchasableBalance.asKnown() == null) 0 else 1) +
-                    (if (purchasedBalance.asKnown() == null) 0 else 1)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Receivables &&
-                    purchasableBalance == other.purchasableBalance &&
-                    purchasedBalance == other.purchasedBalance &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(purchasableBalance, purchasedBalance, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Receivables{purchasableBalance=$purchasableBalance, purchasedBalance=$purchasedBalance, additionalProperties=$additionalProperties}"
-        }
+                (if (notDuePrincipal.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1152,31 +751,23 @@ private constructor(
             }
 
             return other is Loan &&
-                dueAt == other.dueAt &&
-                dueBalance == other.dueBalance &&
                 dueFees == other.dueFees &&
                 dueInterest == other.dueInterest &&
                 duePrincipal == other.duePrincipal &&
                 notDueFees == other.notDueFees &&
                 notDueInterest == other.notDueInterest &&
                 notDuePrincipal == other.notDuePrincipal &&
-                pastDueBalance == other.pastDueBalance &&
-                receivables == other.receivables &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                dueAt,
-                dueBalance,
                 dueFees,
                 dueInterest,
                 duePrincipal,
                 notDueFees,
                 notDueInterest,
                 notDuePrincipal,
-                pastDueBalance,
-                receivables,
                 additionalProperties,
             )
         }
@@ -1184,7 +775,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Loan{dueAt=$dueAt, dueBalance=$dueBalance, dueFees=$dueFees, dueInterest=$dueInterest, duePrincipal=$duePrincipal, notDueFees=$notDueFees, notDueInterest=$notDueInterest, notDuePrincipal=$notDuePrincipal, pastDueBalance=$pastDueBalance, receivables=$receivables, additionalProperties=$additionalProperties}"
+            "Loan{dueFees=$dueFees, dueInterest=$dueInterest, duePrincipal=$duePrincipal, notDueFees=$notDueFees, notDueInterest=$notDueInterest, notDuePrincipal=$notDuePrincipal, additionalProperties=$additionalProperties}"
     }
 
     /**
