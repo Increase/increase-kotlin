@@ -790,6 +790,14 @@ private constructor(
             /** Occurs whenever a Transaction is created. */
             val TRANSACTION_CREATED = of("transaction.created")
 
+            /** Occurs whenever a UK Faster Payment System Transfer is created. */
+            val UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED =
+                of("uk_faster_payment_system_transfer.created")
+
+            /** Occurs whenever a UK Faster Payment System Transfer is updated. */
+            val UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED =
+                of("uk_faster_payment_system_transfer.updated")
+
             /** Occurs whenever a Wire Drawdown Request is created. */
             val WIRE_DRAWDOWN_REQUEST_CREATED = of("wire_drawdown_request.created")
 
@@ -1064,6 +1072,10 @@ private constructor(
             SWIFT_TRANSFER_UPDATED,
             /** Occurs whenever a Transaction is created. */
             TRANSACTION_CREATED,
+            /** Occurs whenever a UK Faster Payment System Transfer is created. */
+            UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED,
+            /** Occurs whenever a UK Faster Payment System Transfer is updated. */
+            UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED,
             /** Occurs whenever a Wire Drawdown Request is created. */
             WIRE_DRAWDOWN_REQUEST_CREATED,
             /** Occurs whenever a Wire Drawdown Request is updated. */
@@ -1341,6 +1353,10 @@ private constructor(
             SWIFT_TRANSFER_UPDATED,
             /** Occurs whenever a Transaction is created. */
             TRANSACTION_CREATED,
+            /** Occurs whenever a UK Faster Payment System Transfer is created. */
+            UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED,
+            /** Occurs whenever a UK Faster Payment System Transfer is updated. */
+            UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED,
             /** Occurs whenever a Wire Drawdown Request is created. */
             WIRE_DRAWDOWN_REQUEST_CREATED,
             /** Occurs whenever a Wire Drawdown Request is updated. */
@@ -1495,6 +1511,10 @@ private constructor(
                 SWIFT_TRANSFER_CREATED -> Value.SWIFT_TRANSFER_CREATED
                 SWIFT_TRANSFER_UPDATED -> Value.SWIFT_TRANSFER_UPDATED
                 TRANSACTION_CREATED -> Value.TRANSACTION_CREATED
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED ->
+                    Value.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED ->
+                    Value.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED
                 WIRE_DRAWDOWN_REQUEST_CREATED -> Value.WIRE_DRAWDOWN_REQUEST_CREATED
                 WIRE_DRAWDOWN_REQUEST_UPDATED -> Value.WIRE_DRAWDOWN_REQUEST_UPDATED
                 WIRE_TRANSFER_CREATED -> Value.WIRE_TRANSFER_CREATED
@@ -1646,6 +1666,10 @@ private constructor(
                 SWIFT_TRANSFER_CREATED -> Known.SWIFT_TRANSFER_CREATED
                 SWIFT_TRANSFER_UPDATED -> Known.SWIFT_TRANSFER_UPDATED
                 TRANSACTION_CREATED -> Known.TRANSACTION_CREATED
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED ->
+                    Known.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_CREATED
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED ->
+                    Known.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_UPDATED
                 WIRE_DRAWDOWN_REQUEST_CREATED -> Known.WIRE_DRAWDOWN_REQUEST_CREATED
                 WIRE_DRAWDOWN_REQUEST_UPDATED -> Known.WIRE_DRAWDOWN_REQUEST_UPDATED
                 WIRE_TRANSFER_CREATED -> Known.WIRE_TRANSFER_CREATED
