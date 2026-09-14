@@ -981,7 +981,10 @@ private constructor(
         private val other: JsonField<Other>,
         private val realTimePaymentsTransferInstruction:
             JsonField<RealTimePaymentsTransferInstruction>,
+        private val sepaInstantTransferInstruction: JsonField<SepaInstantTransferInstruction>,
         private val swiftTransferInstruction: JsonField<SwiftTransferInstruction>,
+        private val ukFasterPaymentSystemTransferInstruction:
+            JsonField<UkFasterPaymentSystemTransferInstruction>,
         private val userInitiatedHold: JsonField<UserInitiatedHold>,
         private val wireTransferInstruction: JsonField<WireTransferInstruction>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1031,9 +1034,18 @@ private constructor(
             @ExcludeMissing
             realTimePaymentsTransferInstruction: JsonField<RealTimePaymentsTransferInstruction> =
                 JsonMissing.of(),
+            @JsonProperty("sepa_instant_transfer_instruction")
+            @ExcludeMissing
+            sepaInstantTransferInstruction: JsonField<SepaInstantTransferInstruction> =
+                JsonMissing.of(),
             @JsonProperty("swift_transfer_instruction")
             @ExcludeMissing
             swiftTransferInstruction: JsonField<SwiftTransferInstruction> = JsonMissing.of(),
+            @JsonProperty("uk_faster_payment_system_transfer_instruction")
+            @ExcludeMissing
+            ukFasterPaymentSystemTransferInstruction:
+                JsonField<UkFasterPaymentSystemTransferInstruction> =
+                JsonMissing.of(),
             @JsonProperty("user_initiated_hold")
             @ExcludeMissing
             userInitiatedHold: JsonField<UserInitiatedHold> = JsonMissing.of(),
@@ -1055,7 +1067,9 @@ private constructor(
             inboundWireTransferReversal,
             other,
             realTimePaymentsTransferInstruction,
+            sepaInstantTransferInstruction,
             swiftTransferInstruction,
+            ukFasterPaymentSystemTransferInstruction,
             userInitiatedHold,
             wireTransferInstruction,
             mutableMapOf(),
@@ -1211,6 +1225,16 @@ private constructor(
             )
 
         /**
+         * A SEPA Instant Transfer Instruction object. This field will be present in the JSON
+         * response if and only if `category` is equal to `sepa_instant_transfer_instruction`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun sepaInstantTransferInstruction(): SepaInstantTransferInstruction? =
+            sepaInstantTransferInstruction.getNullable("sepa_instant_transfer_instruction")
+
+        /**
          * A Swift Transfer Instruction object. This field will be present in the JSON response if
          * and only if `category` is equal to `swift_transfer_instruction`.
          *
@@ -1219,6 +1243,19 @@ private constructor(
          */
         fun swiftTransferInstruction(): SwiftTransferInstruction? =
             swiftTransferInstruction.getNullable("swift_transfer_instruction")
+
+        /**
+         * An UK Faster Payment System Transfer Instruction object. This field will be present in
+         * the JSON response if and only if `category` is equal to
+         * `uk_faster_payment_system_transfer_instruction`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun ukFasterPaymentSystemTransferInstruction(): UkFasterPaymentSystemTransferInstruction? =
+            ukFasterPaymentSystemTransferInstruction.getNullable(
+                "uk_faster_payment_system_transfer_instruction"
+            )
 
         /**
          * An User Initiated Hold object. This field will be present in the JSON response if and
@@ -1384,6 +1421,17 @@ private constructor(
             realTimePaymentsTransferInstruction
 
         /**
+         * Returns the raw JSON value of [sepaInstantTransferInstruction].
+         *
+         * Unlike [sepaInstantTransferInstruction], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("sepa_instant_transfer_instruction")
+        @ExcludeMissing
+        fun _sepaInstantTransferInstruction(): JsonField<SepaInstantTransferInstruction> =
+            sepaInstantTransferInstruction
+
+        /**
          * Returns the raw JSON value of [swiftTransferInstruction].
          *
          * Unlike [swiftTransferInstruction], this method doesn't throw if the JSON field has an
@@ -1393,6 +1441,18 @@ private constructor(
         @ExcludeMissing
         fun _swiftTransferInstruction(): JsonField<SwiftTransferInstruction> =
             swiftTransferInstruction
+
+        /**
+         * Returns the raw JSON value of [ukFasterPaymentSystemTransferInstruction].
+         *
+         * Unlike [ukFasterPaymentSystemTransferInstruction], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
+        @JsonProperty("uk_faster_payment_system_transfer_instruction")
+        @ExcludeMissing
+        fun _ukFasterPaymentSystemTransferInstruction():
+            JsonField<UkFasterPaymentSystemTransferInstruction> =
+            ukFasterPaymentSystemTransferInstruction
 
         /**
          * Returns the raw JSON value of [userInitiatedHold].
@@ -1467,7 +1527,12 @@ private constructor(
             private var realTimePaymentsTransferInstruction:
                 JsonField<RealTimePaymentsTransferInstruction> =
                 JsonMissing.of()
+            private var sepaInstantTransferInstruction: JsonField<SepaInstantTransferInstruction> =
+                JsonMissing.of()
             private var swiftTransferInstruction: JsonField<SwiftTransferInstruction> =
+                JsonMissing.of()
+            private var ukFasterPaymentSystemTransferInstruction:
+                JsonField<UkFasterPaymentSystemTransferInstruction> =
                 JsonMissing.of()
             private var userInitiatedHold: JsonField<UserInitiatedHold> = JsonMissing.of()
             private var wireTransferInstruction: JsonField<WireTransferInstruction> =
@@ -1489,7 +1554,10 @@ private constructor(
                 inboundWireTransferReversal = source.inboundWireTransferReversal
                 other = source.other
                 realTimePaymentsTransferInstruction = source.realTimePaymentsTransferInstruction
+                sepaInstantTransferInstruction = source.sepaInstantTransferInstruction
                 swiftTransferInstruction = source.swiftTransferInstruction
+                ukFasterPaymentSystemTransferInstruction =
+                    source.ukFasterPaymentSystemTransferInstruction
                 userInitiatedHold = source.userInitiatedHold
                 wireTransferInstruction = source.wireTransferInstruction
                 additionalProperties = source.additionalProperties.toMutableMap()
@@ -1768,6 +1836,25 @@ private constructor(
             }
 
             /**
+             * A SEPA Instant Transfer Instruction object. This field will be present in the JSON
+             * response if and only if `category` is equal to `sepa_instant_transfer_instruction`.
+             */
+            fun sepaInstantTransferInstruction(
+                sepaInstantTransferInstruction: SepaInstantTransferInstruction?
+            ) = sepaInstantTransferInstruction(JsonField.ofNullable(sepaInstantTransferInstruction))
+
+            /**
+             * Sets [Builder.sepaInstantTransferInstruction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sepaInstantTransferInstruction] with a well-typed
+             * [SepaInstantTransferInstruction] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun sepaInstantTransferInstruction(
+                sepaInstantTransferInstruction: JsonField<SepaInstantTransferInstruction>
+            ) = apply { this.sepaInstantTransferInstruction = sepaInstantTransferInstruction }
+
+            /**
              * A Swift Transfer Instruction object. This field will be present in the JSON response
              * if and only if `category` is equal to `swift_transfer_instruction`.
              */
@@ -1784,6 +1871,33 @@ private constructor(
             fun swiftTransferInstruction(
                 swiftTransferInstruction: JsonField<SwiftTransferInstruction>
             ) = apply { this.swiftTransferInstruction = swiftTransferInstruction }
+
+            /**
+             * An UK Faster Payment System Transfer Instruction object. This field will be present
+             * in the JSON response if and only if `category` is equal to
+             * `uk_faster_payment_system_transfer_instruction`.
+             */
+            fun ukFasterPaymentSystemTransferInstruction(
+                ukFasterPaymentSystemTransferInstruction: UkFasterPaymentSystemTransferInstruction?
+            ) =
+                ukFasterPaymentSystemTransferInstruction(
+                    JsonField.ofNullable(ukFasterPaymentSystemTransferInstruction)
+                )
+
+            /**
+             * Sets [Builder.ukFasterPaymentSystemTransferInstruction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ukFasterPaymentSystemTransferInstruction] with a
+             * well-typed [UkFasterPaymentSystemTransferInstruction] value instead. This method is
+             * primarily for setting the field to an undocumented or not yet supported value.
+             */
+            fun ukFasterPaymentSystemTransferInstruction(
+                ukFasterPaymentSystemTransferInstruction:
+                    JsonField<UkFasterPaymentSystemTransferInstruction>
+            ) = apply {
+                this.ukFasterPaymentSystemTransferInstruction =
+                    ukFasterPaymentSystemTransferInstruction
+            }
 
             /**
              * An User Initiated Hold object. This field will be present in the JSON response if and
@@ -1869,7 +1983,9 @@ private constructor(
                     inboundWireTransferReversal,
                     other,
                     realTimePaymentsTransferInstruction,
+                    sepaInstantTransferInstruction,
                     swiftTransferInstruction,
+                    ukFasterPaymentSystemTransferInstruction,
                     userInitiatedHold,
                     wireTransferInstruction,
                     additionalProperties.toMutableMap(),
@@ -1906,7 +2022,9 @@ private constructor(
             inboundWireTransferReversal()?.validate()
             other()?.validate()
             realTimePaymentsTransferInstruction()?.validate()
+            sepaInstantTransferInstruction()?.validate()
             swiftTransferInstruction()?.validate()
+            ukFasterPaymentSystemTransferInstruction()?.validate()
             userInitiatedHold()?.validate()
             wireTransferInstruction()?.validate()
             validated = true
@@ -1941,7 +2059,9 @@ private constructor(
                 (inboundWireTransferReversal.asKnown()?.validity() ?: 0) +
                 (other.asKnown()?.validity() ?: 0) +
                 (realTimePaymentsTransferInstruction.asKnown()?.validity() ?: 0) +
+                (sepaInstantTransferInstruction.asKnown()?.validity() ?: 0) +
                 (swiftTransferInstruction.asKnown()?.validity() ?: 0) +
+                (ukFasterPaymentSystemTransferInstruction.asKnown()?.validity() ?: 0) +
                 (userInitiatedHold.asKnown()?.validity() ?: 0) +
                 (wireTransferInstruction.asKnown()?.validity() ?: 0)
 
@@ -2047,6 +2167,19 @@ private constructor(
                  */
                 val BLOCKCHAIN_OFFRAMP_TRANSFER = of("blockchain_offramp_transfer")
 
+                /**
+                 * UK Faster Payment System Transfer Instruction: details will be under the
+                 * `uk_faster_payment_system_transfer_instruction` object.
+                 */
+                val UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION =
+                    of("uk_faster_payment_system_transfer_instruction")
+
+                /**
+                 * SEPA Instant Transfer Instruction: details will be under the
+                 * `sepa_instant_transfer_instruction` object.
+                 */
+                val SEPA_INSTANT_TRANSFER_INSTRUCTION = of("sepa_instant_transfer_instruction")
+
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
@@ -2121,6 +2254,16 @@ private constructor(
                  * `blockchain_offramp_transfer` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER,
+                /**
+                 * UK Faster Payment System Transfer Instruction: details will be under the
+                 * `uk_faster_payment_system_transfer_instruction` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION,
+                /**
+                 * SEPA Instant Transfer Instruction: details will be under the
+                 * `sepa_instant_transfer_instruction` object.
+                 */
+                SEPA_INSTANT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -2201,6 +2344,16 @@ private constructor(
                  * `blockchain_offramp_transfer` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER,
+                /**
+                 * UK Faster Payment System Transfer Instruction: details will be under the
+                 * `uk_faster_payment_system_transfer_instruction` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION,
+                /**
+                 * SEPA Instant Transfer Instruction: details will be under the
+                 * `sepa_instant_transfer_instruction` object.
+                 */
+                SEPA_INSTANT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -2235,6 +2388,9 @@ private constructor(
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER -> Value.BLOCKCHAIN_OFFRAMP_TRANSFER
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION ->
+                        Value.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION
+                    SEPA_INSTANT_TRANSFER_INSTRUCTION -> Value.SEPA_INSTANT_TRANSFER_INSTRUCTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -2267,6 +2423,9 @@ private constructor(
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER -> Known.BLOCKCHAIN_OFFRAMP_TRANSFER
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION ->
+                        Known.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION
+                    SEPA_INSTANT_TRANSFER_INSTRUCTION -> Known.SEPA_INSTANT_TRANSFER_INSTRUCTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -18335,6 +18494,375 @@ private constructor(
         }
 
         /**
+         * A SEPA Instant Transfer Instruction object. This field will be present in the JSON
+         * response if and only if `category` is equal to `sepa_instant_transfer_instruction`.
+         */
+        class SepaInstantTransferInstruction
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val currency: JsonField<Currency>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("currency")
+                @ExcludeMissing
+                currency: JsonField<Currency> = JsonMissing.of(),
+            ) : this(amount, currency, mutableMapOf())
+
+            /**
+             * The transfer amount in EUR cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
+             * transfer's currency. This is always `EUR`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun currency(): Currency = currency.getRequired("currency")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [currency].
+             *
+             * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("currency")
+            @ExcludeMissing
+            fun _currency(): JsonField<Currency> = currency
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [SepaInstantTransferInstruction].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .currency()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [SepaInstantTransferInstruction]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<Long>? = null
+                private var currency: JsonField<Currency>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(sepaInstantTransferInstruction: SepaInstantTransferInstruction) =
+                    apply {
+                        amount = sepaInstantTransferInstruction.amount
+                        currency = sepaInstantTransferInstruction.currency
+                        additionalProperties =
+                            sepaInstantTransferInstruction.additionalProperties.toMutableMap()
+                    }
+
+                /** The transfer amount in EUR cents. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
+                 * transfer's currency. This is always `EUR`.
+                 */
+                fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                /**
+                 * Sets [Builder.currency] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.currency] with a well-typed [Currency] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [SepaInstantTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .currency()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): SepaInstantTransferInstruction =
+                    SepaInstantTransferInstruction(
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): SepaInstantTransferInstruction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                currency().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (amount.asKnown() == null) 0 else 1) + (currency.asKnown()?.validity() ?: 0)
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
+             * transfer's currency. This is always `EUR`.
+             */
+            class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** EUR */
+                    val EUR = of("EUR")
+
+                    fun of(value: String) = Currency(JsonField.of(value))
+                }
+
+                /** An enum containing [Currency]'s known values. */
+                enum class Known {
+                    /** EUR */
+                    EUR
+                }
+
+                /**
+                 * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Currency] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** EUR */
+                    EUR,
+                    /**
+                     * An enum member indicating that [Currency] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        EUR -> Value.EUR
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        EUR -> Known.EUR
+                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Currency && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SepaInstantTransferInstruction &&
+                    amount == other.amount &&
+                    currency == other.currency &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(amount, currency, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "SepaInstantTransferInstruction{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * A Swift Transfer Instruction object. This field will be present in the JSON response if
          * and only if `category` is equal to `swift_transfer_instruction`.
          */
@@ -18517,6 +19045,378 @@ private constructor(
 
             override fun toString() =
                 "SwiftTransferInstruction{transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * An UK Faster Payment System Transfer Instruction object. This field will be present in
+         * the JSON response if and only if `category` is equal to
+         * `uk_faster_payment_system_transfer_instruction`.
+         */
+        class UkFasterPaymentSystemTransferInstruction
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val currency: JsonField<Currency>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("currency")
+                @ExcludeMissing
+                currency: JsonField<Currency> = JsonMissing.of(),
+            ) : this(amount, currency, mutableMapOf())
+
+            /**
+             * The transfer amount in GBP pence.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
+             * transfer's currency. This is always `GBP`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun currency(): Currency = currency.getRequired("currency")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [currency].
+             *
+             * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("currency")
+            @ExcludeMissing
+            fun _currency(): JsonField<Currency> = currency
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [UkFasterPaymentSystemTransferInstruction].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .currency()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [UkFasterPaymentSystemTransferInstruction]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<Long>? = null
+                private var currency: JsonField<Currency>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(
+                    ukFasterPaymentSystemTransferInstruction:
+                        UkFasterPaymentSystemTransferInstruction
+                ) = apply {
+                    amount = ukFasterPaymentSystemTransferInstruction.amount
+                    currency = ukFasterPaymentSystemTransferInstruction.currency
+                    additionalProperties =
+                        ukFasterPaymentSystemTransferInstruction.additionalProperties.toMutableMap()
+                }
+
+                /** The transfer amount in GBP pence. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
+                 * transfer's currency. This is always `GBP`.
+                 */
+                fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                /**
+                 * Sets [Builder.currency] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.currency] with a well-typed [Currency] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [UkFasterPaymentSystemTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .currency()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): UkFasterPaymentSystemTransferInstruction =
+                    UkFasterPaymentSystemTransferInstruction(
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): UkFasterPaymentSystemTransferInstruction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                currency().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (amount.asKnown() == null) 0 else 1) + (currency.asKnown()?.validity() ?: 0)
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
+             * transfer's currency. This is always `GBP`.
+             */
+            class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** GBP */
+                    val GBP = of("GBP")
+
+                    fun of(value: String) = Currency(JsonField.of(value))
+                }
+
+                /** An enum containing [Currency]'s known values. */
+                enum class Known {
+                    /** GBP */
+                    GBP
+                }
+
+                /**
+                 * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Currency] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** GBP */
+                    GBP,
+                    /**
+                     * An enum member indicating that [Currency] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        GBP -> Value.GBP
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        GBP -> Known.GBP
+                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Currency && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is UkFasterPaymentSystemTransferInstruction &&
+                    amount == other.amount &&
+                    currency == other.currency &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(amount, currency, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "UkFasterPaymentSystemTransferInstruction{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -19042,7 +19942,10 @@ private constructor(
                 inboundWireTransferReversal == other.inboundWireTransferReversal &&
                 this.other == other.other &&
                 realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction &&
+                sepaInstantTransferInstruction == other.sepaInstantTransferInstruction &&
                 swiftTransferInstruction == other.swiftTransferInstruction &&
+                ukFasterPaymentSystemTransferInstruction ==
+                    other.ukFasterPaymentSystemTransferInstruction &&
                 userInitiatedHold == other.userInitiatedHold &&
                 wireTransferInstruction == other.wireTransferInstruction &&
                 additionalProperties == other.additionalProperties
@@ -19064,7 +19967,9 @@ private constructor(
                 inboundWireTransferReversal,
                 other,
                 realTimePaymentsTransferInstruction,
+                sepaInstantTransferInstruction,
                 swiftTransferInstruction,
+                ukFasterPaymentSystemTransferInstruction,
                 userInitiatedHold,
                 wireTransferInstruction,
                 additionalProperties,
@@ -19074,7 +19979,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, blockchainOfframpTransfer=$blockchainOfframpTransfer, blockchainOnrampTransferInstruction=$blockchainOnrampTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fednowTransferInstruction=$fednowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, blockchainOfframpTransfer=$blockchainOfframpTransfer, blockchainOnrampTransferInstruction=$blockchainOnrampTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fednowTransferInstruction=$fednowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, sepaInstantTransferInstruction=$sepaInstantTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, ukFasterPaymentSystemTransferInstruction=$ukFasterPaymentSystemTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
