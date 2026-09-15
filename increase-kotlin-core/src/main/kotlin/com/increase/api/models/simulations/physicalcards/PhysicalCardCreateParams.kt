@@ -53,7 +53,7 @@ private constructor(
     fun carrierEstimatedDeliveryAt(): OffsetDateTime? = body.carrierEstimatedDeliveryAt()
 
     /**
-     * The city where the event took place.
+     * The city where the event took place. Required if postal_code is not provided.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -61,7 +61,7 @@ private constructor(
     fun city(): String? = body.city()
 
     /**
-     * The postal code where the event took place.
+     * The postal code where the event took place. Required unless both city and state are provided.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -69,7 +69,7 @@ private constructor(
     fun postalCode(): String? = body.postalCode()
 
     /**
-     * The state where the event took place.
+     * The state where the event took place. Required if postal_code is not provided.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -200,7 +200,7 @@ private constructor(
                 body.carrierEstimatedDeliveryAt(carrierEstimatedDeliveryAt)
             }
 
-        /** The city where the event took place. */
+        /** The city where the event took place. Required if postal_code is not provided. */
         fun city(city: String) = apply { body.city(city) }
 
         /**
@@ -211,7 +211,10 @@ private constructor(
          */
         fun city(city: JsonField<String>) = apply { body.city(city) }
 
-        /** The postal code where the event took place. */
+        /**
+         * The postal code where the event took place. Required unless both city and state are
+         * provided.
+         */
         fun postalCode(postalCode: String) = apply { body.postalCode(postalCode) }
 
         /**
@@ -223,7 +226,7 @@ private constructor(
          */
         fun postalCode(postalCode: JsonField<String>) = apply { body.postalCode(postalCode) }
 
-        /** The state where the event took place. */
+        /** The state where the event took place. Required if postal_code is not provided. */
         fun state(state: String) = apply { body.state(state) }
 
         /**
@@ -429,7 +432,7 @@ private constructor(
             carrierEstimatedDeliveryAt.getNullable("carrier_estimated_delivery_at")
 
         /**
-         * The city where the event took place.
+         * The city where the event took place. Required if postal_code is not provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -437,7 +440,8 @@ private constructor(
         fun city(): String? = city.getNullable("city")
 
         /**
-         * The postal code where the event took place.
+         * The postal code where the event took place. Required unless both city and state are
+         * provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -445,7 +449,7 @@ private constructor(
         fun postalCode(): String? = postalCode.getNullable("postal_code")
 
         /**
-         * The state where the event took place.
+         * The state where the event took place. Required if postal_code is not provided.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -567,7 +571,7 @@ private constructor(
                     this.carrierEstimatedDeliveryAt = carrierEstimatedDeliveryAt
                 }
 
-            /** The city where the event took place. */
+            /** The city where the event took place. Required if postal_code is not provided. */
             fun city(city: String) = city(JsonField.of(city))
 
             /**
@@ -579,7 +583,10 @@ private constructor(
              */
             fun city(city: JsonField<String>) = apply { this.city = city }
 
-            /** The postal code where the event took place. */
+            /**
+             * The postal code where the event took place. Required unless both city and state are
+             * provided.
+             */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
             /**
@@ -591,7 +598,7 @@ private constructor(
              */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-            /** The state where the event took place. */
+            /** The state where the event took place. Required if postal_code is not provided. */
             fun state(state: String) = state(JsonField.of(state))
 
             /**

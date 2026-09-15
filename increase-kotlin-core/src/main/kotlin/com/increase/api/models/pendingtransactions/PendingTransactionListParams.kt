@@ -493,6 +493,19 @@ private constructor(
                  */
                 val BLOCKCHAIN_OFFRAMP_TRANSFER = of("blockchain_offramp_transfer")
 
+                /**
+                 * UK Faster Payment System Transfer Instruction: details will be under the
+                 * `uk_faster_payment_system_transfer_instruction` object.
+                 */
+                val UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION =
+                    of("uk_faster_payment_system_transfer_instruction")
+
+                /**
+                 * SEPA Instant Transfer Instruction: details will be under the
+                 * `sepa_instant_transfer_instruction` object.
+                 */
+                val SEPA_INSTANT_TRANSFER_INSTRUCTION = of("sepa_instant_transfer_instruction")
+
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
@@ -567,6 +580,16 @@ private constructor(
                  * `blockchain_offramp_transfer` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER,
+                /**
+                 * UK Faster Payment System Transfer Instruction: details will be under the
+                 * `uk_faster_payment_system_transfer_instruction` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION,
+                /**
+                 * SEPA Instant Transfer Instruction: details will be under the
+                 * `sepa_instant_transfer_instruction` object.
+                 */
+                SEPA_INSTANT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -647,6 +670,16 @@ private constructor(
                  * `blockchain_offramp_transfer` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER,
+                /**
+                 * UK Faster Payment System Transfer Instruction: details will be under the
+                 * `uk_faster_payment_system_transfer_instruction` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION,
+                /**
+                 * SEPA Instant Transfer Instruction: details will be under the
+                 * `sepa_instant_transfer_instruction` object.
+                 */
+                SEPA_INSTANT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -679,6 +712,9 @@ private constructor(
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER -> Value.BLOCKCHAIN_OFFRAMP_TRANSFER
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION ->
+                        Value.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION
+                    SEPA_INSTANT_TRANSFER_INSTRUCTION -> Value.SEPA_INSTANT_TRANSFER_INSTRUCTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -711,6 +747,9 @@ private constructor(
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER -> Known.BLOCKCHAIN_OFFRAMP_TRANSFER
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION ->
+                        Known.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_INSTRUCTION
+                    SEPA_INSTANT_TRANSFER_INSTRUCTION -> Known.SEPA_INSTANT_TRANSFER_INSTRUCTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
