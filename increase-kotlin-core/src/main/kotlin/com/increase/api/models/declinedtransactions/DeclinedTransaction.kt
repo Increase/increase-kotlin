@@ -10490,6 +10490,13 @@ private constructor(
                     val SUSPECTED_FRAUD = of("suspected_fraud")
 
                     /**
+                     * Additional customer authentication is required to complete the transaction,
+                     * such as 3DS.
+                     */
+                    val ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED =
+                        of("additional_customer_authentication_required")
+
+                    /**
                      * The transaction was declined for another reason. The merchant may attempt to
                      * process the transaction again. This should be used sparingly.
                      */
@@ -10525,6 +10532,11 @@ private constructor(
                      * process the transaction again.
                      */
                     SUSPECTED_FRAUD,
+                    /**
+                     * Additional customer authentication is required to complete the transaction,
+                     * such as 3DS.
+                     */
+                    ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED,
                     /**
                      * The transaction was declined for another reason. The merchant may attempt to
                      * process the transaction again. This should be used sparingly.
@@ -10570,6 +10582,11 @@ private constructor(
                      */
                     SUSPECTED_FRAUD,
                     /**
+                     * Additional customer authentication is required to complete the transaction,
+                     * such as 3DS.
+                     */
+                    ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED,
+                    /**
                      * The transaction was declined for another reason. The merchant may attempt to
                      * process the transaction again. This should be used sparingly.
                      */
@@ -10595,6 +10612,8 @@ private constructor(
                         EXCEEDS_APPROVAL_LIMIT -> Value.EXCEEDS_APPROVAL_LIMIT
                         CARD_TEMPORARILY_DISABLED -> Value.CARD_TEMPORARILY_DISABLED
                         SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                        ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED ->
+                            Value.ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED
                         OTHER -> Value.OTHER
                         else -> Value._UNKNOWN
                     }
@@ -10615,6 +10634,8 @@ private constructor(
                         EXCEEDS_APPROVAL_LIMIT -> Known.EXCEEDS_APPROVAL_LIMIT
                         CARD_TEMPORARILY_DISABLED -> Known.CARD_TEMPORARILY_DISABLED
                         SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                        ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED ->
+                            Known.ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED
                         OTHER -> Known.OTHER
                         else ->
                             throw IncreaseInvalidDataException(
