@@ -41,6 +41,7 @@ private constructor(
     private val endToEndIdentification: JsonField<String>,
     private val inputMessageAccountabilityData: JsonField<String>,
     private val instructingAgentRoutingNumber: JsonField<String>,
+    private val instructionForCreditorAgent: JsonField<String>,
     private val instructionIdentification: JsonField<String>,
     private val purpose: JsonField<String>,
     private val reversal: JsonField<Reversal>,
@@ -108,6 +109,9 @@ private constructor(
         @JsonProperty("instructing_agent_routing_number")
         @ExcludeMissing
         instructingAgentRoutingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("instruction_for_creditor_agent")
+        @ExcludeMissing
+        instructionForCreditorAgent: JsonField<String> = JsonMissing.of(),
         @JsonProperty("instruction_identification")
         @ExcludeMissing
         instructionIdentification: JsonField<String> = JsonMissing.of(),
@@ -145,6 +149,7 @@ private constructor(
         endToEndIdentification,
         inputMessageAccountabilityData,
         instructingAgentRoutingNumber,
+        instructionForCreditorAgent,
         instructionIdentification,
         purpose,
         reversal,
@@ -321,6 +326,15 @@ private constructor(
      */
     fun instructingAgentRoutingNumber(): String? =
         instructingAgentRoutingNumber.getNullable("instructing_agent_routing_number")
+
+    /**
+     * A free-form instruction for the receiving bank set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun instructionForCreditorAgent(): String? =
+        instructionForCreditorAgent.getNullable("instruction_for_creditor_agent")
 
     /**
      * The sending bank's identifier for the wire transfer.
@@ -575,6 +589,16 @@ private constructor(
     fun _instructingAgentRoutingNumber(): JsonField<String> = instructingAgentRoutingNumber
 
     /**
+     * Returns the raw JSON value of [instructionForCreditorAgent].
+     *
+     * Unlike [instructionForCreditorAgent], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("instruction_for_creditor_agent")
+    @ExcludeMissing
+    fun _instructionForCreditorAgent(): JsonField<String> = instructionForCreditorAgent
+
+    /**
      * Returns the raw JSON value of [instructionIdentification].
      *
      * Unlike [instructionIdentification], this method doesn't throw if the JSON field has an
@@ -682,6 +706,7 @@ private constructor(
          * .endToEndIdentification()
          * .inputMessageAccountabilityData()
          * .instructingAgentRoutingNumber()
+         * .instructionForCreditorAgent()
          * .instructionIdentification()
          * .purpose()
          * .reversal()
@@ -718,6 +743,7 @@ private constructor(
         private var endToEndIdentification: JsonField<String>? = null
         private var inputMessageAccountabilityData: JsonField<String>? = null
         private var instructingAgentRoutingNumber: JsonField<String>? = null
+        private var instructionForCreditorAgent: JsonField<String>? = null
         private var instructionIdentification: JsonField<String>? = null
         private var purpose: JsonField<String>? = null
         private var reversal: JsonField<Reversal>? = null
@@ -749,6 +775,7 @@ private constructor(
             endToEndIdentification = inboundWireTransfer.endToEndIdentification
             inputMessageAccountabilityData = inboundWireTransfer.inputMessageAccountabilityData
             instructingAgentRoutingNumber = inboundWireTransfer.instructingAgentRoutingNumber
+            instructionForCreditorAgent = inboundWireTransfer.instructionForCreditorAgent
             instructionIdentification = inboundWireTransfer.instructionIdentification
             purpose = inboundWireTransfer.purpose
             reversal = inboundWireTransfer.reversal
@@ -1049,6 +1076,21 @@ private constructor(
                 this.instructingAgentRoutingNumber = instructingAgentRoutingNumber
             }
 
+        /** A free-form instruction for the receiving bank set by the sender. */
+        fun instructionForCreditorAgent(instructionForCreditorAgent: String?) =
+            instructionForCreditorAgent(JsonField.ofNullable(instructionForCreditorAgent))
+
+        /**
+         * Sets [Builder.instructionForCreditorAgent] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.instructionForCreditorAgent] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun instructionForCreditorAgent(instructionForCreditorAgent: JsonField<String>) = apply {
+            this.instructionForCreditorAgent = instructionForCreditorAgent
+        }
+
         /** The sending bank's identifier for the wire transfer. */
         fun instructionIdentification(instructionIdentification: String?) =
             instructionIdentification(JsonField.ofNullable(instructionIdentification))
@@ -1211,6 +1253,7 @@ private constructor(
          * .endToEndIdentification()
          * .inputMessageAccountabilityData()
          * .instructingAgentRoutingNumber()
+         * .instructionForCreditorAgent()
          * .instructionIdentification()
          * .purpose()
          * .reversal()
@@ -1245,6 +1288,7 @@ private constructor(
                 checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
                 checkRequired("instructingAgentRoutingNumber", instructingAgentRoutingNumber),
+                checkRequired("instructionForCreditorAgent", instructionForCreditorAgent),
                 checkRequired("instructionIdentification", instructionIdentification),
                 checkRequired("purpose", purpose),
                 checkRequired("reversal", reversal),
@@ -1298,6 +1342,7 @@ private constructor(
         endToEndIdentification()
         inputMessageAccountabilityData()
         instructingAgentRoutingNumber()
+        instructionForCreditorAgent()
         instructionIdentification()
         purpose()
         reversal()?.validate()
@@ -1343,6 +1388,7 @@ private constructor(
             (if (endToEndIdentification.asKnown() == null) 0 else 1) +
             (if (inputMessageAccountabilityData.asKnown() == null) 0 else 1) +
             (if (instructingAgentRoutingNumber.asKnown() == null) 0 else 1) +
+            (if (instructionForCreditorAgent.asKnown() == null) 0 else 1) +
             (if (instructionIdentification.asKnown() == null) 0 else 1) +
             (if (purpose.asKnown() == null) 0 else 1) +
             (reversal.asKnown()?.validity() ?: 0) +
@@ -2277,6 +2323,7 @@ private constructor(
             endToEndIdentification == other.endToEndIdentification &&
             inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
             instructingAgentRoutingNumber == other.instructingAgentRoutingNumber &&
+            instructionForCreditorAgent == other.instructionForCreditorAgent &&
             instructionIdentification == other.instructionIdentification &&
             purpose == other.purpose &&
             reversal == other.reversal &&
@@ -2310,6 +2357,7 @@ private constructor(
             endToEndIdentification,
             inputMessageAccountabilityData,
             instructingAgentRoutingNumber,
+            instructionForCreditorAgent,
             instructionIdentification,
             purpose,
             reversal,
@@ -2325,5 +2373,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAccountNumber=$debtorAccountNumber, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, purpose=$purpose, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAccountNumber=$debtorAccountNumber, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionForCreditorAgent=$instructionForCreditorAgent, instructionIdentification=$instructionIdentification, purpose=$purpose, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
 }
