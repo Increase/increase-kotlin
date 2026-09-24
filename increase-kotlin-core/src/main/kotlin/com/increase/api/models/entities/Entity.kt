@@ -3171,7 +3171,10 @@ private constructor(
                             /** A social security number. */
                             val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                             /** An individual taxpayer identification number (ITIN). */
@@ -3194,7 +3197,10 @@ private constructor(
                         enum class Known {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -3220,7 +3226,10 @@ private constructor(
                         enum class Value {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -6412,7 +6421,10 @@ private constructor(
                         /** A social security number. */
                         val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                         /** An individual taxpayer identification number (ITIN). */
@@ -6435,7 +6447,10 @@ private constructor(
                     enum class Known {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -6459,7 +6474,10 @@ private constructor(
                     enum class Value {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -7510,7 +7528,10 @@ private constructor(
                     /** A social security number. */
                     val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                    /** The last four digits of a social security number. */
+                    /**
+                     * The last four digits of a social security number. Not all programs can use
+                     * this method.
+                     */
                     val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                     /** An individual taxpayer identification number (ITIN). */
@@ -7533,7 +7554,10 @@ private constructor(
                 enum class Known {
                     /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
-                    /** The last four digits of a social security number. */
+                    /**
+                     * The last four digits of a social security number. Not all programs can use
+                     * this method.
+                     */
                     SOCIAL_SECURITY_NUMBER_LAST4,
                     /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -7557,7 +7581,10 @@ private constructor(
                 enum class Value {
                     /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
-                    /** The last four digits of a social security number. */
+                    /**
+                     * The last four digits of a social security number. Not all programs can use
+                     * this method.
+                     */
                     SOCIAL_SECURITY_NUMBER_LAST4,
                     /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -9766,7 +9793,10 @@ private constructor(
                         /** A social security number. */
                         val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                         /** An individual taxpayer identification number (ITIN). */
@@ -9789,7 +9819,10 @@ private constructor(
                     enum class Known {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -9813,7 +9846,10 @@ private constructor(
                     enum class Value {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -12840,7 +12876,10 @@ private constructor(
                         /** A social security number. */
                         val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                         /** An individual taxpayer identification number (ITIN). */
@@ -12863,7 +12902,10 @@ private constructor(
                     enum class Known {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -12887,7 +12929,10 @@ private constructor(
                     enum class Value {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -14173,7 +14218,10 @@ private constructor(
                             /** A social security number. */
                             val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                             /** An individual taxpayer identification number (ITIN). */
@@ -14196,7 +14244,10 @@ private constructor(
                         enum class Known {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -14222,7 +14273,10 @@ private constructor(
                         enum class Value {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -14926,6 +14980,7 @@ private constructor(
         private constructor(
             private val beneficialOwnerAddress: JsonField<BeneficialOwnerAddress>,
             private val beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>,
+            private val beneficialOwnerTaxIdentifier: JsonField<BeneficialOwnerTaxIdentifier>,
             private val category: JsonField<Category>,
             private val entityAddress: JsonField<EntityAddress>,
             private val entityIdentity: JsonField<EntityIdentity>,
@@ -14941,6 +14996,10 @@ private constructor(
                 @JsonProperty("beneficial_owner_identity")
                 @ExcludeMissing
                 beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity> = JsonMissing.of(),
+                @JsonProperty("beneficial_owner_tax_identifier")
+                @ExcludeMissing
+                beneficialOwnerTaxIdentifier: JsonField<BeneficialOwnerTaxIdentifier> =
+                    JsonMissing.of(),
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
@@ -14956,6 +15015,7 @@ private constructor(
             ) : this(
                 beneficialOwnerAddress,
                 beneficialOwnerIdentity,
+                beneficialOwnerTaxIdentifier,
                 category,
                 entityAddress,
                 entityIdentity,
@@ -14980,6 +15040,15 @@ private constructor(
              */
             fun beneficialOwnerIdentity(): BeneficialOwnerIdentity? =
                 beneficialOwnerIdentity.getNullable("beneficial_owner_identity")
+
+            /**
+             * Details when the issue is with a beneficial owner's tax identifier.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun beneficialOwnerTaxIdentifier(): BeneficialOwnerTaxIdentifier? =
+                beneficialOwnerTaxIdentifier.getNullable("beneficial_owner_tax_identifier")
 
             /**
              * The type of issue. We may add additional possible values for this enum over time;
@@ -15037,6 +15106,17 @@ private constructor(
             @ExcludeMissing
             fun _beneficialOwnerIdentity(): JsonField<BeneficialOwnerIdentity> =
                 beneficialOwnerIdentity
+
+            /**
+             * Returns the raw JSON value of [beneficialOwnerTaxIdentifier].
+             *
+             * Unlike [beneficialOwnerTaxIdentifier], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("beneficial_owner_tax_identifier")
+            @ExcludeMissing
+            fun _beneficialOwnerTaxIdentifier(): JsonField<BeneficialOwnerTaxIdentifier> =
+                beneficialOwnerTaxIdentifier
 
             /**
              * Returns the raw JSON value of [category].
@@ -15099,6 +15179,7 @@ private constructor(
                  * ```kotlin
                  * .beneficialOwnerAddress()
                  * .beneficialOwnerIdentity()
+                 * .beneficialOwnerTaxIdentifier()
                  * .category()
                  * .entityAddress()
                  * .entityIdentity()
@@ -15113,6 +15194,8 @@ private constructor(
 
                 private var beneficialOwnerAddress: JsonField<BeneficialOwnerAddress>? = null
                 private var beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>? = null
+                private var beneficialOwnerTaxIdentifier: JsonField<BeneficialOwnerTaxIdentifier>? =
+                    null
                 private var category: JsonField<Category>? = null
                 private var entityAddress: JsonField<EntityAddress>? = null
                 private var entityIdentity: JsonField<EntityIdentity>? = null
@@ -15122,6 +15205,7 @@ private constructor(
                 internal fun from(issue: Issue) = apply {
                     beneficialOwnerAddress = issue.beneficialOwnerAddress
                     beneficialOwnerIdentity = issue.beneficialOwnerIdentity
+                    beneficialOwnerTaxIdentifier = issue.beneficialOwnerTaxIdentifier
                     category = issue.category
                     entityAddress = issue.entityAddress
                     entityIdentity = issue.entityIdentity
@@ -15158,6 +15242,22 @@ private constructor(
                 fun beneficialOwnerIdentity(
                     beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>
                 ) = apply { this.beneficialOwnerIdentity = beneficialOwnerIdentity }
+
+                /** Details when the issue is with a beneficial owner's tax identifier. */
+                fun beneficialOwnerTaxIdentifier(
+                    beneficialOwnerTaxIdentifier: BeneficialOwnerTaxIdentifier?
+                ) = beneficialOwnerTaxIdentifier(JsonField.ofNullable(beneficialOwnerTaxIdentifier))
+
+                /**
+                 * Sets [Builder.beneficialOwnerTaxIdentifier] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.beneficialOwnerTaxIdentifier] with a well-typed
+                 * [BeneficialOwnerTaxIdentifier] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
+                 */
+                fun beneficialOwnerTaxIdentifier(
+                    beneficialOwnerTaxIdentifier: JsonField<BeneficialOwnerTaxIdentifier>
+                ) = apply { this.beneficialOwnerTaxIdentifier = beneficialOwnerTaxIdentifier }
 
                 /**
                  * The type of issue. We may add additional possible values for this enum over time;
@@ -15251,6 +15351,7 @@ private constructor(
                  * ```kotlin
                  * .beneficialOwnerAddress()
                  * .beneficialOwnerIdentity()
+                 * .beneficialOwnerTaxIdentifier()
                  * .category()
                  * .entityAddress()
                  * .entityIdentity()
@@ -15263,6 +15364,7 @@ private constructor(
                     Issue(
                         checkRequired("beneficialOwnerAddress", beneficialOwnerAddress),
                         checkRequired("beneficialOwnerIdentity", beneficialOwnerIdentity),
+                        checkRequired("beneficialOwnerTaxIdentifier", beneficialOwnerTaxIdentifier),
                         checkRequired("category", category),
                         checkRequired("entityAddress", entityAddress),
                         checkRequired("entityIdentity", entityIdentity),
@@ -15290,6 +15392,7 @@ private constructor(
 
                 beneficialOwnerAddress()?.validate()
                 beneficialOwnerIdentity()?.validate()
+                beneficialOwnerTaxIdentifier()?.validate()
                 category().validate()
                 entityAddress()?.validate()
                 entityIdentity()?.validate()
@@ -15314,6 +15417,7 @@ private constructor(
             internal fun validity(): Int =
                 (beneficialOwnerAddress.asKnown()?.validity() ?: 0) +
                     (beneficialOwnerIdentity.asKnown()?.validity() ?: 0) +
+                    (beneficialOwnerTaxIdentifier.asKnown()?.validity() ?: 0) +
                     (category.asKnown()?.validity() ?: 0) +
                     (entityAddress.asKnown()?.validity() ?: 0) +
                     (entityIdentity.asKnown()?.validity() ?: 0) +
@@ -15873,6 +15977,193 @@ private constructor(
                     "BeneficialOwnerIdentity{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
             }
 
+            /** Details when the issue is with a beneficial owner's tax identifier. */
+            class BeneficialOwnerTaxIdentifier
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val beneficialOwnerId: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("beneficial_owner_id")
+                    @ExcludeMissing
+                    beneficialOwnerId: JsonField<String> = JsonMissing.of()
+                ) : this(beneficialOwnerId, mutableMapOf())
+
+                /**
+                 * The ID of the beneficial owner.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun beneficialOwnerId(): String =
+                    beneficialOwnerId.getRequired("beneficial_owner_id")
+
+                /**
+                 * Returns the raw JSON value of [beneficialOwnerId].
+                 *
+                 * Unlike [beneficialOwnerId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("beneficial_owner_id")
+                @ExcludeMissing
+                fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [BeneficialOwnerTaxIdentifier].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .beneficialOwnerId()
+                     * ```
+                     */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [BeneficialOwnerTaxIdentifier]. */
+                class Builder internal constructor() {
+
+                    private var beneficialOwnerId: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(beneficialOwnerTaxIdentifier: BeneficialOwnerTaxIdentifier) =
+                        apply {
+                            beneficialOwnerId = beneficialOwnerTaxIdentifier.beneficialOwnerId
+                            additionalProperties =
+                                beneficialOwnerTaxIdentifier.additionalProperties.toMutableMap()
+                        }
+
+                    /** The ID of the beneficial owner. */
+                    fun beneficialOwnerId(beneficialOwnerId: String) =
+                        beneficialOwnerId(JsonField.of(beneficialOwnerId))
+
+                    /**
+                     * Sets [Builder.beneficialOwnerId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.beneficialOwnerId] with a well-typed
+                     * [String] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+                        this.beneficialOwnerId = beneficialOwnerId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [BeneficialOwnerTaxIdentifier].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .beneficialOwnerId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): BeneficialOwnerTaxIdentifier =
+                        BeneficialOwnerTaxIdentifier(
+                            checkRequired("beneficialOwnerId", beneficialOwnerId),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): BeneficialOwnerTaxIdentifier = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    beneficialOwnerId()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = (if (beneficialOwnerId.asKnown() == null) 0 else 1)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is BeneficialOwnerTaxIdentifier &&
+                        beneficialOwnerId == other.beneficialOwnerId &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(beneficialOwnerId, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "BeneficialOwnerTaxIdentifier{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
+            }
+
             /**
              * The type of issue. We may add additional possible values for this enum over time;
              * your application should be able to handle such additions gracefully.
@@ -15924,6 +16215,13 @@ private constructor(
                      */
                     val BENEFICIAL_OWNER_ADDRESS = of("beneficial_owner_address")
 
+                    /**
+                     * A beneficial owner's full tax identifier is required. A non-US person can
+                     * submit a passport or driver's license. Make changes via the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    val BENEFICIAL_OWNER_TAX_IDENTIFIER = of("beneficial_owner_tax_identifier")
+
                     fun of(value: String) = Category(JsonField.of(value))
                 }
 
@@ -15956,6 +16254,12 @@ private constructor(
                      * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
                      */
                     BENEFICIAL_OWNER_ADDRESS,
+                    /**
+                     * A beneficial owner's full tax identifier is required. A non-US person can
+                     * submit a passport or driver's license. Make changes via the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    BENEFICIAL_OWNER_TAX_IDENTIFIER,
                 }
 
                 /**
@@ -15996,6 +16300,12 @@ private constructor(
                      */
                     BENEFICIAL_OWNER_ADDRESS,
                     /**
+                     * A beneficial owner's full tax identifier is required. A non-US person can
+                     * submit a passport or driver's license. Make changes via the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    BENEFICIAL_OWNER_TAX_IDENTIFIER,
+                    /**
                      * An enum member indicating that [Category] was instantiated with an unknown
                      * value.
                      */
@@ -16016,6 +16326,7 @@ private constructor(
                         ENTITY_IDENTITY -> Value.ENTITY_IDENTITY
                         BENEFICIAL_OWNER_IDENTITY -> Value.BENEFICIAL_OWNER_IDENTITY
                         BENEFICIAL_OWNER_ADDRESS -> Value.BENEFICIAL_OWNER_ADDRESS
+                        BENEFICIAL_OWNER_TAX_IDENTIFIER -> Value.BENEFICIAL_OWNER_TAX_IDENTIFIER
                         else -> Value._UNKNOWN
                     }
 
@@ -16035,6 +16346,7 @@ private constructor(
                         ENTITY_IDENTITY -> Known.ENTITY_IDENTITY
                         BENEFICIAL_OWNER_IDENTITY -> Known.BENEFICIAL_OWNER_IDENTITY
                         BENEFICIAL_OWNER_ADDRESS -> Known.BENEFICIAL_OWNER_ADDRESS
+                        BENEFICIAL_OWNER_TAX_IDENTIFIER -> Known.BENEFICIAL_OWNER_TAX_IDENTIFIER
                         else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                     }
 
@@ -16667,6 +16979,7 @@ private constructor(
                 return other is Issue &&
                     beneficialOwnerAddress == other.beneficialOwnerAddress &&
                     beneficialOwnerIdentity == other.beneficialOwnerIdentity &&
+                    beneficialOwnerTaxIdentifier == other.beneficialOwnerTaxIdentifier &&
                     category == other.category &&
                     entityAddress == other.entityAddress &&
                     entityIdentity == other.entityIdentity &&
@@ -16678,6 +16991,7 @@ private constructor(
                 Objects.hash(
                     beneficialOwnerAddress,
                     beneficialOwnerIdentity,
+                    beneficialOwnerTaxIdentifier,
                     category,
                     entityAddress,
                     entityIdentity,
@@ -16689,7 +17003,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Issue{beneficialOwnerAddress=$beneficialOwnerAddress, beneficialOwnerIdentity=$beneficialOwnerIdentity, category=$category, entityAddress=$entityAddress, entityIdentity=$entityIdentity, entityTaxIdentifier=$entityTaxIdentifier, additionalProperties=$additionalProperties}"
+                "Issue{beneficialOwnerAddress=$beneficialOwnerAddress, beneficialOwnerIdentity=$beneficialOwnerIdentity, beneficialOwnerTaxIdentifier=$beneficialOwnerTaxIdentifier, category=$category, entityAddress=$entityAddress, entityIdentity=$entityIdentity, entityTaxIdentifier=$entityTaxIdentifier, additionalProperties=$additionalProperties}"
         }
 
         /**

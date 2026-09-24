@@ -658,6 +658,13 @@ private constructor(
                  */
                 val BENEFICIAL_OWNER_ADDRESS = of("beneficial_owner_address")
 
+                /**
+                 * A beneficial owner's full tax identifier is required. A non-US person can submit
+                 * a passport or driver's license. Make changes via the
+                 * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                 */
+                val BENEFICIAL_OWNER_TAX_IDENTIFIER = of("beneficial_owner_tax_identifier")
+
                 fun of(value: String) = Category(JsonField.of(value))
             }
 
@@ -689,6 +696,12 @@ private constructor(
                  * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
                  */
                 BENEFICIAL_OWNER_ADDRESS,
+                /**
+                 * A beneficial owner's full tax identifier is required. A non-US person can submit
+                 * a passport or driver's license. Make changes via the
+                 * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                 */
+                BENEFICIAL_OWNER_TAX_IDENTIFIER,
             }
 
             /**
@@ -728,6 +741,12 @@ private constructor(
                  */
                 BENEFICIAL_OWNER_ADDRESS,
                 /**
+                 * A beneficial owner's full tax identifier is required. A non-US person can submit
+                 * a passport or driver's license. Make changes via the
+                 * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                 */
+                BENEFICIAL_OWNER_TAX_IDENTIFIER,
+                /**
                  * An enum member indicating that [Category] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
@@ -747,6 +766,7 @@ private constructor(
                     ENTITY_IDENTITY -> Value.ENTITY_IDENTITY
                     BENEFICIAL_OWNER_IDENTITY -> Value.BENEFICIAL_OWNER_IDENTITY
                     BENEFICIAL_OWNER_ADDRESS -> Value.BENEFICIAL_OWNER_ADDRESS
+                    BENEFICIAL_OWNER_TAX_IDENTIFIER -> Value.BENEFICIAL_OWNER_TAX_IDENTIFIER
                     else -> Value._UNKNOWN
                 }
 
@@ -766,6 +786,7 @@ private constructor(
                     ENTITY_IDENTITY -> Known.ENTITY_IDENTITY
                     BENEFICIAL_OWNER_IDENTITY -> Known.BENEFICIAL_OWNER_IDENTITY
                     BENEFICIAL_OWNER_ADDRESS -> Known.BENEFICIAL_OWNER_ADDRESS
+                    BENEFICIAL_OWNER_TAX_IDENTIFIER -> Known.BENEFICIAL_OWNER_TAX_IDENTIFIER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
 
