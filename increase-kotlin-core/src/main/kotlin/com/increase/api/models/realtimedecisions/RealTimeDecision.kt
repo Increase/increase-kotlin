@@ -25949,6 +25949,9 @@ private constructor(
                 /** Samsung Pay */
                 val SAMSUNG_PAY = of("samsung_pay")
 
+                /** Garmin Pay */
+                val GARMIN_PAY = of("garmin_pay")
+
                 /** Unknown */
                 val UNKNOWN = of("unknown")
 
@@ -25963,6 +25966,8 @@ private constructor(
                 GOOGLE_PAY,
                 /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Garmin Pay */
+                GARMIN_PAY,
                 /** Unknown */
                 UNKNOWN,
             }
@@ -25983,6 +25988,8 @@ private constructor(
                 GOOGLE_PAY,
                 /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Garmin Pay */
+                GARMIN_PAY,
                 /** Unknown */
                 UNKNOWN,
                 /**
@@ -26004,6 +26011,7 @@ private constructor(
                     APPLE_PAY -> Value.APPLE_PAY
                     GOOGLE_PAY -> Value.GOOGLE_PAY
                     SAMSUNG_PAY -> Value.SAMSUNG_PAY
+                    GARMIN_PAY -> Value.GARMIN_PAY
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -26022,6 +26030,7 @@ private constructor(
                     APPLE_PAY -> Known.APPLE_PAY
                     GOOGLE_PAY -> Known.GOOGLE_PAY
                     SAMSUNG_PAY -> Known.SAMSUNG_PAY
+                    GARMIN_PAY -> Known.GARMIN_PAY
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
                 }
@@ -26898,6 +26907,9 @@ private constructor(
                 /** Samsung Pay */
                 val SAMSUNG_PAY = of("samsung_pay")
 
+                /** Garmin Pay */
+                val GARMIN_PAY = of("garmin_pay")
+
                 /** Unknown */
                 val UNKNOWN = of("unknown")
 
@@ -26912,6 +26924,8 @@ private constructor(
                 GOOGLE_PAY,
                 /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Garmin Pay */
+                GARMIN_PAY,
                 /** Unknown */
                 UNKNOWN,
             }
@@ -26932,6 +26946,8 @@ private constructor(
                 GOOGLE_PAY,
                 /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Garmin Pay */
+                GARMIN_PAY,
                 /** Unknown */
                 UNKNOWN,
                 /**
@@ -26953,6 +26969,7 @@ private constructor(
                     APPLE_PAY -> Value.APPLE_PAY
                     GOOGLE_PAY -> Value.GOOGLE_PAY
                     SAMSUNG_PAY -> Value.SAMSUNG_PAY
+                    GARMIN_PAY -> Value.GARMIN_PAY
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -26971,6 +26988,7 @@ private constructor(
                     APPLE_PAY -> Known.APPLE_PAY
                     GOOGLE_PAY -> Known.GOOGLE_PAY
                     SAMSUNG_PAY -> Known.SAMSUNG_PAY
+                    GARMIN_PAY -> Known.GARMIN_PAY
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
                 }
