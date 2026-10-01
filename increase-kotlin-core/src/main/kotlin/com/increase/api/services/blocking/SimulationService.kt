@@ -24,6 +24,7 @@ import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestS
 import com.increase.api.services.blocking.simulations.EntityOnboardingSessionService
 import com.increase.api.services.blocking.simulations.EntityService
 import com.increase.api.services.blocking.simulations.ExportService
+import com.increase.api.services.blocking.simulations.FednowTransferService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundFednowTransferService
@@ -104,6 +105,8 @@ interface SimulationService {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
 
     fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
+
+    fun fednowTransfers(): FednowTransferService
 
     fun inboundFednowTransfers(): InboundFednowTransferService
 
@@ -187,6 +190,8 @@ interface SimulationService {
 
         fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferService.WithRawResponse
+
+        fun fednowTransfers(): FednowTransferService.WithRawResponse
 
         fun inboundFednowTransfers(): InboundFednowTransferService.WithRawResponse
 

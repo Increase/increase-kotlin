@@ -10,6 +10,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletToken
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsync
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenTransitionParams
 
 interface DigitalWalletTokenServiceAsync {
 
@@ -58,6 +59,27 @@ interface DigitalWalletTokenServiceAsync {
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): DigitalWalletTokenListPageAsync =
         list(DigitalWalletTokenListParams.none(), requestOptions)
+
+    /**
+     * Submit a Digital Wallet Token status transition to the card network. The Digital Wallet Token
+     * will move to `pending_transitioning` until the card network confirms the transition, and a
+     * `digital_wallet_token.updated` webhook will be sent once the transition has been confirmed.
+     */
+    suspend fun transition(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken =
+        transition(
+            params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+            requestOptions,
+        )
+
+    /** @see transition */
+    suspend fun transition(
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken
 
     /**
      * A view of [DigitalWalletTokenServiceAsync] that provides access to raw HTTP responses for
@@ -120,5 +142,28 @@ interface DigitalWalletTokenServiceAsync {
             requestOptions: RequestOptions
         ): HttpResponseFor<DigitalWalletTokenListPageAsync> =
             list(DigitalWalletTokenListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /digital_wallet_tokens/{digital_wallet_token_id}/transition`, but is otherwise the same
+         * as [DigitalWalletTokenServiceAsync.transition].
+         */
+        @MustBeClosed
+        suspend fun transition(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken> =
+            transition(
+                params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+                requestOptions,
+            )
+
+        /** @see transition */
+        @MustBeClosed
+        suspend fun transition(
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken>
     }
 }
