@@ -45,6 +45,8 @@ import com.increase.api.services.async.simulations.EntityServiceAsync
 import com.increase.api.services.async.simulations.EntityServiceAsyncImpl
 import com.increase.api.services.async.simulations.ExportServiceAsync
 import com.increase.api.services.async.simulations.ExportServiceAsyncImpl
+import com.increase.api.services.async.simulations.FednowTransferServiceAsync
+import com.increase.api.services.async.simulations.FednowTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
@@ -186,6 +188,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptions)
     }
 
+    private val fednowTransfers: FednowTransferServiceAsync by lazy {
+        FednowTransferServiceAsyncImpl(clientOptions)
+    }
+
     private val inboundFednowTransfers: InboundFednowTransferServiceAsync by lazy {
         InboundFednowTransferServiceAsyncImpl(clientOptions)
     }
@@ -279,6 +285,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync =
         inboundRealTimePaymentsTransfers
+
+    override fun fednowTransfers(): FednowTransferServiceAsync = fednowTransfers
 
     override fun inboundFednowTransfers(): InboundFednowTransferServiceAsync =
         inboundFednowTransfers
@@ -415,6 +423,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             InboundRealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val fednowTransfers: FednowTransferServiceAsync.WithRawResponse by lazy {
+            FednowTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val inboundFednowTransfers:
             InboundFednowTransferServiceAsync.WithRawResponse by lazy {
             InboundFednowTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -529,6 +541,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         override fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
             inboundRealTimePaymentsTransfers
+
+        override fun fednowTransfers(): FednowTransferServiceAsync.WithRawResponse = fednowTransfers
 
         override fun inboundFednowTransfers(): InboundFednowTransferServiceAsync.WithRawResponse =
             inboundFednowTransfers

@@ -40,6 +40,8 @@ import com.increase.api.services.blocking.DeclinedTransactionService
 import com.increase.api.services.blocking.DeclinedTransactionServiceImpl
 import com.increase.api.services.blocking.DigitalCardProfileService
 import com.increase.api.services.blocking.DigitalCardProfileServiceImpl
+import com.increase.api.services.blocking.DigitalWalletTokenRequestService
+import com.increase.api.services.blocking.DigitalWalletTokenRequestServiceImpl
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import com.increase.api.services.blocking.DigitalWalletTokenServiceImpl
 import com.increase.api.services.blocking.EntityOnboardingSessionService
@@ -70,6 +72,8 @@ import com.increase.api.services.blocking.InboundFednowTransferService
 import com.increase.api.services.blocking.InboundFednowTransferServiceImpl
 import com.increase.api.services.blocking.InboundMailItemService
 import com.increase.api.services.blocking.InboundMailItemServiceImpl
+import com.increase.api.services.blocking.InboundRealTimePaymentsRequestsForPaymentService
+import com.increase.api.services.blocking.InboundRealTimePaymentsRequestsForPaymentServiceImpl
 import com.increase.api.services.blocking.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.InboundRealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
@@ -98,10 +102,14 @@ import com.increase.api.services.blocking.PhysicalCardProfileService
 import com.increase.api.services.blocking.PhysicalCardProfileServiceImpl
 import com.increase.api.services.blocking.PhysicalCardService
 import com.increase.api.services.blocking.PhysicalCardServiceImpl
+import com.increase.api.services.blocking.PhysicalCheckBatchService
+import com.increase.api.services.blocking.PhysicalCheckBatchServiceImpl
 import com.increase.api.services.blocking.ProgramService
 import com.increase.api.services.blocking.ProgramServiceImpl
 import com.increase.api.services.blocking.RealTimeDecisionService
 import com.increase.api.services.blocking.RealTimeDecisionServiceImpl
+import com.increase.api.services.blocking.RealTimePaymentsRequestsForPaymentService
+import com.increase.api.services.blocking.RealTimePaymentsRequestsForPaymentServiceImpl
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.RealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.RoutingNumberService
@@ -176,6 +184,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         DigitalWalletTokenServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val digitalWalletTokenRequests: DigitalWalletTokenRequestService by lazy {
+        DigitalWalletTokenRequestServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val transactions: TransactionService by lazy {
         TransactionServiceImpl(clientOptionsWithUserAgent)
     }
@@ -230,6 +242,16 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy {
         InboundRealTimePaymentsTransferServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val realTimePaymentsRequestsForPayment:
+        RealTimePaymentsRequestsForPaymentService by lazy {
+        RealTimePaymentsRequestsForPaymentServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val inboundRealTimePaymentsRequestsForPayment:
+        InboundRealTimePaymentsRequestsForPaymentService by lazy {
+        InboundRealTimePaymentsRequestsForPaymentServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val fednowTransfers: FednowTransferService by lazy {
@@ -344,6 +366,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         CardValidationServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val physicalCheckBatches: PhysicalCheckBatchService by lazy {
+        PhysicalCheckBatchServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val simulations: SimulationService by lazy {
         SimulationServiceImpl(clientOptionsWithUserAgent)
     }
@@ -377,6 +403,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun digitalWalletTokens(): DigitalWalletTokenService = digitalWalletTokens
 
+    override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService =
+        digitalWalletTokenRequests
+
     override fun transactions(): TransactionService = transactions
 
     override fun pendingTransactions(): PendingTransactionService = pendingTransactions
@@ -407,6 +436,12 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService =
         inboundRealTimePaymentsTransfers
+
+    override fun realTimePaymentsRequestsForPayment(): RealTimePaymentsRequestsForPaymentService =
+        realTimePaymentsRequestsForPayment
+
+    override fun inboundRealTimePaymentsRequestsForPayment():
+        InboundRealTimePaymentsRequestsForPaymentService = inboundRealTimePaymentsRequestsForPayment
 
     override fun fednowTransfers(): FednowTransferService = fednowTransfers
 
@@ -472,6 +507,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun cardValidations(): CardValidationService = cardValidations
 
+    override fun physicalCheckBatches(): PhysicalCheckBatchService = physicalCheckBatches
+
     override fun simulations(): SimulationService = simulations
 
     override fun close() = clientOptions.close()
@@ -521,6 +558,11 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         private val digitalWalletTokens: DigitalWalletTokenService.WithRawResponse by lazy {
             DigitalWalletTokenServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val digitalWalletTokenRequests:
+            DigitalWalletTokenRequestService.WithRawResponse by lazy {
+            DigitalWalletTokenRequestServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val transactions: TransactionService.WithRawResponse by lazy {
@@ -580,6 +622,16 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         private val inboundRealTimePaymentsTransfers:
             InboundRealTimePaymentsTransferService.WithRawResponse by lazy {
             InboundRealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val realTimePaymentsRequestsForPayment:
+            RealTimePaymentsRequestsForPaymentService.WithRawResponse by lazy {
+            RealTimePaymentsRequestsForPaymentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundRealTimePaymentsRequestsForPayment:
+            InboundRealTimePaymentsRequestsForPaymentService.WithRawResponse by lazy {
+            InboundRealTimePaymentsRequestsForPaymentServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val fednowTransfers: FednowTransferService.WithRawResponse by lazy {
@@ -708,6 +760,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             CardValidationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val physicalCheckBatches: PhysicalCheckBatchService.WithRawResponse by lazy {
+            PhysicalCheckBatchServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val simulations: SimulationService.WithRawResponse by lazy {
             SimulationServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -744,6 +800,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun digitalWalletTokens(): DigitalWalletTokenService.WithRawResponse =
             digitalWalletTokens
+
+        override fun digitalWalletTokenRequests():
+            DigitalWalletTokenRequestService.WithRawResponse = digitalWalletTokenRequests
 
         override fun transactions(): TransactionService.WithRawResponse = transactions
 
@@ -783,6 +842,14 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         override fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferService.WithRawResponse =
             inboundRealTimePaymentsTransfers
+
+        override fun realTimePaymentsRequestsForPayment():
+            RealTimePaymentsRequestsForPaymentService.WithRawResponse =
+            realTimePaymentsRequestsForPayment
+
+        override fun inboundRealTimePaymentsRequestsForPayment():
+            InboundRealTimePaymentsRequestsForPaymentService.WithRawResponse =
+            inboundRealTimePaymentsRequestsForPayment
 
         override fun fednowTransfers(): FednowTransferService.WithRawResponse = fednowTransfers
 
@@ -856,6 +923,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             cardPushTransfers
 
         override fun cardValidations(): CardValidationService.WithRawResponse = cardValidations
+
+        override fun physicalCheckBatches(): PhysicalCheckBatchService.WithRawResponse =
+            physicalCheckBatches
 
         override fun simulations(): SimulationService.WithRawResponse = simulations
     }

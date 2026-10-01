@@ -7,6 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAcceptParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAdjustmentParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 
@@ -36,6 +37,33 @@ interface InboundCheckDepositServiceAsync {
         params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
+
+    /**
+     * Simulates the acceptance of an [Inbound Check Deposit](#inbound-check-deposits), creating a
+     * Transaction as a result. The Inbound Check Deposit must first have a `status` of `pending`.
+     */
+    suspend fun accept(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositAcceptParams = InboundCheckDepositAcceptParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit =
+        accept(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see accept */
+    suspend fun accept(
+        params: InboundCheckDepositAcceptParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit
+
+    /** @see accept */
+    suspend fun accept(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): InboundCheckDeposit =
+        accept(inboundCheckDepositId, InboundCheckDepositAcceptParams.none(), requestOptions)
 
     /**
      * Simulates an adjustment on an Inbound Check Deposit. The Inbound Check Deposit must have a
@@ -92,6 +120,37 @@ interface InboundCheckDepositServiceAsync {
             params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/inbound_check_deposits/{inbound_check_deposit_id}/accept`, but is otherwise
+         * the same as [InboundCheckDepositServiceAsync.accept].
+         */
+        @MustBeClosed
+        suspend fun accept(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositAcceptParams = InboundCheckDepositAcceptParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit> =
+            accept(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see accept */
+        @MustBeClosed
+        suspend fun accept(
+            params: InboundCheckDepositAcceptParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit>
+
+        /** @see accept */
+        @MustBeClosed
+        suspend fun accept(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundCheckDeposit> =
+            accept(inboundCheckDepositId, InboundCheckDepositAcceptParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
