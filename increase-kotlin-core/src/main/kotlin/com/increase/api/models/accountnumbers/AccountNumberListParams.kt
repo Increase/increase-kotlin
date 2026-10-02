@@ -425,7 +425,10 @@ private constructor(
                 /** ACH Debits are allowed. */
                 val ALLOWED = of("allowed")
 
-                /** ACH Debits are blocked. */
+                /**
+                 * ACH Debits are blocked. Received debits will be declined and returned with code
+                 * `R20` (non-transaction account).
+                 */
                 val BLOCKED = of("blocked")
 
                 fun of(value: String) = In(JsonField.of(value))
@@ -435,7 +438,10 @@ private constructor(
             enum class Known {
                 /** ACH Debits are allowed. */
                 ALLOWED,
-                /** ACH Debits are blocked. */
+                /**
+                 * ACH Debits are blocked. Received debits will be declined and returned with code
+                 * `R20` (non-transaction account).
+                 */
                 BLOCKED,
             }
 
@@ -451,7 +457,10 @@ private constructor(
             enum class Value {
                 /** ACH Debits are allowed. */
                 ALLOWED,
-                /** ACH Debits are blocked. */
+                /**
+                 * ACH Debits are blocked. Received debits will be declined and returned with code
+                 * `R20` (non-transaction account).
+                 */
                 BLOCKED,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
