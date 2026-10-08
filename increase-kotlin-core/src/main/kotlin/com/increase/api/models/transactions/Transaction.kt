@@ -54066,6 +54066,12 @@ private constructor(
                      */
                     val PAID = of("paid")
 
+                    /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    val DUPLICATE_ENTRY = of("duplicate_entry")
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -54095,6 +54101,11 @@ private constructor(
                      * The check has already been deposited elsewhere and so this is a duplicate.
                      */
                     PAID,
+                    /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    DUPLICATE_ENTRY,
                 }
 
                 /**
@@ -54132,6 +54143,11 @@ private constructor(
                      */
                     PAID,
                     /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    DUPLICATE_ENTRY,
+                    /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
                      */
@@ -54152,6 +54168,7 @@ private constructor(
                         ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
                         NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
                         PAID -> Value.PAID
+                        DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                         else -> Value._UNKNOWN
                     }
 
@@ -54171,6 +54188,7 @@ private constructor(
                         ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
                         NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
                         PAID -> Known.PAID
+                        DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
