@@ -28660,6 +28660,10 @@ private constructor(
                         /** Invoice number */
                         val INVOICE_NUMBER = of("invoice_number")
 
+                        /** Visa Recurrent reference identifier */
+                        val VISA_RECURRENT_REFERENCE_IDENTIFIER =
+                            of("visa_recurrent_reference_identifier")
+
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
                     }
 
@@ -28675,6 +28679,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                     }
 
                     /**
@@ -28699,6 +28705,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                         /**
                          * An enum member indicating that [PurchaseIdentifierFormat] was
                          * instantiated with an unknown value.
@@ -28720,6 +28728,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Value.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else -> Value._UNKNOWN
                         }
 
@@ -28739,6 +28749,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Known.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else ->
                                 throw IncreaseInvalidDataException(
                                     "Unknown PurchaseIdentifierFormat: $value"
@@ -42834,6 +42846,10 @@ private constructor(
                         /** Invoice number */
                         val INVOICE_NUMBER = of("invoice_number")
 
+                        /** Visa Recurrent reference identifier */
+                        val VISA_RECURRENT_REFERENCE_IDENTIFIER =
+                            of("visa_recurrent_reference_identifier")
+
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
                     }
 
@@ -42849,6 +42865,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                     }
 
                     /**
@@ -42873,6 +42891,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                         /**
                          * An enum member indicating that [PurchaseIdentifierFormat] was
                          * instantiated with an unknown value.
@@ -42894,6 +42914,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Value.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else -> Value._UNKNOWN
                         }
 
@@ -42913,6 +42935,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Known.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else ->
                                 throw IncreaseInvalidDataException(
                                     "Unknown PurchaseIdentifierFormat: $value"
@@ -54066,6 +54090,12 @@ private constructor(
                      */
                     val PAID = of("paid")
 
+                    /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    val DUPLICATE_ENTRY = of("duplicate_entry")
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -54095,6 +54125,11 @@ private constructor(
                      * The check has already been deposited elsewhere and so this is a duplicate.
                      */
                     PAID,
+                    /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    DUPLICATE_ENTRY,
                 }
 
                 /**
@@ -54132,6 +54167,11 @@ private constructor(
                      */
                     PAID,
                     /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    DUPLICATE_ENTRY,
+                    /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
                      */
@@ -54152,6 +54192,7 @@ private constructor(
                         ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
                         NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
                         PAID -> Value.PAID
+                        DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                         else -> Value._UNKNOWN
                     }
 
@@ -54171,6 +54212,7 @@ private constructor(
                         ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
                         NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
                         PAID -> Known.PAID
+                        DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
