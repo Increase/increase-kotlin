@@ -11828,6 +11828,12 @@ private constructor(
                          */
                         val PULSE_SWITCH_FEE = of("pulse_switch_fee")
 
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        val PULSE_TOKENIZATION_FEE = of("pulse_tokenization_fee")
+
                         fun of(value: String) = FeeType(JsonField.of(value))
                     }
 
@@ -11986,6 +11992,11 @@ private constructor(
                          * transactions on its network.
                          */
                         PULSE_SWITCH_FEE,
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
                     }
 
                     /**
@@ -12152,6 +12163,11 @@ private constructor(
                          */
                         PULSE_SWITCH_FEE,
                         /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
+                        /**
                          * An enum member indicating that [FeeType] was instantiated with an unknown
                          * value.
                          */
@@ -12213,6 +12229,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
                         }
 
@@ -12273,6 +12290,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
                         }
 

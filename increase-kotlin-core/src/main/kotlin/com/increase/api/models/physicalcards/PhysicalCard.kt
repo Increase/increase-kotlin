@@ -1072,6 +1072,7 @@ private constructor(
             private val line2: JsonField<String>,
             private val line3: JsonField<String>,
             private val name: JsonField<String>,
+            private val phoneNumber: JsonField<String>,
             private val postalCode: JsonField<String>,
             private val state: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1087,11 +1088,25 @@ private constructor(
                 @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line3") @ExcludeMissing line3: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("phone_number")
+                @ExcludeMissing
+                phoneNumber: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("postal_code")
                 @ExcludeMissing
                 postalCode: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
-            ) : this(city, country, line1, line2, line3, name, postalCode, state, mutableMapOf())
+            ) : this(
+                city,
+                country,
+                line1,
+                line2,
+                line3,
+                name,
+                phoneNumber,
+                postalCode,
+                state,
+                mutableMapOf(),
+            )
 
             /**
              * The city of the shipping address.
@@ -1144,6 +1159,14 @@ private constructor(
              *   value).
              */
             fun name(): String = name.getRequired("name")
+
+            /**
+             * The phone number of the recipient.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun phoneNumber(): String? = phoneNumber.getNullable("phone_number")
 
             /**
              * The postal code of the shipping address.
@@ -1206,6 +1229,16 @@ private constructor(
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /**
+             * Returns the raw JSON value of [phoneNumber].
+             *
+             * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("phone_number")
+            @ExcludeMissing
+            fun _phoneNumber(): JsonField<String> = phoneNumber
+
+            /**
              * Returns the raw JSON value of [postalCode].
              *
              * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
@@ -1247,6 +1280,7 @@ private constructor(
                  * .line2()
                  * .line3()
                  * .name()
+                 * .phoneNumber()
                  * .postalCode()
                  * .state()
                  * ```
@@ -1263,6 +1297,7 @@ private constructor(
                 private var line2: JsonField<String>? = null
                 private var line3: JsonField<String>? = null
                 private var name: JsonField<String>? = null
+                private var phoneNumber: JsonField<String>? = null
                 private var postalCode: JsonField<String>? = null
                 private var state: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1274,6 +1309,7 @@ private constructor(
                     line2 = address.line2
                     line3 = address.line3
                     name = address.name
+                    phoneNumber = address.phoneNumber
                     postalCode = address.postalCode
                     state = address.state
                     additionalProperties = address.additionalProperties.toMutableMap()
@@ -1351,6 +1387,21 @@ private constructor(
                  */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
+                /** The phone number of the recipient. */
+                fun phoneNumber(phoneNumber: String?) =
+                    phoneNumber(JsonField.ofNullable(phoneNumber))
+
+                /**
+                 * Sets [Builder.phoneNumber] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.phoneNumber] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun phoneNumber(phoneNumber: JsonField<String>) = apply {
+                    this.phoneNumber = phoneNumber
+                }
+
                 /** The postal code of the shipping address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
@@ -1412,6 +1463,7 @@ private constructor(
                  * .line2()
                  * .line3()
                  * .name()
+                 * .phoneNumber()
                  * .postalCode()
                  * .state()
                  * ```
@@ -1426,6 +1478,7 @@ private constructor(
                         checkRequired("line2", line2),
                         checkRequired("line3", line3),
                         checkRequired("name", name),
+                        checkRequired("phoneNumber", phoneNumber),
                         checkRequired("postalCode", postalCode),
                         checkRequired("state", state),
                         additionalProperties.toMutableMap(),
@@ -1455,6 +1508,7 @@ private constructor(
                 line2()
                 line3()
                 name()
+                phoneNumber()
                 postalCode()
                 state()
                 validated = true
@@ -1481,6 +1535,7 @@ private constructor(
                     (if (line2.asKnown() == null) 0 else 1) +
                     (if (line3.asKnown() == null) 0 else 1) +
                     (if (name.asKnown() == null) 0 else 1) +
+                    (if (phoneNumber.asKnown() == null) 0 else 1) +
                     (if (postalCode.asKnown() == null) 0 else 1) +
                     (if (state.asKnown() == null) 0 else 1)
 
@@ -1496,6 +1551,7 @@ private constructor(
                     line2 == other.line2 &&
                     line3 == other.line3 &&
                     name == other.name &&
+                    phoneNumber == other.phoneNumber &&
                     postalCode == other.postalCode &&
                     state == other.state &&
                     additionalProperties == other.additionalProperties
@@ -1509,6 +1565,7 @@ private constructor(
                     line2,
                     line3,
                     name,
+                    phoneNumber,
                     postalCode,
                     state,
                     additionalProperties,
@@ -1518,7 +1575,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{city=$city, country=$country, line1=$line1, line2=$line2, line3=$line3, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+                "Address{city=$city, country=$country, line1=$line1, line2=$line2, line3=$line3, name=$name, phoneNumber=$phoneNumber, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
         }
 
         /** The shipping method. */

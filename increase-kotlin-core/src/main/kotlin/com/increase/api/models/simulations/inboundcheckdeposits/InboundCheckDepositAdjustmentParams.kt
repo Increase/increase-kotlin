@@ -508,6 +508,12 @@ private constructor(
              */
             val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
 
+            /**
+             * A previous adjustment for the check was applied twice and the duplicate has been
+             * reversed.
+             */
+            val DUPLICATE_ENTRY = of("duplicate_entry")
+
             fun of(value: String) = Reason(JsonField.of(value))
         }
 
@@ -523,6 +529,11 @@ private constructor(
              * reimbursed the funds with a Wrong Payee Credit.
              */
             WRONG_PAYEE_CREDIT,
+            /**
+             * A previous adjustment for the check was applied twice and the duplicate has been
+             * reversed.
+             */
+            DUPLICATE_ENTRY,
         }
 
         /**
@@ -545,6 +556,11 @@ private constructor(
              * reimbursed the funds with a Wrong Payee Credit.
              */
             WRONG_PAYEE_CREDIT,
+            /**
+             * A previous adjustment for the check was applied twice and the duplicate has been
+             * reversed.
+             */
+            DUPLICATE_ENTRY,
             /** An enum member indicating that [Reason] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -560,6 +576,7 @@ private constructor(
             when (this) {
                 LATE_RETURN -> Value.LATE_RETURN
                 WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
+                DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                 else -> Value._UNKNOWN
             }
 
@@ -576,6 +593,7 @@ private constructor(
             when (this) {
                 LATE_RETURN -> Known.LATE_RETURN
                 WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
+                DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                 else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
             }
 
