@@ -7,7 +7,10 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve a File */
+/**
+ * Fetch metadata about a File, like its `purpose` and MIME type. To access the content, use the
+ * [Get File contents](/documentation/api/files#get-file-contents) API.
+ */
 class FileRetrieveParams
 private constructor(
     private val fileId: String?,

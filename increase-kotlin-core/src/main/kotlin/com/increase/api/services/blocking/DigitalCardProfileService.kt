@@ -55,7 +55,7 @@ interface DigitalCardProfileService {
     fun retrieve(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
         retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
-    /** List Card Profiles */
+    /** List Digital Card Profiles */
     fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -86,7 +86,7 @@ interface DigitalCardProfileService {
     fun archive(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
         archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none(), requestOptions)
 
-    /** Clones a Digital Card Profile */
+    /** Clone a Digital Card Profile */
     fun clone(
         digitalCardProfileId: String,
         params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
