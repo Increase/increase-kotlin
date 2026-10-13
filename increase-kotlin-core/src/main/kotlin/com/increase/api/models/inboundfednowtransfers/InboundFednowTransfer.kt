@@ -36,6 +36,7 @@ private constructor(
     private val debtorRoutingNumber: JsonField<String>,
     private val decline: JsonField<Decline>,
     private val endToEndIdentification: JsonField<String>,
+    private val messageIdentification: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val transactionIdentification: JsonField<String>,
@@ -76,6 +77,9 @@ private constructor(
         @JsonProperty("end_to_end_identification")
         @ExcludeMissing
         endToEndIdentification: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("message_identification")
+        @ExcludeMissing
+        messageIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -104,6 +108,7 @@ private constructor(
         debtorRoutingNumber,
         decline,
         endToEndIdentification,
+        messageIdentification,
         status,
         transactionId,
         transactionIdentification,
@@ -221,6 +226,15 @@ private constructor(
         endToEndIdentification.getNullable("end_to_end_identification")
 
     /**
+     * The FedNow network identification of the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun messageIdentification(): String =
+        messageIdentification.getRequired("message_identification")
+
+    /**
      * The lifecycle status of the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -237,7 +251,7 @@ private constructor(
     fun transactionId(): String? = transactionId.getNullable("transaction_id")
 
     /**
-     * The FedNow network identification of the transfer.
+     * An optional identifier for the transfer set by the sending bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -383,6 +397,16 @@ private constructor(
     fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
 
     /**
+     * Returns the raw JSON value of [messageIdentification].
+     *
+     * Unlike [messageIdentification], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("message_identification")
+    @ExcludeMissing
+    fun _messageIdentification(): JsonField<String> = messageIdentification
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -468,6 +492,7 @@ private constructor(
          * .debtorRoutingNumber()
          * .decline()
          * .endToEndIdentification()
+         * .messageIdentification()
          * .status()
          * .transactionId()
          * .transactionIdentification()
@@ -495,6 +520,7 @@ private constructor(
         private var debtorRoutingNumber: JsonField<String>? = null
         private var decline: JsonField<Decline>? = null
         private var endToEndIdentification: JsonField<String>? = null
+        private var messageIdentification: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
         private var transactionIdentification: JsonField<String>? = null
@@ -517,6 +543,7 @@ private constructor(
             debtorRoutingNumber = inboundFednowTransfer.debtorRoutingNumber
             decline = inboundFednowTransfer.decline
             endToEndIdentification = inboundFednowTransfer.endToEndIdentification
+            messageIdentification = inboundFednowTransfer.messageIdentification
             status = inboundFednowTransfer.status
             transactionId = inboundFednowTransfer.transactionId
             transactionIdentification = inboundFednowTransfer.transactionIdentification
@@ -704,6 +731,21 @@ private constructor(
             this.endToEndIdentification = endToEndIdentification
         }
 
+        /** The FedNow network identification of the transfer. */
+        fun messageIdentification(messageIdentification: String) =
+            messageIdentification(JsonField.of(messageIdentification))
+
+        /**
+         * Sets [Builder.messageIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messageIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun messageIdentification(messageIdentification: JsonField<String>) = apply {
+            this.messageIdentification = messageIdentification
+        }
+
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -730,7 +772,7 @@ private constructor(
             this.transactionId = transactionId
         }
 
-        /** The FedNow network identification of the transfer. */
+        /** An optional identifier for the transfer set by the sending bank. */
         fun transactionIdentification(transactionIdentification: String?) =
             transactionIdentification(JsonField.ofNullable(transactionIdentification))
 
@@ -836,6 +878,7 @@ private constructor(
          * .debtorRoutingNumber()
          * .decline()
          * .endToEndIdentification()
+         * .messageIdentification()
          * .status()
          * .transactionId()
          * .transactionIdentification()
@@ -861,6 +904,7 @@ private constructor(
                 checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                 checkRequired("decline", decline),
                 checkRequired("endToEndIdentification", endToEndIdentification),
+                checkRequired("messageIdentification", messageIdentification),
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
                 checkRequired("transactionIdentification", transactionIdentification),
@@ -905,6 +949,7 @@ private constructor(
         debtorRoutingNumber()
         decline()?.validate()
         endToEndIdentification()
+        messageIdentification()
         status().validate()
         transactionId()
         transactionIdentification()
@@ -941,6 +986,7 @@ private constructor(
             (if (debtorRoutingNumber.asKnown() == null) 0 else 1) +
             (decline.asKnown()?.validity() ?: 0) +
             (if (endToEndIdentification.asKnown() == null) 0 else 1) +
+            (if (messageIdentification.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
             (if (transactionId.asKnown() == null) 0 else 1) +
             (if (transactionIdentification.asKnown() == null) 0 else 1) +
@@ -1972,6 +2018,7 @@ private constructor(
             debtorRoutingNumber == other.debtorRoutingNumber &&
             decline == other.decline &&
             endToEndIdentification == other.endToEndIdentification &&
+            messageIdentification == other.messageIdentification &&
             status == other.status &&
             transactionId == other.transactionId &&
             transactionIdentification == other.transactionIdentification &&
@@ -1996,6 +2043,7 @@ private constructor(
             debtorRoutingNumber,
             decline,
             endToEndIdentification,
+            messageIdentification,
             status,
             transactionId,
             transactionIdentification,
@@ -2009,5 +2057,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundFednowTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, endToEndIdentification=$endToEndIdentification, status=$status, transactionId=$transactionId, transactionIdentification=$transactionIdentification, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "InboundFednowTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, endToEndIdentification=$endToEndIdentification, messageIdentification=$messageIdentification, status=$status, transactionId=$transactionId, transactionIdentification=$transactionIdentification, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

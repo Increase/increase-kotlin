@@ -7,7 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve a Card Profile */
+/** Retrieve a Physical Card Profile */
 class PhysicalCardProfileRetrieveParams
 private constructor(
     private val physicalCardProfileId: String?,
