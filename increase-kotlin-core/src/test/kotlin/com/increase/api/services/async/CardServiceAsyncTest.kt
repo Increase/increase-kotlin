@@ -411,6 +411,20 @@ internal class CardServiceAsyncTest {
     }
 
     @Test
+    suspend fun renew() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardServiceAsync = client.cards()
+
+        val card = cardServiceAsync.renew("card_oubs0hwk5rn6knuecxg2")
+
+        card.validate()
+    }
+
+    @Test
     suspend fun updatePin() {
         val client =
             IncreaseOkHttpClientAsync.builder()
