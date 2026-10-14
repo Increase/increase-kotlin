@@ -12,7 +12,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
-/** List Card Profiles */
+/** List Digital Card Profiles */
 class DigitalCardProfileListParams
 private constructor(
     private val cursor: String?,

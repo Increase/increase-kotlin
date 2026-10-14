@@ -16,6 +16,7 @@ import com.increase.api.models.cards.CardDetailsToken
 import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardRenewParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -149,6 +150,28 @@ interface CardServiceAsync {
     /** @see details */
     suspend fun details(cardId: String, requestOptions: RequestOptions): CardDetails =
         details(cardId, CardDetailsParams.none(), requestOptions)
+
+    /**
+     * Renew a Card in place. The Card keeps its identifier, card number, PIN, and Physical Cards,
+     * and receives a new expiration date in the current month four years from now along with a new
+     * verification code, which the Card's details will return afterwards. Physical Cards that have
+     * already shipped keep working until they are canceled.
+     */
+    suspend fun renew(
+        cardId: String,
+        params: CardRenewParams = CardRenewParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card = renew(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see renew */
+    suspend fun renew(
+        params: CardRenewParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
+
+    /** @see renew */
+    suspend fun renew(cardId: String, requestOptions: RequestOptions): Card =
+        renew(cardId, CardRenewParams.none(), requestOptions)
 
     /** Update a Card's PIN */
     suspend fun updatePin(
@@ -326,6 +349,29 @@ interface CardServiceAsync {
             cardId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardDetails> = details(cardId, CardDetailsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/renew`, but is otherwise the same
+         * as [CardServiceAsync.renew].
+         */
+        @MustBeClosed
+        suspend fun renew(
+            cardId: String,
+            params: CardRenewParams = CardRenewParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card> = renew(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see renew */
+        @MustBeClosed
+        suspend fun renew(
+            params: CardRenewParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
+
+        /** @see renew */
+        @MustBeClosed
+        suspend fun renew(cardId: String, requestOptions: RequestOptions): HttpResponseFor<Card> =
+            renew(cardId, CardRenewParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /cards/{card_id}/update_pin`, but is otherwise the
