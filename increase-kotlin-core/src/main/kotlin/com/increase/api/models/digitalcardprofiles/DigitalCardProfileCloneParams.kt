@@ -18,7 +18,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Clones a Digital Card Profile */
+/** Clone a Digital Card Profile */
 class DigitalCardProfileCloneParams
 private constructor(
     private val digitalCardProfileId: String?,

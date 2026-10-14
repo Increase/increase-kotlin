@@ -9,7 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
-/** Unenroll an account from IntraFi */
+/** Unenroll an Account from IntraFi */
 class IntrafiAccountEnrollmentUnenrollParams
 private constructor(
     private val intrafiAccountEnrollmentId: String?,
