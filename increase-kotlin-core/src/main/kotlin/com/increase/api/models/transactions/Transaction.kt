@@ -8591,6 +8591,13 @@ private constructor(
                         /** The user's chargeback was submitted. */
                         val CHARGEBACK_SUBMITTED = of("chargeback_submitted")
 
+                        /**
+                         * The merchant's pre-arbitration submission was accepted by the user or not
+                         * responded to in time.
+                         */
+                        val MERCHANT_PREARBITRATION_ACCEPTED =
+                            of("merchant_prearbitration_accepted")
+
                         /** The user declined the merchant's pre-arbitration submission. */
                         val MERCHANT_PREARBITRATION_DECLINE_SUBMITTED =
                             of("merchant_prearbitration_decline_submitted")
@@ -8601,6 +8608,12 @@ private constructor(
 
                         /** The transaction was re-presented by the merchant. */
                         val REPRESENTED = of("represented")
+
+                        /**
+                         * The user's pre-arbitration was accepted by the merchant or not responded
+                         * to in time.
+                         */
+                        val USER_PREARBITRATION_ACCEPTED = of("user_prearbitration_accepted")
 
                         /** The user's pre-arbitration was declined by the merchant. */
                         val USER_PREARBITRATION_DECLINE_RECEIVED =
@@ -8619,12 +8632,22 @@ private constructor(
                     enum class Known {
                         /** The user's chargeback was submitted. */
                         CHARGEBACK_SUBMITTED,
+                        /**
+                         * The merchant's pre-arbitration submission was accepted by the user or not
+                         * responded to in time.
+                         */
+                        MERCHANT_PREARBITRATION_ACCEPTED,
                         /** The user declined the merchant's pre-arbitration submission. */
                         MERCHANT_PREARBITRATION_DECLINE_SUBMITTED,
                         /** The merchant's pre-arbitration submission was received. */
                         MERCHANT_PREARBITRATION_RECEIVED,
                         /** The transaction was re-presented by the merchant. */
                         REPRESENTED,
+                        /**
+                         * The user's pre-arbitration was accepted by the merchant or not responded
+                         * to in time.
+                         */
+                        USER_PREARBITRATION_ACCEPTED,
                         /** The user's pre-arbitration was declined by the merchant. */
                         USER_PREARBITRATION_DECLINE_RECEIVED,
                         /** The user's pre-arbitration was submitted. */
@@ -8646,12 +8669,22 @@ private constructor(
                     enum class Value {
                         /** The user's chargeback was submitted. */
                         CHARGEBACK_SUBMITTED,
+                        /**
+                         * The merchant's pre-arbitration submission was accepted by the user or not
+                         * responded to in time.
+                         */
+                        MERCHANT_PREARBITRATION_ACCEPTED,
                         /** The user declined the merchant's pre-arbitration submission. */
                         MERCHANT_PREARBITRATION_DECLINE_SUBMITTED,
                         /** The merchant's pre-arbitration submission was received. */
                         MERCHANT_PREARBITRATION_RECEIVED,
                         /** The transaction was re-presented by the merchant. */
                         REPRESENTED,
+                        /**
+                         * The user's pre-arbitration was accepted by the merchant or not responded
+                         * to in time.
+                         */
+                        USER_PREARBITRATION_ACCEPTED,
                         /** The user's pre-arbitration was declined by the merchant. */
                         USER_PREARBITRATION_DECLINE_RECEIVED,
                         /** The user's pre-arbitration was submitted. */
@@ -8675,11 +8708,14 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             CHARGEBACK_SUBMITTED -> Value.CHARGEBACK_SUBMITTED
+                            MERCHANT_PREARBITRATION_ACCEPTED ->
+                                Value.MERCHANT_PREARBITRATION_ACCEPTED
                             MERCHANT_PREARBITRATION_DECLINE_SUBMITTED ->
                                 Value.MERCHANT_PREARBITRATION_DECLINE_SUBMITTED
                             MERCHANT_PREARBITRATION_RECEIVED ->
                                 Value.MERCHANT_PREARBITRATION_RECEIVED
                             REPRESENTED -> Value.REPRESENTED
+                            USER_PREARBITRATION_ACCEPTED -> Value.USER_PREARBITRATION_ACCEPTED
                             USER_PREARBITRATION_DECLINE_RECEIVED ->
                                 Value.USER_PREARBITRATION_DECLINE_RECEIVED
                             USER_PREARBITRATION_SUBMITTED -> Value.USER_PREARBITRATION_SUBMITTED
@@ -8699,11 +8735,14 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             CHARGEBACK_SUBMITTED -> Known.CHARGEBACK_SUBMITTED
+                            MERCHANT_PREARBITRATION_ACCEPTED ->
+                                Known.MERCHANT_PREARBITRATION_ACCEPTED
                             MERCHANT_PREARBITRATION_DECLINE_SUBMITTED ->
                                 Known.MERCHANT_PREARBITRATION_DECLINE_SUBMITTED
                             MERCHANT_PREARBITRATION_RECEIVED ->
                                 Known.MERCHANT_PREARBITRATION_RECEIVED
                             REPRESENTED -> Known.REPRESENTED
+                            USER_PREARBITRATION_ACCEPTED -> Known.USER_PREARBITRATION_ACCEPTED
                             USER_PREARBITRATION_DECLINE_RECEIVED ->
                                 Known.USER_PREARBITRATION_DECLINE_RECEIVED
                             USER_PREARBITRATION_SUBMITTED -> Known.USER_PREARBITRATION_SUBMITTED

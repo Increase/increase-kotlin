@@ -27,7 +27,7 @@ interface IntrafiAccountEnrollmentService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IntrafiAccountEnrollmentService
 
-    /** Enroll an account in the IntraFi deposit sweep network */
+    /** Enroll an Account in the IntraFi deposit sweep network */
     fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -72,7 +72,7 @@ interface IntrafiAccountEnrollmentService {
     fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPage =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
-    /** Unenroll an account from IntraFi */
+    /** Unenroll an Account from IntraFi */
     fun unenroll(
         intrafiAccountEnrollmentId: String,
         params: IntrafiAccountEnrollmentUnenrollParams =
