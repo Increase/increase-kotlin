@@ -25,13 +25,13 @@ interface SupplementalDocumentServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SupplementalDocumentServiceAsync
 
-    /** Create a supplemental document for an Entity */
+    /** Create a Supplemental Document */
     suspend fun create(
         params: SupplementalDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntitySupplementalDocument
 
-    /** List Entity Supplemental Document Submissions */
+    /** List Supplemental Documents */
     suspend fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
