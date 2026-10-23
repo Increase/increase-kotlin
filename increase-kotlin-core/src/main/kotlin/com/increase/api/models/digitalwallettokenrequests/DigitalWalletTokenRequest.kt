@@ -730,6 +730,9 @@ private constructor(
                 /** The account's entity was not active. */
                 val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                /** The given expiration date did not match the card's value. */
+                val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
+
                 fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -756,6 +759,8 @@ private constructor(
                 ACCOUNT_CLOSED,
                 /** The account's entity was not active. */
                 ENTITY_NOT_ACTIVE,
+                /** The given expiration date did not match the card's value. */
+                CARD_EXPIRATION_MISMATCH,
             }
 
             /**
@@ -789,6 +794,8 @@ private constructor(
                 ACCOUNT_CLOSED,
                 /** The account's entity was not active. */
                 ENTITY_NOT_ACTIVE,
+                /** The given expiration date did not match the card's value. */
+                CARD_EXPIRATION_MISMATCH,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -813,6 +820,7 @@ private constructor(
                     GROUP_LOCKED -> Value.GROUP_LOCKED
                     ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
                     ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                    CARD_EXPIRATION_MISMATCH -> Value.CARD_EXPIRATION_MISMATCH
                     else -> Value._UNKNOWN
                 }
 
@@ -836,6 +844,7 @@ private constructor(
                     GROUP_LOCKED -> Known.GROUP_LOCKED
                     ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
                     ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                    CARD_EXPIRATION_MISMATCH -> Known.CARD_EXPIRATION_MISMATCH
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
