@@ -36,6 +36,7 @@ private constructor(
     private val debtorName: JsonField<String>,
     private val debtorRoutingNumber: JsonField<String>,
     private val decline: JsonField<Decline>,
+    private val endToEndIdentification: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionIdentification: JsonField<String>,
     private val type: JsonField<Type>,
@@ -71,6 +72,9 @@ private constructor(
         @ExcludeMissing
         debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
+        @JsonProperty("end_to_end_identification")
+        @ExcludeMissing
+        endToEndIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_identification")
         @ExcludeMissing
@@ -92,6 +96,7 @@ private constructor(
         debtorName,
         debtorRoutingNumber,
         decline,
+        endToEndIdentification,
         status,
         transactionIdentification,
         type,
@@ -196,6 +201,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun decline(): Decline? = decline.getNullable("decline")
+
+    /**
+     * A free-form reference string set by the sender, to help identify the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endToEndIdentification(): String? =
+        endToEndIdentification.getNullable("end_to_end_identification")
 
     /**
      * The lifecycle status of the transfer.
@@ -331,6 +345,16 @@ private constructor(
     @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
 
     /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("end_to_end_identification")
+    @ExcludeMissing
+    fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -396,6 +420,7 @@ private constructor(
          * .debtorName()
          * .debtorRoutingNumber()
          * .decline()
+         * .endToEndIdentification()
          * .status()
          * .transactionIdentification()
          * .type()
@@ -420,6 +445,7 @@ private constructor(
         private var debtorName: JsonField<String>? = null
         private var debtorRoutingNumber: JsonField<String>? = null
         private var decline: JsonField<Decline>? = null
+        private var endToEndIdentification: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var transactionIdentification: JsonField<String>? = null
         private var type: JsonField<Type>? = null
@@ -440,6 +466,7 @@ private constructor(
                 debtorName = inboundRealTimePaymentsTransfer.debtorName
                 debtorRoutingNumber = inboundRealTimePaymentsTransfer.debtorRoutingNumber
                 decline = inboundRealTimePaymentsTransfer.decline
+                endToEndIdentification = inboundRealTimePaymentsTransfer.endToEndIdentification
                 status = inboundRealTimePaymentsTransfer.status
                 transactionIdentification =
                     inboundRealTimePaymentsTransfer.transactionIdentification
@@ -611,6 +638,21 @@ private constructor(
          */
         fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
+        /** A free-form reference string set by the sender, to help identify the transfer. */
+        fun endToEndIdentification(endToEndIdentification: String?) =
+            endToEndIdentification(JsonField.ofNullable(endToEndIdentification))
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            this.endToEndIdentification = endToEndIdentification
+        }
+
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -706,6 +748,7 @@ private constructor(
          * .debtorName()
          * .debtorRoutingNumber()
          * .decline()
+         * .endToEndIdentification()
          * .status()
          * .transactionIdentification()
          * .type()
@@ -728,6 +771,7 @@ private constructor(
                 checkRequired("debtorName", debtorName),
                 checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                 checkRequired("decline", decline),
+                checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("status", status),
                 checkRequired("transactionIdentification", transactionIdentification),
                 checkRequired("type", type),
@@ -766,6 +810,7 @@ private constructor(
         debtorName()
         debtorRoutingNumber()
         decline()?.validate()
+        endToEndIdentification()
         status().validate()
         transactionIdentification()
         type().validate()
@@ -799,6 +844,7 @@ private constructor(
             (if (debtorName.asKnown() == null) 0 else 1) +
             (if (debtorRoutingNumber.asKnown() == null) 0 else 1) +
             (decline.asKnown()?.validity() ?: 0) +
+            (if (endToEndIdentification.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
             (if (transactionIdentification.asKnown() == null) 0 else 1) +
             (type.asKnown()?.validity() ?: 0) +
@@ -1927,6 +1973,7 @@ private constructor(
             debtorName == other.debtorName &&
             debtorRoutingNumber == other.debtorRoutingNumber &&
             decline == other.decline &&
+            endToEndIdentification == other.endToEndIdentification &&
             status == other.status &&
             transactionIdentification == other.transactionIdentification &&
             type == other.type &&
@@ -1948,6 +1995,7 @@ private constructor(
             debtorName,
             debtorRoutingNumber,
             decline,
+            endToEndIdentification,
             status,
             transactionIdentification,
             type,
@@ -1959,5 +2007,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundRealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, status=$status, transactionIdentification=$transactionIdentification, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "InboundRealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, endToEndIdentification=$endToEndIdentification, status=$status, transactionIdentification=$transactionIdentification, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
