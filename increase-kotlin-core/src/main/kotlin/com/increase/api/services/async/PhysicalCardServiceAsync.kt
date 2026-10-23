@@ -27,7 +27,10 @@ interface PhysicalCardServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PhysicalCardServiceAsync
 
-    /** Create a Physical Card */
+    /**
+     * Physical Cards start in the status `disabled`. Activate the card once it arrives at the
+     * destination and the recipient confirms receipt.
+     */
     suspend fun create(
         params: PhysicalCardCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
