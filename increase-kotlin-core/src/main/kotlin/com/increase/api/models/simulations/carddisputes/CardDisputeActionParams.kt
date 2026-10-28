@@ -646,6 +646,7 @@ private constructor(
     private constructor(
         private val action: JsonField<Action>,
         private val acceptChargeback: JsonField<AcceptChargeback>,
+        private val acceptUserPrearbitration: JsonField<AcceptUserPrearbitration>,
         private val acceptUserSubmission: JsonField<AcceptUserSubmission>,
         private val declineUserPrearbitration: JsonField<DeclineUserPrearbitration>,
         private val receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration>,
@@ -665,6 +666,9 @@ private constructor(
             @JsonProperty("accept_chargeback")
             @ExcludeMissing
             acceptChargeback: JsonField<AcceptChargeback> = JsonMissing.of(),
+            @JsonProperty("accept_user_prearbitration")
+            @ExcludeMissing
+            acceptUserPrearbitration: JsonField<AcceptUserPrearbitration> = JsonMissing.of(),
             @JsonProperty("accept_user_submission")
             @ExcludeMissing
             acceptUserSubmission: JsonField<AcceptUserSubmission> = JsonMissing.of(),
@@ -698,6 +702,7 @@ private constructor(
         ) : this(
             action,
             acceptChargeback,
+            acceptUserPrearbitration,
             acceptUserSubmission,
             declineUserPrearbitration,
             receiveMerchantPrearbitration,
@@ -729,6 +734,16 @@ private constructor(
          */
         fun acceptChargeback(): AcceptChargeback? =
             acceptChargeback.getNullable("accept_chargeback")
+
+        /**
+         * The parameters for accepting the user prearbitration. Required if and only if `action` is
+         * `accept_user_prearbitration`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun acceptUserPrearbitration(): AcceptUserPrearbitration? =
+            acceptUserPrearbitration.getNullable("accept_user_prearbitration")
 
         /**
          * The parameters for accepting the user submission. Required if and only if `action` is
@@ -843,6 +858,17 @@ private constructor(
         @JsonProperty("accept_chargeback")
         @ExcludeMissing
         fun _acceptChargeback(): JsonField<AcceptChargeback> = acceptChargeback
+
+        /**
+         * Returns the raw JSON value of [acceptUserPrearbitration].
+         *
+         * Unlike [acceptUserPrearbitration], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("accept_user_prearbitration")
+        @ExcludeMissing
+        fun _acceptUserPrearbitration(): JsonField<AcceptUserPrearbitration> =
+            acceptUserPrearbitration
 
         /**
          * Returns the raw JSON value of [acceptUserSubmission].
@@ -975,6 +1001,8 @@ private constructor(
 
             private var action: JsonField<Action>? = null
             private var acceptChargeback: JsonField<AcceptChargeback> = JsonMissing.of()
+            private var acceptUserPrearbitration: JsonField<AcceptUserPrearbitration> =
+                JsonMissing.of()
             private var acceptUserSubmission: JsonField<AcceptUserSubmission> = JsonMissing.of()
             private var declineUserPrearbitration: JsonField<DeclineUserPrearbitration> =
                 JsonMissing.of()
@@ -995,6 +1023,7 @@ private constructor(
             internal fun from(visa: Visa) = apply {
                 action = visa.action
                 acceptChargeback = visa.acceptChargeback
+                acceptUserPrearbitration = visa.acceptUserPrearbitration
                 acceptUserSubmission = visa.acceptUserSubmission
                 declineUserPrearbitration = visa.declineUserPrearbitration
                 receiveMerchantPrearbitration = visa.receiveMerchantPrearbitration
@@ -1040,6 +1069,24 @@ private constructor(
             fun acceptChargeback(acceptChargeback: JsonField<AcceptChargeback>) = apply {
                 this.acceptChargeback = acceptChargeback
             }
+
+            /**
+             * The parameters for accepting the user prearbitration. Required if and only if
+             * `action` is `accept_user_prearbitration`.
+             */
+            fun acceptUserPrearbitration(acceptUserPrearbitration: AcceptUserPrearbitration) =
+                acceptUserPrearbitration(JsonField.of(acceptUserPrearbitration))
+
+            /**
+             * Sets [Builder.acceptUserPrearbitration] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptUserPrearbitration] with a well-typed
+             * [AcceptUserPrearbitration] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun acceptUserPrearbitration(
+                acceptUserPrearbitration: JsonField<AcceptUserPrearbitration>
+            ) = apply { this.acceptUserPrearbitration = acceptUserPrearbitration }
 
             /**
              * The parameters for accepting the user submission. Required if and only if `action` is
@@ -1254,6 +1301,7 @@ private constructor(
                 Visa(
                     checkRequired("action", action),
                     acceptChargeback,
+                    acceptUserPrearbitration,
                     acceptUserSubmission,
                     declineUserPrearbitration,
                     receiveMerchantPrearbitration,
@@ -1286,6 +1334,7 @@ private constructor(
 
             action().validate()
             acceptChargeback()?.validate()
+            acceptUserPrearbitration()?.validate()
             acceptUserSubmission()?.validate()
             declineUserPrearbitration()?.validate()
             receiveMerchantPrearbitration()?.validate()
@@ -1316,6 +1365,7 @@ private constructor(
         internal fun validity(): Int =
             (action.asKnown()?.validity() ?: 0) +
                 (acceptChargeback.asKnown()?.validity() ?: 0) +
+                (acceptUserPrearbitration.asKnown()?.validity() ?: 0) +
                 (acceptUserSubmission.asKnown()?.validity() ?: 0) +
                 (declineUserPrearbitration.asKnown()?.validity() ?: 0) +
                 (receiveMerchantPrearbitration.asKnown()?.validity() ?: 0) +
@@ -1352,6 +1402,12 @@ private constructor(
                 val ACCEPT_CHARGEBACK = of("accept_chargeback")
 
                 /**
+                 * Simulate the merchant accepting the user's pre-arbitration. This will move the
+                 * dispute to a `won` state.
+                 */
+                val ACCEPT_USER_PREARBITRATION = of("accept_user_prearbitration")
+
+                /**
                  * Accept the user's submission and transmit it to the network. This will move the
                  * dispute to a `pending_response` state.
                  */
@@ -1364,7 +1420,8 @@ private constructor(
                 val DECLINE_USER_PREARBITRATION = of("decline_user_prearbitration")
 
                 /**
-                 * Simulate the merchant issuing pre-arbitration. This will move the dispute to a
+                 * Simulate the merchant issuing pre-arbitration. Only available for disputes in the
+                 * fraud or authorization category. This will move the dispute to a
                  * `user_submission_required` state.
                  */
                 val RECEIVE_MERCHANT_PREARBITRATION = of("receive_merchant_prearbitration")
@@ -1376,7 +1433,8 @@ private constructor(
                 val REJECT = of("reject")
 
                 /**
-                 * Simulate the merchant re-presenting the dispute. This will move the dispute to a
+                 * Simulate the merchant re-presenting the dispute. Only available for disputes in a
+                 * consumer or processing error category. This will move the dispute to a
                  * `user_submission_required` state.
                  */
                 val REPRESENT = of("represent")
@@ -1407,7 +1465,7 @@ private constructor(
 
                 /**
                  * Simulate the merchant timing out responding to a user pre-arbitration. This will
-                 * move the dispute to a `win` state.
+                 * move the dispute to a `won` state.
                  */
                 val TIME_OUT_USER_PREARBITRATION = of("time_out_user_prearbitration")
 
@@ -1422,6 +1480,11 @@ private constructor(
                  */
                 ACCEPT_CHARGEBACK,
                 /**
+                 * Simulate the merchant accepting the user's pre-arbitration. This will move the
+                 * dispute to a `won` state.
+                 */
+                ACCEPT_USER_PREARBITRATION,
+                /**
                  * Accept the user's submission and transmit it to the network. This will move the
                  * dispute to a `pending_response` state.
                  */
@@ -1432,7 +1495,8 @@ private constructor(
                  */
                 DECLINE_USER_PREARBITRATION,
                 /**
-                 * Simulate the merchant issuing pre-arbitration. This will move the dispute to a
+                 * Simulate the merchant issuing pre-arbitration. Only available for disputes in the
+                 * fraud or authorization category. This will move the dispute to a
                  * `user_submission_required` state.
                  */
                 RECEIVE_MERCHANT_PREARBITRATION,
@@ -1442,7 +1506,8 @@ private constructor(
                  */
                 REJECT,
                 /**
-                 * Simulate the merchant re-presenting the dispute. This will move the dispute to a
+                 * Simulate the merchant re-presenting the dispute. Only available for disputes in a
+                 * consumer or processing error category. This will move the dispute to a
                  * `user_submission_required` state.
                  */
                 REPRESENT,
@@ -1468,7 +1533,7 @@ private constructor(
                 TIME_OUT_REPRESENTMENT,
                 /**
                  * Simulate the merchant timing out responding to a user pre-arbitration. This will
-                 * move the dispute to a `win` state.
+                 * move the dispute to a `won` state.
                  */
                 TIME_OUT_USER_PREARBITRATION,
             }
@@ -1489,6 +1554,11 @@ private constructor(
                  */
                 ACCEPT_CHARGEBACK,
                 /**
+                 * Simulate the merchant accepting the user's pre-arbitration. This will move the
+                 * dispute to a `won` state.
+                 */
+                ACCEPT_USER_PREARBITRATION,
+                /**
                  * Accept the user's submission and transmit it to the network. This will move the
                  * dispute to a `pending_response` state.
                  */
@@ -1499,7 +1569,8 @@ private constructor(
                  */
                 DECLINE_USER_PREARBITRATION,
                 /**
-                 * Simulate the merchant issuing pre-arbitration. This will move the dispute to a
+                 * Simulate the merchant issuing pre-arbitration. Only available for disputes in the
+                 * fraud or authorization category. This will move the dispute to a
                  * `user_submission_required` state.
                  */
                 RECEIVE_MERCHANT_PREARBITRATION,
@@ -1509,7 +1580,8 @@ private constructor(
                  */
                 REJECT,
                 /**
-                 * Simulate the merchant re-presenting the dispute. This will move the dispute to a
+                 * Simulate the merchant re-presenting the dispute. Only available for disputes in a
+                 * consumer or processing error category. This will move the dispute to a
                  * `user_submission_required` state.
                  */
                 REPRESENT,
@@ -1535,7 +1607,7 @@ private constructor(
                 TIME_OUT_REPRESENTMENT,
                 /**
                  * Simulate the merchant timing out responding to a user pre-arbitration. This will
-                 * move the dispute to a `win` state.
+                 * move the dispute to a `won` state.
                  */
                 TIME_OUT_USER_PREARBITRATION,
                 /**
@@ -1554,6 +1626,7 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     ACCEPT_CHARGEBACK -> Value.ACCEPT_CHARGEBACK
+                    ACCEPT_USER_PREARBITRATION -> Value.ACCEPT_USER_PREARBITRATION
                     ACCEPT_USER_SUBMISSION -> Value.ACCEPT_USER_SUBMISSION
                     DECLINE_USER_PREARBITRATION -> Value.DECLINE_USER_PREARBITRATION
                     RECEIVE_MERCHANT_PREARBITRATION -> Value.RECEIVE_MERCHANT_PREARBITRATION
@@ -1579,6 +1652,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     ACCEPT_CHARGEBACK -> Known.ACCEPT_CHARGEBACK
+                    ACCEPT_USER_PREARBITRATION -> Known.ACCEPT_USER_PREARBITRATION
                     ACCEPT_USER_SUBMISSION -> Known.ACCEPT_USER_SUBMISSION
                     DECLINE_USER_PREARBITRATION -> Known.DECLINE_USER_PREARBITRATION
                     RECEIVE_MERCHANT_PREARBITRATION -> Known.RECEIVE_MERCHANT_PREARBITRATION
@@ -1772,6 +1846,131 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() = "AcceptChargeback{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for accepting the user prearbitration. Required if and only if `action` is
+         * `accept_user_prearbitration`.
+         */
+        class AcceptUserPrearbitration
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [AcceptUserPrearbitration].
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [AcceptUserPrearbitration]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(acceptUserPrearbitration: AcceptUserPrearbitration) = apply {
+                    additionalProperties =
+                        acceptUserPrearbitration.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AcceptUserPrearbitration].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): AcceptUserPrearbitration =
+                    AcceptUserPrearbitration(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): AcceptUserPrearbitration = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AcceptUserPrearbitration &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "AcceptUserPrearbitration{additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -3131,6 +3330,7 @@ private constructor(
             return other is Visa &&
                 action == other.action &&
                 acceptChargeback == other.acceptChargeback &&
+                acceptUserPrearbitration == other.acceptUserPrearbitration &&
                 acceptUserSubmission == other.acceptUserSubmission &&
                 declineUserPrearbitration == other.declineUserPrearbitration &&
                 receiveMerchantPrearbitration == other.receiveMerchantPrearbitration &&
@@ -3148,6 +3348,7 @@ private constructor(
             Objects.hash(
                 action,
                 acceptChargeback,
+                acceptUserPrearbitration,
                 acceptUserSubmission,
                 declineUserPrearbitration,
                 receiveMerchantPrearbitration,
@@ -3165,7 +3366,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Visa{action=$action, acceptChargeback=$acceptChargeback, acceptUserSubmission=$acceptUserSubmission, declineUserPrearbitration=$declineUserPrearbitration, receiveMerchantPrearbitration=$receiveMerchantPrearbitration, reject=$reject, represent=$represent, requestFurtherInformation=$requestFurtherInformation, timeOutChargeback=$timeOutChargeback, timeOutMerchantPrearbitration=$timeOutMerchantPrearbitration, timeOutRepresentment=$timeOutRepresentment, timeOutUserPrearbitration=$timeOutUserPrearbitration, additionalProperties=$additionalProperties}"
+            "Visa{action=$action, acceptChargeback=$acceptChargeback, acceptUserPrearbitration=$acceptUserPrearbitration, acceptUserSubmission=$acceptUserSubmission, declineUserPrearbitration=$declineUserPrearbitration, receiveMerchantPrearbitration=$receiveMerchantPrearbitration, reject=$reject, represent=$represent, requestFurtherInformation=$requestFurtherInformation, timeOutChargeback=$timeOutChargeback, timeOutMerchantPrearbitration=$timeOutMerchantPrearbitration, timeOutRepresentment=$timeOutRepresentment, timeOutUserPrearbitration=$timeOutUserPrearbitration, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
