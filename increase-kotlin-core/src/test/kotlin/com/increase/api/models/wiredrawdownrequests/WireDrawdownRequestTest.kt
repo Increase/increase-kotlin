@@ -48,6 +48,13 @@ internal class WireDrawdownRequestTest {
                 .endToEndIdentification("Invoice 29582")
                 .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                 .idempotencyKey(null)
+                .refusal(
+                    WireDrawdownRequest.Refusal.builder()
+                        .refusalReasonAdditionalInformation("NO DEBIT AUTH ON FILE")
+                        .refusalReasonCode(WireDrawdownRequest.Refusal.RefusalReasonCode.NARRATIVE)
+                        .refusedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .status(WireDrawdownRequest.Status.FULFILLED)
                 .submission(
                     WireDrawdownRequest.Submission.builder()
@@ -98,6 +105,14 @@ internal class WireDrawdownRequestTest {
         assertThat(wireDrawdownRequest.fulfillmentInboundWireTransferId())
             .isEqualTo("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
         assertThat(wireDrawdownRequest.idempotencyKey()).isNull()
+        assertThat(wireDrawdownRequest.refusal())
+            .isEqualTo(
+                WireDrawdownRequest.Refusal.builder()
+                    .refusalReasonAdditionalInformation("NO DEBIT AUTH ON FILE")
+                    .refusalReasonCode(WireDrawdownRequest.Refusal.RefusalReasonCode.NARRATIVE)
+                    .refusedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .build()
+            )
         assertThat(wireDrawdownRequest.status()).isEqualTo(WireDrawdownRequest.Status.FULFILLED)
         assertThat(wireDrawdownRequest.submission())
             .isEqualTo(
@@ -152,6 +167,13 @@ internal class WireDrawdownRequestTest {
                 .endToEndIdentification("Invoice 29582")
                 .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                 .idempotencyKey(null)
+                .refusal(
+                    WireDrawdownRequest.Refusal.builder()
+                        .refusalReasonAdditionalInformation("NO DEBIT AUTH ON FILE")
+                        .refusalReasonCode(WireDrawdownRequest.Refusal.RefusalReasonCode.NARRATIVE)
+                        .refusedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .status(WireDrawdownRequest.Status.FULFILLED)
                 .submission(
                     WireDrawdownRequest.Submission.builder()

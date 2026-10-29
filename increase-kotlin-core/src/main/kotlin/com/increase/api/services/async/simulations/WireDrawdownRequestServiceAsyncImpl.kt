@@ -82,7 +82,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                         params._pathParam(0),
                         "refuse",
                     )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

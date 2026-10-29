@@ -28,7 +28,12 @@ interface AchTransferService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AchTransferService
 
-    /** Create an ACH Transfer */
+    /**
+     * An ACH Transfer has two primary descriptive fields:
+     * [`company_name`](/documentation/api/ach-transfers#create-an-ach-transfer.company_name) and
+     * [`individual_name`](/documentation/api/ach-transfers#create-an-ach-transfer.individual_name).
+     * You should set both of these, in addition to the required amount and account fields.
+     */
     fun create(
         params: AchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
