@@ -470,10 +470,10 @@ private constructor(
     /**
      * The descriptor that will show on the recipient's bank statement.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun statementDescriptor(): String = statementDescriptor.getRequired("statement_descriptor")
+    fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
 
     /**
      * The lifecycle status of the transfer.
@@ -1445,8 +1445,8 @@ private constructor(
             }
 
         /** The descriptor that will show on the recipient's bank statement. */
-        fun statementDescriptor(statementDescriptor: String) =
-            statementDescriptor(JsonField.of(statementDescriptor))
+        fun statementDescriptor(statementDescriptor: String?) =
+            statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
         /**
          * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
