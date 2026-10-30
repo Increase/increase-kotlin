@@ -41,6 +41,7 @@ private constructor(
     private val inboundRealTimePaymentsRequestForPaymentId: JsonField<String>,
     private val pendingTransactionId: JsonField<String>,
     private val rejection: JsonField<Rejection>,
+    private val returnOfInboundRealTimePaymentsTransferId: JsonField<String>,
     private val routingNumber: JsonField<String>,
     private val sourceAccountNumberId: JsonField<String>,
     private val status: JsonField<Status>,
@@ -96,6 +97,9 @@ private constructor(
         @JsonProperty("rejection")
         @ExcludeMissing
         rejection: JsonField<Rejection> = JsonMissing.of(),
+        @JsonProperty("return_of_inbound_real_time_payments_transfer_id")
+        @ExcludeMissing
+        returnOfInboundRealTimePaymentsTransferId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("routing_number")
         @ExcludeMissing
         routingNumber: JsonField<String> = JsonMissing.of(),
@@ -137,6 +141,7 @@ private constructor(
         inboundRealTimePaymentsRequestForPaymentId,
         pendingTransactionId,
         rejection,
+        returnOfInboundRealTimePaymentsTransferId,
         routingNumber,
         sourceAccountNumberId,
         status,
@@ -300,6 +305,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun rejection(): Rejection? = rejection.getNullable("rejection")
+
+    /**
+     * The identifier of the Inbound Real-Time Payments Transfer this transfer returns, if any.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun returnOfInboundRealTimePaymentsTransferId(): String? =
+        returnOfInboundRealTimePaymentsTransferId.getNullable(
+            "return_of_inbound_real_time_payments_transfer_id"
+        )
 
     /**
      * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
@@ -521,6 +537,17 @@ private constructor(
     @JsonProperty("rejection") @ExcludeMissing fun _rejection(): JsonField<Rejection> = rejection
 
     /**
+     * Returns the raw JSON value of [returnOfInboundRealTimePaymentsTransferId].
+     *
+     * Unlike [returnOfInboundRealTimePaymentsTransferId], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
+    @JsonProperty("return_of_inbound_real_time_payments_transfer_id")
+    @ExcludeMissing
+    fun _returnOfInboundRealTimePaymentsTransferId(): JsonField<String> =
+        returnOfInboundRealTimePaymentsTransferId
+
+    /**
      * Returns the raw JSON value of [routingNumber].
      *
      * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
@@ -637,6 +664,7 @@ private constructor(
          * .inboundRealTimePaymentsRequestForPaymentId()
          * .pendingTransactionId()
          * .rejection()
+         * .returnOfInboundRealTimePaymentsTransferId()
          * .routingNumber()
          * .sourceAccountNumberId()
          * .status()
@@ -671,6 +699,7 @@ private constructor(
         private var inboundRealTimePaymentsRequestForPaymentId: JsonField<String>? = null
         private var pendingTransactionId: JsonField<String>? = null
         private var rejection: JsonField<Rejection>? = null
+        private var returnOfInboundRealTimePaymentsTransferId: JsonField<String>? = null
         private var routingNumber: JsonField<String>? = null
         private var sourceAccountNumberId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
@@ -701,6 +730,8 @@ private constructor(
                 realTimePaymentsTransfer.inboundRealTimePaymentsRequestForPaymentId
             pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
             rejection = realTimePaymentsTransfer.rejection
+            returnOfInboundRealTimePaymentsTransferId =
+                realTimePaymentsTransfer.returnOfInboundRealTimePaymentsTransferId
             routingNumber = realTimePaymentsTransfer.routingNumber
             sourceAccountNumberId = realTimePaymentsTransfer.sourceAccountNumberId
             status = realTimePaymentsTransfer.status
@@ -981,6 +1012,30 @@ private constructor(
          */
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
+        /**
+         * The identifier of the Inbound Real-Time Payments Transfer this transfer returns, if any.
+         */
+        fun returnOfInboundRealTimePaymentsTransferId(
+            returnOfInboundRealTimePaymentsTransferId: String?
+        ) =
+            returnOfInboundRealTimePaymentsTransferId(
+                JsonField.ofNullable(returnOfInboundRealTimePaymentsTransferId)
+            )
+
+        /**
+         * Sets [Builder.returnOfInboundRealTimePaymentsTransferId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnOfInboundRealTimePaymentsTransferId] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun returnOfInboundRealTimePaymentsTransferId(
+            returnOfInboundRealTimePaymentsTransferId: JsonField<String>
+        ) = apply {
+            this.returnOfInboundRealTimePaymentsTransferId =
+                returnOfInboundRealTimePaymentsTransferId
+        }
+
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
@@ -1159,6 +1214,7 @@ private constructor(
          * .inboundRealTimePaymentsRequestForPaymentId()
          * .pendingTransactionId()
          * .rejection()
+         * .returnOfInboundRealTimePaymentsTransferId()
          * .routingNumber()
          * .sourceAccountNumberId()
          * .status()
@@ -1194,6 +1250,10 @@ private constructor(
                 ),
                 checkRequired("pendingTransactionId", pendingTransactionId),
                 checkRequired("rejection", rejection),
+                checkRequired(
+                    "returnOfInboundRealTimePaymentsTransferId",
+                    returnOfInboundRealTimePaymentsTransferId,
+                ),
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("sourceAccountNumberId", sourceAccountNumberId),
                 checkRequired("status", status),
@@ -1242,6 +1302,7 @@ private constructor(
         inboundRealTimePaymentsRequestForPaymentId()
         pendingTransactionId()
         rejection()?.validate()
+        returnOfInboundRealTimePaymentsTransferId()
         routingNumber()
         sourceAccountNumberId()
         status().validate()
@@ -1285,6 +1346,7 @@ private constructor(
             (if (inboundRealTimePaymentsRequestForPaymentId.asKnown() == null) 0 else 1) +
             (if (pendingTransactionId.asKnown() == null) 0 else 1) +
             (rejection.asKnown()?.validity() ?: 0) +
+            (if (returnOfInboundRealTimePaymentsTransferId.asKnown() == null) 0 else 1) +
             (if (routingNumber.asKnown() == null) 0 else 1) +
             (if (sourceAccountNumberId.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
@@ -4427,6 +4489,8 @@ private constructor(
                 other.inboundRealTimePaymentsRequestForPaymentId &&
             pendingTransactionId == other.pendingTransactionId &&
             rejection == other.rejection &&
+            returnOfInboundRealTimePaymentsTransferId ==
+                other.returnOfInboundRealTimePaymentsTransferId &&
             routingNumber == other.routingNumber &&
             sourceAccountNumberId == other.sourceAccountNumberId &&
             status == other.status &&
@@ -4458,6 +4522,7 @@ private constructor(
             inboundRealTimePaymentsRequestForPaymentId,
             pendingTransactionId,
             rejection,
+            returnOfInboundRealTimePaymentsTransferId,
             routingNumber,
             sourceAccountNumberId,
             status,
@@ -4474,5 +4539,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, pendingTransactionId=$pendingTransactionId, rejection=$rejection, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, pendingTransactionId=$pendingTransactionId, rejection=$rejection, returnOfInboundRealTimePaymentsTransferId=$returnOfInboundRealTimePaymentsTransferId, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
