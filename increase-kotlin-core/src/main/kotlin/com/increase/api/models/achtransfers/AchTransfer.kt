@@ -262,7 +262,9 @@ private constructor(
     fun cancellation(): Cancellation? = cancellation.getNullable("cancellation")
 
     /**
-     * The description of the date of the transfer.
+     * A description of the transfer date (typically `YYMMDD`), sent in the company batch header.
+     * This value is informational and does not affect funds movement, settlement timing, or
+     * returns.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -271,7 +273,8 @@ private constructor(
         companyDescriptiveDate.getNullable("company_descriptive_date")
 
     /**
-     * The data you chose to associate with the transfer.
+     * Custom data sent in the company batch header, meant as metadata for the originator. This
+     * value is informational and does not affect funds movement, settlement timing, or returns.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -280,7 +283,9 @@ private constructor(
         companyDiscretionaryData.getNullable("company_discretionary_data")
 
     /**
-     * The description of the transfer you set to be shown to the recipient.
+     * A short description sent in the company batch header, meant to provide the receiver with a
+     * reason for the transfer. Many receivers do not surface this data on the receiver's bank
+     * statement.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -289,7 +294,9 @@ private constructor(
         companyEntryDescription.getNullable("company_entry_description")
 
     /**
-     * The company ID associated with the transfer.
+     * The Company ID sent in the batch header, which identifies the originator to the receiving
+     * bank. Businesses use this value to allowlist the companies permitted to debit their accounts.
+     * This value is configured by Increase and will be the same for all your transfers.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -422,9 +429,8 @@ private constructor(
     fun pendingTransactionId(): String? = pendingTransactionId.getNullable("pending_transaction_id")
 
     /**
-     * Configuration for how the effective date of the transfer will be set. This determines
-     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
-     * of `same_day`. If set, exactly one of the child attributes must be set.
+     * Configuration for how the effective date of the transfer was set. This determines same-day vs
+     * future-dated settlement timing.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -470,10 +476,10 @@ private constructor(
     /**
      * The descriptor that will show on the recipient's bank statement.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun statementDescriptor(): String = statementDescriptor.getRequired("statement_descriptor")
+    fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
 
     /**
      * The lifecycle status of the transfer.
@@ -1075,7 +1081,11 @@ private constructor(
             this.cancellation = cancellation
         }
 
-        /** The description of the date of the transfer. */
+        /**
+         * A description of the transfer date (typically `YYMMDD`), sent in the company batch
+         * header. This value is informational and does not affect funds movement, settlement
+         * timing, or returns.
+         */
         fun companyDescriptiveDate(companyDescriptiveDate: String?) =
             companyDescriptiveDate(JsonField.ofNullable(companyDescriptiveDate))
 
@@ -1090,7 +1100,10 @@ private constructor(
             this.companyDescriptiveDate = companyDescriptiveDate
         }
 
-        /** The data you chose to associate with the transfer. */
+        /**
+         * Custom data sent in the company batch header, meant as metadata for the originator. This
+         * value is informational and does not affect funds movement, settlement timing, or returns.
+         */
         fun companyDiscretionaryData(companyDiscretionaryData: String?) =
             companyDiscretionaryData(JsonField.ofNullable(companyDiscretionaryData))
 
@@ -1105,7 +1118,11 @@ private constructor(
             this.companyDiscretionaryData = companyDiscretionaryData
         }
 
-        /** The description of the transfer you set to be shown to the recipient. */
+        /**
+         * A short description sent in the company batch header, meant to provide the receiver with
+         * a reason for the transfer. Many receivers do not surface this data on the receiver's bank
+         * statement.
+         */
         fun companyEntryDescription(companyEntryDescription: String?) =
             companyEntryDescription(JsonField.ofNullable(companyEntryDescription))
 
@@ -1120,7 +1137,12 @@ private constructor(
             this.companyEntryDescription = companyEntryDescription
         }
 
-        /** The company ID associated with the transfer. */
+        /**
+         * The Company ID sent in the batch header, which identifies the originator to the receiving
+         * bank. Businesses use this value to allowlist the companies permitted to debit their
+         * accounts. This value is configured by Increase and will be the same for all your
+         * transfers.
+         */
         fun companyId(companyId: String) = companyId(JsonField.of(companyId))
 
         /**
@@ -1362,10 +1384,8 @@ private constructor(
         }
 
         /**
-         * Configuration for how the effective date of the transfer will be set. This determines
-         * same-day vs future-dated settlement timing. If not set, defaults to a
-         * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
-         * set.
+         * Configuration for how the effective date of the transfer was set. This determines
+         * same-day vs future-dated settlement timing.
          */
         fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) =
             preferredEffectiveDate(JsonField.of(preferredEffectiveDate))
@@ -1445,8 +1465,8 @@ private constructor(
             }
 
         /** The descriptor that will show on the recipient's bank statement. */
-        fun statementDescriptor(statementDescriptor: String) =
-            statementDescriptor(JsonField.of(statementDescriptor))
+        fun statementDescriptor(statementDescriptor: String?) =
+            statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
         /**
          * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
@@ -7110,9 +7130,8 @@ private constructor(
     }
 
     /**
-     * Configuration for how the effective date of the transfer will be set. This determines
-     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
-     * of `same_day`. If set, exactly one of the child attributes must be set.
+     * Configuration for how the effective date of the transfer was set. This determines same-day vs
+     * future-dated settlement timing.
      */
     class PreferredEffectiveDate
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
