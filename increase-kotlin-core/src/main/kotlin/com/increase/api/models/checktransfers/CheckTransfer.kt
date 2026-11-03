@@ -4053,10 +4053,11 @@ private constructor(
             /**
              * The name component of the check's mailing address.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun name(): String? = name.getNullable("name")
+            fun name(): String = name.getRequired("name")
 
             /**
              * The phone number to be used in case of delivery issues at the check's mailing
@@ -4228,7 +4229,7 @@ private constructor(
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's mailing address. */
-                fun name(name: String?) = name(JsonField.ofNullable(name))
+                fun name(name: String) = name(JsonField.of(name))
 
                 /**
                  * Sets [Builder.name] to an arbitrary JSON value.
