@@ -4934,12 +4934,11 @@ private constructor(
             /**
              * A description set when the ACH Transfer was created.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun statementDescriptor(): String =
-                statementDescriptor.getRequired("statement_descriptor")
+            fun statementDescriptor(): String? =
+                statementDescriptor.getNullable("statement_descriptor")
 
             /**
              * The identifier of the ACH Transfer that led to this Transaction.
@@ -5094,8 +5093,8 @@ private constructor(
                 }
 
                 /** A description set when the ACH Transfer was created. */
-                fun statementDescriptor(statementDescriptor: String) =
-                    statementDescriptor(JsonField.of(statementDescriptor))
+                fun statementDescriptor(statementDescriptor: String?) =
+                    statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
                 /**
                  * Sets [Builder.statementDescriptor] to an arbitrary JSON value.

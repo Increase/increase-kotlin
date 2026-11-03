@@ -3403,8 +3403,7 @@ private constructor(
         fun note(): String? = note.getNullable("note")
 
         /**
-         * The payer of the check. This will be printed on the top-left portion of the check and
-         * defaults to the return address if unspecified.
+         * The payer of the check. This will be printed on the top-left portion of the check.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -3431,10 +3430,10 @@ private constructor(
         /**
          * The return address to be printed on the check.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
+        fun returnAddress(): ReturnAddress = returnAddress.getRequired("return_address")
 
         /**
          * A custom name printed above the Increase-managed return address.
@@ -3732,8 +3731,7 @@ private constructor(
             fun note(note: JsonField<String>) = apply { this.note = note }
 
             /**
-             * The payer of the check. This will be printed on the top-left portion of the check and
-             * defaults to the return address if unspecified.
+             * The payer of the check. This will be printed on the top-left portion of the check.
              */
             fun payer(payer: List<Payer>) = payer(JsonField.of(payer))
 
@@ -3790,8 +3788,8 @@ private constructor(
             }
 
             /** The return address to be printed on the check. */
-            fun returnAddress(returnAddress: ReturnAddress?) =
-                returnAddress(JsonField.ofNullable(returnAddress))
+            fun returnAddress(returnAddress: ReturnAddress) =
+                returnAddress(JsonField.of(returnAddress))
 
             /**
              * Sets [Builder.returnAddress] to an arbitrary JSON value.
@@ -3962,7 +3960,7 @@ private constructor(
             payer().forEach { it.validate() }
             physicalCheckBatchId()
             recipientName()
-            returnAddress()?.validate()
+            returnAddress().validate()
             returnAddressName()
             shippingMethod().validate()
             signature().validate()
@@ -4029,18 +4027,20 @@ private constructor(
             /**
              * The city of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun city(): String? = city.getNullable("city")
+            fun city(): String = city.getRequired("city")
 
             /**
              * The street address of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun line1(): String? = line1.getNullable("line1")
+            fun line1(): String = line1.getRequired("line1")
 
             /**
              * The second line of the address of the check's destination.
@@ -4070,18 +4070,20 @@ private constructor(
             /**
              * The postal code of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun postalCode(): String? = postalCode.getNullable("postal_code")
+            fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /**
              * The state of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun state(): String? = state.getNullable("state")
+            fun state(): String = state.getRequired("state")
 
             /**
              * Returns the raw JSON value of [city].
@@ -4190,7 +4192,7 @@ private constructor(
                 }
 
                 /** The city of the check's destination. */
-                fun city(city: String?) = city(JsonField.ofNullable(city))
+                fun city(city: String) = city(JsonField.of(city))
 
                 /**
                  * Sets [Builder.city] to an arbitrary JSON value.
@@ -4202,7 +4204,7 @@ private constructor(
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
-                fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
+                fun line1(line1: String) = line1(JsonField.of(line1))
 
                 /**
                  * Sets [Builder.line1] to an arbitrary JSON value.
@@ -4253,7 +4255,7 @@ private constructor(
                 fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
                 /** The postal code of the check's destination. */
-                fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
+                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                 /**
                  * Sets [Builder.postalCode] to an arbitrary JSON value.
@@ -4267,7 +4269,7 @@ private constructor(
                 }
 
                 /** The state of the check's destination. */
-                fun state(state: String?) = state(JsonField.ofNullable(state))
+                fun state(state: String) = state(JsonField.of(state))
 
                 /**
                  * Sets [Builder.state] to an arbitrary JSON value.
@@ -4618,18 +4620,20 @@ private constructor(
             /**
              * The city of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun city(): String? = city.getNullable("city")
+            fun city(): String = city.getRequired("city")
 
             /**
              * The street address of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun line1(): String? = line1.getNullable("line1")
+            fun line1(): String = line1.getRequired("line1")
 
             /**
              * The second line of the address of the check's destination.
@@ -4642,10 +4646,11 @@ private constructor(
             /**
              * The name component of the check's return address.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun name(): String? = name.getNullable("name")
+            fun name(): String = name.getRequired("name")
 
             /**
              * The shipper's phone number to be used in case of delivery issues. Only used for FedEx
@@ -4659,18 +4664,20 @@ private constructor(
             /**
              * The postal code of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun postalCode(): String? = postalCode.getNullable("postal_code")
+            fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /**
              * The state of the check's destination.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun state(): String? = state.getNullable("state")
+            fun state(): String = state.getRequired("state")
 
             /**
              * Returns the raw JSON value of [city].
@@ -4779,7 +4786,7 @@ private constructor(
                 }
 
                 /** The city of the check's destination. */
-                fun city(city: String?) = city(JsonField.ofNullable(city))
+                fun city(city: String) = city(JsonField.of(city))
 
                 /**
                  * Sets [Builder.city] to an arbitrary JSON value.
@@ -4791,7 +4798,7 @@ private constructor(
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
-                fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
+                fun line1(line1: String) = line1(JsonField.of(line1))
 
                 /**
                  * Sets [Builder.line1] to an arbitrary JSON value.
@@ -4815,7 +4822,7 @@ private constructor(
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's return address. */
-                fun name(name: String?) = name(JsonField.ofNullable(name))
+                fun name(name: String) = name(JsonField.of(name))
 
                 /**
                  * Sets [Builder.name] to an arbitrary JSON value.
@@ -4842,7 +4849,7 @@ private constructor(
                 fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
                 /** The postal code of the check's destination. */
-                fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
+                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                 /**
                  * Sets [Builder.postalCode] to an arbitrary JSON value.
@@ -4856,7 +4863,7 @@ private constructor(
                 }
 
                 /** The state of the check's destination. */
-                fun state(state: String?) = state(JsonField.ofNullable(state))
+                fun state(state: String) = state(JsonField.of(state))
 
                 /**
                  * Sets [Builder.state] to an arbitrary JSON value.

@@ -3587,6 +3587,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val createdAt: JsonField<CreatedAt>,
+        private val feeStatementPeriodStart: JsonField<LocalDate>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -3594,8 +3595,11 @@ private constructor(
         private constructor(
             @JsonProperty("created_at")
             @ExcludeMissing
-            createdAt: JsonField<CreatedAt> = JsonMissing.of()
-        ) : this(createdAt, mutableMapOf())
+            createdAt: JsonField<CreatedAt> = JsonMissing.of(),
+            @JsonProperty("fee_statement_period_start")
+            @ExcludeMissing
+            feeStatementPeriodStart: JsonField<LocalDate> = JsonMissing.of(),
+        ) : this(createdAt, feeStatementPeriodStart, mutableMapOf())
 
         /**
          * Filter fees by their created date. The time range must not include any fees on an open
@@ -3607,6 +3611,15 @@ private constructor(
         fun createdAt(): CreatedAt? = createdAt.getNullable("created_at")
 
         /**
+         * Filter fees by the UTC start date of their fee statement's period, such as `2026-08-01`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun feeStatementPeriodStart(): LocalDate? =
+            feeStatementPeriodStart.getNullable("fee_statement_period_start")
+
+        /**
          * Returns the raw JSON value of [createdAt].
          *
          * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -3614,6 +3627,16 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
+
+        /**
+         * Returns the raw JSON value of [feeStatementPeriodStart].
+         *
+         * Unlike [feeStatementPeriodStart], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("fee_statement_period_start")
+        @ExcludeMissing
+        fun _feeStatementPeriodStart(): JsonField<LocalDate> = feeStatementPeriodStart
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3635,6 +3658,7 @@ private constructor(
              * The following fields are required:
              * ```kotlin
              * .createdAt()
+             * .feeStatementPeriodStart()
              * ```
              */
             fun builder() = Builder()
@@ -3644,10 +3668,12 @@ private constructor(
         class Builder internal constructor() {
 
             private var createdAt: JsonField<CreatedAt>? = null
+            private var feeStatementPeriodStart: JsonField<LocalDate>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(feeCsv: FeeCsv) = apply {
                 createdAt = feeCsv.createdAt
+                feeStatementPeriodStart = feeCsv.feeStatementPeriodStart
                 additionalProperties = feeCsv.additionalProperties.toMutableMap()
             }
 
@@ -3665,6 +3691,24 @@ private constructor(
              * supported value.
              */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
+
+            /**
+             * Filter fees by the UTC start date of their fee statement's period, such as
+             * `2026-08-01`.
+             */
+            fun feeStatementPeriodStart(feeStatementPeriodStart: LocalDate?) =
+                feeStatementPeriodStart(JsonField.ofNullable(feeStatementPeriodStart))
+
+            /**
+             * Sets [Builder.feeStatementPeriodStart] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.feeStatementPeriodStart] with a well-typed
+             * [LocalDate] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun feeStatementPeriodStart(feeStatementPeriodStart: JsonField<LocalDate>) = apply {
+                this.feeStatementPeriodStart = feeStatementPeriodStart
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3693,12 +3737,17 @@ private constructor(
              * The following fields are required:
              * ```kotlin
              * .createdAt()
+             * .feeStatementPeriodStart()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): FeeCsv =
-                FeeCsv(checkRequired("createdAt", createdAt), additionalProperties.toMutableMap())
+                FeeCsv(
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("feeStatementPeriodStart", feeStatementPeriodStart),
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -3718,6 +3767,7 @@ private constructor(
             }
 
             createdAt()?.validate()
+            feeStatementPeriodStart()
             validated = true
         }
 
@@ -3735,7 +3785,9 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int = (createdAt.asKnown()?.validity() ?: 0)
+        internal fun validity(): Int =
+            (createdAt.asKnown()?.validity() ?: 0) +
+                (if (feeStatementPeriodStart.asKnown() == null) 0 else 1)
 
         /**
          * Filter fees by their created date. The time range must not include any fees on an open
@@ -4055,15 +4107,18 @@ private constructor(
 
             return other is FeeCsv &&
                 createdAt == other.createdAt &&
+                feeStatementPeriodStart == other.feeStatementPeriodStart &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(createdAt, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(createdAt, feeStatementPeriodStart, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "FeeCsv{createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "FeeCsv{createdAt=$createdAt, feeStatementPeriodStart=$feeStatementPeriodStart, additionalProperties=$additionalProperties}"
     }
 
     /**
