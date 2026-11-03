@@ -10,6 +10,8 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageAsync
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferReturnParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 
 interface InboundRealTimePaymentsTransferServiceAsync {
 
@@ -69,6 +71,38 @@ interface InboundRealTimePaymentsTransferServiceAsync {
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPageAsync =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
+
+    /** Return an Inbound Real-Time Payments Transfer */
+    suspend fun return_(
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferReturnParams =
+            InboundRealTimePaymentsTransferReturnParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer =
+        return_(
+            params
+                .toBuilder()
+                .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see return_ */
+    suspend fun return_(
+        params: InboundRealTimePaymentsTransferReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer
+
+    /** @see return_ */
+    suspend fun return_(
+        inboundRealTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        return_(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferReturnParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [InboundRealTimePaymentsTransferServiceAsync] that provides access to raw HTTP
@@ -141,5 +175,44 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             requestOptions: RequestOptions
         ): HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync> =
             list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}/return`,
+         * but is otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.return_].
+         */
+        @MustBeClosed
+        suspend fun return_(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferReturnParams =
+                InboundRealTimePaymentsTransferReturnParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            return_(
+                params
+                    .toBuilder()
+                    .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see return_ */
+        @MustBeClosed
+        suspend fun return_(
+            params: InboundRealTimePaymentsTransferReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer>
+
+        /** @see return_ */
+        @MustBeClosed
+        suspend fun return_(
+            inboundRealTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            return_(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferReturnParams.none(),
+                requestOptions,
+            )
     }
 }
