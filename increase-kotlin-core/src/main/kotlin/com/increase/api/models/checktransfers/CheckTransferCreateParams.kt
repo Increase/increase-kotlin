@@ -1498,8 +1498,8 @@ private constructor(
     private constructor(
         private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
+        private val payee: JsonField<List<Payee>>,
         private val payer: JsonField<List<Payer>>,
-        private val recipientName: JsonField<String>,
         private val attachmentFileId: JsonField<String>,
         private val checkVoucherImageFileId: JsonField<String>,
         private val note: JsonField<String>,
@@ -1517,10 +1517,8 @@ private constructor(
             @ExcludeMissing
             mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
             @JsonProperty("memo") @ExcludeMissing memo: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("payee") @ExcludeMissing payee: JsonField<List<Payee>> = JsonMissing.of(),
             @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
-            @JsonProperty("recipient_name")
-            @ExcludeMissing
-            recipientName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("attachment_file_id")
             @ExcludeMissing
             attachmentFileId: JsonField<String> = JsonMissing.of(),
@@ -1546,8 +1544,8 @@ private constructor(
         ) : this(
             mailingAddress,
             memo,
+            payee,
             payer,
-            recipientName,
             attachmentFileId,
             checkVoucherImageFileId,
             note,
@@ -1577,6 +1575,16 @@ private constructor(
         fun memo(): String = memo.getRequired("memo")
 
         /**
+         * The payee of the check. This will be printed in the Pay to the Order Of portion of the
+         * check. This should be an array of up to 4 elements, each of which represents a line of
+         * the payee.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun payee(): List<Payee> = payee.getRequired("payee")
+
+        /**
          * The payer of the check. This will be printed on the top-left portion of the check. This
          * should be an array of up to 4 elements, each of which represents a line of the payer.
          *
@@ -1584,14 +1592,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun payer(): List<Payer> = payer.getRequired("payer")
-
-        /**
-         * The name that will be printed on the check in the 'To:' field.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun recipientName(): String = recipientName.getRequired("recipient_name")
 
         /**
          * The ID of a File to be attached to the check. This must have `purpose: check_attachment`.
@@ -1688,21 +1688,18 @@ private constructor(
         @JsonProperty("memo") @ExcludeMissing fun _memo(): JsonField<String> = memo
 
         /**
+         * Returns the raw JSON value of [payee].
+         *
+         * Unlike [payee], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("payee") @ExcludeMissing fun _payee(): JsonField<List<Payee>> = payee
+
+        /**
          * Returns the raw JSON value of [payer].
          *
          * Unlike [payer], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("payer") @ExcludeMissing fun _payer(): JsonField<List<Payer>> = payer
-
-        /**
-         * Returns the raw JSON value of [recipientName].
-         *
-         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
-        fun _recipientName(): JsonField<String> = recipientName
 
         /**
          * Returns the raw JSON value of [attachmentFileId].
@@ -1801,8 +1798,8 @@ private constructor(
              * ```kotlin
              * .mailingAddress()
              * .memo()
+             * .payee()
              * .payer()
-             * .recipientName()
              * ```
              */
             fun builder() = Builder()
@@ -1813,8 +1810,8 @@ private constructor(
 
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var memo: JsonField<String>? = null
+            private var payee: JsonField<MutableList<Payee>>? = null
             private var payer: JsonField<MutableList<Payer>>? = null
-            private var recipientName: JsonField<String>? = null
             private var attachmentFileId: JsonField<String> = JsonMissing.of()
             private var checkVoucherImageFileId: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
@@ -1828,8 +1825,8 @@ private constructor(
             internal fun from(physicalCheck: PhysicalCheck) = apply {
                 mailingAddress = physicalCheck.mailingAddress
                 memo = physicalCheck.memo
+                payee = physicalCheck.payee.map { it.toMutableList() }
                 payer = physicalCheck.payer.map { it.toMutableList() }
-                recipientName = physicalCheck.recipientName
                 attachmentFileId = physicalCheck.attachmentFileId
                 checkVoucherImageFileId = physicalCheck.checkVoucherImageFileId
                 note = physicalCheck.note
@@ -1872,6 +1869,36 @@ private constructor(
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
 
             /**
+             * The payee of the check. This will be printed in the Pay to the Order Of portion of
+             * the check. This should be an array of up to 4 elements, each of which represents a
+             * line of the payee.
+             */
+            fun payee(payee: List<Payee>) = payee(JsonField.of(payee))
+
+            /**
+             * Sets [Builder.payee] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.payee] with a well-typed `List<Payee>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun payee(payee: JsonField<List<Payee>>) = apply {
+                this.payee = payee.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Payee] to [Builder.payee].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addPayee(payee: Payee) = apply {
+                this.payee =
+                    (this.payee ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("payee", it).add(payee)
+                    }
+            }
+
+            /**
              * The payer of the check. This will be printed on the top-left portion of the check.
              * This should be an array of up to 4 elements, each of which represents a line of the
              * payer.
@@ -1899,20 +1926,6 @@ private constructor(
                     (this.payer ?: JsonField.of(mutableListOf())).also {
                         checkKnown("payer", it).add(payer)
                     }
-            }
-
-            /** The name that will be printed on the check in the 'To:' field. */
-            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
-
-            /**
-             * Sets [Builder.recipientName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.recipientName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun recipientName(recipientName: JsonField<String>) = apply {
-                this.recipientName = recipientName
             }
 
             /**
@@ -2083,8 +2096,8 @@ private constructor(
              * ```kotlin
              * .mailingAddress()
              * .memo()
+             * .payee()
              * .payer()
-             * .recipientName()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -2093,8 +2106,8 @@ private constructor(
                 PhysicalCheck(
                     checkRequired("mailingAddress", mailingAddress),
                     checkRequired("memo", memo),
+                    checkRequired("payee", payee).map { it.toImmutable() },
                     checkRequired("payer", payer).map { it.toImmutable() },
-                    checkRequired("recipientName", recipientName),
                     attachmentFileId,
                     checkVoucherImageFileId,
                     note,
@@ -2125,8 +2138,8 @@ private constructor(
 
             mailingAddress().validate()
             memo()
+            payee().forEach { it.validate() }
             payer().forEach { it.validate() }
-            recipientName()
             attachmentFileId()
             checkVoucherImageFileId()
             note()
@@ -2155,8 +2168,8 @@ private constructor(
         internal fun validity(): Int =
             (mailingAddress.asKnown()?.validity() ?: 0) +
                 (if (memo.asKnown() == null) 0 else 1) +
+                (payee.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (payer.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (recipientName.asKnown() == null) 0 else 1) +
                 (if (attachmentFileId.asKnown() == null) 0 else 1) +
                 (if (checkVoucherImageFileId.asKnown() == null) 0 else 1) +
                 (if (note.asKnown() == null) 0 else 1) +
@@ -2175,10 +2188,10 @@ private constructor(
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
+            private val name: JsonField<String>,
             private val postalCode: JsonField<String>,
             private val state: JsonField<String>,
             private val line2: JsonField<String>,
-            private val name: JsonField<String>,
             private val phone: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -2187,14 +2200,14 @@ private constructor(
             private constructor(
                 @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("postal_code")
                 @ExcludeMissing
                 postalCode: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
-            ) : this(city, line1, postalCode, state, line2, name, phone, mutableMapOf())
+            ) : this(city, line1, name, postalCode, state, line2, phone, mutableMapOf())
 
             /**
              * The city component of the check's destination address.
@@ -2213,6 +2226,15 @@ private constructor(
              *   value).
              */
             fun line1(): String = line1.getRequired("line1")
+
+            /**
+             * The name component of the check's destination address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun name(): String = name.getRequired("name")
 
             /**
              * The postal code component of the check's destination address.
@@ -2241,15 +2263,6 @@ private constructor(
             fun line2(): String? = line2.getNullable("line2")
 
             /**
-             * The name component of the check's destination address. Defaults to the provided
-             * `recipient_name` parameter if `name` is not provided.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun name(): String? = name.getNullable("name")
-
-            /**
              * The phone number to associate with the check's destination address. The phone number
              * is only used when `shipping_method` is `fedex_overnight` and will be supplied to
              * FedEx to be used in case of delivery issues.
@@ -2274,6 +2287,13 @@ private constructor(
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /**
              * Returns the raw JSON value of [postalCode].
              *
              * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
@@ -2296,13 +2316,6 @@ private constructor(
              * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
-
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /**
              * Returns the raw JSON value of [phone].
@@ -2332,6 +2345,7 @@ private constructor(
                  * ```kotlin
                  * .city()
                  * .line1()
+                 * .name()
                  * .postalCode()
                  * .state()
                  * ```
@@ -2344,20 +2358,20 @@ private constructor(
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
+                private var name: JsonField<String>? = null
                 private var postalCode: JsonField<String>? = null
                 private var state: JsonField<String>? = null
                 private var line2: JsonField<String> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
                 private var phone: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(mailingAddress: MailingAddress) = apply {
                     city = mailingAddress.city
                     line1 = mailingAddress.line1
+                    name = mailingAddress.name
                     postalCode = mailingAddress.postalCode
                     state = mailingAddress.state
                     line2 = mailingAddress.line2
-                    name = mailingAddress.name
                     phone = mailingAddress.phone
                     additionalProperties = mailingAddress.additionalProperties.toMutableMap()
                 }
@@ -2385,6 +2399,18 @@ private constructor(
                  * supported value.
                  */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                /** The name component of the check's destination address. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code component of the check's destination address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -2423,21 +2449,6 @@ private constructor(
                  * supported value.
                  */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
-                /**
-                 * The name component of the check's destination address. Defaults to the provided
-                 * `recipient_name` parameter if `name` is not provided.
-                 */
-                fun name(name: String) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /**
                  * The phone number to associate with the check's destination address. The phone
@@ -2486,6 +2497,7 @@ private constructor(
                  * ```kotlin
                  * .city()
                  * .line1()
+                 * .name()
                  * .postalCode()
                  * .state()
                  * ```
@@ -2496,10 +2508,10 @@ private constructor(
                     MailingAddress(
                         checkRequired("city", city),
                         checkRequired("line1", line1),
+                        checkRequired("name", name),
                         checkRequired("postalCode", postalCode),
                         checkRequired("state", state),
                         line2,
-                        name,
                         phone,
                         additionalProperties.toMutableMap(),
                     )
@@ -2524,10 +2536,10 @@ private constructor(
 
                 city()
                 line1()
+                name()
                 postalCode()
                 state()
                 line2()
-                name()
                 phone()
                 validated = true
             }
@@ -2549,10 +2561,10 @@ private constructor(
             internal fun validity(): Int =
                 (if (city.asKnown() == null) 0 else 1) +
                     (if (line1.asKnown() == null) 0 else 1) +
+                    (if (name.asKnown() == null) 0 else 1) +
                     (if (postalCode.asKnown() == null) 0 else 1) +
                     (if (state.asKnown() == null) 0 else 1) +
                     (if (line2.asKnown() == null) 0 else 1) +
-                    (if (name.asKnown() == null) 0 else 1) +
                     (if (phone.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
@@ -2563,10 +2575,10 @@ private constructor(
                 return other is MailingAddress &&
                     city == other.city &&
                     line1 == other.line1 &&
+                    name == other.name &&
                     postalCode == other.postalCode &&
                     state == other.state &&
                     line2 == other.line2 &&
-                    name == other.name &&
                     phone == other.phone &&
                     additionalProperties == other.additionalProperties
             }
@@ -2575,10 +2587,10 @@ private constructor(
                 Objects.hash(
                     city,
                     line1,
+                    name,
                     postalCode,
                     state,
                     line2,
-                    name,
                     phone,
                     additionalProperties,
                 )
@@ -2587,7 +2599,179 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, name=$name, phone=$phone, additionalProperties=$additionalProperties}"
+                "MailingAddress{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, phone=$phone, additionalProperties=$additionalProperties}"
+        }
+
+        class Payee
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val contents: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("contents")
+                @ExcludeMissing
+                contents: JsonField<String> = JsonMissing.of()
+            ) : this(contents, mutableMapOf())
+
+            /**
+             * The contents of the line.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun contents(): String = contents.getRequired("contents")
+
+            /**
+             * Returns the raw JSON value of [contents].
+             *
+             * Unlike [contents], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("contents") @ExcludeMissing fun _contents(): JsonField<String> = contents
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Payee].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .contents()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Payee]. */
+            class Builder internal constructor() {
+
+                private var contents: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(payee: Payee) = apply {
+                    contents = payee.contents
+                    additionalProperties = payee.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the line. */
+                fun contents(contents: String) = contents(JsonField.of(contents))
+
+                /**
+                 * Sets [Builder.contents] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.contents] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun contents(contents: JsonField<String>) = apply { this.contents = contents }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Payee].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .contents()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Payee =
+                    Payee(checkRequired("contents", contents), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): Payee = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                contents()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (contents.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Payee &&
+                    contents == other.contents &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(contents, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Payee{contents=$contents, additionalProperties=$additionalProperties}"
         }
 
         class Payer
@@ -3550,8 +3734,8 @@ private constructor(
             return other is PhysicalCheck &&
                 mailingAddress == other.mailingAddress &&
                 memo == other.memo &&
+                payee == other.payee &&
                 payer == other.payer &&
-                recipientName == other.recipientName &&
                 attachmentFileId == other.attachmentFileId &&
                 checkVoucherImageFileId == other.checkVoucherImageFileId &&
                 note == other.note &&
@@ -3567,8 +3751,8 @@ private constructor(
             Objects.hash(
                 mailingAddress,
                 memo,
+                payee,
                 payer,
-                recipientName,
                 attachmentFileId,
                 checkVoucherImageFileId,
                 note,
@@ -3584,7 +3768,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, payer=$payer, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, physicalCheckBatchId=$physicalCheckBatchId, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, payee=$payee, payer=$payer, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, physicalCheckBatchId=$physicalCheckBatchId, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
     }
 
     /**
