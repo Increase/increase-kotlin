@@ -335,8 +335,8 @@ private constructor(
     fun receiverName(): String? = receiverName.getNullable("receiver_name")
 
     /**
-     * A subhash containing information about when and how the transfer settled at the Federal
-     * Reserve.
+     * A subhash containing information about when the transfer settled (or will settle) at the
+     * Federal Reserve.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1046,8 +1046,8 @@ private constructor(
         }
 
         /**
-         * A subhash containing information about when and how the transfer settled at the Federal
-         * Reserve.
+         * A subhash containing information about when the transfer settled (or will settle) at the
+         * Federal Reserve.
          */
         fun settlement(settlement: Settlement) = settlement(JsonField.of(settlement))
 
@@ -6189,8 +6189,8 @@ private constructor(
     }
 
     /**
-     * A subhash containing information about when and how the transfer settled at the Federal
-     * Reserve.
+     * A subhash containing information about when the transfer settled (or will settle) at the
+     * Federal Reserve.
      */
     class Settlement
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
