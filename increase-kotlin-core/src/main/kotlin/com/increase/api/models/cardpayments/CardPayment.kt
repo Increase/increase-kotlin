@@ -66677,6 +66677,9 @@ private constructor(
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
                                 of("electric_vehicle_charging_level_3_480_volt")
 
+                            /** Diesel 1 off-road non-taxable */
+                            val DIESEL_1_OFF_ROAD_NON_TAXABLE = of("diesel_1_off_road_non_taxable")
+
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
                                 of("renewable_diesel_r95_or_greater_off_road_non_taxable")
@@ -66902,6 +66905,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -67116,6 +67121,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -67271,6 +67278,7 @@ private constructor(
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -67422,6 +67430,7 @@ private constructor(
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -83891,6 +83900,9 @@ private constructor(
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
                                 of("electric_vehicle_charging_level_3_480_volt")
 
+                            /** Diesel 1 off-road non-taxable */
+                            val DIESEL_1_OFF_ROAD_NON_TAXABLE = of("diesel_1_off_road_non_taxable")
+
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
                                 of("renewable_diesel_r95_or_greater_off_road_non_taxable")
@@ -84116,6 +84128,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -84330,6 +84344,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -84485,6 +84501,7 @@ private constructor(
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -84636,6 +84653,7 @@ private constructor(
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
