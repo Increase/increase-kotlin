@@ -5119,7 +5119,7 @@ private constructor(
 
         /**
          * An email address that can be used to verify the cardholder via one-time passcode over
-         * email.
+         * email. Send `null` to clear the email address. Omit this field to leave it unchanged.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5129,6 +5129,7 @@ private constructor(
         /**
          * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
          * Accepts formats like `+14155550123`, `4155550123`, `415-555-0123`, or `(415) 555-0123`.
+         * Send `null` to clear the phone number. Omit this field to leave it unchanged.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5209,9 +5210,9 @@ private constructor(
 
             /**
              * An email address that can be used to verify the cardholder via one-time passcode over
-             * email.
+             * email. Send `null` to clear the email address. Omit this field to leave it unchanged.
              */
-            fun email(email: String) = email(JsonField.of(email))
+            fun email(email: String?) = email(JsonField.ofNullable(email))
 
             /**
              * Sets [Builder.email] to an arbitrary JSON value.
@@ -5225,9 +5226,10 @@ private constructor(
             /**
              * A phone number that can be used to verify the cardholder via one-time passcode over
              * SMS. Accepts formats like `+14155550123`, `4155550123`, `415-555-0123`, or `(415)
-             * 555-0123`.
+             * 555-0123`. Send `null` to clear the phone number. Omit this field to leave it
+             * unchanged.
              */
-            fun phone(phone: String) = phone(JsonField.of(phone))
+            fun phone(phone: String?) = phone(JsonField.ofNullable(phone))
 
             /**
              * Sets [Builder.phone] to an arbitrary JSON value.
