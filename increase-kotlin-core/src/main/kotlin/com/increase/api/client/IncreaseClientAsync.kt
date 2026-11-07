@@ -19,6 +19,8 @@ import com.increase.api.services.async.CardTokenServiceAsync
 import com.increase.api.services.async.CardValidationServiceAsync
 import com.increase.api.services.async.CheckDepositServiceAsync
 import com.increase.api.services.async.CheckTransferServiceAsync
+import com.increase.api.services.async.CheckbookCheckServiceAsync
+import com.increase.api.services.async.CheckbookServiceAsync
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenRequestServiceAsync
@@ -142,6 +144,10 @@ interface IncreaseClientAsync {
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
 
     fun checkTransfers(): CheckTransferServiceAsync
+
+    fun checkbooks(): CheckbookServiceAsync
+
+    fun checkbookChecks(): CheckbookCheckServiceAsync
 
     fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
 
@@ -284,6 +290,10 @@ interface IncreaseClientAsync {
         fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync.WithRawResponse
 
         fun checkTransfers(): CheckTransferServiceAsync.WithRawResponse
+
+        fun checkbooks(): CheckbookServiceAsync.WithRawResponse
+
+        fun checkbookChecks(): CheckbookCheckServiceAsync.WithRawResponse
 
         fun inboundCheckDeposits(): InboundCheckDepositServiceAsync.WithRawResponse
 

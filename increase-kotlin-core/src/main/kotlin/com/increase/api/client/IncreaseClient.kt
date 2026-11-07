@@ -19,6 +19,8 @@ import com.increase.api.services.blocking.CardTokenService
 import com.increase.api.services.blocking.CardValidationService
 import com.increase.api.services.blocking.CheckDepositService
 import com.increase.api.services.blocking.CheckTransferService
+import com.increase.api.services.blocking.CheckbookCheckService
+import com.increase.api.services.blocking.CheckbookService
 import com.increase.api.services.blocking.DeclinedTransactionService
 import com.increase.api.services.blocking.DigitalCardProfileService
 import com.increase.api.services.blocking.DigitalWalletTokenRequestService
@@ -142,6 +144,10 @@ interface IncreaseClient {
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
 
     fun checkTransfers(): CheckTransferService
+
+    fun checkbooks(): CheckbookService
+
+    fun checkbookChecks(): CheckbookCheckService
 
     fun inboundCheckDeposits(): InboundCheckDepositService
 
@@ -280,6 +286,10 @@ interface IncreaseClient {
         fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService.WithRawResponse
 
         fun checkTransfers(): CheckTransferService.WithRawResponse
+
+        fun checkbooks(): CheckbookService.WithRawResponse
+
+        fun checkbookChecks(): CheckbookCheckService.WithRawResponse
 
         fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse
 
