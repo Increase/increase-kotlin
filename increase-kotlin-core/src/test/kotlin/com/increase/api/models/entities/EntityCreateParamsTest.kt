@@ -120,7 +120,6 @@ internal class EntityCreateParamsTest {
                     .website("https://example.com")
                     .build()
             )
-            .description("x")
             .governmentAuthority(
                 EntityCreateParams.GovernmentAuthority.builder()
                     .address(
@@ -250,12 +249,6 @@ internal class EntityCreateParamsTest {
                     )
                     .name("x")
                     .confirmedNoUsTaxId(true)
-                    .build()
-            )
-            .riskRating(
-                EntityCreateParams.RiskRating.builder()
-                    .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .rating(EntityCreateParams.RiskRating.Rating.LOW)
                     .build()
             )
             .soleProprietorship(
@@ -588,7 +581,6 @@ internal class EntityCreateParamsTest {
                         .website("https://example.com")
                         .build()
                 )
-                .description("x")
                 .governmentAuthority(
                     EntityCreateParams.GovernmentAuthority.builder()
                         .address(
@@ -721,12 +713,6 @@ internal class EntityCreateParamsTest {
                         )
                         .name("x")
                         .confirmedNoUsTaxId(true)
-                        .build()
-                )
-                .riskRating(
-                    EntityCreateParams.RiskRating.builder()
-                        .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .rating(EntityCreateParams.RiskRating.Rating.LOW)
                         .build()
                 )
                 .soleProprietorship(
@@ -1054,7 +1040,6 @@ internal class EntityCreateParamsTest {
                     .website("https://example.com")
                     .build()
             )
-        assertThat(body.description()).isEqualTo("x")
         assertThat(body.governmentAuthority())
             .isEqualTo(
                 EntityCreateParams.GovernmentAuthority.builder()
@@ -1187,13 +1172,6 @@ internal class EntityCreateParamsTest {
                     )
                     .name("x")
                     .confirmedNoUsTaxId(true)
-                    .build()
-            )
-        assertThat(body.riskRating())
-            .isEqualTo(
-                EntityCreateParams.RiskRating.builder()
-                    .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .rating(EntityCreateParams.RiskRating.Rating.LOW)
                     .build()
             )
         assertThat(body.soleProprietorship())
