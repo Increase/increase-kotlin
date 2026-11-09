@@ -46,7 +46,9 @@ private constructor(
     fun authorizationControls(): AuthorizationControls? = body.authorizationControls()
 
     /**
-     * The card's billing address.
+     * The card's billing address. This is used in card authorizations to
+     * [validate the address provided by the acquirer](/documentation/address-verification-system-codes-and-overrides).
+     * If not provided, the address associated with the account's entity will be used.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -234,7 +236,11 @@ private constructor(
             body.authorizationControls(authorizationControls)
         }
 
-        /** The card's billing address. */
+        /**
+         * The card's billing address. This is used in card authorizations to
+         * [validate the address provided by the acquirer](/documentation/address-verification-system-codes-and-overrides).
+         * If not provided, the address associated with the account's entity will be used.
+         */
         fun billingAddress(billingAddress: BillingAddress) = apply {
             body.billingAddress(billingAddress)
         }
@@ -544,7 +550,9 @@ private constructor(
             authorizationControls.getNullable("authorization_controls")
 
         /**
-         * The card's billing address.
+         * The card's billing address. This is used in card authorizations to
+         * [validate the address provided by the acquirer](/documentation/address-verification-system-codes-and-overrides).
+         * If not provided, the address associated with the account's entity will be used.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -748,7 +756,11 @@ private constructor(
                     this.authorizationControls = authorizationControls
                 }
 
-            /** The card's billing address. */
+            /**
+             * The card's billing address. This is used in card authorizations to
+             * [validate the address provided by the acquirer](/documentation/address-verification-system-codes-and-overrides).
+             * If not provided, the address associated with the account's entity will be used.
+             */
             fun billingAddress(billingAddress: BillingAddress) =
                 billingAddress(JsonField.of(billingAddress))
 
@@ -4951,7 +4963,11 @@ private constructor(
             "AuthorizationControls{merchantAcceptorIdentifier=$merchantAcceptorIdentifier, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, usage=$usage, additionalProperties=$additionalProperties}"
     }
 
-    /** The card's billing address. */
+    /**
+     * The card's billing address. This is used in card authorizations to
+     * [validate the address provided by the acquirer](/documentation/address-verification-system-codes-and-overrides).
+     * If not provided, the address associated with the account's entity will be used.
+     */
     class BillingAddress
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
