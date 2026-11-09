@@ -58,16 +58,27 @@ private constructor(
     fun amount(): Long = body.amount()
 
     /**
-     * A description you choose to give the transfer. This will be saved with the transfer details,
-     * displayed in the dashboard, and returned by the API. If `individual_name` and `company_name`
-     * are not explicitly set by this API, the `statement_descriptor` will be sent in those fields
-     * to the receiving bank to help the customer recognize the transfer. You are highly encouraged
-     * to pass `individual_name` and `company_name` instead of relying on this fallback.
+     * The name by which the recipient knows the counterparty of this transaction. If you're
+     * processing payments on behalf of another party, use their name, not your own, so that it's
+     * more likely the recipient understands the context of the payment. This value is usually
+     * displayed to the recipient on their bank statement. We recommend setting this on every
+     * transfer; if you do not, we fall back to the `statement_descriptor`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun statementDescriptor(): String = body.statementDescriptor()
+    fun companyName(): String = body.companyName()
+
+    /**
+     * The name of the transfer recipient. This value is informational and generally not verified by
+     * the recipient's bank. This value is usually displayed to the recipient on their bank
+     * statement. We recommend setting this on every transfer; if you do not, we fall back to the
+     * `statement_descriptor`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun individualName(): String = body.individualName()
 
     /**
      * The receiver's account number. For credit transfers (transfers with a positive `amount`),
@@ -124,18 +135,6 @@ private constructor(
     fun companyEntryDescription(): String? = body.companyEntryDescription()
 
     /**
-     * The name by which the recipient knows the counterparty of this transaction. If you're
-     * processing payments on behalf of another party, use their name, not your own, so that it's
-     * more likely the recipient understands the context of the payment. This value is usually
-     * displayed to the recipient on their bank statement. We recommend setting this on every
-     * transfer; if you do not, we fall back to the `statement_descriptor`.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun companyName(): String? = body.companyName()
-
-    /**
      * The type of entity that owns the receiver's account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -172,17 +171,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun individualId(): String? = body.individualId()
-
-    /**
-     * The name of the transfer recipient. This value is informational and generally not verified by
-     * the recipient's bank. This value is usually displayed to the recipient on their bank
-     * statement. We recommend setting this on every transfer; if you do not, we fall back to the
-     * `statement_descriptor`.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun individualName(): String? = body.individualName()
 
     /**
      * Configuration for how the effective date of the transfer will be set. This determines
@@ -234,12 +222,18 @@ private constructor(
     fun _amount(): JsonField<Long> = body._amount()
 
     /**
-     * Returns the raw JSON value of [statementDescriptor].
+     * Returns the raw JSON value of [companyName].
      *
-     * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _statementDescriptor(): JsonField<String> = body._statementDescriptor()
+    fun _companyName(): JsonField<String> = body._companyName()
+
+    /**
+     * Returns the raw JSON value of [individualName].
+     *
+     * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _individualName(): JsonField<String> = body._individualName()
 
     /**
      * Returns the raw JSON value of [accountNumber].
@@ -280,13 +274,6 @@ private constructor(
     fun _companyEntryDescription(): JsonField<String> = body._companyEntryDescription()
 
     /**
-     * Returns the raw JSON value of [companyName].
-     *
-     * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _companyName(): JsonField<String> = body._companyName()
-
-    /**
      * Returns the raw JSON value of [destinationAccountHolder].
      *
      * Unlike [destinationAccountHolder], this method doesn't throw if the JSON field has an
@@ -316,13 +303,6 @@ private constructor(
      * Unlike [individualId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _individualId(): JsonField<String> = body._individualId()
-
-    /**
-     * Returns the raw JSON value of [individualName].
-     *
-     * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _individualName(): JsonField<String> = body._individualName()
 
     /**
      * Returns the raw JSON value of [preferredEffectiveDate].
@@ -375,7 +355,8 @@ private constructor(
          * ```kotlin
          * .accountId()
          * .amount()
-         * .statementDescriptor()
+         * .companyName()
+         * .individualName()
          * ```
          */
         fun builder() = Builder()
@@ -401,9 +382,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [accountId]
          * - [amount]
-         * - [statementDescriptor]
+         * - [companyName]
+         * - [individualName]
          * - [accountNumber]
-         * - [addenda]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -443,26 +424,40 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
-         * A description you choose to give the transfer. This will be saved with the transfer
-         * details, displayed in the dashboard, and returned by the API. If `individual_name` and
-         * `company_name` are not explicitly set by this API, the `statement_descriptor` will be
-         * sent in those fields to the receiving bank to help the customer recognize the transfer.
-         * You are highly encouraged to pass `individual_name` and `company_name` instead of relying
-         * on this fallback.
+         * The name by which the recipient knows the counterparty of this transaction. If you're
+         * processing payments on behalf of another party, use their name, not your own, so that
+         * it's more likely the recipient understands the context of the payment. This value is
+         * usually displayed to the recipient on their bank statement. We recommend setting this on
+         * every transfer; if you do not, we fall back to the `statement_descriptor`.
          */
-        fun statementDescriptor(statementDescriptor: String) = apply {
-            body.statementDescriptor(statementDescriptor)
-        }
+        fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /**
-         * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
+         * Sets [Builder.companyName] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.statementDescriptor] with a well-typed [String] value
+         * You should usually call [Builder.companyName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
+
+        /**
+         * The name of the transfer recipient. This value is informational and generally not
+         * verified by the recipient's bank. This value is usually displayed to the recipient on
+         * their bank statement. We recommend setting this on every transfer; if you do not, we fall
+         * back to the `statement_descriptor`.
+         */
+        fun individualName(individualName: String) = apply { body.individualName(individualName) }
+
+        /**
+         * Sets [Builder.individualName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.individualName] with a well-typed [String] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-            body.statementDescriptor(statementDescriptor)
+        fun individualName(individualName: JsonField<String>) = apply {
+            body.individualName(individualName)
         }
 
         /**
@@ -562,24 +557,6 @@ private constructor(
             body.companyEntryDescription(companyEntryDescription)
         }
 
-        /**
-         * The name by which the recipient knows the counterparty of this transaction. If you're
-         * processing payments on behalf of another party, use their name, not your own, so that
-         * it's more likely the recipient understands the context of the payment. This value is
-         * usually displayed to the recipient on their bank statement. We recommend setting this on
-         * every transfer; if you do not, we fall back to the `statement_descriptor`.
-         */
-        fun companyName(companyName: String) = apply { body.companyName(companyName) }
-
-        /**
-         * Sets [Builder.companyName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.companyName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
-
         /** The type of entity that owns the receiver's account. */
         fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) = apply {
             body.destinationAccountHolder(destinationAccountHolder)
@@ -647,25 +624,6 @@ private constructor(
          */
         fun individualId(individualId: JsonField<String>) = apply {
             body.individualId(individualId)
-        }
-
-        /**
-         * The name of the transfer recipient. This value is informational and generally not
-         * verified by the recipient's bank. This value is usually displayed to the recipient on
-         * their bank statement. We recommend setting this on every transfer; if you do not, we fall
-         * back to the `statement_descriptor`.
-         */
-        fun individualName(individualName: String) = apply { body.individualName(individualName) }
-
-        /**
-         * Sets [Builder.individualName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.individualName] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun individualName(individualName: JsonField<String>) = apply {
-            body.individualName(individualName)
         }
 
         /**
@@ -869,7 +827,8 @@ private constructor(
          * ```kotlin
          * .accountId()
          * .amount()
-         * .statementDescriptor()
+         * .companyName()
+         * .individualName()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -893,18 +852,17 @@ private constructor(
     private constructor(
         private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
-        private val statementDescriptor: JsonField<String>,
+        private val companyName: JsonField<String>,
+        private val individualName: JsonField<String>,
         private val accountNumber: JsonField<String>,
         private val addenda: JsonField<Addenda>,
         private val companyDescriptiveDate: JsonField<String>,
         private val companyDiscretionaryData: JsonField<String>,
         private val companyEntryDescription: JsonField<String>,
-        private val companyName: JsonField<String>,
         private val destinationAccountHolder: JsonField<DestinationAccountHolder>,
         private val externalAccountId: JsonField<String>,
         private val funding: JsonField<Funding>,
         private val individualId: JsonField<String>,
-        private val individualName: JsonField<String>,
         private val preferredEffectiveDate: JsonField<PreferredEffectiveDate>,
         private val requireApproval: JsonField<Boolean>,
         private val routingNumber: JsonField<String>,
@@ -918,9 +876,12 @@ private constructor(
             @ExcludeMissing
             accountId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("statement_descriptor")
+            @JsonProperty("company_name")
             @ExcludeMissing
-            statementDescriptor: JsonField<String> = JsonMissing.of(),
+            companyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("individual_name")
+            @ExcludeMissing
+            individualName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("account_number")
             @ExcludeMissing
             accountNumber: JsonField<String> = JsonMissing.of(),
@@ -934,9 +895,6 @@ private constructor(
             @JsonProperty("company_entry_description")
             @ExcludeMissing
             companyEntryDescription: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("company_name")
-            @ExcludeMissing
-            companyName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("destination_account_holder")
             @ExcludeMissing
             destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of(),
@@ -947,9 +905,6 @@ private constructor(
             @JsonProperty("individual_id")
             @ExcludeMissing
             individualId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("individual_name")
-            @ExcludeMissing
-            individualName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("preferred_effective_date")
             @ExcludeMissing
             preferredEffectiveDate: JsonField<PreferredEffectiveDate> = JsonMissing.of(),
@@ -965,18 +920,17 @@ private constructor(
         ) : this(
             accountId,
             amount,
-            statementDescriptor,
+            companyName,
+            individualName,
             accountNumber,
             addenda,
             companyDescriptiveDate,
             companyDiscretionaryData,
             companyEntryDescription,
-            companyName,
             destinationAccountHolder,
             externalAccountId,
             funding,
             individualId,
-            individualName,
             preferredEffectiveDate,
             requireApproval,
             routingNumber,
@@ -1008,17 +962,27 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * A description you choose to give the transfer. This will be saved with the transfer
-         * details, displayed in the dashboard, and returned by the API. If `individual_name` and
-         * `company_name` are not explicitly set by this API, the `statement_descriptor` will be
-         * sent in those fields to the receiving bank to help the customer recognize the transfer.
-         * You are highly encouraged to pass `individual_name` and `company_name` instead of relying
-         * on this fallback.
+         * The name by which the recipient knows the counterparty of this transaction. If you're
+         * processing payments on behalf of another party, use their name, not your own, so that
+         * it's more likely the recipient understands the context of the payment. This value is
+         * usually displayed to the recipient on their bank statement. We recommend setting this on
+         * every transfer; if you do not, we fall back to the `statement_descriptor`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun statementDescriptor(): String = statementDescriptor.getRequired("statement_descriptor")
+        fun companyName(): String = companyName.getRequired("company_name")
+
+        /**
+         * The name of the transfer recipient. This value is informational and generally not
+         * verified by the recipient's bank. This value is usually displayed to the recipient on
+         * their bank statement. We recommend setting this on every transfer; if you do not, we fall
+         * back to the `statement_descriptor`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun individualName(): String = individualName.getRequired("individual_name")
 
         /**
          * The receiver's account number. For credit transfers (transfers with a positive `amount`),
@@ -1078,18 +1042,6 @@ private constructor(
             companyEntryDescription.getNullable("company_entry_description")
 
         /**
-         * The name by which the recipient knows the counterparty of this transaction. If you're
-         * processing payments on behalf of another party, use their name, not your own, so that
-         * it's more likely the recipient understands the context of the payment. This value is
-         * usually displayed to the recipient on their bank statement. We recommend setting this on
-         * every transfer; if you do not, we fall back to the `statement_descriptor`.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun companyName(): String? = companyName.getNullable("company_name")
-
-        /**
          * The type of entity that owns the receiver's account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -1127,17 +1079,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun individualId(): String? = individualId.getNullable("individual_id")
-
-        /**
-         * The name of the transfer recipient. This value is informational and generally not
-         * verified by the recipient's bank. This value is usually displayed to the recipient on
-         * their bank statement. We recommend setting this on every transfer; if you do not, we fall
-         * back to the `statement_descriptor`.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun individualName(): String? = individualName.getNullable("individual_name")
 
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
@@ -1193,14 +1134,23 @@ private constructor(
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * Returns the raw JSON value of [statementDescriptor].
+         * Returns the raw JSON value of [companyName].
          *
-         * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("statement_descriptor")
+        @JsonProperty("company_name")
         @ExcludeMissing
-        fun _statementDescriptor(): JsonField<String> = statementDescriptor
+        fun _companyName(): JsonField<String> = companyName
+
+        /**
+         * Returns the raw JSON value of [individualName].
+         *
+         * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("individual_name")
+        @ExcludeMissing
+        fun _individualName(): JsonField<String> = individualName
 
         /**
          * Returns the raw JSON value of [accountNumber].
@@ -1250,15 +1200,6 @@ private constructor(
         fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
         /**
-         * Returns the raw JSON value of [companyName].
-         *
-         * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("company_name")
-        @ExcludeMissing
-        fun _companyName(): JsonField<String> = companyName
-
-        /**
          * Returns the raw JSON value of [destinationAccountHolder].
          *
          * Unlike [destinationAccountHolder], this method doesn't throw if the JSON field has an
@@ -1295,16 +1236,6 @@ private constructor(
         @JsonProperty("individual_id")
         @ExcludeMissing
         fun _individualId(): JsonField<String> = individualId
-
-        /**
-         * Returns the raw JSON value of [individualName].
-         *
-         * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("individual_name")
-        @ExcludeMissing
-        fun _individualName(): JsonField<String> = individualName
 
         /**
          * Returns the raw JSON value of [preferredEffectiveDate].
@@ -1367,7 +1298,8 @@ private constructor(
              * ```kotlin
              * .accountId()
              * .amount()
-             * .statementDescriptor()
+             * .companyName()
+             * .individualName()
              * ```
              */
             fun builder() = Builder()
@@ -1378,19 +1310,18 @@ private constructor(
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
-            private var statementDescriptor: JsonField<String>? = null
+            private var companyName: JsonField<String>? = null
+            private var individualName: JsonField<String>? = null
             private var accountNumber: JsonField<String> = JsonMissing.of()
             private var addenda: JsonField<Addenda> = JsonMissing.of()
             private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
             private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
             private var companyEntryDescription: JsonField<String> = JsonMissing.of()
-            private var companyName: JsonField<String> = JsonMissing.of()
             private var destinationAccountHolder: JsonField<DestinationAccountHolder> =
                 JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
             private var funding: JsonField<Funding> = JsonMissing.of()
             private var individualId: JsonField<String> = JsonMissing.of()
-            private var individualName: JsonField<String> = JsonMissing.of()
             private var preferredEffectiveDate: JsonField<PreferredEffectiveDate> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var routingNumber: JsonField<String> = JsonMissing.of()
@@ -1400,18 +1331,17 @@ private constructor(
             internal fun from(body: Body) = apply {
                 accountId = body.accountId
                 amount = body.amount
-                statementDescriptor = body.statementDescriptor
+                companyName = body.companyName
+                individualName = body.individualName
                 accountNumber = body.accountNumber
                 addenda = body.addenda
                 companyDescriptiveDate = body.companyDescriptiveDate
                 companyDiscretionaryData = body.companyDiscretionaryData
                 companyEntryDescription = body.companyEntryDescription
-                companyName = body.companyName
                 destinationAccountHolder = body.destinationAccountHolder
                 externalAccountId = body.externalAccountId
                 funding = body.funding
                 individualId = body.individualId
-                individualName = body.individualName
                 preferredEffectiveDate = body.preferredEffectiveDate
                 requireApproval = body.requireApproval
                 routingNumber = body.routingNumber
@@ -1455,25 +1385,43 @@ private constructor(
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
-             * A description you choose to give the transfer. This will be saved with the transfer
-             * details, displayed in the dashboard, and returned by the API. If `individual_name`
-             * and `company_name` are not explicitly set by this API, the `statement_descriptor`
-             * will be sent in those fields to the receiving bank to help the customer recognize the
-             * transfer. You are highly encouraged to pass `individual_name` and `company_name`
-             * instead of relying on this fallback.
+             * The name by which the recipient knows the counterparty of this transaction. If you're
+             * processing payments on behalf of another party, use their name, not your own, so that
+             * it's more likely the recipient understands the context of the payment. This value is
+             * usually displayed to the recipient on their bank statement. We recommend setting this
+             * on every transfer; if you do not, we fall back to the `statement_descriptor`.
              */
-            fun statementDescriptor(statementDescriptor: String) =
-                statementDescriptor(JsonField.of(statementDescriptor))
+            fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
             /**
-             * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
+             * Sets [Builder.companyName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.statementDescriptor] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.companyName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-                this.statementDescriptor = statementDescriptor
+            fun companyName(companyName: JsonField<String>) = apply {
+                this.companyName = companyName
+            }
+
+            /**
+             * The name of the transfer recipient. This value is informational and generally not
+             * verified by the recipient's bank. This value is usually displayed to the recipient on
+             * their bank statement. We recommend setting this on every transfer; if you do not, we
+             * fall back to the `statement_descriptor`.
+             */
+            fun individualName(individualName: String) =
+                individualName(JsonField.of(individualName))
+
+            /**
+             * Sets [Builder.individualName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.individualName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun individualName(individualName: JsonField<String>) = apply {
+                this.individualName = individualName
             }
 
             /**
@@ -1573,26 +1521,6 @@ private constructor(
                 this.companyEntryDescription = companyEntryDescription
             }
 
-            /**
-             * The name by which the recipient knows the counterparty of this transaction. If you're
-             * processing payments on behalf of another party, use their name, not your own, so that
-             * it's more likely the recipient understands the context of the payment. This value is
-             * usually displayed to the recipient on their bank statement. We recommend setting this
-             * on every transfer; if you do not, we fall back to the `statement_descriptor`.
-             */
-            fun companyName(companyName: String) = companyName(JsonField.of(companyName))
-
-            /**
-             * Sets [Builder.companyName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.companyName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun companyName(companyName: JsonField<String>) = apply {
-                this.companyName = companyName
-            }
-
             /** The type of entity that owns the receiver's account. */
             fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
                 destinationAccountHolder(JsonField.of(destinationAccountHolder))
@@ -1659,26 +1587,6 @@ private constructor(
              */
             fun individualId(individualId: JsonField<String>) = apply {
                 this.individualId = individualId
-            }
-
-            /**
-             * The name of the transfer recipient. This value is informational and generally not
-             * verified by the recipient's bank. This value is usually displayed to the recipient on
-             * their bank statement. We recommend setting this on every transfer; if you do not, we
-             * fall back to the `statement_descriptor`.
-             */
-            fun individualName(individualName: String) =
-                individualName(JsonField.of(individualName))
-
-            /**
-             * Sets [Builder.individualName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.individualName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun individualName(individualName: JsonField<String>) = apply {
-                this.individualName = individualName
             }
 
             /**
@@ -1781,7 +1689,8 @@ private constructor(
              * ```kotlin
              * .accountId()
              * .amount()
-             * .statementDescriptor()
+             * .companyName()
+             * .individualName()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1790,18 +1699,17 @@ private constructor(
                 Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
-                    checkRequired("statementDescriptor", statementDescriptor),
+                    checkRequired("companyName", companyName),
+                    checkRequired("individualName", individualName),
                     accountNumber,
                     addenda,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
-                    companyName,
                     destinationAccountHolder,
                     externalAccountId,
                     funding,
                     individualId,
-                    individualName,
                     preferredEffectiveDate,
                     requireApproval,
                     routingNumber,
@@ -1828,18 +1736,17 @@ private constructor(
 
             accountId()
             amount()
-            statementDescriptor()
+            companyName()
+            individualName()
             accountNumber()
             addenda()?.validate()
             companyDescriptiveDate()
             companyDiscretionaryData()
             companyEntryDescription()
-            companyName()
             destinationAccountHolder()?.validate()
             externalAccountId()
             funding()?.validate()
             individualId()
-            individualName()
             preferredEffectiveDate()?.validate()
             requireApproval()
             routingNumber()
@@ -1864,18 +1771,17 @@ private constructor(
         internal fun validity(): Int =
             (if (accountId.asKnown() == null) 0 else 1) +
                 (if (amount.asKnown() == null) 0 else 1) +
-                (if (statementDescriptor.asKnown() == null) 0 else 1) +
+                (if (companyName.asKnown() == null) 0 else 1) +
+                (if (individualName.asKnown() == null) 0 else 1) +
                 (if (accountNumber.asKnown() == null) 0 else 1) +
                 (addenda.asKnown()?.validity() ?: 0) +
                 (if (companyDescriptiveDate.asKnown() == null) 0 else 1) +
                 (if (companyDiscretionaryData.asKnown() == null) 0 else 1) +
                 (if (companyEntryDescription.asKnown() == null) 0 else 1) +
-                (if (companyName.asKnown() == null) 0 else 1) +
                 (destinationAccountHolder.asKnown()?.validity() ?: 0) +
                 (if (externalAccountId.asKnown() == null) 0 else 1) +
                 (funding.asKnown()?.validity() ?: 0) +
                 (if (individualId.asKnown() == null) 0 else 1) +
-                (if (individualName.asKnown() == null) 0 else 1) +
                 (preferredEffectiveDate.asKnown()?.validity() ?: 0) +
                 (if (requireApproval.asKnown() == null) 0 else 1) +
                 (if (routingNumber.asKnown() == null) 0 else 1) +
@@ -1889,18 +1795,17 @@ private constructor(
             return other is Body &&
                 accountId == other.accountId &&
                 amount == other.amount &&
-                statementDescriptor == other.statementDescriptor &&
+                companyName == other.companyName &&
+                individualName == other.individualName &&
                 accountNumber == other.accountNumber &&
                 addenda == other.addenda &&
                 companyDescriptiveDate == other.companyDescriptiveDate &&
                 companyDiscretionaryData == other.companyDiscretionaryData &&
                 companyEntryDescription == other.companyEntryDescription &&
-                companyName == other.companyName &&
                 destinationAccountHolder == other.destinationAccountHolder &&
                 externalAccountId == other.externalAccountId &&
                 funding == other.funding &&
                 individualId == other.individualId &&
-                individualName == other.individualName &&
                 preferredEffectiveDate == other.preferredEffectiveDate &&
                 requireApproval == other.requireApproval &&
                 routingNumber == other.routingNumber &&
@@ -1912,18 +1817,17 @@ private constructor(
             Objects.hash(
                 accountId,
                 amount,
-                statementDescriptor,
+                companyName,
+                individualName,
                 accountNumber,
                 addenda,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
                 companyEntryDescription,
-                companyName,
                 destinationAccountHolder,
                 externalAccountId,
                 funding,
                 individualId,
-                individualName,
                 preferredEffectiveDate,
                 requireApproval,
                 routingNumber,
@@ -1935,7 +1839,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, companyName=$companyName, individualName=$individualName, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     /**
