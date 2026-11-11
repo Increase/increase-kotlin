@@ -17017,7 +17017,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -17140,6 +17140,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -17211,7 +17231,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -17304,6 +17324,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -17381,7 +17416,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -17475,6 +17510,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -17545,6 +17595,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -17606,6 +17661,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -27605,7 +27665,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -27728,6 +27788,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -27799,7 +27879,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -27892,6 +27972,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -27969,7 +28064,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -28063,6 +28158,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -28133,6 +28243,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -28194,6 +28309,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -38964,7 +39084,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -39087,6 +39207,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -39158,7 +39298,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -39251,6 +39391,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -39328,7 +39483,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -39422,6 +39577,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -39492,6 +39662,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -39553,6 +39728,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -49473,7 +49653,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -49596,6 +49776,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -49667,7 +49867,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -49760,6 +49960,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -49837,7 +50052,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -49931,6 +50146,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -50001,6 +50231,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -50062,6 +50297,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -53756,7 +53996,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -53879,6 +54119,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -53950,7 +54210,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -54043,6 +54303,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -54120,7 +54395,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -54214,6 +54489,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -54284,6 +54574,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -54345,6 +54640,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -59920,7 +60220,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -60043,6 +60343,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -60114,7 +60434,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -60207,6 +60527,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -60284,7 +60619,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -60378,6 +60713,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -60448,6 +60798,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -60509,6 +60864,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -62413,6 +62773,7 @@ private constructor(
             class Interchange
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val adjustment: JsonField<Adjustment>,
                 private val amount: JsonField<String>,
                 private val code: JsonField<String>,
                 private val currency: JsonField<Currency>,
@@ -62421,6 +62782,9 @@ private constructor(
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("adjustment")
+                    @ExcludeMissing
+                    adjustment: JsonField<Adjustment> = JsonMissing.of(),
                     @JsonProperty("amount")
                     @ExcludeMissing
                     amount: JsonField<String> = JsonMissing.of(),
@@ -62430,7 +62794,16 @@ private constructor(
                     @JsonProperty("currency")
                     @ExcludeMissing
                     currency: JsonField<Currency> = JsonMissing.of(),
-                ) : this(amount, code, currency, mutableMapOf())
+                ) : this(adjustment, amount, code, currency, mutableMapOf())
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun adjustment(): Adjustment? = adjustment.getNullable("adjustment")
 
                 /**
                  * The interchange amount given as a string containing a decimal number in major
@@ -62461,6 +62834,16 @@ private constructor(
                  *   unexpected value).
                  */
                 fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * Returns the raw JSON value of [adjustment].
+                 *
+                 * Unlike [adjustment], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("adjustment")
+                @ExcludeMissing
+                fun _adjustment(): JsonField<Adjustment> = adjustment
 
                 /**
                  * Returns the raw JSON value of [amount].
@@ -62507,6 +62890,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -62518,16 +62902,36 @@ private constructor(
                 /** A builder for [Interchange]. */
                 class Builder internal constructor() {
 
+                    private var adjustment: JsonField<Adjustment>? = null
                     private var amount: JsonField<String>? = null
                     private var code: JsonField<String>? = null
                     private var currency: JsonField<Currency>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(interchange: Interchange) = apply {
+                        adjustment = interchange.adjustment
                         amount = interchange.amount
                         code = interchange.code
                         currency = interchange.currency
                         additionalProperties = interchange.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * An adjustment the card network made to the interchange after this transaction
+                     * cleared, if any.
+                     */
+                    fun adjustment(adjustment: Adjustment?) =
+                        adjustment(JsonField.ofNullable(adjustment))
+
+                    /**
+                     * Sets [Builder.adjustment] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.adjustment] with a well-typed [Adjustment]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun adjustment(adjustment: JsonField<Adjustment>) = apply {
+                        this.adjustment = adjustment
                     }
 
                     /**
@@ -62603,6 +63007,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -62612,6 +63017,7 @@ private constructor(
                      */
                     fun build(): Interchange =
                         Interchange(
+                            checkRequired("adjustment", adjustment),
                             checkRequired("amount", amount),
                             checkRequired("code", code),
                             checkRequired("currency", currency),
@@ -62636,6 +63042,7 @@ private constructor(
                         return@apply
                     }
 
+                    adjustment()?.validate()
                     amount()
                     code()
                     currency().validate()
@@ -62657,9 +63064,295 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int =
-                    (if (amount.asKnown() == null) 0 else 1) +
+                    (adjustment.asKnown()?.validity() ?: 0) +
+                        (if (amount.asKnown() == null) 0 else 1) +
                         (if (code.asKnown() == null) 0 else 1) +
                         (currency.asKnown()?.validity() ?: 0)
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 */
+                class Adjustment
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val adjustedAt: JsonField<OffsetDateTime>,
+                    private val amount: JsonField<String>,
+                    private val code: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("adjusted_at")
+                        @ExcludeMissing
+                        adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("code")
+                        @ExcludeMissing
+                        code: JsonField<String> = JsonMissing.of(),
+                    ) : this(adjustedAt, amount, code, mutableMapOf())
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the interchange was adjusted.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
+
+                    /**
+                     * The adjustment amount given as a string containing a decimal number in major
+                     * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                     * credited to Increase and a negative number if it is debited.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): String = amount.getRequired("amount")
+
+                    /**
+                     * The card network specific interchange code that applies after the adjustment.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun code(): String = code.getRequired("code")
+
+                    /**
+                     * Returns the raw JSON value of [adjustedAt].
+                     *
+                     * Unlike [adjustedAt], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("adjusted_at")
+                    @ExcludeMissing
+                    fun _adjustedAt(): JsonField<OffsetDateTime> = adjustedAt
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun _amount(): JsonField<String> = amount
+
+                    /**
+                     * Returns the raw JSON value of [code].
+                     *
+                     * Unlike [code], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Adjustment].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Adjustment]. */
+                    class Builder internal constructor() {
+
+                        private var adjustedAt: JsonField<OffsetDateTime>? = null
+                        private var amount: JsonField<String>? = null
+                        private var code: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(adjustment: Adjustment) = apply {
+                            adjustedAt = adjustment.adjustedAt
+                            amount = adjustment.amount
+                            code = adjustment.code
+                            additionalProperties = adjustment.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at
+                         * which the interchange was adjusted.
+                         */
+                        fun adjustedAt(adjustedAt: OffsetDateTime) =
+                            adjustedAt(JsonField.of(adjustedAt))
+
+                        /**
+                         * Sets [Builder.adjustedAt] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.adjustedAt] with a well-typed
+                         * [OffsetDateTime] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
+                            this.adjustedAt = adjustedAt
+                        }
+
+                        /**
+                         * The adjustment amount given as a string containing a decimal number in
+                         * major units (so e.g., "3.14" for $3.14). The amount is a positive number
+                         * if it is credited to Increase and a negative number if it is debited.
+                         */
+                        fun amount(amount: String) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                        /**
+                         * The card network specific interchange code that applies after the
+                         * adjustment.
+                         */
+                        fun code(code: String) = code(JsonField.of(code))
+
+                        /**
+                         * Sets [Builder.code] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.code] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun code(code: JsonField<String>) = apply { this.code = code }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Adjustment].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Adjustment =
+                            Adjustment(
+                                checkRequired("adjustedAt", adjustedAt),
+                                checkRequired("amount", amount),
+                                checkRequired("code", code),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Adjustment = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        adjustedAt()
+                        amount()
+                        code()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (adjustedAt.asKnown() == null) 0 else 1) +
+                            (if (amount.asKnown() == null) 0 else 1) +
+                            (if (code.asKnown() == null) 0 else 1)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Adjustment &&
+                            adjustedAt == other.adjustedAt &&
+                            amount == other.amount &&
+                            code == other.code &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(adjustedAt, amount, code, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Adjustment{adjustedAt=$adjustedAt, amount=$amount, code=$code, additionalProperties=$additionalProperties}"
+                }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -62811,6 +63504,7 @@ private constructor(
                     }
 
                     return other is Interchange &&
+                        adjustment == other.adjustment &&
                         amount == other.amount &&
                         code == other.code &&
                         currency == other.currency &&
@@ -62818,13 +63512,13 @@ private constructor(
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(amount, code, currency, additionalProperties)
+                    Objects.hash(adjustment, amount, code, currency, additionalProperties)
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+                    "Interchange{adjustment=$adjustment, amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
             /** The card network on which this transaction was processed. */
@@ -66665,6 +67359,14 @@ private constructor(
                             /** Kerosene ultra low sulfur */
                             val KEROSENE_ULTRA_LOW_SULFUR = of("kerosene_ultra_low_sulfur")
 
+                            /** Kerosene low sulfur non-taxable */
+                            val KEROSENE_LOW_SULFUR_NON_TAXABLE =
+                                of("kerosene_low_sulfur_non_taxable")
+
+                            /** Kerosene ultra low sulfur non-taxable */
+                            val KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE =
+                                of("kerosene_ultra_low_sulfur_non_taxable")
+
                             /** Electric vehicle charging level 1 110 volt */
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT =
                                 of("electric_vehicle_charging_level_1_110_volt")
@@ -66677,8 +67379,83 @@ private constructor(
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
                                 of("electric_vehicle_charging_level_3_480_volt")
 
+                            /** Biodiesel blend 2% off-road non-taxable */
+                            val BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_2_off_road_non_taxable")
+
+                            /** Biodiesel blend 5% off-road non-taxable */
+                            val BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_5_off_road_non_taxable")
+
+                            /** Biodiesel blend 10% off-road non-taxable */
+                            val BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_10_off_road_non_taxable")
+
+                            /** Biodiesel blend 11% off-road non-taxable */
+                            val BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_11_off_road_non_taxable")
+
+                            /** Biodiesel blend 15% off-road non-taxable */
+                            val BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_15_off_road_non_taxable")
+
+                            /** Biodiesel blend 20% off-road non-taxable */
+                            val BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_20_off_road_non_taxable")
+
                             /** Diesel 1 off-road non-taxable */
                             val DIESEL_1_OFF_ROAD_NON_TAXABLE = of("diesel_1_off_road_non_taxable")
+
+                            /** Diesel 2 off-road non-taxable */
+                            val DIESEL_2_OFF_ROAD_NON_TAXABLE = of("diesel_2_off_road_non_taxable")
+
+                            /** Diesel 1 premium off-road non-taxable */
+                            val DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE =
+                                of("diesel_1_premium_off_road_non_taxable")
+
+                            /** Diesel 2 premium off-road non-taxable */
+                            val DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE =
+                                of("diesel_2_premium_off_road_non_taxable")
+
+                            /** Additive dosage */
+                            val ADDITIVE_DOSAGE = of("additive_dosage")
+
+                            /** Ethanol blends E16 to E84 */
+                            val ETHANOL_BLENDS_E16_TO_E84 = of("ethanol_blends_e16_to_e84")
+
+                            /** Low octane unleaded */
+                            val LOW_OCTANE_UNLEADED = of("low_octane_unleaded")
+
+                            /** Blended diesel 1 and 2 */
+                            val BLENDED_DIESEL_1_AND_2 = of("blended_diesel_1_and_2")
+
+                            /** Off-road regular non-taxable */
+                            val OFF_ROAD_REGULAR_NON_TAXABLE = of("off_road_regular_non_taxable")
+
+                            /** Off-road mid or plus non-taxable */
+                            val OFF_ROAD_MID_OR_PLUS_NON_TAXABLE =
+                                of("off_road_mid_or_plus_non_taxable")
+
+                            /** Off-road premium or super non-taxable */
+                            val OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE =
+                                of("off_road_premium_or_super_non_taxable")
+
+                            /** Off-road mid or plus 2 non-taxable */
+                            val OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE =
+                                of("off_road_mid_or_plus_2_non_taxable")
+
+                            /** Off-road premium or super 2 non-taxable */
+                            val OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE =
+                                of("off_road_premium_or_super_2_non_taxable")
+
+                            /** Recreational fuel 90 octane */
+                            val RECREATIONAL_FUEL_90_OCTANE = of("recreational_fuel_90_octane")
+
+                            /** Hydrogen H35 */
+                            val HYDROGEN_H35 = of("hydrogen_h35")
+
+                            /** Hydrogen H70 */
+                            val HYDROGEN_H70 = of("hydrogen_h70")
 
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
@@ -66703,6 +67480,10 @@ private constructor(
                             /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
                             val RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE =
                                 of("renewable_diesel_biodiesel_6_to_20_off_road_non_taxable")
+
+                            /** Renewable diesel R25 hydrotreated vegetable oil 25% blend */
+                            val RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND =
+                                of("renewable_diesel_r25_hydrotreated_vegetable_oil_25_blend")
 
                             /** Electric vehicle charging level 4 800 volt */
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT =
@@ -66899,14 +67680,60 @@ private constructor(
                             OTHER_FUEL_NON_TAXABLE,
                             /** Kerosene ultra low sulfur */
                             KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Kerosene low sulfur non-taxable */
+                            KEROSENE_LOW_SULFUR_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur non-taxable */
+                            KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE,
                             /** Electric vehicle charging level 1 110 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
                             /** Electric vehicle charging level 2 240 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Biodiesel blend 2% off-road non-taxable */
+                            BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 5% off-road non-taxable */
+                            BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 10% off-road non-taxable */
+                            BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 11% off-road non-taxable */
+                            BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 15% off-road non-taxable */
+                            BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 20% off-road non-taxable */
+                            BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE,
                             /** Diesel 1 off-road non-taxable */
                             DIESEL_1_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 off-road non-taxable */
+                            DIESEL_2_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 1 premium off-road non-taxable */
+                            DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 premium off-road non-taxable */
+                            DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Additive dosage */
+                            ADDITIVE_DOSAGE,
+                            /** Ethanol blends E16 to E84 */
+                            ETHANOL_BLENDS_E16_TO_E84,
+                            /** Low octane unleaded */
+                            LOW_OCTANE_UNLEADED,
+                            /** Blended diesel 1 and 2 */
+                            BLENDED_DIESEL_1_AND_2,
+                            /** Off-road regular non-taxable */
+                            OFF_ROAD_REGULAR_NON_TAXABLE,
+                            /** Off-road mid or plus non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_NON_TAXABLE,
+                            /** Off-road premium or super non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE,
+                            /** Off-road mid or plus 2 non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE,
+                            /** Off-road premium or super 2 non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE,
+                            /** Recreational fuel 90 octane */
+                            RECREATIONAL_FUEL_90_OCTANE,
+                            /** Hydrogen H35 */
+                            HYDROGEN_H35,
+                            /** Hydrogen H70 */
+                            HYDROGEN_H70,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -66919,6 +67746,8 @@ private constructor(
                             BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
                             RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel R25 hydrotreated vegetable oil 25% blend */
+                            RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND,
                             /** Electric vehicle charging level 4 800 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
                             /** Electric vehicle charging level 5 megawatt */
@@ -67115,14 +67944,60 @@ private constructor(
                             OTHER_FUEL_NON_TAXABLE,
                             /** Kerosene ultra low sulfur */
                             KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Kerosene low sulfur non-taxable */
+                            KEROSENE_LOW_SULFUR_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur non-taxable */
+                            KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE,
                             /** Electric vehicle charging level 1 110 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
                             /** Electric vehicle charging level 2 240 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Biodiesel blend 2% off-road non-taxable */
+                            BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 5% off-road non-taxable */
+                            BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 10% off-road non-taxable */
+                            BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 11% off-road non-taxable */
+                            BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 15% off-road non-taxable */
+                            BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 20% off-road non-taxable */
+                            BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE,
                             /** Diesel 1 off-road non-taxable */
                             DIESEL_1_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 off-road non-taxable */
+                            DIESEL_2_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 1 premium off-road non-taxable */
+                            DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 premium off-road non-taxable */
+                            DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Additive dosage */
+                            ADDITIVE_DOSAGE,
+                            /** Ethanol blends E16 to E84 */
+                            ETHANOL_BLENDS_E16_TO_E84,
+                            /** Low octane unleaded */
+                            LOW_OCTANE_UNLEADED,
+                            /** Blended diesel 1 and 2 */
+                            BLENDED_DIESEL_1_AND_2,
+                            /** Off-road regular non-taxable */
+                            OFF_ROAD_REGULAR_NON_TAXABLE,
+                            /** Off-road mid or plus non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_NON_TAXABLE,
+                            /** Off-road premium or super non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE,
+                            /** Off-road mid or plus 2 non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE,
+                            /** Off-road premium or super 2 non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE,
+                            /** Recreational fuel 90 octane */
+                            RECREATIONAL_FUEL_90_OCTANE,
+                            /** Hydrogen H35 */
+                            HYDROGEN_H35,
+                            /** Hydrogen H70 */
+                            HYDROGEN_H70,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -67135,6 +68010,8 @@ private constructor(
                             BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
                             RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel R25 hydrotreated vegetable oil 25% blend */
+                            RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND,
                             /** Electric vehicle charging level 4 800 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
                             /** Electric vehicle charging level 5 megawatt */
@@ -67272,13 +68149,50 @@ private constructor(
                                 HEATING_OIL -> Value.HEATING_OIL
                                 OTHER_FUEL_NON_TAXABLE -> Value.OTHER_FUEL_NON_TAXABLE
                                 KEROSENE_ULTRA_LOW_SULFUR -> Value.KEROSENE_ULTRA_LOW_SULFUR
+                                KEROSENE_LOW_SULFUR_NON_TAXABLE ->
+                                    Value.KEROSENE_LOW_SULFUR_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE ->
+                                    Value.KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE
                                 DIESEL_1_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_1_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_2_OFF_ROAD_NON_TAXABLE
+                                DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Value.DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Value.DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                ADDITIVE_DOSAGE -> Value.ADDITIVE_DOSAGE
+                                ETHANOL_BLENDS_E16_TO_E84 -> Value.ETHANOL_BLENDS_E16_TO_E84
+                                LOW_OCTANE_UNLEADED -> Value.LOW_OCTANE_UNLEADED
+                                BLENDED_DIESEL_1_AND_2 -> Value.BLENDED_DIESEL_1_AND_2
+                                OFF_ROAD_REGULAR_NON_TAXABLE -> Value.OFF_ROAD_REGULAR_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_NON_TAXABLE ->
+                                    Value.OFF_ROAD_MID_OR_PLUS_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE ->
+                                    Value.OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE ->
+                                    Value.OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE ->
+                                    Value.OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE
+                                RECREATIONAL_FUEL_90_OCTANE -> Value.RECREATIONAL_FUEL_90_OCTANE
+                                HYDROGEN_H35 -> Value.HYDROGEN_H35
+                                HYDROGEN_H70 -> Value.HYDROGEN_H70
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -67291,6 +68205,8 @@ private constructor(
                                     Value.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND ->
+                                    Value.RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
@@ -67424,13 +68340,50 @@ private constructor(
                                 HEATING_OIL -> Known.HEATING_OIL
                                 OTHER_FUEL_NON_TAXABLE -> Known.OTHER_FUEL_NON_TAXABLE
                                 KEROSENE_ULTRA_LOW_SULFUR -> Known.KEROSENE_ULTRA_LOW_SULFUR
+                                KEROSENE_LOW_SULFUR_NON_TAXABLE ->
+                                    Known.KEROSENE_LOW_SULFUR_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE ->
+                                    Known.KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE
                                 DIESEL_1_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_1_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_2_OFF_ROAD_NON_TAXABLE
+                                DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Known.DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Known.DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                ADDITIVE_DOSAGE -> Known.ADDITIVE_DOSAGE
+                                ETHANOL_BLENDS_E16_TO_E84 -> Known.ETHANOL_BLENDS_E16_TO_E84
+                                LOW_OCTANE_UNLEADED -> Known.LOW_OCTANE_UNLEADED
+                                BLENDED_DIESEL_1_AND_2 -> Known.BLENDED_DIESEL_1_AND_2
+                                OFF_ROAD_REGULAR_NON_TAXABLE -> Known.OFF_ROAD_REGULAR_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_NON_TAXABLE ->
+                                    Known.OFF_ROAD_MID_OR_PLUS_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE ->
+                                    Known.OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE ->
+                                    Known.OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE ->
+                                    Known.OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE
+                                RECREATIONAL_FUEL_90_OCTANE -> Known.RECREATIONAL_FUEL_90_OCTANE
+                                HYDROGEN_H35 -> Known.HYDROGEN_H35
+                                HYDROGEN_H70 -> Known.HYDROGEN_H70
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -67443,6 +68396,8 @@ private constructor(
                                     Known.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND ->
+                                    Known.RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
@@ -73456,7 +74411,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -73579,6 +74534,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -73650,7 +74625,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -73743,6 +74718,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -73820,7 +74810,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -73914,6 +74904,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -73984,6 +74989,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -74045,6 +75055,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -76986,7 +78001,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -77109,6 +78124,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -77180,7 +78215,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -77273,6 +78308,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -77350,7 +78400,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -77444,6 +78494,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -77514,6 +78579,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -77575,6 +78645,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -79636,6 +80711,7 @@ private constructor(
             class Interchange
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val adjustment: JsonField<Adjustment>,
                 private val amount: JsonField<String>,
                 private val code: JsonField<String>,
                 private val currency: JsonField<Currency>,
@@ -79644,6 +80720,9 @@ private constructor(
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("adjustment")
+                    @ExcludeMissing
+                    adjustment: JsonField<Adjustment> = JsonMissing.of(),
                     @JsonProperty("amount")
                     @ExcludeMissing
                     amount: JsonField<String> = JsonMissing.of(),
@@ -79653,7 +80732,16 @@ private constructor(
                     @JsonProperty("currency")
                     @ExcludeMissing
                     currency: JsonField<Currency> = JsonMissing.of(),
-                ) : this(amount, code, currency, mutableMapOf())
+                ) : this(adjustment, amount, code, currency, mutableMapOf())
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun adjustment(): Adjustment? = adjustment.getNullable("adjustment")
 
                 /**
                  * The interchange amount given as a string containing a decimal number in major
@@ -79684,6 +80772,16 @@ private constructor(
                  *   unexpected value).
                  */
                 fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * Returns the raw JSON value of [adjustment].
+                 *
+                 * Unlike [adjustment], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("adjustment")
+                @ExcludeMissing
+                fun _adjustment(): JsonField<Adjustment> = adjustment
 
                 /**
                  * Returns the raw JSON value of [amount].
@@ -79730,6 +80828,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -79741,16 +80840,36 @@ private constructor(
                 /** A builder for [Interchange]. */
                 class Builder internal constructor() {
 
+                    private var adjustment: JsonField<Adjustment>? = null
                     private var amount: JsonField<String>? = null
                     private var code: JsonField<String>? = null
                     private var currency: JsonField<Currency>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(interchange: Interchange) = apply {
+                        adjustment = interchange.adjustment
                         amount = interchange.amount
                         code = interchange.code
                         currency = interchange.currency
                         additionalProperties = interchange.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * An adjustment the card network made to the interchange after this transaction
+                     * cleared, if any.
+                     */
+                    fun adjustment(adjustment: Adjustment?) =
+                        adjustment(JsonField.ofNullable(adjustment))
+
+                    /**
+                     * Sets [Builder.adjustment] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.adjustment] with a well-typed [Adjustment]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun adjustment(adjustment: JsonField<Adjustment>) = apply {
+                        this.adjustment = adjustment
                     }
 
                     /**
@@ -79826,6 +80945,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -79835,6 +80955,7 @@ private constructor(
                      */
                     fun build(): Interchange =
                         Interchange(
+                            checkRequired("adjustment", adjustment),
                             checkRequired("amount", amount),
                             checkRequired("code", code),
                             checkRequired("currency", currency),
@@ -79859,6 +80980,7 @@ private constructor(
                         return@apply
                     }
 
+                    adjustment()?.validate()
                     amount()
                     code()
                     currency().validate()
@@ -79880,9 +81002,295 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int =
-                    (if (amount.asKnown() == null) 0 else 1) +
+                    (adjustment.asKnown()?.validity() ?: 0) +
+                        (if (amount.asKnown() == null) 0 else 1) +
                         (if (code.asKnown() == null) 0 else 1) +
                         (currency.asKnown()?.validity() ?: 0)
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 */
+                class Adjustment
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val adjustedAt: JsonField<OffsetDateTime>,
+                    private val amount: JsonField<String>,
+                    private val code: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("adjusted_at")
+                        @ExcludeMissing
+                        adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("code")
+                        @ExcludeMissing
+                        code: JsonField<String> = JsonMissing.of(),
+                    ) : this(adjustedAt, amount, code, mutableMapOf())
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the interchange was adjusted.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
+
+                    /**
+                     * The adjustment amount given as a string containing a decimal number in major
+                     * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                     * credited to Increase and a negative number if it is debited.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): String = amount.getRequired("amount")
+
+                    /**
+                     * The card network specific interchange code that applies after the adjustment.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun code(): String = code.getRequired("code")
+
+                    /**
+                     * Returns the raw JSON value of [adjustedAt].
+                     *
+                     * Unlike [adjustedAt], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("adjusted_at")
+                    @ExcludeMissing
+                    fun _adjustedAt(): JsonField<OffsetDateTime> = adjustedAt
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun _amount(): JsonField<String> = amount
+
+                    /**
+                     * Returns the raw JSON value of [code].
+                     *
+                     * Unlike [code], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Adjustment].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         */
+                        fun builder() = Builder()
+                    }
+
+                    /** A builder for [Adjustment]. */
+                    class Builder internal constructor() {
+
+                        private var adjustedAt: JsonField<OffsetDateTime>? = null
+                        private var amount: JsonField<String>? = null
+                        private var code: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(adjustment: Adjustment) = apply {
+                            adjustedAt = adjustment.adjustedAt
+                            amount = adjustment.amount
+                            code = adjustment.code
+                            additionalProperties = adjustment.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at
+                         * which the interchange was adjusted.
+                         */
+                        fun adjustedAt(adjustedAt: OffsetDateTime) =
+                            adjustedAt(JsonField.of(adjustedAt))
+
+                        /**
+                         * Sets [Builder.adjustedAt] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.adjustedAt] with a well-typed
+                         * [OffsetDateTime] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
+                            this.adjustedAt = adjustedAt
+                        }
+
+                        /**
+                         * The adjustment amount given as a string containing a decimal number in
+                         * major units (so e.g., "3.14" for $3.14). The amount is a positive number
+                         * if it is credited to Increase and a negative number if it is debited.
+                         */
+                        fun amount(amount: String) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                        /**
+                         * The card network specific interchange code that applies after the
+                         * adjustment.
+                         */
+                        fun code(code: String) = code(JsonField.of(code))
+
+                        /**
+                         * Sets [Builder.code] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.code] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun code(code: JsonField<String>) = apply { this.code = code }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Adjustment].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Adjustment =
+                            Adjustment(
+                                checkRequired("adjustedAt", adjustedAt),
+                                checkRequired("amount", amount),
+                                checkRequired("code", code),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Adjustment = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        adjustedAt()
+                        amount()
+                        code()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (adjustedAt.asKnown() == null) 0 else 1) +
+                            (if (amount.asKnown() == null) 0 else 1) +
+                            (if (code.asKnown() == null) 0 else 1)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Adjustment &&
+                            adjustedAt == other.adjustedAt &&
+                            amount == other.amount &&
+                            code == other.code &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(adjustedAt, amount, code, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Adjustment{adjustedAt=$adjustedAt, amount=$amount, code=$code, additionalProperties=$additionalProperties}"
+                }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -80034,6 +81442,7 @@ private constructor(
                     }
 
                     return other is Interchange &&
+                        adjustment == other.adjustment &&
                         amount == other.amount &&
                         code == other.code &&
                         currency == other.currency &&
@@ -80041,13 +81450,13 @@ private constructor(
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(amount, code, currency, additionalProperties)
+                    Objects.hash(adjustment, amount, code, currency, additionalProperties)
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+                    "Interchange{adjustment=$adjustment, amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
             /** The card network on which this transaction was processed. */
@@ -83888,6 +85297,14 @@ private constructor(
                             /** Kerosene ultra low sulfur */
                             val KEROSENE_ULTRA_LOW_SULFUR = of("kerosene_ultra_low_sulfur")
 
+                            /** Kerosene low sulfur non-taxable */
+                            val KEROSENE_LOW_SULFUR_NON_TAXABLE =
+                                of("kerosene_low_sulfur_non_taxable")
+
+                            /** Kerosene ultra low sulfur non-taxable */
+                            val KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE =
+                                of("kerosene_ultra_low_sulfur_non_taxable")
+
                             /** Electric vehicle charging level 1 110 volt */
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT =
                                 of("electric_vehicle_charging_level_1_110_volt")
@@ -83900,8 +85317,83 @@ private constructor(
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
                                 of("electric_vehicle_charging_level_3_480_volt")
 
+                            /** Biodiesel blend 2% off-road non-taxable */
+                            val BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_2_off_road_non_taxable")
+
+                            /** Biodiesel blend 5% off-road non-taxable */
+                            val BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_5_off_road_non_taxable")
+
+                            /** Biodiesel blend 10% off-road non-taxable */
+                            val BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_10_off_road_non_taxable")
+
+                            /** Biodiesel blend 11% off-road non-taxable */
+                            val BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_11_off_road_non_taxable")
+
+                            /** Biodiesel blend 15% off-road non-taxable */
+                            val BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_15_off_road_non_taxable")
+
+                            /** Biodiesel blend 20% off-road non-taxable */
+                            val BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_20_off_road_non_taxable")
+
                             /** Diesel 1 off-road non-taxable */
                             val DIESEL_1_OFF_ROAD_NON_TAXABLE = of("diesel_1_off_road_non_taxable")
+
+                            /** Diesel 2 off-road non-taxable */
+                            val DIESEL_2_OFF_ROAD_NON_TAXABLE = of("diesel_2_off_road_non_taxable")
+
+                            /** Diesel 1 premium off-road non-taxable */
+                            val DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE =
+                                of("diesel_1_premium_off_road_non_taxable")
+
+                            /** Diesel 2 premium off-road non-taxable */
+                            val DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE =
+                                of("diesel_2_premium_off_road_non_taxable")
+
+                            /** Additive dosage */
+                            val ADDITIVE_DOSAGE = of("additive_dosage")
+
+                            /** Ethanol blends E16 to E84 */
+                            val ETHANOL_BLENDS_E16_TO_E84 = of("ethanol_blends_e16_to_e84")
+
+                            /** Low octane unleaded */
+                            val LOW_OCTANE_UNLEADED = of("low_octane_unleaded")
+
+                            /** Blended diesel 1 and 2 */
+                            val BLENDED_DIESEL_1_AND_2 = of("blended_diesel_1_and_2")
+
+                            /** Off-road regular non-taxable */
+                            val OFF_ROAD_REGULAR_NON_TAXABLE = of("off_road_regular_non_taxable")
+
+                            /** Off-road mid or plus non-taxable */
+                            val OFF_ROAD_MID_OR_PLUS_NON_TAXABLE =
+                                of("off_road_mid_or_plus_non_taxable")
+
+                            /** Off-road premium or super non-taxable */
+                            val OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE =
+                                of("off_road_premium_or_super_non_taxable")
+
+                            /** Off-road mid or plus 2 non-taxable */
+                            val OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE =
+                                of("off_road_mid_or_plus_2_non_taxable")
+
+                            /** Off-road premium or super 2 non-taxable */
+                            val OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE =
+                                of("off_road_premium_or_super_2_non_taxable")
+
+                            /** Recreational fuel 90 octane */
+                            val RECREATIONAL_FUEL_90_OCTANE = of("recreational_fuel_90_octane")
+
+                            /** Hydrogen H35 */
+                            val HYDROGEN_H35 = of("hydrogen_h35")
+
+                            /** Hydrogen H70 */
+                            val HYDROGEN_H70 = of("hydrogen_h70")
 
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
@@ -83926,6 +85418,10 @@ private constructor(
                             /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
                             val RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE =
                                 of("renewable_diesel_biodiesel_6_to_20_off_road_non_taxable")
+
+                            /** Renewable diesel R25 hydrotreated vegetable oil 25% blend */
+                            val RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND =
+                                of("renewable_diesel_r25_hydrotreated_vegetable_oil_25_blend")
 
                             /** Electric vehicle charging level 4 800 volt */
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT =
@@ -84122,14 +85618,60 @@ private constructor(
                             OTHER_FUEL_NON_TAXABLE,
                             /** Kerosene ultra low sulfur */
                             KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Kerosene low sulfur non-taxable */
+                            KEROSENE_LOW_SULFUR_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur non-taxable */
+                            KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE,
                             /** Electric vehicle charging level 1 110 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
                             /** Electric vehicle charging level 2 240 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Biodiesel blend 2% off-road non-taxable */
+                            BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 5% off-road non-taxable */
+                            BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 10% off-road non-taxable */
+                            BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 11% off-road non-taxable */
+                            BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 15% off-road non-taxable */
+                            BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 20% off-road non-taxable */
+                            BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE,
                             /** Diesel 1 off-road non-taxable */
                             DIESEL_1_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 off-road non-taxable */
+                            DIESEL_2_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 1 premium off-road non-taxable */
+                            DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 premium off-road non-taxable */
+                            DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Additive dosage */
+                            ADDITIVE_DOSAGE,
+                            /** Ethanol blends E16 to E84 */
+                            ETHANOL_BLENDS_E16_TO_E84,
+                            /** Low octane unleaded */
+                            LOW_OCTANE_UNLEADED,
+                            /** Blended diesel 1 and 2 */
+                            BLENDED_DIESEL_1_AND_2,
+                            /** Off-road regular non-taxable */
+                            OFF_ROAD_REGULAR_NON_TAXABLE,
+                            /** Off-road mid or plus non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_NON_TAXABLE,
+                            /** Off-road premium or super non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE,
+                            /** Off-road mid or plus 2 non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE,
+                            /** Off-road premium or super 2 non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE,
+                            /** Recreational fuel 90 octane */
+                            RECREATIONAL_FUEL_90_OCTANE,
+                            /** Hydrogen H35 */
+                            HYDROGEN_H35,
+                            /** Hydrogen H70 */
+                            HYDROGEN_H70,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -84142,6 +85684,8 @@ private constructor(
                             BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
                             RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel R25 hydrotreated vegetable oil 25% blend */
+                            RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND,
                             /** Electric vehicle charging level 4 800 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
                             /** Electric vehicle charging level 5 megawatt */
@@ -84338,14 +85882,60 @@ private constructor(
                             OTHER_FUEL_NON_TAXABLE,
                             /** Kerosene ultra low sulfur */
                             KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Kerosene low sulfur non-taxable */
+                            KEROSENE_LOW_SULFUR_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur non-taxable */
+                            KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE,
                             /** Electric vehicle charging level 1 110 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
                             /** Electric vehicle charging level 2 240 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Biodiesel blend 2% off-road non-taxable */
+                            BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 5% off-road non-taxable */
+                            BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 10% off-road non-taxable */
+                            BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 11% off-road non-taxable */
+                            BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 15% off-road non-taxable */
+                            BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 20% off-road non-taxable */
+                            BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE,
                             /** Diesel 1 off-road non-taxable */
                             DIESEL_1_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 off-road non-taxable */
+                            DIESEL_2_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 1 premium off-road non-taxable */
+                            DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Diesel 2 premium off-road non-taxable */
+                            DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE,
+                            /** Additive dosage */
+                            ADDITIVE_DOSAGE,
+                            /** Ethanol blends E16 to E84 */
+                            ETHANOL_BLENDS_E16_TO_E84,
+                            /** Low octane unleaded */
+                            LOW_OCTANE_UNLEADED,
+                            /** Blended diesel 1 and 2 */
+                            BLENDED_DIESEL_1_AND_2,
+                            /** Off-road regular non-taxable */
+                            OFF_ROAD_REGULAR_NON_TAXABLE,
+                            /** Off-road mid or plus non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_NON_TAXABLE,
+                            /** Off-road premium or super non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE,
+                            /** Off-road mid or plus 2 non-taxable */
+                            OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE,
+                            /** Off-road premium or super 2 non-taxable */
+                            OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE,
+                            /** Recreational fuel 90 octane */
+                            RECREATIONAL_FUEL_90_OCTANE,
+                            /** Hydrogen H35 */
+                            HYDROGEN_H35,
+                            /** Hydrogen H70 */
+                            HYDROGEN_H70,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -84358,6 +85948,8 @@ private constructor(
                             BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
                             RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel R25 hydrotreated vegetable oil 25% blend */
+                            RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND,
                             /** Electric vehicle charging level 4 800 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
                             /** Electric vehicle charging level 5 megawatt */
@@ -84495,13 +86087,50 @@ private constructor(
                                 HEATING_OIL -> Value.HEATING_OIL
                                 OTHER_FUEL_NON_TAXABLE -> Value.OTHER_FUEL_NON_TAXABLE
                                 KEROSENE_ULTRA_LOW_SULFUR -> Value.KEROSENE_ULTRA_LOW_SULFUR
+                                KEROSENE_LOW_SULFUR_NON_TAXABLE ->
+                                    Value.KEROSENE_LOW_SULFUR_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE ->
+                                    Value.KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE
                                 DIESEL_1_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_1_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_2_OFF_ROAD_NON_TAXABLE
+                                DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Value.DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Value.DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                ADDITIVE_DOSAGE -> Value.ADDITIVE_DOSAGE
+                                ETHANOL_BLENDS_E16_TO_E84 -> Value.ETHANOL_BLENDS_E16_TO_E84
+                                LOW_OCTANE_UNLEADED -> Value.LOW_OCTANE_UNLEADED
+                                BLENDED_DIESEL_1_AND_2 -> Value.BLENDED_DIESEL_1_AND_2
+                                OFF_ROAD_REGULAR_NON_TAXABLE -> Value.OFF_ROAD_REGULAR_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_NON_TAXABLE ->
+                                    Value.OFF_ROAD_MID_OR_PLUS_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE ->
+                                    Value.OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE ->
+                                    Value.OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE ->
+                                    Value.OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE
+                                RECREATIONAL_FUEL_90_OCTANE -> Value.RECREATIONAL_FUEL_90_OCTANE
+                                HYDROGEN_H35 -> Value.HYDROGEN_H35
+                                HYDROGEN_H70 -> Value.HYDROGEN_H70
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -84514,6 +86143,8 @@ private constructor(
                                     Value.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND ->
+                                    Value.RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
@@ -84647,13 +86278,50 @@ private constructor(
                                 HEATING_OIL -> Known.HEATING_OIL
                                 OTHER_FUEL_NON_TAXABLE -> Known.OTHER_FUEL_NON_TAXABLE
                                 KEROSENE_ULTRA_LOW_SULFUR -> Known.KEROSENE_ULTRA_LOW_SULFUR
+                                KEROSENE_LOW_SULFUR_NON_TAXABLE ->
+                                    Known.KEROSENE_LOW_SULFUR_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE ->
+                                    Known.KEROSENE_ULTRA_LOW_SULFUR_NON_TAXABLE
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_2_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_5_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_10_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_11_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_15_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_20_OFF_ROAD_NON_TAXABLE
                                 DIESEL_1_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_1_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_2_OFF_ROAD_NON_TAXABLE
+                                DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Known.DIESEL_1_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE ->
+                                    Known.DIESEL_2_PREMIUM_OFF_ROAD_NON_TAXABLE
+                                ADDITIVE_DOSAGE -> Known.ADDITIVE_DOSAGE
+                                ETHANOL_BLENDS_E16_TO_E84 -> Known.ETHANOL_BLENDS_E16_TO_E84
+                                LOW_OCTANE_UNLEADED -> Known.LOW_OCTANE_UNLEADED
+                                BLENDED_DIESEL_1_AND_2 -> Known.BLENDED_DIESEL_1_AND_2
+                                OFF_ROAD_REGULAR_NON_TAXABLE -> Known.OFF_ROAD_REGULAR_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_NON_TAXABLE ->
+                                    Known.OFF_ROAD_MID_OR_PLUS_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE ->
+                                    Known.OFF_ROAD_PREMIUM_OR_SUPER_NON_TAXABLE
+                                OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE ->
+                                    Known.OFF_ROAD_MID_OR_PLUS_2_NON_TAXABLE
+                                OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE ->
+                                    Known.OFF_ROAD_PREMIUM_OR_SUPER_2_NON_TAXABLE
+                                RECREATIONAL_FUEL_90_OCTANE -> Known.RECREATIONAL_FUEL_90_OCTANE
+                                HYDROGEN_H35 -> Known.HYDROGEN_H35
+                                HYDROGEN_H70 -> Known.HYDROGEN_H70
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -84666,6 +86334,8 @@ private constructor(
                                     Known.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND ->
+                                    Known.RENEWABLE_DIESEL_R25_HYDROTREATED_VEGETABLE_OIL_25_BLEND
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
@@ -90679,7 +92349,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -90802,6 +92472,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -90873,7 +92563,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -90966,6 +92656,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -91043,7 +92748,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -91137,6 +92842,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -91207,6 +92927,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -91268,6 +92993,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -99255,7 +100985,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
 
@@ -99378,6 +101108,26 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -99449,7 +101199,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -99542,6 +101292,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -99619,7 +101384,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -99713,6 +101478,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -99783,6 +101563,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -99844,6 +101629,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
