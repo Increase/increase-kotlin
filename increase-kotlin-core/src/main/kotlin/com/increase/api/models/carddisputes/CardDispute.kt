@@ -37,6 +37,7 @@ private constructor(
     private val idempotencyKey: JsonField<String>,
     private val loss: JsonField<Loss>,
     private val network: JsonField<Network>,
+    private val provisionalCredit: JsonField<ProvisionalCredit>,
     private val rejection: JsonField<Rejection>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
@@ -64,6 +65,9 @@ private constructor(
         idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("loss") @ExcludeMissing loss: JsonField<Loss> = JsonMissing.of(),
         @JsonProperty("network") @ExcludeMissing network: JsonField<Network> = JsonMissing.of(),
+        @JsonProperty("provisional_credit")
+        @ExcludeMissing
+        provisionalCredit: JsonField<ProvisionalCredit> = JsonMissing.of(),
         @JsonProperty("rejection")
         @ExcludeMissing
         rejection: JsonField<Rejection> = JsonMissing.of(),
@@ -87,6 +91,7 @@ private constructor(
         idempotencyKey,
         loss,
         network,
+        provisionalCredit,
         rejection,
         status,
         type,
@@ -172,6 +177,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun network(): Network = network.getRequired("network")
+
+    /**
+     * If a provisional credit has been provided for the Card Dispute, this will contain details of
+     * the provisional credit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun provisionalCredit(): ProvisionalCredit? =
+        provisionalCredit.getNullable("provisional_credit")
 
     /**
      * If the Card Dispute has been rejected, this will contain details of the rejection.
@@ -305,6 +320,16 @@ private constructor(
     @JsonProperty("network") @ExcludeMissing fun _network(): JsonField<Network> = network
 
     /**
+     * Returns the raw JSON value of [provisionalCredit].
+     *
+     * Unlike [provisionalCredit], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("provisional_credit")
+    @ExcludeMissing
+    fun _provisionalCredit(): JsonField<ProvisionalCredit> = provisionalCredit
+
+    /**
      * Returns the raw JSON value of [rejection].
      *
      * Unlike [rejection], this method doesn't throw if the JSON field has an unexpected type.
@@ -386,6 +411,7 @@ private constructor(
          * .idempotencyKey()
          * .loss()
          * .network()
+         * .provisionalCredit()
          * .rejection()
          * .status()
          * .type()
@@ -410,6 +436,7 @@ private constructor(
         private var idempotencyKey: JsonField<String>? = null
         private var loss: JsonField<Loss>? = null
         private var network: JsonField<Network>? = null
+        private var provisionalCredit: JsonField<ProvisionalCredit>? = null
         private var rejection: JsonField<Rejection>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
@@ -429,6 +456,7 @@ private constructor(
             idempotencyKey = cardDispute.idempotencyKey
             loss = cardDispute.loss
             network = cardDispute.network
+            provisionalCredit = cardDispute.provisionalCredit
             rejection = cardDispute.rejection
             status = cardDispute.status
             type = cardDispute.type
@@ -556,6 +584,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun network(network: JsonField<Network>) = apply { this.network = network }
+
+        /**
+         * If a provisional credit has been provided for the Card Dispute, this will contain details
+         * of the provisional credit.
+         */
+        fun provisionalCredit(provisionalCredit: ProvisionalCredit?) =
+            provisionalCredit(JsonField.ofNullable(provisionalCredit))
+
+        /**
+         * Sets [Builder.provisionalCredit] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.provisionalCredit] with a well-typed [ProvisionalCredit]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun provisionalCredit(provisionalCredit: JsonField<ProvisionalCredit>) = apply {
+            this.provisionalCredit = provisionalCredit
+        }
 
         /** If the Card Dispute has been rejected, this will contain details of the rejection. */
         fun rejection(rejection: Rejection?) = rejection(JsonField.ofNullable(rejection))
@@ -685,6 +731,7 @@ private constructor(
          * .idempotencyKey()
          * .loss()
          * .network()
+         * .provisionalCredit()
          * .rejection()
          * .status()
          * .type()
@@ -707,6 +754,7 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("loss", loss),
                 checkRequired("network", network),
+                checkRequired("provisionalCredit", provisionalCredit),
                 checkRequired("rejection", rejection),
                 checkRequired("status", status),
                 checkRequired("type", type),
@@ -742,6 +790,7 @@ private constructor(
         idempotencyKey()
         loss()?.validate()
         network().validate()
+        provisionalCredit()?.validate()
         rejection()?.validate()
         status().validate()
         type().validate()
@@ -775,6 +824,7 @@ private constructor(
             (if (idempotencyKey.asKnown() == null) 0 else 1) +
             (loss.asKnown()?.validity() ?: 0) +
             (network.asKnown()?.validity() ?: 0) +
+            (provisionalCredit.asKnown()?.validity() ?: 0) +
             (rejection.asKnown()?.validity() ?: 0) +
             (status.asKnown()?.validity() ?: 0) +
             (type.asKnown()?.validity() ?: 0) +
@@ -1277,6 +1327,760 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * If a provisional credit has been provided for the Card Dispute, this will contain details of
+     * the provisional credit.
+     */
+    class ProvisionalCredit
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val amount: JsonField<Long>,
+        private val cardholderAccountTransactionId: JsonField<String>,
+        private val providedAt: JsonField<OffsetDateTime>,
+        private val provisionalCreditFundingAccountTransactionId: JsonField<String>,
+        private val reversal: JsonField<Reversal>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("cardholder_account_transaction_id")
+            @ExcludeMissing
+            cardholderAccountTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("provided_at")
+            @ExcludeMissing
+            providedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("provisional_credit_funding_account_transaction_id")
+            @ExcludeMissing
+            provisionalCreditFundingAccountTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reversal")
+            @ExcludeMissing
+            reversal: JsonField<Reversal> = JsonMissing.of(),
+        ) : this(
+            amount,
+            cardholderAccountTransactionId,
+            providedAt,
+            provisionalCreditFundingAccountTransactionId,
+            reversal,
+            mutableMapOf(),
+        )
+
+        /**
+         * The amount of the provisional credit in the minor unit of its currency. For dollars, for
+         * example, this is cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The identifier of the Transaction that credited the cardholder's Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun cardholderAccountTransactionId(): String =
+            cardholderAccountTransactionId.getRequired("cardholder_account_transaction_id")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * provisional credit was provided.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun providedAt(): OffsetDateTime = providedAt.getRequired("provided_at")
+
+        /**
+         * The identifier of the Transaction that debited the provisional credit funding Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun provisionalCreditFundingAccountTransactionId(): String =
+            provisionalCreditFundingAccountTransactionId.getRequired(
+                "provisional_credit_funding_account_transaction_id"
+            )
+
+        /**
+         * If the provisional credit has been reversed, this will contain details of the reversal.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun reversal(): Reversal? = reversal.getNullable("reversal")
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [cardholderAccountTransactionId].
+         *
+         * Unlike [cardholderAccountTransactionId], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("cardholder_account_transaction_id")
+        @ExcludeMissing
+        fun _cardholderAccountTransactionId(): JsonField<String> = cardholderAccountTransactionId
+
+        /**
+         * Returns the raw JSON value of [providedAt].
+         *
+         * Unlike [providedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("provided_at")
+        @ExcludeMissing
+        fun _providedAt(): JsonField<OffsetDateTime> = providedAt
+
+        /**
+         * Returns the raw JSON value of [provisionalCreditFundingAccountTransactionId].
+         *
+         * Unlike [provisionalCreditFundingAccountTransactionId], this method doesn't throw if the
+         * JSON field has an unexpected type.
+         */
+        @JsonProperty("provisional_credit_funding_account_transaction_id")
+        @ExcludeMissing
+        fun _provisionalCreditFundingAccountTransactionId(): JsonField<String> =
+            provisionalCreditFundingAccountTransactionId
+
+        /**
+         * Returns the raw JSON value of [reversal].
+         *
+         * Unlike [reversal], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reversal") @ExcludeMissing fun _reversal(): JsonField<Reversal> = reversal
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ProvisionalCredit].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .cardholderAccountTransactionId()
+             * .providedAt()
+             * .provisionalCreditFundingAccountTransactionId()
+             * .reversal()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [ProvisionalCredit]. */
+        class Builder internal constructor() {
+
+            private var amount: JsonField<Long>? = null
+            private var cardholderAccountTransactionId: JsonField<String>? = null
+            private var providedAt: JsonField<OffsetDateTime>? = null
+            private var provisionalCreditFundingAccountTransactionId: JsonField<String>? = null
+            private var reversal: JsonField<Reversal>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(provisionalCredit: ProvisionalCredit) = apply {
+                amount = provisionalCredit.amount
+                cardholderAccountTransactionId = provisionalCredit.cardholderAccountTransactionId
+                providedAt = provisionalCredit.providedAt
+                provisionalCreditFundingAccountTransactionId =
+                    provisionalCredit.provisionalCreditFundingAccountTransactionId
+                reversal = provisionalCredit.reversal
+                additionalProperties = provisionalCredit.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The amount of the provisional credit in the minor unit of its currency. For dollars,
+             * for example, this is cents.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The identifier of the Transaction that credited the cardholder's Account. */
+            fun cardholderAccountTransactionId(cardholderAccountTransactionId: String) =
+                cardholderAccountTransactionId(JsonField.of(cardholderAccountTransactionId))
+
+            /**
+             * Sets [Builder.cardholderAccountTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardholderAccountTransactionId] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun cardholderAccountTransactionId(cardholderAccountTransactionId: JsonField<String>) =
+                apply {
+                    this.cardholderAccountTransactionId = cardholderAccountTransactionId
+                }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * provisional credit was provided.
+             */
+            fun providedAt(providedAt: OffsetDateTime) = providedAt(JsonField.of(providedAt))
+
+            /**
+             * Sets [Builder.providedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.providedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun providedAt(providedAt: JsonField<OffsetDateTime>) = apply {
+                this.providedAt = providedAt
+            }
+
+            /**
+             * The identifier of the Transaction that debited the provisional credit funding
+             * Account.
+             */
+            fun provisionalCreditFundingAccountTransactionId(
+                provisionalCreditFundingAccountTransactionId: String
+            ) =
+                provisionalCreditFundingAccountTransactionId(
+                    JsonField.of(provisionalCreditFundingAccountTransactionId)
+                )
+
+            /**
+             * Sets [Builder.provisionalCreditFundingAccountTransactionId] to an arbitrary JSON
+             * value.
+             *
+             * You should usually call [Builder.provisionalCreditFundingAccountTransactionId] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun provisionalCreditFundingAccountTransactionId(
+                provisionalCreditFundingAccountTransactionId: JsonField<String>
+            ) = apply {
+                this.provisionalCreditFundingAccountTransactionId =
+                    provisionalCreditFundingAccountTransactionId
+            }
+
+            /**
+             * If the provisional credit has been reversed, this will contain details of the
+             * reversal.
+             */
+            fun reversal(reversal: Reversal?) = reversal(JsonField.ofNullable(reversal))
+
+            /**
+             * Sets [Builder.reversal] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reversal] with a well-typed [Reversal] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reversal(reversal: JsonField<Reversal>) = apply { this.reversal = reversal }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ProvisionalCredit].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .cardholderAccountTransactionId()
+             * .providedAt()
+             * .provisionalCreditFundingAccountTransactionId()
+             * .reversal()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ProvisionalCredit =
+                ProvisionalCredit(
+                    checkRequired("amount", amount),
+                    checkRequired("cardholderAccountTransactionId", cardholderAccountTransactionId),
+                    checkRequired("providedAt", providedAt),
+                    checkRequired(
+                        "provisionalCreditFundingAccountTransactionId",
+                        provisionalCreditFundingAccountTransactionId,
+                    ),
+                    checkRequired("reversal", reversal),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ProvisionalCredit = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            cardholderAccountTransactionId()
+            providedAt()
+            provisionalCreditFundingAccountTransactionId()
+            reversal()?.validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (amount.asKnown() == null) 0 else 1) +
+                (if (cardholderAccountTransactionId.asKnown() == null) 0 else 1) +
+                (if (providedAt.asKnown() == null) 0 else 1) +
+                (if (provisionalCreditFundingAccountTransactionId.asKnown() == null) 0 else 1) +
+                (reversal.asKnown()?.validity() ?: 0)
+
+        /**
+         * If the provisional credit has been reversed, this will contain details of the reversal.
+         */
+        class Reversal
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val cardholderAccountTransactionId: JsonField<String>,
+            private val provisionalCreditFundingAccountTransactionId: JsonField<String>,
+            private val reversedAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("cardholder_account_transaction_id")
+                @ExcludeMissing
+                cardholderAccountTransactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("provisional_credit_funding_account_transaction_id")
+                @ExcludeMissing
+                provisionalCreditFundingAccountTransactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("reversed_at")
+                @ExcludeMissing
+                reversedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(
+                amount,
+                cardholderAccountTransactionId,
+                provisionalCreditFundingAccountTransactionId,
+                reversedAt,
+                mutableMapOf(),
+            )
+
+            /**
+             * The amount of the reversal in the minor unit of its currency. For dollars, for
+             * example, this is cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * The identifier of the Transaction that debited the cardholder's Account.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun cardholderAccountTransactionId(): String =
+                cardholderAccountTransactionId.getRequired("cardholder_account_transaction_id")
+
+            /**
+             * The identifier of the Transaction that credited the provisional credit funding
+             * Account.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun provisionalCreditFundingAccountTransactionId(): String =
+                provisionalCreditFundingAccountTransactionId.getRequired(
+                    "provisional_credit_funding_account_transaction_id"
+                )
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * provisional credit was reversed.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun reversedAt(): OffsetDateTime = reversedAt.getRequired("reversed_at")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [cardholderAccountTransactionId].
+             *
+             * Unlike [cardholderAccountTransactionId], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("cardholder_account_transaction_id")
+            @ExcludeMissing
+            fun _cardholderAccountTransactionId(): JsonField<String> =
+                cardholderAccountTransactionId
+
+            /**
+             * Returns the raw JSON value of [provisionalCreditFundingAccountTransactionId].
+             *
+             * Unlike [provisionalCreditFundingAccountTransactionId], this method doesn't throw if
+             * the JSON field has an unexpected type.
+             */
+            @JsonProperty("provisional_credit_funding_account_transaction_id")
+            @ExcludeMissing
+            fun _provisionalCreditFundingAccountTransactionId(): JsonField<String> =
+                provisionalCreditFundingAccountTransactionId
+
+            /**
+             * Returns the raw JSON value of [reversedAt].
+             *
+             * Unlike [reversedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("reversed_at")
+            @ExcludeMissing
+            fun _reversedAt(): JsonField<OffsetDateTime> = reversedAt
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Reversal].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .cardholderAccountTransactionId()
+                 * .provisionalCreditFundingAccountTransactionId()
+                 * .reversedAt()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Reversal]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<Long>? = null
+                private var cardholderAccountTransactionId: JsonField<String>? = null
+                private var provisionalCreditFundingAccountTransactionId: JsonField<String>? = null
+                private var reversedAt: JsonField<OffsetDateTime>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(reversal: Reversal) = apply {
+                    amount = reversal.amount
+                    cardholderAccountTransactionId = reversal.cardholderAccountTransactionId
+                    provisionalCreditFundingAccountTransactionId =
+                        reversal.provisionalCreditFundingAccountTransactionId
+                    reversedAt = reversal.reversedAt
+                    additionalProperties = reversal.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The amount of the reversal in the minor unit of its currency. For dollars, for
+                 * example, this is cents.
+                 */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /** The identifier of the Transaction that debited the cardholder's Account. */
+                fun cardholderAccountTransactionId(cardholderAccountTransactionId: String) =
+                    cardholderAccountTransactionId(JsonField.of(cardholderAccountTransactionId))
+
+                /**
+                 * Sets [Builder.cardholderAccountTransactionId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.cardholderAccountTransactionId] with a
+                 * well-typed [String] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun cardholderAccountTransactionId(
+                    cardholderAccountTransactionId: JsonField<String>
+                ) = apply { this.cardholderAccountTransactionId = cardholderAccountTransactionId }
+
+                /**
+                 * The identifier of the Transaction that credited the provisional credit funding
+                 * Account.
+                 */
+                fun provisionalCreditFundingAccountTransactionId(
+                    provisionalCreditFundingAccountTransactionId: String
+                ) =
+                    provisionalCreditFundingAccountTransactionId(
+                        JsonField.of(provisionalCreditFundingAccountTransactionId)
+                    )
+
+                /**
+                 * Sets [Builder.provisionalCreditFundingAccountTransactionId] to an arbitrary JSON
+                 * value.
+                 *
+                 * You should usually call [Builder.provisionalCreditFundingAccountTransactionId]
+                 * with a well-typed [String] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun provisionalCreditFundingAccountTransactionId(
+                    provisionalCreditFundingAccountTransactionId: JsonField<String>
+                ) = apply {
+                    this.provisionalCreditFundingAccountTransactionId =
+                        provisionalCreditFundingAccountTransactionId
+                }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * provisional credit was reversed.
+                 */
+                fun reversedAt(reversedAt: OffsetDateTime) = reversedAt(JsonField.of(reversedAt))
+
+                /**
+                 * Sets [Builder.reversedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.reversedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun reversedAt(reversedAt: JsonField<OffsetDateTime>) = apply {
+                    this.reversedAt = reversedAt
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Reversal].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .cardholderAccountTransactionId()
+                 * .provisionalCreditFundingAccountTransactionId()
+                 * .reversedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Reversal =
+                    Reversal(
+                        checkRequired("amount", amount),
+                        checkRequired(
+                            "cardholderAccountTransactionId",
+                            cardholderAccountTransactionId,
+                        ),
+                        checkRequired(
+                            "provisionalCreditFundingAccountTransactionId",
+                            provisionalCreditFundingAccountTransactionId,
+                        ),
+                        checkRequired("reversedAt", reversedAt),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): Reversal = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                cardholderAccountTransactionId()
+                provisionalCreditFundingAccountTransactionId()
+                reversedAt()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (amount.asKnown() == null) 0 else 1) +
+                    (if (cardholderAccountTransactionId.asKnown() == null) 0 else 1) +
+                    (if (provisionalCreditFundingAccountTransactionId.asKnown() == null) 0 else 1) +
+                    (if (reversedAt.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Reversal &&
+                    amount == other.amount &&
+                    cardholderAccountTransactionId == other.cardholderAccountTransactionId &&
+                    provisionalCreditFundingAccountTransactionId ==
+                        other.provisionalCreditFundingAccountTransactionId &&
+                    reversedAt == other.reversedAt &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    amount,
+                    cardholderAccountTransactionId,
+                    provisionalCreditFundingAccountTransactionId,
+                    reversedAt,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Reversal{amount=$amount, cardholderAccountTransactionId=$cardholderAccountTransactionId, provisionalCreditFundingAccountTransactionId=$provisionalCreditFundingAccountTransactionId, reversedAt=$reversedAt, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ProvisionalCredit &&
+                amount == other.amount &&
+                cardholderAccountTransactionId == other.cardholderAccountTransactionId &&
+                providedAt == other.providedAt &&
+                provisionalCreditFundingAccountTransactionId ==
+                    other.provisionalCreditFundingAccountTransactionId &&
+                reversal == other.reversal &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                amount,
+                cardholderAccountTransactionId,
+                providedAt,
+                provisionalCreditFundingAccountTransactionId,
+                reversal,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ProvisionalCredit{amount=$amount, cardholderAccountTransactionId=$cardholderAccountTransactionId, providedAt=$providedAt, provisionalCreditFundingAccountTransactionId=$provisionalCreditFundingAccountTransactionId, reversal=$reversal, additionalProperties=$additionalProperties}"
     }
 
     /** If the Card Dispute has been rejected, this will contain details of the rejection. */
@@ -2143,6 +2947,7 @@ private constructor(
             private val attachmentFiles: JsonField<List<AttachmentFile>>,
             private val category: JsonField<Category>,
             private val createdAt: JsonField<OffsetDateTime>,
+            private val disputeFinancialAccountId: JsonField<String>,
             private val disputeFinancialTransactionId: JsonField<String>,
             private val chargebackAccepted: JsonField<ChargebackAccepted>,
             private val chargebackSubmitted: JsonField<ChargebackSubmitted>,
@@ -2172,6 +2977,9 @@ private constructor(
                 @JsonProperty("created_at")
                 @ExcludeMissing
                 createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("dispute_financial_account_id")
+                @ExcludeMissing
+                disputeFinancialAccountId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("dispute_financial_transaction_id")
                 @ExcludeMissing
                 disputeFinancialTransactionId: JsonField<String> = JsonMissing.of(),
@@ -2226,6 +3034,7 @@ private constructor(
                 attachmentFiles,
                 category,
                 createdAt,
+                disputeFinancialAccountId,
                 disputeFinancialTransactionId,
                 chargebackAccepted,
                 chargebackSubmitted,
@@ -2272,6 +3081,15 @@ private constructor(
              *   value).
              */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            /**
+             * The account the dispute financial transaction was posted to, if any.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun disputeFinancialAccountId(): String? =
+                disputeFinancialAccountId.getNullable("dispute_financial_account_id")
 
             /**
              * The dispute financial transaction that resulted from the network event, if any.
@@ -2484,6 +3302,16 @@ private constructor(
             fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
             /**
+             * Returns the raw JSON value of [disputeFinancialAccountId].
+             *
+             * Unlike [disputeFinancialAccountId], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("dispute_financial_account_id")
+            @ExcludeMissing
+            fun _disputeFinancialAccountId(): JsonField<String> = disputeFinancialAccountId
+
+            /**
              * Returns the raw JSON value of [disputeFinancialTransactionId].
              *
              * Unlike [disputeFinancialTransactionId], this method doesn't throw if the JSON field
@@ -2654,6 +3482,7 @@ private constructor(
                  * .attachmentFiles()
                  * .category()
                  * .createdAt()
+                 * .disputeFinancialAccountId()
                  * .disputeFinancialTransactionId()
                  * ```
                  */
@@ -2666,6 +3495,7 @@ private constructor(
                 private var attachmentFiles: JsonField<MutableList<AttachmentFile>>? = null
                 private var category: JsonField<Category>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
+                private var disputeFinancialAccountId: JsonField<String>? = null
                 private var disputeFinancialTransactionId: JsonField<String>? = null
                 private var chargebackAccepted: JsonField<ChargebackAccepted> = JsonMissing.of()
                 private var chargebackSubmitted: JsonField<ChargebackSubmitted> = JsonMissing.of()
@@ -2698,6 +3528,7 @@ private constructor(
                     attachmentFiles = networkEvent.attachmentFiles.map { it.toMutableList() }
                     category = networkEvent.category
                     createdAt = networkEvent.createdAt
+                    disputeFinancialAccountId = networkEvent.disputeFinancialAccountId
                     disputeFinancialTransactionId = networkEvent.disputeFinancialTransactionId
                     chargebackAccepted = networkEvent.chargebackAccepted
                     chargebackSubmitted = networkEvent.chargebackSubmitted
@@ -2775,6 +3606,22 @@ private constructor(
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
                 }
+
+                /** The account the dispute financial transaction was posted to, if any. */
+                fun disputeFinancialAccountId(disputeFinancialAccountId: String?) =
+                    disputeFinancialAccountId(JsonField.ofNullable(disputeFinancialAccountId))
+
+                /**
+                 * Sets [Builder.disputeFinancialAccountId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.disputeFinancialAccountId] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun disputeFinancialAccountId(disputeFinancialAccountId: JsonField<String>) =
+                    apply {
+                        this.disputeFinancialAccountId = disputeFinancialAccountId
+                    }
 
                 /**
                  * The dispute financial transaction that resulted from the network event, if any.
@@ -3123,6 +3970,7 @@ private constructor(
                  * .attachmentFiles()
                  * .category()
                  * .createdAt()
+                 * .disputeFinancialAccountId()
                  * .disputeFinancialTransactionId()
                  * ```
                  *
@@ -3133,6 +3981,7 @@ private constructor(
                         checkRequired("attachmentFiles", attachmentFiles).map { it.toImmutable() },
                         checkRequired("category", category),
                         checkRequired("createdAt", createdAt),
+                        checkRequired("disputeFinancialAccountId", disputeFinancialAccountId),
                         checkRequired(
                             "disputeFinancialTransactionId",
                             disputeFinancialTransactionId,
@@ -3174,6 +4023,7 @@ private constructor(
                 attachmentFiles().forEach { it.validate() }
                 category().validate()
                 createdAt()
+                disputeFinancialAccountId()
                 disputeFinancialTransactionId()
                 chargebackAccepted()?.validate()
                 chargebackSubmitted()?.validate()
@@ -3209,6 +4059,7 @@ private constructor(
                 (attachmentFiles.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                     (category.asKnown()?.validity() ?: 0) +
                     (if (createdAt.asKnown() == null) 0 else 1) +
+                    (if (disputeFinancialAccountId.asKnown() == null) 0 else 1) +
                     (if (disputeFinancialTransactionId.asKnown() == null) 0 else 1) +
                     (chargebackAccepted.asKnown()?.validity() ?: 0) +
                     (chargebackSubmitted.asKnown()?.validity() ?: 0) +
@@ -11462,6 +12313,7 @@ private constructor(
                     attachmentFiles == other.attachmentFiles &&
                     category == other.category &&
                     createdAt == other.createdAt &&
+                    disputeFinancialAccountId == other.disputeFinancialAccountId &&
                     disputeFinancialTransactionId == other.disputeFinancialTransactionId &&
                     chargebackAccepted == other.chargebackAccepted &&
                     chargebackSubmitted == other.chargebackSubmitted &&
@@ -11485,6 +12337,7 @@ private constructor(
                     attachmentFiles,
                     category,
                     createdAt,
+                    disputeFinancialAccountId,
                     disputeFinancialTransactionId,
                     chargebackAccepted,
                     chargebackSubmitted,
@@ -11506,7 +12359,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "NetworkEvent{attachmentFiles=$attachmentFiles, category=$category, createdAt=$createdAt, disputeFinancialTransactionId=$disputeFinancialTransactionId, chargebackAccepted=$chargebackAccepted, chargebackSubmitted=$chargebackSubmitted, chargebackTimedOut=$chargebackTimedOut, merchantPrearbitrationDeclineSubmitted=$merchantPrearbitrationDeclineSubmitted, merchantPrearbitrationReceived=$merchantPrearbitrationReceived, merchantPrearbitrationTimedOut=$merchantPrearbitrationTimedOut, represented=$represented, representmentTimedOut=$representmentTimedOut, userPrearbitrationAccepted=$userPrearbitrationAccepted, userPrearbitrationDeclined=$userPrearbitrationDeclined, userPrearbitrationSubmitted=$userPrearbitrationSubmitted, userPrearbitrationTimedOut=$userPrearbitrationTimedOut, userWithdrawalSubmitted=$userWithdrawalSubmitted, additionalProperties=$additionalProperties}"
+                "NetworkEvent{attachmentFiles=$attachmentFiles, category=$category, createdAt=$createdAt, disputeFinancialAccountId=$disputeFinancialAccountId, disputeFinancialTransactionId=$disputeFinancialTransactionId, chargebackAccepted=$chargebackAccepted, chargebackSubmitted=$chargebackSubmitted, chargebackTimedOut=$chargebackTimedOut, merchantPrearbitrationDeclineSubmitted=$merchantPrearbitrationDeclineSubmitted, merchantPrearbitrationReceived=$merchantPrearbitrationReceived, merchantPrearbitrationTimedOut=$merchantPrearbitrationTimedOut, represented=$represented, representmentTimedOut=$representmentTimedOut, userPrearbitrationAccepted=$userPrearbitrationAccepted, userPrearbitrationDeclined=$userPrearbitrationDeclined, userPrearbitrationSubmitted=$userPrearbitrationSubmitted, userPrearbitrationTimedOut=$userPrearbitrationTimedOut, userWithdrawalSubmitted=$userWithdrawalSubmitted, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -41994,6 +42847,7 @@ private constructor(
             idempotencyKey == other.idempotencyKey &&
             loss == other.loss &&
             network == other.network &&
+            provisionalCredit == other.provisionalCredit &&
             rejection == other.rejection &&
             status == other.status &&
             type == other.type &&
@@ -42015,6 +42869,7 @@ private constructor(
             idempotencyKey,
             loss,
             network,
+            provisionalCredit,
             rejection,
             status,
             type,
@@ -42029,5 +42884,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardDispute{id=$id, accountId=$accountId, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, rejection=$rejection, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
+        "CardDispute{id=$id, accountId=$accountId, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, provisionalCredit=$provisionalCredit, rejection=$rejection, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
 }
