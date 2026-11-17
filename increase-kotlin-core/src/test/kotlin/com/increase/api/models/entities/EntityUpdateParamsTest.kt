@@ -35,6 +35,7 @@ internal class EntityUpdateParamsTest {
                                 EntityUpdateParams.Corporation.LegalIdentifier.Category
                                     .US_EMPLOYER_IDENTIFICATION_NUMBER
                             )
+                            .issuedOn(LocalDate.parse("2019-12-27"))
                             .build()
                     )
                     .name("x")
@@ -373,6 +374,7 @@ internal class EntityUpdateParamsTest {
                                     EntityUpdateParams.Corporation.LegalIdentifier.Category
                                         .US_EMPLOYER_IDENTIFICATION_NUMBER
                                 )
+                                .issuedOn(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .name("x")
@@ -708,6 +710,7 @@ internal class EntityUpdateParamsTest {
                                 EntityUpdateParams.Corporation.LegalIdentifier.Category
                                     .US_EMPLOYER_IDENTIFICATION_NUMBER
                             )
+                            .issuedOn(LocalDate.parse("2019-12-27"))
                             .build()
                     )
                     .name("x")
