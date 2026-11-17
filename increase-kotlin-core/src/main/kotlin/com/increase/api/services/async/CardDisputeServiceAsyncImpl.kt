@@ -21,7 +21,9 @@ import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListPageResponse
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeProvideProvisionalCreditParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
+import com.increase.api.models.carddisputes.CardDisputeReverseProvisionalCreditParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
 
@@ -57,6 +59,20 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
     ): CardDisputeListPageAsync =
         // get /card_disputes
         withRawResponse().list(params, requestOptions).parse()
+
+    override suspend fun provideProvisionalCredit(
+        params: CardDisputeProvideProvisionalCreditParams,
+        requestOptions: RequestOptions,
+    ): CardDispute =
+        // post /card_disputes/{card_dispute_id}/provide_provisional_credit
+        withRawResponse().provideProvisionalCredit(params, requestOptions).parse()
+
+    override suspend fun reverseProvisionalCredit(
+        params: CardDisputeReverseProvisionalCreditParams,
+        requestOptions: RequestOptions,
+    ): CardDispute =
+        // post /card_disputes/{card_dispute_id}/reverse_provisional_credit
+        withRawResponse().reverseProvisionalCredit(params, requestOptions).parse()
 
     override suspend fun submitUserSubmission(
         params: CardDisputeSubmitUserSubmissionParams,
@@ -173,6 +189,76 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val provideProvisionalCreditHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper)
+
+        override suspend fun provideProvisionalCredit(
+            params: CardDisputeProvideProvisionalCreditParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardDisputeId", params.cardDisputeId())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "card_disputes",
+                        params._pathParam(0),
+                        "provide_provisional_credit",
+                    )
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { provideProvisionalCreditHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val reverseProvisionalCreditHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper)
+
+        override suspend fun reverseProvisionalCredit(
+            params: CardDisputeReverseProvisionalCreditParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardDisputeId", params.cardDisputeId())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "card_disputes",
+                        params._pathParam(0),
+                        "reverse_provisional_credit",
+                    )
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { reverseProvisionalCreditHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }

@@ -10,7 +10,9 @@ import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeProvideProvisionalCreditParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
+import com.increase.api.models.carddisputes.CardDisputeReverseProvisionalCreditParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
 
@@ -61,6 +63,70 @@ interface CardDisputeServiceAsync {
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): CardDisputeListPageAsync =
         list(CardDisputeListParams.none(), requestOptions)
+
+    /**
+     * Credits the cardholder's Account for the Card Dispute amount, funded by your program's
+     * provisional credit Account.
+     */
+    suspend fun provideProvisionalCredit(
+        cardDisputeId: String,
+        params: CardDisputeProvideProvisionalCreditParams =
+            CardDisputeProvideProvisionalCreditParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute =
+        provideProvisionalCredit(
+            params.toBuilder().cardDisputeId(cardDisputeId).build(),
+            requestOptions,
+        )
+
+    /** @see provideProvisionalCredit */
+    suspend fun provideProvisionalCredit(
+        params: CardDisputeProvideProvisionalCreditParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute
+
+    /** @see provideProvisionalCredit */
+    suspend fun provideProvisionalCredit(
+        cardDisputeId: String,
+        requestOptions: RequestOptions,
+    ): CardDispute =
+        provideProvisionalCredit(
+            cardDisputeId,
+            CardDisputeProvideProvisionalCreditParams.none(),
+            requestOptions,
+        )
+
+    /**
+     * Debits the cardholder's Account for the provisional credit and returns it to your program's
+     * provisional credit Account.
+     */
+    suspend fun reverseProvisionalCredit(
+        cardDisputeId: String,
+        params: CardDisputeReverseProvisionalCreditParams =
+            CardDisputeReverseProvisionalCreditParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute =
+        reverseProvisionalCredit(
+            params.toBuilder().cardDisputeId(cardDisputeId).build(),
+            requestOptions,
+        )
+
+    /** @see reverseProvisionalCredit */
+    suspend fun reverseProvisionalCredit(
+        params: CardDisputeReverseProvisionalCreditParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute
+
+    /** @see reverseProvisionalCredit */
+    suspend fun reverseProvisionalCredit(
+        cardDisputeId: String,
+        requestOptions: RequestOptions,
+    ): CardDispute =
+        reverseProvisionalCredit(
+            cardDisputeId,
+            CardDisputeReverseProvisionalCreditParams.none(),
+            requestOptions,
+        )
 
     /** Submit a User Submission for a Card Dispute */
     suspend fun submitUserSubmission(
@@ -165,6 +231,78 @@ interface CardDisputeServiceAsync {
             requestOptions: RequestOptions
         ): HttpResponseFor<CardDisputeListPageAsync> =
             list(CardDisputeListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /card_disputes/{card_dispute_id}/provide_provisional_credit`, but is otherwise the same
+         * as [CardDisputeServiceAsync.provideProvisionalCredit].
+         */
+        @MustBeClosed
+        suspend fun provideProvisionalCredit(
+            cardDisputeId: String,
+            params: CardDisputeProvideProvisionalCreditParams =
+                CardDisputeProvideProvisionalCreditParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute> =
+            provideProvisionalCredit(
+                params.toBuilder().cardDisputeId(cardDisputeId).build(),
+                requestOptions,
+            )
+
+        /** @see provideProvisionalCredit */
+        @MustBeClosed
+        suspend fun provideProvisionalCredit(
+            params: CardDisputeProvideProvisionalCreditParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute>
+
+        /** @see provideProvisionalCredit */
+        @MustBeClosed
+        suspend fun provideProvisionalCredit(
+            cardDisputeId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> =
+            provideProvisionalCredit(
+                cardDisputeId,
+                CardDisputeProvideProvisionalCreditParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /card_disputes/{card_dispute_id}/reverse_provisional_credit`, but is otherwise the same
+         * as [CardDisputeServiceAsync.reverseProvisionalCredit].
+         */
+        @MustBeClosed
+        suspend fun reverseProvisionalCredit(
+            cardDisputeId: String,
+            params: CardDisputeReverseProvisionalCreditParams =
+                CardDisputeReverseProvisionalCreditParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute> =
+            reverseProvisionalCredit(
+                params.toBuilder().cardDisputeId(cardDisputeId).build(),
+                requestOptions,
+            )
+
+        /** @see reverseProvisionalCredit */
+        @MustBeClosed
+        suspend fun reverseProvisionalCredit(
+            params: CardDisputeReverseProvisionalCreditParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute>
+
+        /** @see reverseProvisionalCredit */
+        @MustBeClosed
+        suspend fun reverseProvisionalCredit(
+            cardDisputeId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> =
+            reverseProvisionalCredit(
+                cardDisputeId,
+                CardDisputeReverseProvisionalCreditParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post

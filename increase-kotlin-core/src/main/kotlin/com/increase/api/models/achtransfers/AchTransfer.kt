@@ -306,10 +306,10 @@ private constructor(
     /**
      * The name by which the recipient knows you.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun companyName(): String? = companyName.getNullable("company_name")
+    fun companyName(): String = companyName.getRequired("company_name")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -394,10 +394,10 @@ private constructor(
      * The name of the transfer recipient. This value is informational and not verified by the
      * recipient's bank.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun individualName(): String? = individualName.getNullable("individual_name")
+    fun individualName(): String = individualName.getRequired("individual_name")
 
     /**
      * The transfer's network.
@@ -1157,7 +1157,7 @@ private constructor(
         fun companyId(companyId: JsonField<String>) = apply { this.companyId = companyId }
 
         /** The name by which the recipient knows you. */
-        fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
+        fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
         /**
          * Sets [Builder.companyName] to an arbitrary JSON value.
@@ -1309,8 +1309,7 @@ private constructor(
          * The name of the transfer recipient. This value is informational and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String?) =
-            individualName(JsonField.ofNullable(individualName))
+        fun individualName(individualName: String) = individualName(JsonField.of(individualName))
 
         /**
          * Sets [Builder.individualName] to an arbitrary JSON value.
