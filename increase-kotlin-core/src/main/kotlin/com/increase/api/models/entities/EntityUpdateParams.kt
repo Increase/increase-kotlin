@@ -1827,6 +1827,7 @@ private constructor(
         private constructor(
             private val value: JsonField<String>,
             private val category: JsonField<Category>,
+            private val issuedOn: JsonField<LocalDate>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -1836,7 +1837,10 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
-            ) : this(value, category, mutableMapOf())
+                @JsonProperty("issued_on")
+                @ExcludeMissing
+                issuedOn: JsonField<LocalDate> = JsonMissing.of(),
+            ) : this(value, category, issuedOn, mutableMapOf())
 
             /**
              * The legal identifier itself. For US Employer Identification Numbers, submit nine
@@ -1859,6 +1863,14 @@ private constructor(
             fun category(): Category? = category.getNullable("category")
 
             /**
+             * The date on which the legal identifier was issued.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun issuedOn(): LocalDate? = issuedOn.getNullable("issued_on")
+
+            /**
              * Returns the raw JSON value of [value].
              *
              * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
@@ -1874,6 +1886,16 @@ private constructor(
             @JsonProperty("category")
             @ExcludeMissing
             fun _category(): JsonField<Category> = category
+
+            /**
+             * Returns the raw JSON value of [issuedOn].
+             *
+             * Unlike [issuedOn], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("issued_on")
+            @ExcludeMissing
+            fun _issuedOn(): JsonField<LocalDate> = issuedOn
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1905,11 +1927,13 @@ private constructor(
 
                 private var value: JsonField<String>? = null
                 private var category: JsonField<Category> = JsonMissing.of()
+                private var issuedOn: JsonField<LocalDate> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(legalIdentifier: LegalIdentifier) = apply {
                     value = legalIdentifier.value
                     category = legalIdentifier.category
+                    issuedOn = legalIdentifier.issuedOn
                     additionalProperties = legalIdentifier.additionalProperties.toMutableMap()
                 }
 
@@ -1943,6 +1967,18 @@ private constructor(
                  * yet supported value.
                  */
                 fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /** The date on which the legal identifier was issued. */
+                fun issuedOn(issuedOn: LocalDate) = issuedOn(JsonField.of(issuedOn))
+
+                /**
+                 * Sets [Builder.issuedOn] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.issuedOn] with a well-typed [LocalDate] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun issuedOn(issuedOn: JsonField<LocalDate>) = apply { this.issuedOn = issuedOn }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1982,6 +2018,7 @@ private constructor(
                     LegalIdentifier(
                         checkRequired("value", value),
                         category,
+                        issuedOn,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -2005,6 +2042,7 @@ private constructor(
 
                 value()
                 category()?.validate()
+                issuedOn()
                 validated = true
             }
 
@@ -2023,7 +2061,9 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (value.asKnown() == null) 0 else 1) + (category.asKnown()?.validity() ?: 0)
+                (if (value.asKnown() == null) 0 else 1) +
+                    (category.asKnown()?.validity() ?: 0) +
+                    (if (issuedOn.asKnown() == null) 0 else 1)
 
             /** The category of the legal identifier. */
             class Category @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -2201,17 +2241,18 @@ private constructor(
                 return other is LegalIdentifier &&
                     value == other.value &&
                     category == other.category &&
+                    issuedOn == other.issuedOn &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(value, category, additionalProperties)
+                Objects.hash(value, category, issuedOn, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LegalIdentifier{value=$value, category=$category, additionalProperties=$additionalProperties}"
+                "LegalIdentifier{value=$value, category=$category, issuedOn=$issuedOn, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
