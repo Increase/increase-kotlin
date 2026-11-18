@@ -39,8 +39,8 @@ private constructor(
 
     /**
      * The identifier of the Pending Transaction for the refund or original credit authorization. If
-     * this is provided, `transaction` must not be provided as a refund with a refund authorized can
-     * not be linked to a regular transaction.
+     * this is provided, `transaction` must not be provided as a refund with a refund authorization
+     * can not be linked to a regular transaction.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -137,7 +137,7 @@ private constructor(
         /**
          * The identifier of the Pending Transaction for the refund or original credit
          * authorization. If this is provided, `transaction` must not be provided as a refund with a
-         * refund authorized can not be linked to a regular transaction.
+         * refund authorization can not be linked to a regular transaction.
          */
         fun pendingTransactionId(pendingTransactionId: String) = apply {
             body.pendingTransactionId(pendingTransactionId)
@@ -339,7 +339,7 @@ private constructor(
         /**
          * The identifier of the Pending Transaction for the refund or original credit
          * authorization. If this is provided, `transaction` must not be provided as a refund with a
-         * refund authorized can not be linked to a regular transaction.
+         * refund authorization can not be linked to a regular transaction.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -434,7 +434,7 @@ private constructor(
             /**
              * The identifier of the Pending Transaction for the refund or original credit
              * authorization. If this is provided, `transaction` must not be provided as a refund
-             * with a refund authorized can not be linked to a regular transaction.
+             * with a refund authorization can not be linked to a regular transaction.
              */
             fun pendingTransactionId(pendingTransactionId: String) =
                 pendingTransactionId(JsonField.of(pendingTransactionId))
