@@ -289,8 +289,7 @@ private constructor(
     fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
     /**
-     * Whether the details on the check match the recipient name of the check transfer. This is an
-     * optional feature, contact sales to enable.
+     * Whether the details on the check match the recipient name of the check transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -904,10 +903,7 @@ private constructor(
             this.frontImageFileId = frontImageFileId
         }
 
-        /**
-         * Whether the details on the check match the recipient name of the check transfer. This is
-         * an optional feature, contact sales to enable.
-         */
+        /** Whether the details on the check match the recipient name of the check transfer. */
         fun payeeNameAnalysis(payeeNameAnalysis: PayeeNameAnalysis) =
             payeeNameAnalysis(JsonField.of(payeeNameAnalysis))
 
@@ -2170,10 +2166,7 @@ private constructor(
             "DepositReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * Whether the details on the check match the recipient name of the check transfer. This is an
-     * optional feature, contact sales to enable.
-     */
+    /** Whether the details on the check match the recipient name of the check transfer. */
     class PayeeNameAnalysis @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
