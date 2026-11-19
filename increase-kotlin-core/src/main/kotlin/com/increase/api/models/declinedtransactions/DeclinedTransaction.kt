@@ -11849,6 +11849,12 @@ private constructor(
                         val PULSE_SWITCH_FEE = of("pulse_switch_fee")
 
                         /**
+                         * Pulse Switch Fee Credit is a credit of the Pulse Switch Fee charged for
+                         * an authorization that was subsequently reversed in full.
+                         */
+                        val PULSE_SWITCH_FEE_CREDIT = of("pulse_switch_fee_credit")
+
+                        /**
                          * Pulse Tokenization Fee is a fee charged by the Pulse network for
                          * processing tokenized transactions on its network.
                          */
@@ -12027,6 +12033,11 @@ private constructor(
                          * transactions on its network.
                          */
                         PULSE_SWITCH_FEE,
+                        /**
+                         * Pulse Switch Fee Credit is a credit of the Pulse Switch Fee charged for
+                         * an authorization that was subsequently reversed in full.
+                         */
+                        PULSE_SWITCH_FEE_CREDIT,
                         /**
                          * Pulse Tokenization Fee is a fee charged by the Pulse network for
                          * processing tokenized transactions on its network.
@@ -12213,6 +12224,11 @@ private constructor(
                          */
                         PULSE_SWITCH_FEE,
                         /**
+                         * Pulse Switch Fee Credit is a credit of the Pulse Switch Fee charged for
+                         * an authorization that was subsequently reversed in full.
+                         */
+                        PULSE_SWITCH_FEE_CREDIT,
+                        /**
                          * Pulse Tokenization Fee is a fee charged by the Pulse network for
                          * processing tokenized transactions on its network.
                          */
@@ -12284,6 +12300,7 @@ private constructor(
                                 Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
                             VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            PULSE_SWITCH_FEE_CREDIT -> Value.PULSE_SWITCH_FEE_CREDIT
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
                         }
@@ -12350,6 +12367,7 @@ private constructor(
                                 Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
                             VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            PULSE_SWITCH_FEE_CREDIT -> Known.PULSE_SWITCH_FEE_CREDIT
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
                         }
