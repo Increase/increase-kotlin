@@ -40,11 +40,28 @@ private constructor(
     fun reason(): Reason = body.reason()
 
     /**
+     * The amount to return, in USD cents. Defaults to the full amount of the Inbound Wire Transfer.
+     * A transfer can only be reversed once, so any amount you don't return now stays with the
+     * recipient.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun amount(): Long? = body.amount()
+
+    /**
      * Returns the raw JSON value of [reason].
      *
      * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _reason(): JsonField<Reason> = body._reason()
+
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -98,6 +115,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [reason]
+         * - [amount]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -111,6 +129,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun reason(reason: JsonField<Reason>) = apply { body.reason(reason) }
+
+        /**
+         * The amount to return, in USD cents. Defaults to the full amount of the Inbound Wire
+         * Transfer. A transfer can only be reversed once, so any amount you don't return now stays
+         * with the recipient.
+         */
+        fun amount(amount: Long) = apply { body.amount(amount) }
+
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -266,13 +299,15 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reason: JsonField<Reason>,
+        private val amount: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of()
-        ) : this(reason, mutableMapOf())
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        ) : this(reason, amount, mutableMapOf())
 
         /**
          * Reason for the reversal.
@@ -283,11 +318,28 @@ private constructor(
         fun reason(): Reason = reason.getRequired("reason")
 
         /**
+         * The amount to return, in USD cents. Defaults to the full amount of the Inbound Wire
+         * Transfer. A transfer can only be reversed once, so any amount you don't return now stays
+         * with the recipient.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun amount(): Long? = amount.getNullable("amount")
+
+        /**
          * Returns the raw JSON value of [reason].
          *
          * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -318,10 +370,12 @@ private constructor(
         class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
+            private var amount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
                 reason = body.reason
+                amount = body.amount
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -336,6 +390,22 @@ private constructor(
              * supported value.
              */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+            /**
+             * The amount to return, in USD cents. Defaults to the full amount of the Inbound Wire
+             * Transfer. A transfer can only be reversed once, so any amount you don't return now
+             * stays with the recipient.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -369,7 +439,7 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(checkRequired("reason", reason), additionalProperties.toMutableMap())
+                Body(checkRequired("reason", reason), amount, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -389,6 +459,7 @@ private constructor(
             }
 
             reason().validate()
+            amount()
             validated = true
         }
 
@@ -406,7 +477,8 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int = (reason.asKnown()?.validity() ?: 0)
+        internal fun validity(): Int =
+            (reason.asKnown()?.validity() ?: 0) + (if (amount.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -415,14 +487,16 @@ private constructor(
 
             return other is Body &&
                 reason == other.reason &&
+                amount == other.amount &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(reason, amount, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{reason=$reason, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
     /** Reason for the reversal. */
@@ -449,6 +523,9 @@ private constructor(
             /** The account cannot currently receive inbound wires. */
             val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
 
+            /** The inbound wire transfer was fraudulent. */
+            val FRAUD = of("fraud")
+
             fun of(value: String) = Reason(JsonField.of(value))
         }
 
@@ -460,6 +537,8 @@ private constructor(
             CREDITOR_REQUEST,
             /** The account cannot currently receive inbound wires. */
             TRANSACTION_FORBIDDEN,
+            /** The inbound wire transfer was fraudulent. */
+            FRAUD,
         }
 
         /**
@@ -478,6 +557,8 @@ private constructor(
             CREDITOR_REQUEST,
             /** The account cannot currently receive inbound wires. */
             TRANSACTION_FORBIDDEN,
+            /** The inbound wire transfer was fraudulent. */
+            FRAUD,
             /** An enum member indicating that [Reason] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -494,6 +575,7 @@ private constructor(
                 DUPLICATE -> Value.DUPLICATE
                 CREDITOR_REQUEST -> Value.CREDITOR_REQUEST
                 TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
+                FRAUD -> Value.FRAUD
                 else -> Value._UNKNOWN
             }
 
@@ -511,6 +593,7 @@ private constructor(
                 DUPLICATE -> Known.DUPLICATE
                 CREDITOR_REQUEST -> Known.CREDITOR_REQUEST
                 TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
+                FRAUD -> Known.FRAUD
                 else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
             }
 
